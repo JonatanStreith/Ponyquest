@@ -1,8 +1,13 @@
 package jonst.Data;
 
+
+
 public class LocationData {
 
-    public static Dictionary<String, String> locationDescriptions = new Dictionary<String, String> {
+
+    private static String[][] locationDescriptions = new String[][]
+
+        {
         { "Sugarcube Corner", "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house." }
           , { "Sugarcube Corner interior", "The shop is busy with ponies enjoying baked goods." }
           , { "Sugarcube Corner kitchen", "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?" }
@@ -27,13 +32,26 @@ public class LocationData {
 
     };
 
+    public static boolean hasLocationDescription(String key){
+
+        for (String[] line: locationDescriptions) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+    public static String getLocationDescription(String key){
+        for (String[] line: locationDescriptions) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Description not found";
+    }
 
 
 
 
-
-
-    public static Dictionary<String, String> LocationShortNames = new Dictionary<String, String> {
+    private static String[][] locationShortNames = new String[][]
+    {
 
         { "Sugarcube Corner", "bakery" }
             , { "Sugarcube Corner interior", "bakery interior" }
@@ -60,41 +78,69 @@ public class LocationData {
 
     };
 
+    public static boolean hasLocationShortName(String key){
+
+        for (String[] line: locationShortNames) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
 
 
+    public static String getLocationShortName(String key){
+        for (String[] line: locationShortNames) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Short name not found";
+    }
 
-    public static Dictionary<String, List<String>> legitimateExits = new Dictionary<String, List<String>> {
-
-
+    private static String[][] legitimateExits = new String[][]
+    {
         //Main cells (outside)
-        { "Sugarcube Corner", new List<String> { "Castle of Friendship", "Carousel Boutique", "Sweet Apple Acres", "Sugarcube Corner interior" } }
-           , { "Carousel Boutique", new List<String> { "Castle of Friendship", "Sugarcube Corner", "Sweet Apple Acres", "Carousel Boutique interior" } }
-           , { "Sweet Apple Acres", new List<String> { "Castle of Friendship", "Carousel Boutique", "Sugarcube Corner", "Farmhouse interior" } }
-           , { "Castle of Friendship", new List<String> { "Sugarcube Corner", "Carousel Boutique", "Sweet Apple Acres", "Castle main hall" } }
+        { "Sugarcube Corner", "Castle of Friendship", "Carousel Boutique", "Sweet Apple Acres", "Sugarcube Corner interior" }
+           , { "Carousel Boutique", "Castle of Friendship", "Sugarcube Corner", "Sweet Apple Acres", "Carousel Boutique interior" }
+           , { "Sweet Apple Acres", "Castle of Friendship", "Carousel Boutique", "Sugarcube Corner", "Farmhouse interior" }
+           , { "Castle of Friendship", "Sugarcube Corner", "Carousel Boutique", "Sweet Apple Acres", "Castle main hall" }
 
         //Sugercube Corner
-           , { "Sugarcube Corner interior", new List<String> { "Sugarcube Corner", "Sugarcube Corner kitchen", "Pinkie Pie's room", "Party Cave" } }
-           , { "Sugarcube Corner kitchen", new List<String> { "Sugarcube Corner interior" } }
-           , { "Pinkie Pie's room", new List<String> { "Sugarcube Corner interior" } }
-           , { "Party Cave", new List<String> { "Sugarcube Corner interior" } }
+           , { "Sugarcube Corner interior", "Sugarcube Corner", "Sugarcube Corner kitchen", "Pinkie Pie's room", "Party Cave" }
+           , { "Sugarcube Corner kitchen", "Sugarcube Corner interior" }
+           , { "Pinkie Pie's room", "Sugarcube Corner interior" }
+           , { "Party Cave", "Sugarcube Corner interior" }
 
 
         //Carousel Boutique
-           , { "Carousel Boutique interior", new List<String> { "Carousel Boutique" } }
+           , { "Carousel Boutique interior", "Carousel Boutique" }
 
 
         //Sweet Apple Acres
-           , { "Farmhouse interior", new List<String> { "Sweet Apple Acres" } }
+           , { "Farmhouse interior", "Sweet Apple Acres" }
 
         //Castle of Friendship
-           , { "Castle main hall", new List<String> { "Castle of Friendship", "Cutie Map room", "Castle library", "Castle kitchen", "Starlight's room" } }
-           , { "Cutie Map room", new List<String> { "Castle main hall" } }
-           , { "Castle library", new List<String> { "Castle main hall" } }
-           , { "Castle kitchen", new List<String> { "Castle main hall" } }
-           , { "Starlight's room", new List<String> { "Castle main hall" } }
-
-
+           , { "Castle main hall", "Castle of Friendship", "Cutie Map room", "Castle library", "Castle kitchen", "Starlight's room" }
+           , { "Cutie Map room", "Castle main hall" }
+           , { "Castle library", "Castle main hall" }
+           , { "Castle kitchen", "Castle main hall"  }
+           , { "Starlight's room", "Castle main hall"  }
     };
 
+    public static boolean hasLegitimateExits(String key){
+
+        for (String[] line: legitimateExits) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+    public static String[] getLegitimateExits(String key){
+        String[] returnData = new String[legitimateExits.length-1];
+
+        for (String[] line: legitimateExits) {
+            if(line[0].equals(key)) {
+                System.arraycopy(legitimateExits, 1, returnData, 0, legitimateExits.length-1);  //Always ignore first entry, as it is the "key".
+            }
+        }
+        return returnData;
+    }
 
 }

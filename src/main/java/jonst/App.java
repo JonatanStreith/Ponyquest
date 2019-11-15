@@ -1,6 +1,7 @@
 package jonst;
 
 import java.io.Console;
+import java.util.HashMap;
 
 /**
  * Hello world!
@@ -8,8 +9,17 @@ import java.io.Console;
  */
 public class App 
 {
+
+
+
     static void Main(String[] args)
     {
+
+
+
+
+
+
 
         //create locations, creatures, objects and items
 

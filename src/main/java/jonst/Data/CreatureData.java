@@ -1,8 +1,12 @@
 package jonst.Data;
 
+import java.util.Dictionary;
+
 public class CreatureData {
 
-    public static Dictionary<String, String> creatureDescriptions = new Dictionary<String, String> {
+    private static String[][] creatureDescriptions = new String[][]
+
+    {
         { "Twilight Sparkle", "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly." }
           , { "Celestia", "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."}
           , { "Luna", "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."}
@@ -25,7 +29,9 @@ public class CreatureData {
 
     };
 
-    public static Dictionary<String, String> CreatureShortNames = new Dictionary<String, String> {
+
+    private static String[][] creatureShortNames = new String[][]
+ {
 
         { "Twilight Sparkle", "Twilight" }
             , { "Celestia", "Princess Celestia" }
@@ -46,12 +52,41 @@ public class CreatureData {
 
            ,  { "Spike", "Spike the Dragon" }
 
-
-
-
-
     };
 
 
+    public static boolean hasCreatureDescription(String key){
+
+        for (String[] line: creatureDescriptions) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+
+    public static String getCreatureDescription(String key){
+        for (String[] line: creatureDescriptions) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Description not found";
+    }
+
+
+
+    public static boolean hasCreatureShortName(String key){
+
+        for (String[] line: creatureShortNames) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+
+    public static String getCreatureShortName(String key){
+        for (String[] line: creatureShortNames) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Short name not found";
+    }
 
 }

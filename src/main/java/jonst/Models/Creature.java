@@ -3,21 +3,22 @@ package jonst.Models;
 import jonst.Data.CreatureData;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Creature extends GenericObject {
 
     private String race;
 
-    private List<String> inventory = new List<String>();
+    private List<String> inventory = new ArrayList<String>();
 
     public Creature(String inputName, String inputRace)
     {
         name = inputName;
         race = inputRace;
 
-        if (CreatureData.CreatureShortNames.ContainsKey(name))
-        { shortName = CreatureData.CreatureShortNames[name]; }
+        if (CreatureData.hasCreatureShortName(name))
+        { shortName = CreatureData.getCreatureShortName(name); }
         else
         { shortName = name; }
 
@@ -25,11 +26,11 @@ public class Creature extends GenericObject {
 
 
 
-        if (CreatureData.creatureDescriptions.ContainsKey(name))
-        { description = CreatureData.creatureDescriptions[name]; }
+        if (CreatureData.hasCreatureDescription(name))
+        { description = CreatureData.getCreatureDescription(name); }
         else
         {
-            Console.WriteLine($"{name} lacks description");
+            System.out.println(name + " lacks description.");
             description = "[description missing]";
         }
 

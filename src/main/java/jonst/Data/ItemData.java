@@ -1,8 +1,12 @@
-package jonst;
+package jonst.Data;
+
+import java.util.Dictionary;
 
 public class ItemData {
 
-    public static Dictionary<String, String> itemDescriptions = new Dictionary<String, String> {
+    private static String[][] itemDescriptions = new String[][]
+
+ {
         { "a rock", "It's a rock. You saw enough of them during your time on the rock farm." }
           , { "a wooden crate", "A wooden crate for putting things in." }
           , { "a bundle of fireworks", "A bunch of magical fireworks, crafted by yours truly. Handle with care!" }
@@ -15,18 +19,49 @@ public class ItemData {
           , {"a bucket of ice cream", "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today."}
 
     };
+    private static String[][] itemShortNames = new String[][]
 
-    public static Dictionary<String, String> ItemShortNames = new Dictionary<String, String> {
-
+    {
         { "a bundle of fireworks", "fireworks" }
             , { "a juicy red apple", "apple" }
             , { "a heavy plow", "plow" }
             , { "a spool of thread", "thread" }
            ,  { "an unfinished dress", "dress" }
            ,  { "a bucket of ice cream", "ice cream" }
-
-
-
-
     };
+
+
+
+    public static boolean hasItemDescription(String key){
+
+        for (String[] line: itemDescriptions) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+
+    public static String getItemDescription(String key){
+        for (String[] line: itemDescriptions) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Description not found";
+    }
+
+    public static boolean hasItemShortName(String key){
+
+        for (String[] line: itemShortNames) {
+            if(line[0].equals(key)) return true;
+        }
+        return false;
+    }
+
+
+    public static String getItemShortName(String key){
+        for (String[] line: itemShortNames) {
+            if(line[0].equals(key)) return line[1];
+        }
+        return "Description not found";
+    }
+
 }

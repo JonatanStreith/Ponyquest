@@ -1,7 +1,6 @@
 package jonst.Models;
 
-import jonst.ItemData;
-import jonst.Models.GenericObject;
+import jonst.Data.ItemData;
 
 import java.io.Console;
 
