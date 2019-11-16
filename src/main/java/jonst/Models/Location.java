@@ -3,6 +3,7 @@ package jonst.Models;
 import jonst.Data.LocationData;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location extends GenericObject {
@@ -15,39 +16,39 @@ public class Location extends GenericObject {
 
 
 
-    private List<Creature> creaturesAtLocation = new List<Creature>();
-    private List<StationaryObject> objectsAtLocation = new List<StationaryObject>();
-    private List<Item> itemsAtLocation = new List<Item>();
+    private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
+    private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
+    private List<Item> itemsAtLocation = new ArrayList<Item>();
 
     public Location(String inputName)
     {
 
         name = inputName;
 
-        if (LocationData.LocationShortNames.ContainsKey(name))
-        { shortName = LocationData.LocationShortNames[name]; }
+        if (LocationData.hasLocationShortName(name))
+        { shortName = LocationData.getLocationShortName(name); }
         else
         { shortName = name; }
 
 
 
 
-        if (LocationData.locationDescriptions.ContainsKey(name))
-        { description = LocationData.locationDescriptions[name]; }
+        if (LocationData.hasLocationDescription(name))
+        { description = LocationData.getLocationDescription(name); }
         else
         {
-            Console.WriteLine($"{name} lacks description");
+            System.out.println(name + " lacks description");
             description = "[description missing]";
         }
 
 
 
-        if (LocationData.legitimateExits.ContainsKey(name))
-        { legitimateExits = LocationData.legitimateExits[name]; }
+        if (LocationData.hasLegitimateExits(name))
+        { legitimateExits = LocationData.getLegitimateExits(name); }
         else
         {
-            Console.WriteLine($"{name} has no established exits");
-            legitimateExits = new List<String> { "Sugarcube Corner" };
+            System.out.println(name + " has no established exits");
+            legitimateExits.add("no exits");
         }
 
 
@@ -67,22 +68,22 @@ public class Location extends GenericObject {
 
 
     public void AddCreature(Creature name)
-    { creaturesAtLocation.Add(name); }
+    { creaturesAtLocation.add(name); }
 
     public void RemoveCreature(Creature name)
-    { creaturesAtLocation.Remove(name); }
+    { creaturesAtLocation.remove(name); }
 
     public void AddObject(StationaryObject name)
-    { objectsAtLocation.Add(name); }
+    { objectsAtLocation.add(name); }
 
     public void RemoveObject(StationaryObject name)
-    { objectsAtLocation.Remove(name); }
+    { objectsAtLocation.remove(name); }
 
     public void AddItem(Item name)
-    { itemsAtLocation.Add(name); }
+    { itemsAtLocation.add(name); }
 
     public void RemoveItem(Item name)
-    { itemsAtLocation.Remove(name); }
+    { itemsAtLocation.remove(name); }
 
     public List<String> GetExits()
     { return legitimateExits; }

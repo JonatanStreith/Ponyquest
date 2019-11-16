@@ -3,6 +3,7 @@ package jonst;
 import jonst.Models.Creature;
 import jonst.Models.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelpfulMethods {
@@ -27,22 +28,34 @@ public class HelpfulMethods {
 
     public static String TurnStringListIntoString(List<String> list)     //Takes a list of strings, pieces them together into one string
     {
-        string fullString = "";
-        List<string> nameList = new List<string>();
+        String fullString = "";
+        /*List<String> nameList = new ArrayList<String>();
 
-        foreach (string item in list)
-        { nameList.Add(item); }
+        for (String item : list)
+        { nameList.add(item); }
 
-        if (nameList.Count >= 2)
+        if (nameList.size() >= 2)
         {
-            for (int i = 0; i < nameList.Count - 2; i++)
+            for (int i = 0; i < nameList.size() - 2; i++)
             { nameList[i] += ", "; }
 
-            nameList[nameList.Count - 2] += " and ";
+            nameList[nameList.size() - 2] += " and ";
         }
 
-        for (int i = 0; i < nameList.Count; i++)
-        { fullString += nameList[i]; }
+        for (int i = 0; i < nameList.size(); i++)
+        { fullString += nameList[i]; }*/
+
+        for (int i = 0; i < list.size(); i++) {
+
+            if(i == list.size() - 1)        //Last entry, just end with the word
+                fullString += list.get(i);
+            else if(i == list.size() - 2)
+                fullString += (list.get(i) + " and ");
+
+            else
+                fullString += (list.get(i) + ", ");
+
+        }
 
         return fullString;
     }
@@ -50,22 +63,22 @@ public class HelpfulMethods {
 
     public static String TurnItemListIntoString(List<Item> list)     //Takes a list of objects, pieces together their names into one string
     {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
-        string fullString = "";
-        List<string> nameList = new List<string>();
+        String fullString = "";
+        List<String> nameList = new ArrayList<String>();
 
-        foreach (Item item in list)
-        { nameList.Add(item.GetName()); }    //Generates a list of names
+        for (Item item : list)
+        { nameList.add(item.GetName()); }    //Generates a list of names
 
-        if (nameList.Count >= 2)
+        if (nameList.size() >= 2)
         {
-            for (int i = 0; i < nameList.Count - 2; i++)
-            { nameList[i] += ", "; }
+            for (int i = 0; i < nameList.size() - 2; i++)
+            { nameList.set(i, ", "); }
 
-            nameList[nameList.Count - 2] += " and ";
+            nameList.set(nameList.size() - 2, " and ");
         }
 
-        for (int i = 0; i < nameList.Count; i++)
-        { fullString += nameList[i]; }
+        for (int i = 0; i < nameList.size(); i++)
+        { fullString += nameList.get(i); }
 
         return fullString;
     }
@@ -81,23 +94,23 @@ public class HelpfulMethods {
 
     public static String TurnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
     {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
-        string fullString = "";
-        List<string> nameList = new List<String>();
+        String fullString = "";
+        List<String> nameList = new ArrayList<String>();
 
-        foreach (Creature item in list)
-        { nameList.Add(item.GetName()); }    //Generates a list of names
+        for(Creature item : list)
+        { nameList.add(item.GetName()); }    //Generates a list of names
 
 
-        if (nameList.Count >= 3)
+        if (nameList.size() >= 3)
         {
-            for (int i = 0; i < nameList.Count - 3; i++)
-            { nameList[i] += ", "; }
+            for (int i = 0; i < nameList.size() - 3; i++)
+            { nameList.set(i, ", "); }
 
-            nameList[nameList.Count - 3] += " and ";
+            nameList.set(nameList.size() - 3, " and ");
         }
 
-        for (int i = 0; i < nameList.Count - 1; i++)
-        { fullString += nameList[i]; }
+        for (int i = 0; i < nameList.size() - 1; i++)
+        { fullString += nameList.get(i); }
 
         return fullString;
     }

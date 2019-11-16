@@ -10,18 +10,18 @@ public class StationaryObject extends GenericObject {
     {
         name = inputName;
 
-        if (StationaryObjectData.StationaryObjectShortNames.ContainsKey(name))
-        { shortName = StationaryObjectData.StationaryObjectShortNames[name]; }
+        if (StationaryObjectData.hasStationaryObjectShortName(name))
+        { shortName = StationaryObjectData.getStationaryObjectShortName(name); }
         else
         { shortName = name; }
 
 
 
-        if (StationaryObjectData.stationaryObjectDescriptions.ContainsKey(name))
-        {                description = StationaryObjectData.stationaryObjectDescriptions[name];            }
+        if (StationaryObjectData.hasStationaryObjectDescription(name))
+        {                description = StationaryObjectData.getStationaryObjectDescription(name);            }
         else
         {
-            Console.WriteLine($"{name} lacks description");
+            System.out.println(name + " lacks description");
             description = "[description missing]";
         }
 

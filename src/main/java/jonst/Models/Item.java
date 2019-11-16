@@ -11,8 +11,8 @@ public class Item extends GenericObject {
     {
         name = inputName;
 
-        if (ItemData.ItemShortNames.ContainsKey(name))
-        { shortName = ItemData.ItemShortNames[name]; }
+        if (ItemData.hasItemShortName(name))
+        { shortName = ItemData.getItemShortName(name); }
         else
         { shortName = name; }
 
@@ -21,11 +21,11 @@ public class Item extends GenericObject {
 
 
 
-        if (ItemData.itemDescriptions.ContainsKey(name))
-        {                description = ItemData.itemDescriptions[name];            }
+        if (ItemData.hasItemDescription(name))
+        {                description = ItemData.getItemDescription(name);            }
         else
         {
-            Console.WriteLine($"{name} lacks description");
+            System.out.println(name + " lacks description");
             description = "[description missing]";
         }
 

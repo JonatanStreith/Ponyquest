@@ -1,6 +1,9 @@
 package jonst.Data;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LocationData {
 
@@ -132,15 +135,20 @@ public class LocationData {
         return false;
     }
 
-    public static String[] getLegitimateExits(String key){
-        String[] returnData = new String[legitimateExits.length-1];
+    public static List<String> getLegitimateExits(String key){
+
+        List<String> returnList = new ArrayList<String>();
+
+        //String[] returnData = new String[legitimateExits.length-1];
 
         for (String[] line: legitimateExits) {
             if(line[0].equals(key)) {
-                System.arraycopy(legitimateExits, 1, returnData, 0, legitimateExits.length-1);  //Always ignore first entry, as it is the "key".
+                //System.arraycopy(legitimateExits, 1, returnData, 0, legitimateExits.length-1);  //Always ignore first entry, as it is the "key".
+                 //return Arrays.copyOfRange(line, 1, line.length-1);
+                return Arrays.asList(Arrays.copyOfRange(line, 1, line.length-1));
             }
         }
-        return returnData;
+        return returnList;
     }
 
 }
