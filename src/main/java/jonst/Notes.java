@@ -38,4 +38,6 @@ public class Notes {
     //Restore parser to its more complex form, I needed that.
 
     //Remember: GameFlags is a hashmap, get values through GameFlags.get("keyword");
+
+    //Check so that random dialog is actually random!
 }

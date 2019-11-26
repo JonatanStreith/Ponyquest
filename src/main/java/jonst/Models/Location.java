@@ -9,16 +9,16 @@ import java.util.List;
 public class Location extends GenericObject {
 
 
-    private List<String> legitimateExits;
+    private ArrayList<String> legitimateExits;
 
 
     //IMPORTANT! Locations should store a list/array/Enumerator of legitimate exits: direction, and which location it leads to. FIGURE OUT!
 
 
 
-    private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
-    private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
-    private List<Item> itemsAtLocation = new ArrayList<Item>();
+    private ArrayList<Creature> creaturesAtLocation = new ArrayList<Creature>();
+    private ArrayList<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
+    private ArrayList<Item> itemsAtLocation = new ArrayList<Item>();
 
     public Location(String inputName)
     {
@@ -58,11 +58,11 @@ public class Location extends GenericObject {
     }
 
 
-    public List<Creature> GetCreaturesAtLocation()
+    public ArrayList<Creature> getCreaturesAtLocation()
     { return creaturesAtLocation; }
-    public List<StationaryObject> GetObjectsAtLocation()
+    public ArrayList<StationaryObject> getObjectsAtLocation()
     { return objectsAtLocation; }
-    public List<Item> GetItemsAtLocation()
+    public ArrayList<Item> getItemsAtLocation()
     { return itemsAtLocation; }
 
 
@@ -85,7 +85,7 @@ public class Location extends GenericObject {
     public void removeItem(Item name)
     { itemsAtLocation.remove(name); }
 
-    public List<String> getExits()
+    public ArrayList<String> getExits()
     { return legitimateExits; }
 
 

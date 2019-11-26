@@ -1,366 +1,323 @@
 package jonst;
 
 import jonst.Data.DialogData;
-import jonst.Models.Creature;
-import jonst.Models.Item;
-import jonst.Models.Location;
+import jonst.Data.SystemData;
+import jonst.Models.*;
+
 
 import java.io.Console;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class Commands {
 
 
-    public static void SaveGame(World world)
-    {
-        Console.Write("Name your save: ");
-        String choice = Console.ReadLine();
+    public static void saveGame(World world) throws IOException {
 
-        String savePath = $@"..\..\..\..\Textbased game\Textbased game\Saves\{choice}";
 
-        if (Directory.Exists(savePath))
-        { Console.WriteLine("A save file with that name already exists."); }
-        else
-        {
-            Directory.CreateDirectory(savePath);
-            world.SaveToFile(savePath);
-            Console.WriteLine($"Game saved as \"{choice}\"");
+        System.out.println("Name your save: ");
+        String choice = SystemData.inputReader.nextLine();
+
+        String savePath = SystemData.savepath + choice;
+
+        if (new File(SystemData.savepath + choice).exists()) {
+            System.out.println("A save file with that name already exists.");
+        } else {
+            //Directory.CreateDirectory(savePath);
+            world.saveToFile(savePath);
+            System.out.println("Game saved as \"" + choice + "\"");
 
         }
 
 
+    }
 
+
+    public static void loadGame(World world) {
+        System.out.println("Sorry, loading is not implemented yet.");
 
 
     }
 
 
-    public static void LoadGame(World world)
-    {
+    public static void quit() {
+        System.out.println("Are you sure you want to quit? Y/N");
+        if (SystemData.inputReader.nextLine().toLowerCase() == "y") {
+            System.out.println("Okay, bye!");
+            SystemData.inputReader.nextLine();
 
+            SystemData.inputReader.close();
+            System.exit(0);
+        } else
+            System.out.println("Okay, let's continue.");
     }
 
 
-
-
-
-
-
-    public static void Quit()
-    {
-        Console.WriteLine("Are you sure you want to quit? Y/N");
-        if (Console.ReadKey(true).KeyChar.ToString().ToLower() == "y")
-        {
-            Console.WriteLine("Okay, bye!");
-            Console.ReadLine();
-            Environment.Exit(0);
-        }
-        else
-            Console.WriteLine("Okay, let's continue.");
+    public static void help() {
+        System.out.println("You are the Great and Powerful Trixie, on a quest to... do something. You haven't decided yet.");
+        System.out.println("To see available commands, type 'commands'. More help will be available when Trixie adds it.");
     }
 
-
-    public static void Help()
-    {
-        Console.WriteLine("You are the Great and Powerful Trixie, on a quest to... do something. You haven't decided yet.");
-        Console.WriteLine("To see available commands, type 'commands'. More help will be available when Trixie adds it.");
-    }
-
-    public static void ListCommands(World world)
-    {
+    public static void ListCommands(World world) {
 
         //List<String> StringList = new List<String>(DataStorage.legitimateCommands);
 
         //Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(StringList)}");
 
-        Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(world.legitimateCommands)}.");
+        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.legitimateCommands));
 
 
     }
 
 
-
-    public static void ListNouns(World world)
-    {
-        Console.WriteLine($"Nouns are: {HelpfulMethods.TurnStringListIntoString(world.legitimateNouns)}.");
+    public static void listNouns(World world) {
+        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.legitimateNouns));
 
     }
 
 
-    public static void PickUp(String name, World world)
-    {
+    public static void pickUp(String name, World world) {
 
-        if (!(world.DoesObjectExist(name)))                                                             //Subject doesn't exist.
-        { Console.WriteLine($"You don't know what that is."); }
-
-        else if (!(world.IsObjectPresent(name)))                                                   //Subject isn't present.
-        { Console.WriteLine($"You don't see {world.GetGenericObject(name).GetName()} here."); }
-
-        else if (world.GetGenericObject(name) is Creature)                                              //Subject is a creature.
-        { Console.WriteLine($"You pick up {world.GetGenericObject(name).GetName()} and hold them for a moment before putting them down again."); }
-
-            else if (world.GetGenericObject(name) is StationaryObject)                                              //Subject is a stationary object.
-        { Console.WriteLine($"You'd rather not try lifting {world.GetGenericObject(name).GetName()}. It's heavy."); }
-
-            else if (world.GetGenericObject(name) is Location)                                              //Subject is a stationary object.
-        { Console.WriteLine($"You're really not strong enough to lift that."); }
-
-
-            else if ((world.GetGenericObject(name) is Item))
+        if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
         {
-            world.RemoveItemFromLocation(name, world.GetPlayerLocation().GetLocationName());              //Remove from loc
+            System.out.println("You don't know what that is.");
+        } else if (!(world.isObjectPresent(name)))                                                   //Subject isn't present.
+        {
+            System.out.println("You don't see " + world.getGenericObject(name).getName() + " here.");
+        } else if (world.getGenericObject(name) instanceof Creature)                                              //Subject is a creature.
+        {
+            System.out.println("You pick up " + world.getGenericObject(name).getName() + " and hold them for a moment before putting them down again.");
+        } else if (world.getGenericObject(name) instanceof StationaryObject)                                              //Subject is a stationary object.
+        {
+            System.out.println("You'd rather not try lifting " + world.getGenericObject(name).getName() + ". It's heavy.");
+        } else if (world.getGenericObject(name) instanceof Location)                                              //Subject is a stationary object.
+        {
+            System.out.println("You're really not strong enough to lift that.");
+        } else if ((world.getGenericObject(name) instanceof Item)) {
+            world.removeItemFromLocation(name, world.getPlayerLocation().getLocationName());              //Remove from loc
 
-            world.AddToInventory(world.GetItem(name));                              //Add to inventory
-            Console.WriteLine($"You pick up the {world.GetItem(name).GetShortName()}.");
+            world.addToInventory(world.getItem(name));                              //Add to inventory
+            System.out.println("You pick up the " + world.getItem(name).getShortName() + ".");
 
+        } else {
+            System.out.println("Debug code. If this is shown, something didn't go right.");
         }
-            else
-        { Console.WriteLine("Debug code. If this is shown, something didn't go right."); }
-
-
-
-
-
-
-
 
 
     }
 
-    public static void Drop(String name, World world)
-    {
-        if (world.IsInInventory(world.GetItem(name)))
-        {
+    public static void drop(String name, World world) {
+        if (world.isInInventory(world.getItem(name))) {
             //drop
-            world.RemoveFromInventory(world.GetItem(name));
-            world.AddItemToLocation(name, world.GetPlayerLocation().GetLocationName());              //Remove from loc
+            world.removeFromInventory(world.getItem(name));
+            world.addItemToLocation(name, world.getPlayerLocation().getLocationName());              //Remove from loc
 
-            Console.WriteLine($"You drop the {world.GetItem(name).GetShortName()}.");
-        }
-        else
-        {
-            Console.WriteLine("You're not carrying that.");
+            System.out.println("You drop the " + world.getItem(name).getShortName() + ".");
+        } else {
+            System.out.println("You're not carrying that.");
         }
     }
 
 
-    public static void ShowInventory(World world)
-    {
-        List<Item> items = world.GetInventory();
+    public static void showInventory(World world) {
+        ArrayList<Item> items = world.getInventory();
 
-        if (items.Count() == 0)
-        { Console.WriteLine("You're not carrying anything."); }
-        else
-        { Console.WriteLine($"You are carrying: {HelpfulMethods.TurnItemListIntoString(items)}."); }
+        if (items.size() == 0) {
+            System.out.println("You're not carrying anything.");
+        } else {
+            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
+        }
     }
 
-    public static void LookAround(World world)
-    {
-        Console.WriteLine(getName);
-        Console.WriteLine();
-        Console.WriteLine(world.GetLocation(world.GetPlayer().GetLocationName()).GetDescription());
+    public static void LookAround(World world) {
+        System.out.println(world.getLocation(world.getPlayer().getLocationName()).getName());
+        System.out.println();
+        System.out.println(world.getLocation(world.getPlayer().getLocationName()).getDescription());
 
 
-        Console.WriteLine();
-        ListCreatures(world);
-        Console.WriteLine();
-        ListItems(world);
+        System.out.println();
+        listCreatures(world);   //Lists all creatures on location.
+        System.out.println();
+        listItems(world);       //Lists all items on location.
 
         //To do: List items and objects
 
     }
 
 
-
-
-
-
-
-    public static void LookAt(String argument, World world)          //Make sure you can't look at things that aren't present!
+    public static void lookAt(String argument, World world)          //Make sure you can't look at things that aren't present!
     {
         if (argument == "")
-            Console.WriteLine("Look at what?");
-        else if (world.GetPlayer().GetLocationName().Equals(argument, StringComparison.InvariantCultureIgnoreCase))      //Looks at place
-        { Console.WriteLine(world.GetLocation(world.GetPlayer().GetLocationName()).GetDescription()); }
-
-        else if (!(world.IsObjectPresent(argument)))                                                   //Looks at something that isn't there)
-        { Console.WriteLine($"You can't see {world.GetGenericObject(argument).GetName()} here."); }
-
-        else if (world.IsObjectPresent(argument))       //Subject is present.
-        { Console.WriteLine(world.GetGenericObject(argument).GetDescription()); }
-        else
-        { Console.WriteLine("Look at what?"); }
+            System.out.println("Look at what?");
+        else if (world.getPlayer().getLocationName().toLowerCase().equals(argument.toLowerCase()))      //Looks at place
+        {
+            System.out.println(world.getLocation(world.getPlayer().getLocationName()).getDescription());
+        } else if (!(world.isObjectPresent(argument)))                                                   //Looks at something that isn't there)
+        {
+            System.out.println("You can't see " + world.getGenericObject(argument).getName() + " here.");
+        } else if (world.isObjectPresent(argument))       //Subject is present.
+        {
+            System.out.println(world.getGenericObject(argument).getDescription());
+        } else {
+            System.out.println("Look at what?");
+        }
     }
 
 
-
-
-
-
-
-    public static void GoTo(String newArea, World world)
-    {
-        bool canGo = false;
-        foreach (String place in world.GetLocation(world.GetPlayer().GetLocationName()).GetExits())     //Check if any of the legitimate exits is the place we want to go to
+    public static void goTo(String newArea, World world) {
+        boolean canGo = false;
+        for (String place : world.getLocation(world.getPlayer().getLocationName()).getExits())     //Check if any of the legitimate exits is the place we want to go to
         {
 
-            if (newArea == place)
-            { canGo = true; }
+            if (newArea == place) {
+                canGo = true;
+            }
         }
 
         if (canGo)               //Is newArea on the list of legitimate exits?
         {
-            world.RemoveCreatureFromLocation("Trixie", world.GetPlayer().GetLocationName());            //Remove player from current location
-            world.AddCreatureToLocation("Trixie", newArea);                                             //Add player to new location
+            world.removeCreatureFromLocation("Trixie", world.getPlayer().getLocationName());            //Remove player from current location
+            world.addCreatureToLocation("Trixie", newArea);                                             //Add player to new location
             //world.GetPlayer().SetLocation(newArea);                                                     //Change player's location variable; already included in prev command
-            Console.WriteLine($"You go to {world.GetLocation(newArea).GetName()}.");
-            Console.ReadLine();
-            Console.Clear();
+            System.out.println("You go to " + world.getLocation(newArea).getName() + ".");
+            SystemData.inputReader.nextLine();
+            System.out.flush();
             LookAround(world);
+        } else {
+            System.out.println("You can't get there from here.");
         }
-        else { Console.WriteLine("You can't get there from here."); }
     }
 
 
-
-
-
-
-
-    public static void TalkTo(String name, World world)
-    {
-        if (name== "")
-        { Console.WriteLine("Talk to who?"); }
-
-        else if (!(world.DoesObjectExist(name)))                                                             //Subject doesn't exist.
-        { Console.WriteLine($"You don't know of anypony by that name."); }
-
-        else if (!(world.IsObjectPresent(name)))                                                   //Subject isn't present.
-        { Console.WriteLine($"{world.GetGenericObject(name).GetName()} isn't here right now."); }
-
-        else if (!(world.GetGenericObject(name) is Creature))                                                //Subject isn't a creature.
-        { Console.WriteLine($"You don't make a habit of talking to inanimate objects."); }
-
-            else if ((world.GetGenericObject(name) is Creature))
+    public static void talkTo(String name, World world) {
+        if (name == "") {
+            System.out.println("Talk to who?");
+        } else if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
         {
-            if (!DialogData.casualDialog.ContainsKey(name))             //If no dialog entry exists for this character.
-            { Console.WriteLine($"{name} doesn't have anything to say."); }
-            else
+            System.out.println("You don't know of anypony by that name.");
+        } else if (!(world.isObjectPresent(name)))                                                   //Subject isn't present.
+        {
+            System.out.println(world.getGenericObject(name).getName() + " isn't here right now.");
+        } else if (!(world.getGenericObject(name) instanceof Creature))                                                //Subject isn't a creature.
+        {
+            System.out.println("You don't make a habit of talking to inanimate objects.");
+        } else if ((world.getGenericObject(name) instanceof Creature)) {
+            if (!DialogData.hasCasualDialog(name))                                  //If no dialog entry exists for this character.
             {
-                String[] dialog = DialogData.casualDialog[name];                   //This runs if you successfully talk to someone.
-                Console.WriteLine(dialog[world.diceRoll.Next(dialog.Length)]);
+                System.out.println(name + " doesn't have anything to say.");
+            } else {
+                System.out.println(DialogData.getRandomCasualDialog(name));         //This runs if you successfully talk to someone.
+
             }
+        } else {
+            System.out.println("Debug code. If this is shown, something didn't go right.");
         }
-            else
-        { Console.WriteLine("Debug code. If this is shown, something didn't go right."); }
 
     }
 
 
-
-    public static void GetExits(World world)
-    {
-        Location loc = world.GetLocation(world.GetPlayer().GetLocationName());
-        List<String> exits = loc.GetExits();
+    public static void getExits(World world) {
+        Location loc = world.getLocation(world.getPlayer().getLocationName());
+        ArrayList<String> exits = loc.getExits();
 
 
-        Console.Write($"Exits are: {HelpfulMethods.TurnStringListIntoString(exits)}.");
+        System.out.println("Exits are: " + HelpfulMethods.turnStringListIntoString(exits) + ".");
     }
 
 
-    public static void TeleportOther(String[] command, World world)                             //TO DO Make sure you can teleport items and objects - different code?
+    public static void teleportOther(String[] command, World world)                             //TO DO Make sure you can teleport items and objects - different code?
     {
 
-        if (!world.DoesObjectExist(command[1]))             //Subject doesn't exist
-        { Console.WriteLine("You can't teleport something that doesn't exist."); }
-
-        else if (!world.IsObjectPresent(command[1]))        //Subject isn't in the area
-        { Console.WriteLine("You can only teleport things within eyesight."); }
-
-        else if (getName.Equals("Trixie", StringComparison.InvariantCultureIgnoreCase))           //Are you instructing the game to teleport Trixie herself?
+        if (!world.doesObjectExist(command[1]))             //Subject doesn't exist
         {
-            world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
-            world.AddCreatureToLocation(getName, command[3]);
+            System.out.println("You can't teleport something that doesn't exist.");
+        } else if (!world.isObjectPresent(command[1]))        //Subject isn't in the area
+        {
+            System.out.println("You can only teleport things within eyesight.");
+        } else if (world.getGenericObject(command[1]).getName().toLowerCase().equals("Trixie"))           //Are you instructing the game to teleport Trixie herself?
+        {
+            world.removeCreatureFromLocation(world.getPlayer().getName(), world.getPlayer().getLocationName());
+            world.addCreatureToLocation(world.getPlayer().getName(), command[3]);
 
-            Console.WriteLine($"You vanish in a burst of smoke, and reappear at {world.GetLocation(command[3]).GetName()}");
-            Console.ReadLine();
-            Console.Clear();
+            System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[3]).getName() + ".");
+            SystemData.inputReader.nextLine();
+            System.out.flush();
             LookAround(world);
-        }
-        else if (world.GetGenericObject(command[1]) is Creature)
-        {
-            world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
-            world.AddCreatureToLocation(command[1], command[3]);
+        } else if (world.getGenericObject(command[1]) instanceof Creature) {
+            world.removeCreatureFromLocation(world.getCreature(command[1]).getName(), world.getPlayer().getLocationName());
+            world.addCreatureToLocation(command[1], command[3]);
 
-            Console.WriteLine($"{command[1]} vanishes in a burst of smoke!");
+            System.out.println(command[1] + " vanishes in a burst of smoke!");
+        } else {
+            System.out.println("Your spell fizzles for some reason.");
         }
-            else
-        { Console.WriteLine("Your spell fizzles for some reason."); }
 
     }
 
 
-    public static void TeleportSelf(String[] command, World world)  //Make sure you can teleport items and objects - different code?
+    public static void teleportSelf(String[] command, World world)  //Make sure you can teleport items and objects - different code?
     {
-        world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
-        world.AddCreatureToLocation(getName, command[1]);
+        world.removeCreatureFromLocation(world.getPlayer().getName(), world.getPlayer().getLocationName());
+        world.addCreatureToLocation(world.getPlayer().getName(), command[1]);
 
 
-
-
-        Console.WriteLine($"You vanish in a burst of smoke, and reappear at {world.GetLocation(command[1]).GetName()}");
-        Console.ReadLine();
-        Console.Clear();
+        System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[1]).getName() + ".");
+        SystemData.inputReader.nextLine();
+        System.out.flush();
         LookAround(world);
 
 
     }
 
 
+    public static void ask(String[] command, World world) {
+
+        System.out.println("This command is still buggy.");
 
 
-    public static void Ask(String[] command, World world)
-    {
-        if (!world.DoesObjectExist(command[1]))         //Nonexistent
-        { Console.WriteLine("Ask who?"); }
-        else if (!world.IsObjectPresent(command[1]))        //Not present
-        { Console.WriteLine("They might hear you better if they're actually present, you know."); }
-
-        else if (!(world.GetGenericObject(command[1]) is Creature))                                                //Subject isn't a creature.
-        { Console.WriteLine("There's not much point in asking inanimate objects."); }
-
-            else if (!(DialogData.askTopic.ContainsKey(command[3])))
-    {
-        Console.WriteLine($"{world.GetCreature(command[1]).GetName()} doesn't know anything about that.");
+//        if (!world.doesObjectExist(command[1]))         //Nonexistent
+//        {
+//            System.out.println("Ask who?");
+//        } else if (!world.isObjectPresent(command[1]))        //Not present
+//        {
+//            System.out.println("They might hear you better if they're actually present, you know.");
+//        } else if (!(world.getGenericObject(command[1]) instanceof Creature))                                                //Subject isn't a creature.
+//        {
+//            System.out.println("There's not much point in asking inanimate objects.");
+//        } else if (!(DialogData.askTopic.ContainsKey(command[3]))) {
+//            System.out.println(world.getCreature(command[1]).getName() + " doesn't know anything about that.");
+//        } else {
+//            System.out.println(DialogData.askArray[DialogData.askCreature[command[1]], DialogData.askTopic[command[3]]]);
+//        }
     }
 
-    else
-    { Console.WriteLine(DialogData.askArray[DialogData.askCreature[command[1]], DialogData.askTopic[command[3]]]); }
-    }
 
+    public static void listItems(World world) {
+        ArrayList<Item> itemList = world.getLocation(world.getPlayer().getLocationName()).getItemsAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
 
-    public static void ListItems(World world)
-    {
-        List<Item> itemList = world.GetLocation(world.GetPlayer().GetLocationName()).GetItemsAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+        int numItems = itemList.size();
 
-        int numItems = itemList.Count;
-
-        if (itemList.Count() > 0) { Console.WriteLine($"There {HelpfulMethods.IsOrAre(numItems)} {HelpfulMethods.TurnItemListIntoString(itemList)} here."); }
-
-    }
-
-    public static void ListCreatures(World world)
-    {
-
-        List<Creature> creatureList = world.GetLocation(world.GetPlayer().GetLocationName()).GetCreaturesAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
-
-        int numCreatures = creatureList.Count;
-
-        if (creatureList.Count() == 1) { Console.WriteLine("There's nopony else here."); }
-
-        else
-        { Console.WriteLine($"{HelpfulMethods.TurnCreatureListIntoString(creatureList)} {HelpfulMethods.IsOrAre(numCreatures - 1)} here."); }
+        if (itemList.size() > 0) {
+            System.out.println("There " + HelpfulMethods.isOrAre(numItems) + HelpfulMethods.TurnItemListIntoString(itemList) + " here.");
+        }
 
     }
 
-}
+    public static void listCreatures(World world) {
+
+        ArrayList<Creature> creatureList = world.getLocation(world.getPlayer().getLocationName()).getCreaturesAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+
+        int numCreatures = creatureList.size();
+
+        if (creatureList.size() == 1) {
+            System.out.println("There's nopony else here.");
+        } else {
+            System.out.println(HelpfulMethods.turnCreatureListIntoString(creatureList) + HelpfulMethods.isOrAre(numCreatures - 1) + " here.");
+
+            }
+
+        }
+
+    }

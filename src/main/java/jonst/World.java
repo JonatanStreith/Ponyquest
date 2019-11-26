@@ -31,77 +31,83 @@ public class World {
     public ArrayList<String> legitimateCommands = SystemData.getLegitimateCommands();
     public ArrayList<String> legitimateConjunctions = SystemData.getLegitimateConjunctions();
 
-    private Scanner myReader;
+     private Scanner myReader;
 
     public World(String loadFilePath) {
 
-        BuildGenericObjectLists(loadFilePath);                   //Create and add all objects to the main lists
 
-        AddGenericObjectsToLocations(loadFilePath);              //Add all objects to their specified locations
 
-        AddGameFlags(loadFilePath);                              //Add all game flags, to track conditions and stuff
+        buildGenericObjectLists(loadFilePath);                   //Create and add all objects to the main lists
 
-        CreateProperNounList();                      //Create and sort lists for the parser
-        SortCommandAndConjunctionLists();
+        addGenericObjectsToLocations(loadFilePath);              //Add all objects to their specified locations
+
+        addGameFlags(loadFilePath);                              //Add all game flags, to track conditions and stuff
+
+        createProperNounList();                      //Create and sort lists for the parser
+        sortCommandAndConjunctionLists();
 
         myReader.close();
 
     }  //End of World constructor
 
 
-    public void AddCreatureToLocation(String creature, String location) {
+
+
+
+
+    public void addCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).addCreature(GetCreature(creature));
-        GetCreature(creature).setLocation(location);
+        getLocation(location).addCreature(getCreature(creature));
+        getCreature(creature).setLocation(location);
     }
 
-    public void RemoveCreatureFromLocation(String creature, String location) {
-        GetLocation(location).removeCreature(GetCreature(creature));
+    public void removeCreatureFromLocation(String creature, String location) {
+        getLocation(location).removeCreature(getCreature(creature));
     }
 
 
-    public void AddItemToLocation(String item, String location) {
+    public void addItemToLocation(String item, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).addItem(GetItem(item));
-        GetItem(item).setLocation(location);
+        getLocation(location).addItem(getItem(item));
+        getItem(item).setLocation(location);
     }
 
-    public void RemoveItemFromLocation(String item, String location) {
-        GetLocation(location).removeItem(GetItem(item));
+    public void removeItemFromLocation(String item, String location) {
+        getLocation(location).removeItem(getItem(item));
     }
 
 
-    public void AddObjectToLocation(String stationaryObject, String location) {
+    public void addObjectToLocation(String stationaryObject, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).addObject(GetStationaryObject(stationaryObject));
-        GetStationaryObject(stationaryObject).setLocation(location);
+        getLocation(location).addObject(getStationaryObject(stationaryObject));
+        getStationaryObject(stationaryObject).setLocation(location);
     }
 
-    public void RemoveObjectFromLocation(String stationaryObject, String location) {
-        GetLocation(location).removeObject(GetStationaryObject(stationaryObject));
+    public void removeObjectFromLocation(String stationaryObject, String location) {
+        getLocation(location).removeObject(getStationaryObject(stationaryObject));
     }
 
 
-    public void AddToInventory(Item item) {
+    public void addToInventory(Item item) {
         playerInventory.add(item);
         item.setLocation("inventory");
 
     }
 
-    public void RemoveFromInventory(Item item) {
+    public void removeFromInventory(Item item) {
         playerInventory.remove(item);
     }
 
-    public boolean IsInInventory(Item item) {
+    public boolean isInInventory(Item item) {
         return playerInventory.contains(item);
     }
 
-    public ArrayList<Item> GetInventory() {
+    public ArrayList<Item> getInventory() {
         return playerInventory;
     }
 
 
-    public void CreateProperNounList() {
+    public void createProperNounList() {
         for (GenericObject gen : genericList) {
             legitimateNouns.add(gen.getName());
             legitimateNouns.add(gen.getShortName());
@@ -112,13 +118,13 @@ public class World {
     }
 
 
-    public void SortCommandAndConjunctionLists() {
+    public void sortCommandAndConjunctionLists() {
         Collections.sort(legitimateCommands);
         Collections.sort(legitimateConjunctions);
     }
 
 
-    public Creature GetPlayer() {
+    public Creature getPlayer() {
         //return creatureList.Find(x = > x.GetName().ToLower().Contains("trixie"));
 
         for (Creature creature : creatureList) {
@@ -128,12 +134,12 @@ public class World {
         return null;
     }
 
-    public Location GetPlayerLocation() {
-        return GetLocation(GetPlayer().getLocationName());
+    public Location getPlayerLocation() {
+        return getLocation(getPlayer().getLocationName());
     }
 
 
-    public Location GetLocation(String wantedLocation) {
+    public Location getLocation(String wantedLocation) {
         //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Location location : locationList) {
@@ -144,7 +150,7 @@ public class World {
     }
 
 
-    public Creature GetCreature(String wantedCreature) {
+    public Creature getCreature(String wantedCreature) {
         //return creatureList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Creature creature : creatureList) {
@@ -155,7 +161,7 @@ public class World {
 
     }
 
-    public Item GetItem(String wantedItem) {
+    public Item getItem(String wantedItem) {
         //return itemList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Item item : itemList) {
@@ -165,7 +171,7 @@ public class World {
         return null;
     }
 
-    public StationaryObject GetStationaryObject(String wantedStationaryObject) {
+    public StationaryObject getStationaryObject(String wantedStationaryObject) {
         //return stationaryObjectList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (StationaryObject stationaryObject : stationaryObjectList) {
@@ -175,7 +181,7 @@ public class World {
         return null;
     }
 
-    public GenericObject GetGenericObject(String wantedGenericObject) {
+    public GenericObject getGenericObject(String wantedGenericObject) {
         //return genericList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (GenericObject genericObject : genericList) {
@@ -186,15 +192,15 @@ public class World {
     }
 
 
-    public boolean IsObjectPresent(String generic) {
-        return ((GetPlayer().getLocationName() == GetGenericObject(generic).getLocationName()) || (GetGenericObject(generic).getLocationName() == "inventory"));
+    public boolean isObjectPresent(String generic) {
+        return ((getPlayer().getLocationName() == getGenericObject(generic).getLocationName()) || (getGenericObject(generic).getLocationName() == "inventory"));
     }
 
-    public boolean DoesObjectExist(String generic) {
-        return genericList.contains(GetGenericObject(generic));
+    public boolean doesObjectExist(String generic) {
+        return genericList.contains(getGenericObject(generic));
     }
 
-    public String ReturnFullName(String name) {
+    public String returnFullName(String name) {
         String fullName = name;
 
         for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
@@ -208,7 +214,7 @@ public class World {
     }
 
 
-    public void BuildGenericObjectLists(String loadFilePath) {
+    public void buildGenericObjectLists(String loadFilePath) {
 
 
 
@@ -284,7 +290,7 @@ public class World {
 
 
 
-    public void AddGenericObjectsToLocations(String loadFilePath) {
+    public void addGenericObjectsToLocations(String loadFilePath) {
 
         try {
             File creatureToLocation = new File(loadFilePath + "/CreatureToLocation.txt");
@@ -296,7 +302,7 @@ public class World {
                     String[] frag = line.split(": ");
 
 
-                    AddCreatureToLocation(frag[0], frag[1]);
+                    addCreatureToLocation(frag[0], frag[1]);
                 }
             }
 
@@ -314,7 +320,7 @@ public class World {
                     String[] frag = line.split(": ");
 
 
-                    AddItemToLocation(frag[0], frag[1]);
+                    addItemToLocation(frag[0], frag[1]);
                 }
             }
 
@@ -332,7 +338,7 @@ public class World {
                     String[] frag = line.split(": ");
 
 
-                    AddObjectToLocation(frag[0], frag[1]);
+                    addObjectToLocation(frag[0], frag[1]);
                 }
             }
 
@@ -350,7 +356,7 @@ public class World {
                 String line = myReader.nextLine();
                 if (line != "") {
 
-                    AddToInventory(GetItem(line));
+                    addToInventory(getItem(line));
                 }
             }
 
@@ -365,7 +371,7 @@ public class World {
     }
 
 
-    public void AddGameFlags(String loadFilePath) {
+    public void addGameFlags(String loadFilePath) {
 
 
         try {
@@ -390,7 +396,7 @@ public class World {
 
 
 
-    public void SaveToFile(String saveFilePath) throws IOException {
+    public void saveToFile(String saveFilePath) throws IOException {
 
         FileWriter myWriter = null;
 

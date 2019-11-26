@@ -1,7 +1,10 @@
 package jonst;
 
+import jonst.Data.SystemData;
+
 import java.io.Console;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -13,13 +16,12 @@ import java.util.Scanner;
  */
 public class App 
 {
-    static Scanner inputReader;
 
 
-    static void Main(String[] args)
-    {
 
-        inputReader = new Scanner(System.in);
+    static void Main(String[] args) throws IOException {
+
+        SystemData.inputReader = new Scanner(System.in);
 
 
 
@@ -27,10 +29,10 @@ public class App
 
         //create locations, creatures, objects and items
 
-        String gamepath = "src/main/java/jonst";
 
 
-        String defaultWorld = gamepath +"/Assets/DefaultWorld";
+
+        String defaultWorld = SystemData.gamepath +"/Assets/DefaultWorld";
         String reply;
         boolean choiceMade = false;
         String filePath = defaultWorld;
@@ -38,7 +40,7 @@ public class App
 
         do
         {
-            reply = inputReader.nextLine();
+            reply = SystemData.inputReader.nextLine();
 
 
             if (reply == "n")
@@ -52,20 +54,20 @@ public class App
             else if (reply == "l")
             {
                 System.out.println("Available saves:");
-                for(String dir : new File(gamepath + "Assets/Saves").list()  )
+                for(String dir : new File(SystemData.savepath).list()  )
                 {
                     System.out.println(dir);
                 } //List save files - clean up later
 
                 System.out.println("Which save file do you want to load? ");
 
-                String choice = inputReader.nextLine();
+                String choice = SystemData.inputReader.nextLine();
 
-                if (new File(gamepath + "Assets/Saves/" + choice).exists())
+                if (new File(SystemData.savepath + choice).exists())
 
 
                 {
-                    filePath = gamepath + "Assets/Saves/" + choice;
+                    filePath = SystemData.savepath + choice;
                     System.out.println("Restoring from " + choice + "...");
                     choiceMade = true;
 
@@ -116,7 +118,7 @@ public class App
 
             System.out.println();
             System.out.println("Please input command: ");
-            input = inputReader.nextLine().toLowerCase();
+            input = SystemData.inputReader.nextLine().toLowerCase();
             commandPhrase = parser(input, Equestria);
 
 
@@ -138,8 +140,7 @@ public class App
     }
 
 
-    public static void runCommand(String[] command, World world)
-    {
+    public static void runCommand(String[] command, World world) throws IOException {
 
         switch (command[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
@@ -152,31 +153,31 @@ public class App
                 break;
 
             case "save":
-                Commands.SaveGame(world);
+                Commands.saveGame(world);
                 break;
 
             case "load":
-                Commands.LoadGame(world);
+                Commands.loadGame(world);
                 break;
 
             case "pick up":
-                Commands.PickUp(command[1], world);
+                Commands.pickUp(command[1], world);
                 break;
 
             case "drop":
-                Commands.Drop(command[1], world);
+                Commands.drop(command[1], world);
                 break;
 
             case "inventory":
-                Commands.ShowInventory(world);
+                Commands.showInventory(world);
                 break;
 
             case "nouns":
-                Commands.ListNouns(world);
+                Commands.listNouns(world);
                 break;
 
             case "help":
-                Commands.Help();
+                Commands.help();
                 break;
 
             case "commands":
@@ -185,19 +186,19 @@ public class App
 
 
             case "quit":
-                Commands.Quit();
+                Commands.quit();
                 break;
 
             case "go to":
-                Commands.GoTo(command[1], world);
+                Commands.goTo(command[1], world);
                 break;
             case "go":
-                Commands.GoTo(command[1], world);
+                Commands.goTo(command[1], world);
                 break;
 
 
             case "talk to":
-                Commands.TalkTo(command[1], world);
+                Commands.talkTo(command[1], world);
                 break;
 
             case "look":
@@ -209,23 +210,23 @@ public class App
                 break;
 
             case "look at":
-                Commands.LookAt(command[1], world);
+                Commands.lookAt(command[1], world);
                 break;
 
             case "exits":
-                Commands.GetExits(world);
+                Commands.getExits(world);
                 break;
 
             case "teleport":
-                Commands.TeleportOther(command, world);
+                Commands.teleportOther(command, world);
                 break;
 
             case "teleport to":
-                Commands.TeleportSelf(command, world);
+                Commands.teleportSelf(command, world);
                 break;
 
             case "ask":
-                Commands.Ask(command, world);
+                Commands.ask(command, world);
                 break;
 
             default:
@@ -267,6 +268,6 @@ public class App
         System.out.println("\n");
         System.out.println("Now, Trixie has returned to Ponyville once again. What adventures await her this time?");
 
-        inputReader.nextLine();
+        SystemData.inputReader.nextLine();
     }
 }

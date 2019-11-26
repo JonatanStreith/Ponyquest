@@ -135,9 +135,9 @@ public class LocationData {
         return false;
     }
 
-    public static List<String> getLegitimateExits(String key){
+    public static ArrayList<String> getLegitimateExits(String key){
 
-        List<String> returnList = new ArrayList<String>();
+        ArrayList<String> returnList = new ArrayList<String>();
 
         //String[] returnData = new String[legitimateExits.length-1];
 
@@ -145,7 +145,7 @@ public class LocationData {
             if(line[0].equals(key)) {
                 //System.arraycopy(legitimateExits, 1, returnData, 0, legitimateExits.length-1);  //Always ignore first entry, as it is the "key".
                  //return Arrays.copyOfRange(line, 1, line.length-1);
-                return Arrays.asList(Arrays.copyOfRange(line, 1, line.length-1));
+                return (ArrayList<String>) Arrays.asList(Arrays.copyOfRange(line, 1, line.length-1));
             }
         }
         return returnList;

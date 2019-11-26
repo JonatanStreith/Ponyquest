@@ -4,7 +4,7 @@ package jonst.Data;
 public class DialogData {
 
 
-    private static String[][] casualDialog = new String[][]
+     static String[][] casualDialog = new String[][]
 
  {
 
@@ -40,5 +40,17 @@ public class DialogData {
             }
         }
         return returnData;
+    }
+
+    public static String getRandomCasualDialog(String name){
+        for (String[] line: casualDialog) {
+            if(line[0].equals(name)) {
+
+                int pick = (int) Math.ceil(Math.random() * line.length-1);
+                return line[pick];
+            }
+        }
+        return "You shouldn't get this response. Check DialogData.";
+
     }
 }

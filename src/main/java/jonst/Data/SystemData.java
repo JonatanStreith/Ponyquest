@@ -2,8 +2,14 @@ package jonst.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class SystemData {
+
+    public static Scanner inputReader = new Scanner(System.in);
+
+    public static String gamepath = "src/main/java/jonst/";
+    public static String savepath = "src/main/java/jonst/Assets/Saves/";
 
     public static ArrayList getLegitimateCommands(){
 
