@@ -2,6 +2,7 @@ package jonst;
 
 import java.io.Console;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Hello world!
@@ -9,13 +10,13 @@ import java.util.HashMap;
  */
 public class App 
 {
-
+    static Scanner inputReader;
 
 
     static void Main(String[] args)
     {
 
-
+        inputReader = new Scanner(System.in);
 
 
 
@@ -23,18 +24,18 @@ public class App
 
         //create locations, creatures, objects and items
 
-        String gamePath = @"..\..\..\..\Textbased game\Textbased game";
+        String gamePath = "..\\..\\..\\..\\Textbased game\\Textbased game";
 
 
-        String defaultWorld = $@"{gamePath}\DefaultWorld";
+        String defaultWorld = gamePath +"\\DefaultWorld";
         String reply;
-        bool choiceMade = false;
+        boolean choiceMade = false;
         String filePath = defaultWorld;
-        Console.WriteLine("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
+        System.out.println("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
 
         do
         {
-            reply = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            reply = inputReader.nextLine();
 
 
             if (reply == "n")
@@ -47,29 +48,29 @@ public class App
 
             else if (reply == "l")
             {
-                Console.WriteLine("Available saves:");
+                System.out.println("Available saves:");
                 foreach (String dir in Directory.EnumerateDirectories($@"{gamePath}\Saves"))
                 { Console.WriteLine(dir); } //List save files - clean up later
 
-                Console.Write("Which save file do you want to load? ");
+                System.out.println("Which save file do you want to load? ");
 
                 String choice = Console.ReadLine();
 
                 if (Directory.Exists($@"{gamePath}\Saves\{choice}"))
                 {
                     filePath = $@"{gamePath}\Saves\{choice}";
-                    Console.WriteLine($"Restoring from {choice}...");
+                    System.out.println("Restoring from {choice}...");
                     choiceMade = true;
 
                 }
                     else
                 {
-                    Console.WriteLine("That file doesn't exist.");
+                    System.out.println("That file doesn't exist.");
                 }
                 //Ask for one
             }
             else
-            { Console.WriteLine("Sorry, what? Do you want to start a (N)ew game, or (L)oad a previous save?"); }
+            { System.out.println("Sorry, what? Do you want to start a (N)ew game, or (L)oad a previous save?"); }
 
         } while (!choiceMade);
 
@@ -87,9 +88,9 @@ public class App
 
 
 
-        Console.WriteLine("Game begins!");
+        System.out.println("Game begins!");
 
-        Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
 
 
@@ -106,16 +107,16 @@ public class App
         {
 
 
-            Console.WriteLine();
-            Console.Write("Please input command: ");
+            System.out.println();
+            System.out.println("Please input command: ");
             input = Console.ReadLine().ToLower();
             commandPhrase = Parser(input, Equestria);
 
 
-            Console.WriteLine(commandPhrase[0]);
-            Console.WriteLine(commandPhrase[1]);
-            Console.WriteLine(commandPhrase[2]);
-            Console.WriteLine(commandPhrase[3]);
+            System.out.println(commandPhrase[0]);
+            System.out.println(commandPhrase[1]);
+            System.out.println(commandPhrase[2]);
+            System.out.println(commandPhrase[3]);
 
 
             RunCommand(commandPhrase, Equestria);
@@ -221,7 +222,7 @@ public class App
                 break;
 
             default:
-                Console.WriteLine("What do you mean?");
+                System.out.println("What do you mean?");
                 break;
         }
 
@@ -315,14 +316,14 @@ public class App
 
     public static void RollIntro()
     {
-        Console.Clear();
-        Console.WriteLine("Once upon a time, in the magical land of Equestria...");
-        Console.WriteLine();
-        Console.WriteLine("A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.");
-        Console.WriteLine();
-        Console.WriteLine("Then she returned again and made a great friend, and later helped save Equestria from the changeling menace, proving how all those neighsayers were foolish and wrong for doubting Trixie.");
-        Console.WriteLine();
-        Console.WriteLine("Now, Trixie has returned to Ponyville once again. What adventures await her this time?");
+        //Console.Clear();
+        System.out.println("Once upon a time, in the magical land of Equestria...");
+        System.out.println("\n");
+        System.out.println("A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.");
+        System.out.println("\n");
+        System.out.println("Then she returned again and made a great friend, and later helped save Equestria from the changeling menace, proving how all those neighsayers were foolish and wrong for doubting Trixie.");
+        System.out.println("\n");
+        System.out.println("Now, Trixie has returned to Ponyville once again. What adventures await her this time?");
 
         Console.ReadKey();
         Console.Clear();
