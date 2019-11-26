@@ -33,7 +33,7 @@ public class App
         String defaultWorld = gamepath +"/Assets/DefaultWorld";
         String reply;
         boolean choiceMade = false;
-        String filePath;
+        String filePath = defaultWorld;
         System.out.println("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
 
         do
@@ -45,7 +45,7 @@ public class App
             {
                 filePath = defaultWorld;
                 choiceMade = true;
-                RollIntro();
+                rollIntro();
 
             }
 
@@ -116,8 +116,8 @@ public class App
 
             System.out.println();
             System.out.println("Please input command: ");
-            input = Console.ReadLine().ToLower();
-            commandPhrase = Parser(input, Equestria);
+            input = inputReader.nextLine().toLowerCase();
+            commandPhrase = parser(input, Equestria);
 
 
             System.out.println(commandPhrase[0]);
@@ -126,7 +126,7 @@ public class App
             System.out.println(commandPhrase[3]);
 
 
-            RunCommand(commandPhrase, Equestria);
+            runCommand(commandPhrase, Equestria);
 
 
         }
@@ -138,7 +138,7 @@ public class App
     }
 
 
-    public static void RunCommand(String[] command, World world)
+    public static void runCommand(String[] command, World world)
     {
 
         switch (command[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
@@ -241,76 +241,11 @@ public class App
 
 
 
-    public static String[] Parser(String command, World world)      //This runs a check on the input to ensure that it's a "proper" command
+    public static String[] parser(String command, World world)
     {
-        String[] cleanCommand = { "", "", "", "" };
-
-        String[] remainder;
+        return command.split(" ");
 
 
-        foreach (String item in world.legitimateCommands)
-        {
-            if (command.StartsWith(item.ToLower()))
-            {
-                //Now separate the command
-
-                remainder = command.Split(new String[] { item.ToLower() }, StringSplitOptions.None);
-
-                cleanCommand[0] = item;
-
-                if (remainder[1] != "")
-                { command = remainder[1].Remove(0, 1); }
-
-
-
-                break;
-            }
-        }
-
-        foreach (String item in world.legitimateNouns)
-        {
-            if (command.StartsWith(item.ToLower()))
-            {
-                //Now separate the noun
-
-                remainder = command.Split(new String[] { item.ToLower() }, StringSplitOptions.None);
-
-                cleanCommand[1] = world.ReturnFullName(item);
-
-                if (remainder[1] != "")
-                { command = remainder[1].Remove(0, 1); }
-
-
-
-
-
-                break;
-            }
-        }
-
-        foreach (String item in world.legitimateConjunctions)
-        {
-            if (command.StartsWith(item.ToLower()))
-            {
-                //Now separate the conjunction
-
-                remainder = command.Split(new String[] { item.ToLower() }, StringSplitOptions.None);
-
-                cleanCommand[2] = item;
-
-                if (remainder[1] != "")
-                { command = remainder[1].Remove(0, 1); }
-
-
-                break;
-            }
-        }
-
-
-        cleanCommand[3] = command;      //Add the remainder
-
-
-        return cleanCommand;
     }
 
 
@@ -321,7 +256,7 @@ public class App
 
 
 
-    public static void RollIntro()
+    public static void rollIntro()
     {
         //Console.Clear();
         System.out.println("Once upon a time, in the magical land of Equestria...");
@@ -332,8 +267,6 @@ public class App
         System.out.println("\n");
         System.out.println("Now, Trixie has returned to Ponyville once again. What adventures await her this time?");
 
-        Console.ReadKey();
-        Console.Clear();
-
+        inputReader.nextLine();
     }
 }

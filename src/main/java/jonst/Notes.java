@@ -35,4 +35,7 @@ public class Notes {
     //https://docs.oracle.com/javase/tutorial/essential/io/pathOps.html
     //https://www.w3schools.com/java/java_files.asp
 
+    //Restore parser to its more complex form, I needed that.
+
+    //Remember: GameFlags is a hashmap, get values through GameFlags.get("keyword");
 }

@@ -1,41 +1,39 @@
 package jonst;
 
+import jonst.Data.SystemData;
 import jonst.Models.*;
 
-import java.util.List;
-import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+
 
 public class World {
 
-    public Dictionary<String, String> GameFlags = new Dictionary<String, String>();     //Use this to store event flags and the like!
+    public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
 
+    public ArrayList<Location> locationList = new ArrayList<Location>();      //Main lists that store all game objects
+    public ArrayList<Creature> creatureList = new ArrayList<Creature>();
+    public ArrayList<StationaryObject> stationaryObjectList = new ArrayList<StationaryObject>();
+    public ArrayList<Item> itemList = new ArrayList<Item>();
+
+    public ArrayList<GenericObject> genericList = new ArrayList<GenericObject>();
 
 
-    public List<Location> locationList = new List<Location>();      //Main lists that store all game objects
-    public List<Creature> creatureList = new List<Creature>();
-    public List<StationaryObject> stationaryObjectList = new List<StationaryObject>();
-    public List<Item> itemList = new List<Item>();
-
-    public List<GenericObject> genericList = new List<GenericObject>();
+    public ArrayList<Item> playerInventory = new ArrayList<Item>();
 
 
-    public List<Item> playerInventory = new List<Item>();
+    public ArrayList<String> legitimateNouns = new ArrayList<String>();
 
+    public ArrayList<String> legitimateCommands = SystemData.getLegitimateCommands();
+    public ArrayList<String> legitimateConjunctions = SystemData.getLegitimateConjunctions();
 
+    private Scanner myReader;
 
-    public List<String> legitimateNouns = new List<String>();
-
-    public List<String> legitimateCommands = new List<String> { "save", "load", "nouns", "look at", "look around", "look", "go to", "go", "pick up", "talk to", "quit", "drop", "brandish", "ask", "cast", "exits", "teleport to", "teleport", "help", "commands", "inventory" };
-    public List<String> legitimateConjunctions = new List<String> { "to", "about", "behind", "at", "under", "in front of", "on", "in" };
-
-
-    public Random diceRoll = new Random();
-
-    public World(String loadFilePath)
-    {
-
-
+    public World(String loadFilePath) {
 
         BuildGenericObjectLists(loadFilePath);                   //Create and add all objects to the main lists
 
@@ -46,154 +44,239 @@ public class World {
         CreateProperNounList();                      //Create and sort lists for the parser
         SortCommandAndConjunctionLists();
 
+        myReader.close();
 
     }  //End of World constructor
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void AddCreatureToLocation(String creature, String location)
-    {
+    public void AddCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).AddCreature(GetCreature(creature));
-        GetCreature(creature).SetLocation(location);
+        GetLocation(location).addCreature(GetCreature(creature));
+        GetCreature(creature).setLocation(location);
     }
 
-    public void RemoveCreatureFromLocation(String creature, String location)
-    { GetLocation(location).RemoveCreature(GetCreature(creature)); }
+    public void RemoveCreatureFromLocation(String creature, String location) {
+        GetLocation(location).removeCreature(GetCreature(creature));
+    }
 
 
-
-    public void AddItemToLocation(String item, String location)
-    {
+    public void AddItemToLocation(String item, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).AddItem(GetItem(item));
-        GetItem(item).SetLocation(location);
+        GetLocation(location).addItem(GetItem(item));
+        GetItem(item).setLocation(location);
     }
 
-    public void RemoveItemFromLocation(String item, String location)
-    { GetLocation(location).RemoveItem(GetItem(item)); }
+    public void RemoveItemFromLocation(String item, String location) {
+        GetLocation(location).removeItem(GetItem(item));
+    }
 
 
-    public void AddObjectToLocation(String stationaryObject, String location)
-    {
+    public void AddObjectToLocation(String stationaryObject, String location) {
         //Adds "creature" to "location"
-        GetLocation(location).AddObject(GetStationaryObject(stationaryObject));
-        GetStationaryObject(stationaryObject).SetLocation(location);
+        GetLocation(location).addObject(GetStationaryObject(stationaryObject));
+        GetStationaryObject(stationaryObject).setLocation(location);
     }
 
-    public void RemoveObjectFromLocation(String stationaryObject, String location)
-    { GetLocation(location).RemoveObject(GetStationaryObject(stationaryObject)); }
+    public void RemoveObjectFromLocation(String stationaryObject, String location) {
+        GetLocation(location).removeObject(GetStationaryObject(stationaryObject));
+    }
 
 
-    public void AddToInventory(Item item)
-    {
-        playerInventory.Add(item);
-        item.SetLocation("inventory");
+    public void AddToInventory(Item item) {
+        playerInventory.add(item);
+        item.setLocation("inventory");
 
     }
 
-    public void RemoveFromInventory(Item item)
-    { playerInventory.Remove(item); }
+    public void RemoveFromInventory(Item item) {
+        playerInventory.remove(item);
+    }
 
-    public bool IsInInventory(Item item)
-    { return playerInventory.Contains(item); }
+    public boolean IsInInventory(Item item) {
+        return playerInventory.contains(item);
+    }
 
-    public List<Item> GetInventory()
-    { return playerInventory; }
+    public ArrayList<Item> GetInventory() {
+        return playerInventory;
+    }
 
 
-    public void CreateProperNounList()
-    {
-        foreach (GenericObject i in genericList)
-        {
-            legitimateNouns.Add(i.GetName());
-            legitimateNouns.Add(i.GetShortName());
+    public void CreateProperNounList() {
+        for (GenericObject gen : genericList) {
+            legitimateNouns.add(gen.getName());
+            legitimateNouns.add(gen.getShortName());
         }
 
-        legitimateNouns.Sort((a, b) => b.CompareTo(a));     //Sorts list in reverse alphabetical order; this avoids confusion
+        Collections.sort(legitimateCommands);   //Sorts list; this avoids confusion (why do I do this?)
 
     }
 
 
-    public void SortCommandAndConjunctionLists()
-    {
-        legitimateCommands.Sort((a, b) => b.CompareTo(a));
-        legitimateConjunctions.Sort((a, b) => b.CompareTo(a));
+    public void SortCommandAndConjunctionLists() {
+        Collections.sort(legitimateCommands);
+        Collections.sort(legitimateConjunctions);
     }
 
 
+    public Creature GetPlayer() {
+        //return creatureList.Find(x = > x.GetName().ToLower().Contains("trixie"));
 
+        for (Creature creature : creatureList) {
+            if (creature.getName().toLowerCase().equals("Trixie"))
+                return creature;
+        }
+        return null;
+    }
 
-
-    public Creature GetPlayer()
-    { return creatureList.Find(x => x.GetName().ToLower().Contains("trixie")); }
-
-    public Location GetPlayerLocation()
-    {
-        return GetLocation(GetPlayer().GetLocationName());
+    public Location GetPlayerLocation() {
+        return GetLocation(GetPlayer().getLocationName());
     }
 
 
+    public Location GetLocation(String wantedLocation) {
+        //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
+
+        for (Location location : locationList) {
+            if (location.getName().toLowerCase().contains(wantedLocation))
+                return location;
+        }
+        return null;
+    }
 
 
-    public Location GetLocation(String input)
-    { return locationList.Find(x => x.GetName().ToLower().Contains(input.ToLower())); }
+    public Creature GetCreature(String wantedCreature) {
+        //return creatureList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
+
+        for (Creature creature : creatureList) {
+            if (creature.getName().toLowerCase().contains(wantedCreature))
+                return creature;
+        }
+        return null;
+
+    }
+
+    public Item GetItem(String wantedItem) {
+        //return itemList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
+
+        for (Item item : itemList) {
+            if (item.getName().toLowerCase().contains(wantedItem))
+                return item;
+        }
+        return null;
+    }
+
+    public StationaryObject GetStationaryObject(String wantedStationaryObject) {
+        //return stationaryObjectList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
+
+        for (StationaryObject stationaryObject : stationaryObjectList) {
+            if (stationaryObject.getName().toLowerCase().contains(wantedStationaryObject))
+                return stationaryObject;
+        }
+        return null;
+    }
+
+    public GenericObject GetGenericObject(String wantedGenericObject) {
+        //return genericList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
+
+        for (GenericObject genericObject : genericList) {
+            if (genericObject.getName().toLowerCase().contains(wantedGenericObject))
+                return genericObject;
+        }
+        return null;
+    }
 
 
-    public Creature GetCreature(String input)
-    { return creatureList.Find(x => x.GetName().ToLower().Contains(input.ToLower())); }
+    public boolean IsObjectPresent(String generic) {
+        return ((GetPlayer().getLocationName() == GetGenericObject(generic).getLocationName()) || (GetGenericObject(generic).getLocationName() == "inventory"));
+    }
 
-    public Item GetItem(String input)
-    { return itemList.Find(x => x.GetName().ToLower().Contains(input.ToLower())); }
+    public boolean DoesObjectExist(String generic) {
+        return genericList.contains(GetGenericObject(generic));
+    }
 
-    public StationaryObject GetStationaryObject(String input)
-    { return stationaryObjectList.Find(x => x.GetName().ToLower().Contains(input.ToLower())); }
-
-    public GenericObject GetGenericObject(String input)
-    { return genericList.Find(x => x.GetName().ToLower().Contains(input.ToLower())); }
-
-
-
-
-    public bool IsObjectPresent(String generic)
-    { return ((GetPlayer().GetLocationName() == GetGenericObject(generic).GetLocationName()) || (GetGenericObject(generic).GetLocationName() == "inventory")); }
-
-    public bool DoesObjectExist(String generic)
-    { return genericList.Contains(GetGenericObject(generic)); }
-
-    public String ReturnFullName(String name)
-    {
+    public String ReturnFullName(String name) {
         String fullName = name;
 
-        if (genericList.Exists(x => x.GetShortName().Equals(name, StringComparison.InvariantCultureIgnoreCase)))        //If there exists a generic object whose short name is (name)...
-        { fullName = genericList.Find(x => x.GetShortName().ToLower().Contains(name.ToLower())).GetName(); }
-            else
-        { fullName = genericList.Find(x => x.GetName().ToLower().Contains(name.ToLower())).GetName(); }
+        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+            if (generic.getShortName().equals(name)) {
 
-        return fullName;
+                return generic.getName();
+            }
+        }
+
+        return name;        //if not, just return the short name
+    }
+
+
+    public void BuildGenericObjectLists(String loadFilePath) {
+
+
+
+        try {
+            File locations = new File(loadFilePath + "/Locations.txt");
+            myReader = new Scanner(locations);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
+                    locationList.add(new Location(line));
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. Locations file not found.");
+        }
+
+        try {
+            File creatures = new File(loadFilePath + "/Creatures.txt");
+            myReader = new Scanner(creatures);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
+
+                    String[] frag = line.split(": ");
+
+                    creatureList.add(new Creature(frag[0], frag[1]));
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. Creatures file not found.");
+        }
+
+
+        try {
+            File items = new File(loadFilePath + "/Items.txt");
+            myReader = new Scanner(items);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
+                    itemList.add(new Item(line));
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. Items file not found.");
+        }
+
+        try {
+            File stationary = new File(loadFilePath + "/StationaryObjects.txt");
+            myReader = new Scanner(stationary);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
+                    stationaryObjectList.add(new StationaryObject(line));
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. StationaryObjects file not found.");
+        }
+
+
+        genericList.addAll(creatureList);
+        genericList.addAll(itemList);
+        genericList.addAll(stationaryObjectList);
+        genericList.addAll(locationList);
     }
 
 
@@ -201,153 +284,78 @@ public class World {
 
 
 
-    public void BuildGenericObjectLists(String loadFilePath)
-    {
+    public void AddGenericObjectsToLocations(String loadFilePath) {
 
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\Locations.txt"))
-        {
-            String s = "";
+        try {
+            File creatureToLocation = new File(loadFilePath + "/CreatureToLocation.txt");
+            myReader = new Scanner(creatureToLocation);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
 
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    locationList.Add(new Location(s));
+                    String[] frag = line.split(": ");
+
+
+                    AddCreatureToLocation(frag[0], frag[1]);
                 }
             }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. CreatureToLocation file not found.");
         }
 
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\Creatures.txt"))
-        {
-            String s = "";
-            String[] s_sep;
+        try {
+            File itemToLocation = new File(loadFilePath + "/ItemToLocation.txt");
+            myReader = new Scanner(itemToLocation);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
 
-            String[] sep = new String[] { ": " };
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    s_sep = s.Split(sep, StringSplitOptions.None);
+                    String[] frag = line.split(": ");
 
 
-                    creatureList.Add(new Creature(s_sep[0], s_sep[1]));
+                    AddItemToLocation(frag[0], frag[1]);
                 }
             }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. ItemToLocation file not found.");
         }
 
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\Items.txt"))
-        {
-            String s = "";
+        try {
+            File objectToLocation = new File(loadFilePath + "/ObjectToLocation.txt");
+            myReader = new Scanner(objectToLocation);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
 
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
+                    String[] frag = line.split(": ");
 
-                    itemList.Add(new Item(s));
+
+                    AddObjectToLocation(frag[0], frag[1]);
                 }
             }
-        }
 
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\StationaryObjects.txt"))
-        {
-            String s = "";
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-
-                    stationaryObjectList.Add(new StationaryObject(s));
-                }
-            }
-        }
-
-
-        genericList.AddRange(creatureList);
-        genericList.AddRange(itemList);
-        genericList.AddRange(stationaryObjectList);
-        genericList.AddRange(locationList);
-    }
-
-
-    public void AddGenericObjectsToLocations(String loadFilePath)
-    {
-
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\CreatureToLocation.txt"))
-        {
-            String s = "";
-            String[] s_sep;
-
-            String[] sep = new String[] { ": " };
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    s_sep = s.Split(sep, StringSplitOptions.None);
-
-                    AddCreatureToLocation(s_sep[0], s_sep[1]);
-                }
-            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. ObjectToLocation file not found.");
         }
 
 
 
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\ItemToLocation.txt"))
-        {
-            String s = "";
-            String[] s_sep;
 
-            String[] sep = new String[] { ": " };
+        try {
+            File inventory = new File(loadFilePath + "/Inventory.txt");
+            myReader = new Scanner(inventory);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
 
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    s_sep = s.Split(sep, StringSplitOptions.None);
-
-                    AddItemToLocation(s_sep[0], s_sep[1]);
+                    AddToInventory(GetItem(line));
                 }
             }
-        }
 
-
-
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\ObjectToLocation.txt"))
-        {
-            String s = "";
-            String[] s_sep;
-
-            String[] sep = new String[] { ": " };
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    s_sep = s.Split(sep, StringSplitOptions.None);
-
-                    AddObjectToLocation(s_sep[0], s_sep[1]);
-                }
-            }
-        }
-
-
-
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\Inventory.txt"))
-        {
-            String s = "";
-
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-
-                    AddToInventory(GetItem(s));
-                }
-            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. Inventory file not found.");
         }
 
 
@@ -357,101 +365,136 @@ public class World {
     }
 
 
+    public void AddGameFlags(String loadFilePath) {
 
 
+        try {
+            File flags = new File(loadFilePath + "/GameFlags.txt");
+            myReader = new Scanner(flags);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                if (line != "") {
+
+                    String[] frag = line.split(": ");
 
 
-
-
-
-
-    public void AddGameFlags(String loadFilePath)
-    {
-
-        using (StreamReader sr = File.OpenText($@"{loadFilePath}\GameFlags.txt"))
-        {
-            String s = "";
-            String[] s_sep;
-
-            String[] sep = new String[] { ": " };
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                if (s != "")
-                {
-                    s_sep = s.Split(sep, StringSplitOptions.None);
-
-                    GameFlags.Add(s_sep[0], s_sep[1]);
+                    gameFlags.put(frag[0], frag[1]);
                 }
             }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred. GameFlags file not found.");
         }
-
-
-
     }
 
 
 
 
+    public void SaveToFile(String saveFilePath) throws IOException {
 
+        FileWriter myWriter = null;
 
+        try {
+            myWriter = new FileWriter(saveFilePath + "Locations.txt");
 
-
-
-
-    public void SaveToFile(String saveFilePath)
-    {
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\Locations.txt"))
-        {
-            foreach (Location item in locationList)
-            { sr.WriteLine(item.GetName()); }
-        }
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\Creatures.txt"))
-        {
-            foreach (Creature item in creatureList)
-            { sr.WriteLine($"{item.GetName()}: {item.GetRace()}"); }
-        }
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\Items.txt"))
-        {
-            foreach (Item item in itemList)
-            { sr.WriteLine(item.GetName()); }
-        }
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\StationaryObjects.txt"))
-        {
-            foreach (StationaryObject item in stationaryObjectList)
-            { sr.WriteLine(item.GetName()); }
+            for (Location location : locationList) {
+                myWriter.write(location.getName());
+            }
+            System.out.println("Successfully wrote the Locations file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
 
+        try {
+            myWriter = new FileWriter(saveFilePath + "Creatures.txt");
 
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\CreatureToLocation.txt"))
-        {
-            foreach (Creature item in creatureList)
-            { sr.WriteLine($"{item.GetName()}: {item.GetLocationName()}"); }
-        }
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\ItemToLocation.txt"))
-        {
-            foreach (Item item in itemList)
-            { sr.WriteLine($"{item.GetName()}: {item.GetLocationName()}"); }
-        }
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\ObjectToLocation.txt"))
-        {
-            foreach (StationaryObject item in stationaryObjectList)
-            { sr.WriteLine($"{item.GetName()}: {item.GetLocationName()}"); }
+            for (Creature creature : creatureList) {
+                myWriter.write(creature.getName() + ": " + creature.getRace());
+            }
+            System.out.println("Successfully wrote the Creatures file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
 
+        try {
+            myWriter = new FileWriter(saveFilePath + "Items.txt");
 
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\GameFlags.txt"))
-        {
-            foreach (KeyValuePair<String, String> kvp in GameFlags)
-            { sr.WriteLine($"{kvp.Key}: {kvp.Value}"); }
+            for (Item item : itemList) {
+                myWriter.write(item.getName());
+            }
+            System.out.println("Successfully wrote the Items file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
 
-        using (StreamWriter sr = File.CreateText($@"{saveFilePath}\Inventory.txt"))
-        {
-            foreach (Item item in playerInventory)
-            { sr.WriteLine(item.GetName()); }
+        try {
+            myWriter = new FileWriter(saveFilePath + "StationaryObjects.txt");
+
+            for (StationaryObject stationary : stationaryObjectList) {
+                myWriter.write(stationary.getName());
+            }
+            System.out.println("Successfully wrote the StationaryObjects file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
 
+        try {
+            myWriter = new FileWriter(saveFilePath + "CreatureToLocation.txt");
+
+            for (Creature creature : creatureList) {
+                myWriter.write(creature.getName() + ": " + creature.getLocationName());
+            }
+            System.out.println("Successfully wrote the CreatureToLocation file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+
+
+        try {
+            myWriter = new FileWriter(saveFilePath + "ItemToLocation.txt");
+
+            for (Item item : itemList) {
+                myWriter.write(item.getName() + ": " + item.getLocationName());
+            }
+            System.out.println("Successfully wrote the ItemToLocation file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+
+        try {
+            myWriter = new FileWriter(saveFilePath + "ObjectToLocation.txt");
+
+            for (StationaryObject stationary : stationaryObjectList) {
+                myWriter.write(stationary.getName() + ": " + stationary.getLocationName());
+            }
+            System.out.println("Successfully wrote the ObjectToLocation file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+
+        try {
+            myWriter = new FileWriter(saveFilePath + "GameFlags.txt");
+
+            for (String key : gameFlags.keySet()) {
+                myWriter.write(key + ": " + gameFlags.get(key));
+            }
+            System.out.println("Successfully wrote the GameFlags file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+
+        try {
+            myWriter = new FileWriter(saveFilePath + "Inventory.txt");
+
+            for (Item item : playerInventory) {
+                myWriter.write(item.getName());
+            }
+            System.out.println("Successfully wrote the StationaryObjects file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+
+        myWriter.close();
 
     }
 

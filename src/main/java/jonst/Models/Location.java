@@ -67,25 +67,25 @@ public class Location extends GenericObject {
 
 
 
-    public void AddCreature(Creature name)
+    public void addCreature(Creature name)
     { creaturesAtLocation.add(name); }
 
-    public void RemoveCreature(Creature name)
+    public void removeCreature(Creature name)
     { creaturesAtLocation.remove(name); }
 
-    public void AddObject(StationaryObject name)
+    public void addObject(StationaryObject name)
     { objectsAtLocation.add(name); }
 
-    public void RemoveObject(StationaryObject name)
+    public void removeObject(StationaryObject name)
     { objectsAtLocation.remove(name); }
 
-    public void AddItem(Item name)
+    public void addItem(Item name)
     { itemsAtLocation.add(name); }
 
-    public void RemoveItem(Item name)
+    public void removeItem(Item name)
     { itemsAtLocation.remove(name); }
 
-    public List<String> GetExits()
+    public List<String> getExits()
     { return legitimateExits; }
 
 

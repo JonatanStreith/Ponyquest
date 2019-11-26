@@ -14,9 +14,9 @@ public class Commands {
     public static void SaveGame(World world)
     {
         Console.Write("Name your save: ");
-        string choice = Console.ReadLine();
+        String choice = Console.ReadLine();
 
-        string savePath = $@"..\..\..\..\Textbased game\Textbased game\Saves\{choice}";
+        String savePath = $@"..\..\..\..\Textbased game\Textbased game\Saves\{choice}";
 
         if (Directory.Exists(savePath))
         { Console.WriteLine("A save file with that name already exists."); }
@@ -69,9 +69,9 @@ public class Commands {
     public static void ListCommands(World world)
     {
 
-        //List<String> stringList = new List<string>(DataStorage.legitimateCommands);
+        //List<String> StringList = new List<String>(DataStorage.legitimateCommands);
 
-        //Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(stringList)}");
+        //Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(StringList)}");
 
         Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(world.legitimateCommands)}.");
 
@@ -87,7 +87,7 @@ public class Commands {
     }
 
 
-    public static void PickUp(string name, World world)
+    public static void PickUp(String name, World world)
     {
 
         if (!(world.DoesObjectExist(name)))                                                             //Subject doesn't exist.
@@ -127,7 +127,7 @@ public class Commands {
 
     }
 
-    public static void Drop(string name, World world)
+    public static void Drop(String name, World world)
     {
         if (world.IsInInventory(world.GetItem(name)))
         {
@@ -156,7 +156,7 @@ public class Commands {
 
     public static void LookAround(World world)
     {
-        Console.WriteLine(world.GetLocation(world.GetPlayer().GetLocationName()).GetName());
+        Console.WriteLine(getName);
         Console.WriteLine();
         Console.WriteLine(world.GetLocation(world.GetPlayer().GetLocationName()).GetDescription());
 
@@ -176,7 +176,7 @@ public class Commands {
 
 
 
-    public static void LookAt(string argument, World world)          //Make sure you can't look at things that aren't present!
+    public static void LookAt(String argument, World world)          //Make sure you can't look at things that aren't present!
     {
         if (argument == "")
             Console.WriteLine("Look at what?");
@@ -198,10 +198,10 @@ public class Commands {
 
 
 
-    public static void GoTo(string newArea, World world)
+    public static void GoTo(String newArea, World world)
     {
         bool canGo = false;
-        foreach (string place in world.GetLocation(world.GetPlayer().GetLocationName()).GetExits())     //Check if any of the legitimate exits is the place we want to go to
+        foreach (String place in world.GetLocation(world.GetPlayer().GetLocationName()).GetExits())     //Check if any of the legitimate exits is the place we want to go to
         {
 
             if (newArea == place)
@@ -227,7 +227,7 @@ public class Commands {
 
 
 
-    public static void TalkTo(string name, World world)
+    public static void TalkTo(String name, World world)
     {
         if (name== "")
         { Console.WriteLine("Talk to who?"); }
@@ -247,7 +247,7 @@ public class Commands {
             { Console.WriteLine($"{name} doesn't have anything to say."); }
             else
             {
-                string[] dialog = DialogData.casualDialog[name];                   //This runs if you successfully talk to someone.
+                String[] dialog = DialogData.casualDialog[name];                   //This runs if you successfully talk to someone.
                 Console.WriteLine(dialog[world.diceRoll.Next(dialog.Length)]);
             }
         }
@@ -261,14 +261,14 @@ public class Commands {
     public static void GetExits(World world)
     {
         Location loc = world.GetLocation(world.GetPlayer().GetLocationName());
-        List<string> exits = loc.GetExits();
+        List<String> exits = loc.GetExits();
 
 
         Console.Write($"Exits are: {HelpfulMethods.TurnStringListIntoString(exits)}.");
     }
 
 
-    public static void TeleportOther(string[] command, World world)                             //TO DO Make sure you can teleport items and objects - different code?
+    public static void TeleportOther(String[] command, World world)                             //TO DO Make sure you can teleport items and objects - different code?
     {
 
         if (!world.DoesObjectExist(command[1]))             //Subject doesn't exist
@@ -277,10 +277,10 @@ public class Commands {
         else if (!world.IsObjectPresent(command[1]))        //Subject isn't in the area
         { Console.WriteLine("You can only teleport things within eyesight."); }
 
-        else if (world.GetGenericObject(command[1]).GetName().Equals("Trixie", StringComparison.InvariantCultureIgnoreCase))           //Are you instructing the game to teleport Trixie herself?
+        else if (getName.Equals("Trixie", StringComparison.InvariantCultureIgnoreCase))           //Are you instructing the game to teleport Trixie herself?
         {
-            world.RemoveCreatureFromLocation(world.GetPlayer().GetName(), world.GetPlayer().GetLocationName());
-            world.AddCreatureToLocation(world.GetPlayer().GetName(), command[3]);
+            world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
+            world.AddCreatureToLocation(getName, command[3]);
 
             Console.WriteLine($"You vanish in a burst of smoke, and reappear at {world.GetLocation(command[3]).GetName()}");
             Console.ReadLine();
@@ -289,7 +289,7 @@ public class Commands {
         }
         else if (world.GetGenericObject(command[1]) is Creature)
         {
-            world.RemoveCreatureFromLocation(world.GetCreature(command[1]).GetName(), world.GetPlayer().GetLocationName());
+            world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
             world.AddCreatureToLocation(command[1], command[3]);
 
             Console.WriteLine($"{command[1]} vanishes in a burst of smoke!");
@@ -300,10 +300,10 @@ public class Commands {
     }
 
 
-    public static void TeleportSelf(string[] command, World world)  //Make sure you can teleport items and objects - different code?
+    public static void TeleportSelf(String[] command, World world)  //Make sure you can teleport items and objects - different code?
     {
-        world.RemoveCreatureFromLocation(world.GetPlayer().GetName(), world.GetPlayer().GetLocationName());
-        world.AddCreatureToLocation(world.GetPlayer().GetName(), command[1]);
+        world.RemoveCreatureFromLocation(getName, world.GetPlayer().GetLocationName());
+        world.AddCreatureToLocation(getName, command[1]);
 
 
 
@@ -319,7 +319,7 @@ public class Commands {
 
 
 
-    public static void Ask(string[] command, World world)
+    public static void Ask(String[] command, World world)
     {
         if (!world.DoesObjectExist(command[1]))         //Nonexistent
         { Console.WriteLine("Ask who?"); }

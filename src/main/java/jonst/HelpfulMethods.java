@@ -8,7 +8,7 @@ import java.util.List;
 
 public class HelpfulMethods {
 
-    public static String IsOrAre(int num)
+    public static String isOrAre(int num)
     {
         String output = "is";
         if (num > 1) { output = "are"; };
@@ -26,7 +26,7 @@ public class HelpfulMethods {
 
 
 
-    public static String TurnStringListIntoString(List<String> list)     //Takes a list of strings, pieces them together into one string
+    public static String turnStringListIntoString(List<String> list)     //Takes a list of strings, pieces them together into one string
     {
         String fullString = "";
         /*List<String> nameList = new ArrayList<String>();
@@ -67,7 +67,7 @@ public class HelpfulMethods {
         List<String> nameList = new ArrayList<String>();
 
         for (Item item : list)
-        { nameList.add(item.GetName()); }    //Generates a list of names
+        { nameList.add(item.getName()); }    //Generates a list of names
 
         if (nameList.size() >= 2)
         {
@@ -92,13 +92,13 @@ public class HelpfulMethods {
 
 
 
-    public static String TurnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
+    public static String turnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
     {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
 
         for(Creature item : list)
-        { nameList.add(item.GetName()); }    //Generates a list of names
+        { nameList.add(item.getName()); }    //Generates a list of names
 
 
         if (nameList.size() >= 3)

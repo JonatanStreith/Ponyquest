@@ -38,7 +38,7 @@ public class Creature extends GenericObject {
 
 
 
-    public String GetRace()
+    public String getRace()
     { return race; }
 
 }

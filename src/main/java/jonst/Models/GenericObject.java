@@ -9,18 +9,18 @@ public class GenericObject {
     protected String locationName;
 
 
-    public String GetName()
+    public String getName()
     { return name; }
 
-    public String GetShortName()
+    public String getShortName()
     { return shortName; }
 
-    public String GetDescription()
+    public String getDescription()
     { return description; }
 
-    public String GetLocationName()
+    public String getLocationName()
     { return locationName; }
 
-    public void SetLocation(String loc)
+    public void setLocation(String loc)
     { locationName = loc; }
 }
