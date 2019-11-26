@@ -26,13 +26,13 @@ public class App
 
         //create locations, creatures, objects and items
 
-        Path path = Paths.get("..\\..\\..\\..\\Textbased game\\Textbased game");
+        String gamepath = "src/main/java/jonst";
 
 
-        Path defaultWorld = Paths.get( path +"\\DefaultWorld");
+        String defaultWorld = gamepath +"/Assets/DefaultWorld";
         String reply;
         boolean choiceMade = false;
-        Path filePath = defaultWorld;
+        String filePath;
         System.out.println("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
 
         do
