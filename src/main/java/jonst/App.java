@@ -1,6 +1,8 @@
 package jonst;
 
 import java.io.Console;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -24,13 +26,13 @@ public class App
 
         //create locations, creatures, objects and items
 
-        String gamePath = "..\\..\\..\\..\\Textbased game\\Textbased game";
+        Path path = Paths.get("..\\..\\..\\..\\Textbased game\\Textbased game");
 
 
-        String defaultWorld = gamePath +"\\DefaultWorld";
+        Path defaultWorld = Paths.get( path +"\\DefaultWorld");
         String reply;
         boolean choiceMade = false;
-        String filePath = defaultWorld;
+        Path filePath = defaultWorld;
         System.out.println("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
 
         do
@@ -49,12 +51,12 @@ public class App
             else if (reply == "l")
             {
                 System.out.println("Available saves:");
-                foreach (String dir in Directory.EnumerateDirectories($@"{gamePath}\Saves"))
+                for(String dir : Directory.EnumerateDirectories(path +"\\Saves"))
                 { Console.WriteLine(dir); } //List save files - clean up later
 
                 System.out.println("Which save file do you want to load? ");
 
-                String choice = Console.ReadLine();
+                String choice = inputReader.nextLine();
 
                 if (Directory.Exists($@"{gamePath}\Saves\{choice}"))
                 {
