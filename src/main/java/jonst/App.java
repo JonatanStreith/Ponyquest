@@ -1,6 +1,7 @@
 package jonst;
 
 import java.io.Console;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -51,17 +52,21 @@ public class App
             else if (reply == "l")
             {
                 System.out.println("Available saves:");
-                for(String dir : Directory.EnumerateDirectories(path +"\\Saves"))
-                { Console.WriteLine(dir); } //List save files - clean up later
+                for(String dir : new File(gamepath + "Assets/Saves").list()  )
+                {
+                    System.out.println(dir);
+                } //List save files - clean up later
 
                 System.out.println("Which save file do you want to load? ");
 
                 String choice = inputReader.nextLine();
 
-                if (Directory.Exists($@"{gamePath}\Saves\{choice}"))
+                if (new File(gamepath + "Assets/Saves/" + choice).exists())
+
+
                 {
-                    filePath = $@"{gamePath}\Saves\{choice}";
-                    System.out.println("Restoring from {choice}...");
+                    filePath = gamepath + "Assets/Saves/" + choice;
+                    System.out.println("Restoring from " + choice + "...");
                     choiceMade = true;
 
                 }
