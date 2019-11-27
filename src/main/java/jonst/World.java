@@ -193,7 +193,7 @@ public class World {
 
 
     public boolean isObjectPresent(String generic) {
-        return ((getPlayer().getLocationName() == getGenericObject(generic).getLocationName()) || (getGenericObject(generic).getLocationName() == "inventory"));
+        return ((getPlayer().getLocationName().equals(getGenericObject(generic).getLocationName())) || (getGenericObject(generic).getLocationName().equals("inventory")));
     }
 
     public boolean doesObjectExist(String generic) {

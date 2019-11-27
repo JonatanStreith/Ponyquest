@@ -44,7 +44,7 @@ public class Commands {
 
     public static void quit() {
         System.out.println("Are you sure you want to quit? Y/N");
-        if (SystemData.inputReader.nextLine().toLowerCase() == "y") {
+        if (SystemData.inputReader.nextLine().toLowerCase().equals("y")) {
             System.out.println("Okay, bye!");
             SystemData.inputReader.nextLine();
 
@@ -149,7 +149,7 @@ public class Commands {
 
     public static void lookAt(String argument, World world)          //Make sure you can't look at things that aren't present!
     {
-        if (argument == "")
+        if (argument.equals(""))
             System.out.println("Look at what?");
         else if (world.getPlayer().getLocationName().toLowerCase().equals(argument.toLowerCase()))      //Looks at place
         {
@@ -171,7 +171,7 @@ public class Commands {
         for (String place : world.getLocation(world.getPlayer().getLocationName()).getExits())     //Check if any of the legitimate exits is the place we want to go to
         {
 
-            if (newArea == place) {
+            if (newArea.equals(place)) {
                 canGo = true;
             }
         }
@@ -192,7 +192,7 @@ public class Commands {
 
 
     public static void talkTo(String name, World world) {
-        if (name == "") {
+        if (name.equals("")) {
             System.out.println("Talk to who?");
         } else if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
         {

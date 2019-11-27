@@ -19,7 +19,7 @@ public class App
 
 
 
-    static void Main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         SystemData.inputReader = new Scanner(System.in);
 
@@ -43,7 +43,7 @@ public class App
             reply = SystemData.inputReader.nextLine();
 
 
-            if (reply == "n")
+            if (reply.equals("n"))
             {
                 filePath = defaultWorld;
                 choiceMade = true;
@@ -51,7 +51,7 @@ public class App
 
             }
 
-            else if (reply == "l")
+            else if (reply.equals("l"))
             {
                 System.out.println("Available saves:");
                 for(String dir : new File(SystemData.savepath).list()  )
