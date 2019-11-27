@@ -40,4 +40,6 @@ public class Notes {
     //Remember: GameFlags is a hashmap, get values through GameFlags.get("keyword");
 
     //Check so that random dialog is actually random!
+
+    //When "using" something, call a method that takes relevant data and runs scripts?
 }

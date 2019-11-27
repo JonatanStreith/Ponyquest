@@ -32,10 +32,10 @@ public class App
 
 
 
-        String defaultWorld = SystemData.gamepath +"/Assets/DefaultWorld";
+        //String defaultWorld = SystemData.defaultWorld;
         String reply;
         boolean choiceMade = false;
-        String filePath = defaultWorld;
+        String filePath = "";
         System.out.println("Welcome to the game! Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
 
         do
@@ -45,7 +45,7 @@ public class App
 
             if (reply.equals("n"))
             {
-                filePath = defaultWorld;
+                filePath = SystemData.defaultWorld;
                 choiceMade = true;
                 rollIntro();
 
@@ -84,9 +84,9 @@ public class App
         } while (!choiceMade);
 
 
+
+
         World Equestria = new World(filePath);
-
-
 
 
         String input;

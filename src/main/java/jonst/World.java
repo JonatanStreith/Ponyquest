@@ -35,6 +35,7 @@ public class World {
 
     public World(String loadFilePath) {
 
+        System.out.println(loadFilePath);
 
 
         buildGenericObjectLists(loadFilePath);                   //Create and add all objects to the main lists
@@ -214,12 +215,21 @@ public class World {
     }
 
 
+
+
+
+
+
+
     public void buildGenericObjectLists(String loadFilePath) {
 
 
 
         try {
             File locations = new File(loadFilePath + "/Locations.txt");
+
+            System.out.println("Locations: " + locations);
+
             myReader = new Scanner(locations);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
@@ -235,6 +245,9 @@ public class World {
         try {
             File creatures = new File(loadFilePath + "/Creatures.txt");
             myReader = new Scanner(creatures);
+
+            System.out.println("creatures: " + creatures);
+
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
@@ -252,6 +265,9 @@ public class World {
 
         try {
             File items = new File(loadFilePath + "/Items.txt");
+
+            System.out.println("items: " + items);
+
             myReader = new Scanner(items);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
