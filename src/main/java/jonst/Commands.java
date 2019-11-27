@@ -204,11 +204,11 @@ public class Commands {
         {
             System.out.println("You don't make a habit of talking to inanimate objects.");
         } else if ((world.getGenericObject(name) instanceof Creature)) {
-            if (!DialogData.hasCasualDialog(name))                                  //If no dialog entry exists for this character.
+            if (!world.dialogs.hasCasualDialog(name))                                  //If no dialog entry exists for this character.
             {
                 System.out.println(name + " doesn't have anything to say.");
             } else {
-                System.out.println(DialogData.getRandomCasualDialog(name));         //This runs if you successfully talk to someone.
+                System.out.println(world.dialogs.getRandomCasualDialog(name));         //This runs if you successfully talk to someone.
 
             }
         } else {

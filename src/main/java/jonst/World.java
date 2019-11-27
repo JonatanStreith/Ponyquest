@@ -33,11 +33,13 @@ public class World {
 
      private Scanner myReader;
 
+     DialogData dialogs;
+
     public World(String loadFilePath) {
 
         DataOrganizer dataOrganizer = new DataOrganizer();
 
-
+        dialogs = dataOrganizer.getDialogData();
 
 
 
@@ -64,8 +66,12 @@ public class World {
 
     public void addCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
-        getLocation(location).addCreature(getCreature(creature));
-        getCreature(creature).setLocation(location);
+
+        Location loc = getLocation(location);
+        Creature cre = getCreature(creature);
+
+        loc.addCreature(cre);
+        cre.setLocation(location);
     }
 
     public void removeCreatureFromLocation(String creature, String location) {
@@ -73,7 +79,7 @@ public class World {
     }
 
     public void addItemToLocation(String item, String location) {
-        //Adds "creature" to "location"
+        //Adds "item" to "location"
         getLocation(location).addItem(getItem(item));
         getItem(item).setLocation(location);
     }
@@ -83,9 +89,13 @@ public class World {
     }
 
     public void addObjectToLocation(String stationaryObject, String location) {
-        //Adds "creature" to "location"
-        getLocation(location).addObject(getStationaryObject(stationaryObject));
-        getStationaryObject(stationaryObject).setLocation(location);
+        //Adds "stationary" to "location"
+
+        Location loc = getLocation(location);
+        StationaryObject sta = getStationaryObject(stationaryObject);
+
+        loc.addObject(sta);
+        sta.setLocation(location);
     }
 
     public void removeObjectFromLocation(String stationaryObject, String location) {
@@ -146,7 +156,7 @@ public class World {
         //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Location location : locationList) {
-            if (location.getName().toLowerCase().contains(wantedLocation))
+            if (location.getName().toLowerCase().contains(wantedLocation.toLowerCase()))
                 return location;
         }
         return null;
@@ -156,7 +166,7 @@ public class World {
         //return creatureList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Creature creature : creatureList) {
-            if (creature.getName().toLowerCase().contains(wantedCreature))
+            if (creature.getName().toLowerCase().contains(wantedCreature.toLowerCase()))
                 return creature;
         }
         return null;
@@ -166,7 +176,7 @@ public class World {
         //return itemList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Item item : itemList) {
-            if (item.getName().toLowerCase().contains(wantedItem))
+            if (item.getName().toLowerCase().contains(wantedItem.toLowerCase()))
                 return item;
         }
         return null;
@@ -176,7 +186,7 @@ public class World {
         //return stationaryObjectList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (StationaryObject stationaryObject : stationaryObjectList) {
-            if (stationaryObject.getName().toLowerCase().contains(wantedStationaryObject))
+            if (stationaryObject.getName().toLowerCase().equals(wantedStationaryObject.toLowerCase()))
                 return stationaryObject;
         }
         return null;
@@ -186,7 +196,7 @@ public class World {
         //return genericList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (GenericObject genericObject : genericList) {
-            if (genericObject.getName().toLowerCase().contains(wantedGenericObject))
+            if (genericObject.getName().toLowerCase().contains(wantedGenericObject.toLowerCase()))
                 return genericObject;
         }
         return null;
@@ -238,7 +248,10 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    locationList.add(new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), loD.getLegitimateExits(line)));
+                    Location loc =new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), loD.getLegitimateExits(line));
+
+                    locationList.add(loc);
+                    genericList.add(loc);
                 }
             }
 
@@ -260,7 +273,12 @@ public class World {
                     String name = frag[0];
                     String race = frag[1];
 
-                    creatureList.add(new Creature(name, crD.getCreatureShortName(name), crD.getCreatureDescription(name), race));
+
+                        Creature cre = new Creature(name, crD.getCreatureShortName(name), crD.getCreatureDescription(name), race);
+
+                        creatureList.add(cre);
+                        genericList.add(cre);
+
                 }
             }
 
@@ -278,7 +296,11 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    itemList.add(new Item(line, itD.getItemShortName(line), itD.getItemDescription(line)));
+
+                    Item ite = new Item(line, itD.getItemShortName(line), itD.getItemDescription(line));
+
+                    itemList.add(ite);
+                    genericList.add(ite);
                 }
             }
 
@@ -292,7 +314,11 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    stationaryObjectList.add(new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line)));
+
+                    StationaryObject sta = new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line));
+
+                    stationaryObjectList.add(sta);
+                    genericList.add(sta);
                 }
             }
 
@@ -301,10 +327,6 @@ public class World {
         }
 
 
-        genericList.addAll(creatureList);
-        genericList.addAll(itemList);
-        genericList.addAll(stationaryObjectList);
-        genericList.addAll(locationList);
     }
 
 

@@ -2,6 +2,9 @@ package jonst;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class WorldTest {
 
 
@@ -11,7 +14,7 @@ public class WorldTest {
         World earth = new World("src/main/java/jonst/Assets/DefaultWorld");
 
 
-
+assertNotNull(earth);
 
     }
 }
