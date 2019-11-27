@@ -1,5 +1,6 @@
 package jonst.Models;
 
+import jonst.Data.CreatureData;
 import jonst.Data.LocationData;
 
 import java.io.Console;
@@ -20,38 +21,11 @@ public class Location extends GenericObject {
     private ArrayList<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
     private ArrayList<Item> itemsAtLocation = new ArrayList<Item>();
 
-    public Location(String inputName)
+    public Location(String name, String shortName, String description, ArrayList<String> legitimateExits)
     {
+        super(name, shortName, description);
 
-        name = inputName;
-
-        if (LocationData.hasLocationShortName(name))
-        { shortName = LocationData.getLocationShortName(name); }
-        else
-        { shortName = name; }
-
-
-
-
-        if (LocationData.hasLocationDescription(name))
-        { description = LocationData.getLocationDescription(name); }
-        else
-        {
-            System.out.println(name + " lacks description");
-            description = "[description missing]";
-        }
-
-
-
-        if (LocationData.hasLegitimateExits(name))
-        { legitimateExits = LocationData.getLegitimateExits(name); }
-        else
-        {
-            System.out.println(name + " has no established exits");
-            legitimateExits.add("no exits");
-        }
-
-
+        this.legitimateExits = legitimateExits;
 
         locationName = name;
 

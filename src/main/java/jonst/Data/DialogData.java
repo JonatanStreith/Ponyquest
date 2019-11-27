@@ -59,68 +59,60 @@ public class DialogData {
             //add();
         }});
 
-        casualDialog.put(, new ArrayList<String>() {{
-            add();
-            add();
-            add();
-            add();
+        casualDialog.put("Spike", new ArrayList<String>() {{
+            add("\"What do you want?\"");
+            add("\"Please tell me you're not going to break stuff again.\"");
+            add("\"Oh... I think I've got stuff to do. Elsewhere.\"");
+            add("\"Starlight's in the library, I think. Go bother her.\"");
             //add();
         }});
 
-        casualDialog.put(, new ArrayList<String>() {{
-            add();
-            add();
-            add();
-            add();
+        casualDialog.put("Trixie", new ArrayList<String>() {{
+            add("Talking to yourself is usually pointless.");
+            add("Much as you're a wonderful conversationalist, there's not much point.");
+            add("You'd rather not. Other ponies think you're weird enough as it is.");
+            //add();
+            //add();
+        }});
+
+        casualDialog.put("Starlight Glimmer", new ArrayList<String>() {{
+            add("\"Oh, hi, Trixie!\"");
+            add("\"So what have you been up to lately? Anything exciting?\"");
+            add("\"Wanna hang out later? We could work on magic or something. You choose.\"");
+            add("\"You haven't been bothering Twilight, have you?\"");
+            //add();
+        }});
+
+        casualDialog.put("Maud Pie", new ArrayList<String>() {{
+            add("\"Trixie. Hello.\"");
+            add("\"Do you want something?\"");
+            add("\"...\"");
+            add("\"I seem to have misplaced my chisel...\"");
             //add();
         }});
 
 
     }
 
-     static String[][] casualDialog = new String[][]
 
 
 
- {
-
-           , { "Spike", "\"What do you want?\"", "\"Please tell me you're not going to break stuff again.\"", "\"Oh... I think I've got stuff to do. Elsewhere.\"", "\"Starlight's in the library, I think. Go bother her.\"" }
-           , { "Trixie",  "Talking to yourself is usually pointless.", "Much as you're a wonderful conversationalist, there's not much point.", "You'd rather not. Other ponies think you're weird enough as it is." }
-           , { "Starlight Glimmer", "\"Oh, hi, Trixie!\"", "\"So what have you been up to lately? Anything exciting?\"", "\"Wanna hang out later? We could work on magic or something. You choose.\"", "\"You haven't been bothering Twilight, have you?\"" }
-           , { "Maud Pie", "\"Trixie. Hello.\"", "\"Do you want something?\"", "\"...\"", "\"I seem to have misplaced my chisel...\"" }
-           , { "Placeholder", "\"\"", "\"\"", "\"\"", "\"\"" }
-        };
-
-
-    public static boolean hasCasualDialog(String key){
-
-        for (String[] line: casualDialog) {
-            if(line[0].equals(key)) return true;
-        }
-        return false;
+    public boolean hasCasualDialog(String key){
+if(casualDialog.containsKey(key))
+    return true;
+else
+    return false;
     }
 
 
-    public static String[] getCasualDialog(String key){
-        String[] returnData = new String[casualDialog.length-1];
-
-        for (String[] line: casualDialog) {
-            if(line[0].equals(key)) {
-                System.arraycopy(casualDialog, 1, returnData, 0, casualDialog.length-1);  //Always ignore first entry, as it is the "key".
-            }
-        }
-        return returnData;
+    public ArrayList<String> getCasualDialog(String key){
+        return casualDialog.get(key);
     }
 
-    public static String getRandomCasualDialog(String name){
-        for (String[] line: casualDialog) {
-            if(line[0].equals(name)) {
+    public String getRandomCasualDialog(String key){
 
-                int pick = (int) Math.ceil(Math.random() * line.length-1);
-                return line[pick];
-            }
-        }
-        return "You shouldn't get this response. Check DialogData.";
+        ArrayList<String> choices = casualDialog.get(key);
 
+        return choices.get((int) Math.ceil(Math.random() * choices.size()));
     }
 }

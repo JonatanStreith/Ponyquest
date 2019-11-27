@@ -1,5 +1,7 @@
 package jonst.Models;
 
+import java.util.ArrayList;
+
 public class GenericObject {
     protected String name;
     protected String shortName;
@@ -8,19 +10,41 @@ public class GenericObject {
 
     protected String locationName;
 
+public GenericObject(String name, String shortName, String description)
+{
 
-    public String getName()
-    { return name; }
+    this.name = name;
+    this.shortName = shortName;
+    this.description = description;
 
-    public String getShortName()
-    { return shortName; }
+}
 
-    public String getDescription()
-    { return description; }
 
-    public String getLocationName()
-    { return locationName; }
+    public String getName() {
+        return name;
+    }
 
-    public void setLocation(String loc)
-    { locationName = loc; }
+    public String getShortName() {
+        return shortName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocation(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

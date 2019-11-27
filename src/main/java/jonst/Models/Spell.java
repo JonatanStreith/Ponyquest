@@ -4,11 +4,8 @@ import jonst.Models.GenericObject;
 
 public class Spell extends GenericObject {
 
-    public Spell(String inputName, String inputShortName)
-    {
-        name = inputName;
-        shortName = inputShortName;
 
+    public Spell(String name, String shortName, String description) {
+        super(name, shortName, description);
     }
-
 }

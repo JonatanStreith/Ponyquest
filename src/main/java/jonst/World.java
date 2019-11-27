@@ -1,6 +1,6 @@
 package jonst;
 
-import jonst.Data.SystemData;
+import jonst.Data.*;
 import jonst.Models.*;
 
 import java.io.File;
@@ -35,10 +35,16 @@ public class World {
 
     public World(String loadFilePath) {
 
+        DataOrganizer dataOrganizer = new DataOrganizer();
+
+
+
+
+
         System.out.println(loadFilePath);
 
 
-        buildGenericObjectLists(loadFilePath);                   //Create and add all objects to the main lists
+        buildGenericObjectLists(loadFilePath, dataOrganizer);                   //Create and add all objects to the main lists
 
         addGenericObjectsToLocations(loadFilePath);              //Add all objects to their specified locations
 
@@ -54,7 +60,7 @@ public class World {
 
 
 
-
+//-------- Add/Remove stuff -----------------------------------
 
     public void addCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
@@ -66,7 +72,6 @@ public class World {
         getLocation(location).removeCreature(getCreature(creature));
     }
 
-
     public void addItemToLocation(String item, String location) {
         //Adds "creature" to "location"
         getLocation(location).addItem(getItem(item));
@@ -76,7 +81,6 @@ public class World {
     public void removeItemFromLocation(String item, String location) {
         getLocation(location).removeItem(getItem(item));
     }
-
 
     public void addObjectToLocation(String stationaryObject, String location) {
         //Adds "creature" to "location"
@@ -88,11 +92,9 @@ public class World {
         getLocation(location).removeObject(getStationaryObject(stationaryObject));
     }
 
-
     public void addToInventory(Item item) {
         playerInventory.add(item);
         item.setLocation("inventory");
-
     }
 
     public void removeFromInventory(Item item) {
@@ -108,14 +110,14 @@ public class World {
     }
 
 
+    //-------- List handling -----------------------
+
     public void createProperNounList() {
         for (GenericObject gen : genericList) {
             legitimateNouns.add(gen.getName());
             legitimateNouns.add(gen.getShortName());
         }
-
         Collections.sort(legitimateCommands);   //Sorts list; this avoids confusion (why do I do this?)
-
     }
 
 
@@ -125,9 +127,10 @@ public class World {
     }
 
 
-    public Creature getPlayer() {
-        //return creatureList.Find(x = > x.GetName().ToLower().Contains("trixie"));
 
+    // --------------- Getters ------------------------
+
+    public Creature getPlayer() {
         for (Creature creature : creatureList) {
             if (creature.getName().toLowerCase().equals("Trixie"))
                 return creature;
@@ -139,7 +142,6 @@ public class World {
         return getLocation(getPlayer().getLocationName());
     }
 
-
     public Location getLocation(String wantedLocation) {
         //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
@@ -150,7 +152,6 @@ public class World {
         return null;
     }
 
-
     public Creature getCreature(String wantedCreature) {
         //return creatureList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
@@ -159,7 +160,6 @@ public class World {
                 return creature;
         }
         return null;
-
     }
 
     public Item getItem(String wantedItem) {
@@ -192,6 +192,18 @@ public class World {
         return null;
     }
 
+    public String returnFullName(String name) {
+        String fullName = name;
+
+        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+            if (generic.getShortName().equals(name)) {
+                return generic.getName();
+            }
+        }
+        return name;        //if not, just return the short name
+    }
+
+    // ------------- Boolean checks ---------------------
 
     public boolean isObjectPresent(String generic) {
         return ((getPlayer().getLocationName().equals(getGenericObject(generic).getLocationName())) || (getGenericObject(generic).getLocationName().equals("inventory")));
@@ -201,28 +213,20 @@ public class World {
         return genericList.contains(getGenericObject(generic));
     }
 
-    public String returnFullName(String name) {
-        String fullName = name;
-
-        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-            if (generic.getShortName().equals(name)) {
-
-                return generic.getName();
-            }
-        }
-
-        return name;        //if not, just return the short name
-    }
 
 
 
 
 
 
+    // ------------------ The build methods --------------------------
 
+    public void buildGenericObjectLists(String loadFilePath, DataOrganizer dataOrganizer) {
 
-    public void buildGenericObjectLists(String loadFilePath) {
-
+        LocationData loD = dataOrganizer.getLocationData();
+        CreatureData crD = dataOrganizer.getCreatureData();
+        ItemData itD = dataOrganizer.getItemData();
+        StationaryObjectData soD = dataOrganizer.getStationaryObjectData();
 
 
         try {
@@ -234,7 +238,7 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    locationList.add(new Location(line));
+                    locationList.add(new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), loD.getLegitimateExits(line)));
                 }
             }
 
@@ -253,8 +257,10 @@ public class World {
                 if (line != "") {
 
                     String[] frag = line.split(": ");
+                    String name = frag[0];
+                    String race = frag[1];
 
-                    creatureList.add(new Creature(frag[0], frag[1]));
+                    creatureList.add(new Creature(name, crD.getCreatureShortName(name), crD.getCreatureDescription(name), race));
                 }
             }
 
@@ -272,7 +278,7 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    itemList.add(new Item(line));
+                    itemList.add(new Item(line, itD.getItemShortName(line), itD.getItemDescription(line)));
                 }
             }
 
@@ -286,7 +292,7 @@ public class World {
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 if (line != "") {
-                    stationaryObjectList.add(new StationaryObject(line));
+                    stationaryObjectList.add(new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line)));
                 }
             }
 
@@ -411,6 +417,7 @@ public class World {
 
 
 
+    // ---------- The save function! -----------------------
 
     public void saveToFile(String saveFilePath) throws IOException {
 
