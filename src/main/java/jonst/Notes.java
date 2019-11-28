@@ -42,4 +42,7 @@ public class Notes {
     //Check so that random dialog is actually random!
 
     //When "using" something, call a method that takes relevant data and runs scripts?
+
+
+    //https://howtodoinjava.com/library/json-simple-read-write-json-examples/
 }

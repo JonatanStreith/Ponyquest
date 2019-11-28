@@ -10,7 +10,7 @@ public class CreatureData {
 
     private HashMap<String, String> creatureShortNames = new HashMap<>();
 
-    public CreatureData(){
+    public CreatureData() {
 
         creatureDescriptions.put("Twilight Sparkle", "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.");
         creatureDescriptions.put("Celestia", "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.");
@@ -54,7 +54,10 @@ public class CreatureData {
     }
 
     public String getCreatureDescription(String key) {
+        if(!hasCreatureDescription(key))
         return creatureDescriptions.get(key);
+        else
+            return "Description missing.";
     }
 
     public boolean hasCreatureShortName(String key) {
@@ -65,13 +68,11 @@ public class CreatureData {
     }
 
     public String getCreatureShortName(String key) {
-        return creatureShortNames.get(key);
+        if (!hasCreatureShortName(key))
+            return creatureShortNames.get(key);
+        else
+            return key;
     }
-
-
-
-
-
 
 
 }

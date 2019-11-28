@@ -14,20 +14,15 @@ public class World {
 
     public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
-
     public ArrayList<Location> locationList = new ArrayList<Location>();      //Main lists that store all game objects
     public ArrayList<Creature> creatureList = new ArrayList<Creature>();
     public ArrayList<StationaryObject> stationaryObjectList = new ArrayList<StationaryObject>();
     public ArrayList<Item> itemList = new ArrayList<Item>();
-
     public ArrayList<GenericObject> genericList = new ArrayList<GenericObject>();
-
 
     public ArrayList<Item> playerInventory = new ArrayList<Item>();
 
-
     public ArrayList<String> legitimateNouns = new ArrayList<String>();
-
     public ArrayList<String> legitimateCommands = SystemData.getLegitimateCommands();
     public ArrayList<String> legitimateConjunctions = SystemData.getLegitimateConjunctions();
 
@@ -48,7 +43,7 @@ public class World {
 
         buildGenericObjectLists(loadFilePath, dataOrganizer);                   //Create and add all objects to the main lists
 
-        addGenericObjectsToLocations(loadFilePath);              //Add all objects to their specified locations
+        //addGenericObjectsToLocations(loadFilePath);              //Add all objects to their specified locations
 
         addGameFlags(loadFilePath);                              //Add all game flags, to track conditions and stuff
 
@@ -247,11 +242,13 @@ public class World {
             myReader = new Scanner(locations);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
+
                     Location loc =new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), loD.getLegitimateExits(line));
 
                     locationList.add(loc);
                     genericList.add(loc);
+                    loc.getFeedback();
                 }
             }
 
@@ -267,7 +264,7 @@ public class World {
 
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     String[] frag = line.split(": ");
                     String name = frag[0];
@@ -278,7 +275,7 @@ public class World {
 
                         creatureList.add(cre);
                         genericList.add(cre);
-
+                        cre.getFeedback();
                 }
             }
 
@@ -295,12 +292,13 @@ public class World {
             myReader = new Scanner(items);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     Item ite = new Item(line, itD.getItemShortName(line), itD.getItemDescription(line));
 
                     itemList.add(ite);
                     genericList.add(ite);
+                    ite.getFeedback();
                 }
             }
 
@@ -310,15 +308,19 @@ public class World {
 
         try {
             File stationary = new File(loadFilePath + "/StationaryObjects.txt");
+
+            System.out.println("Stationary objects: " + stationary);
+
             myReader = new Scanner(stationary);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     StationaryObject sta = new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line));
 
                     stationaryObjectList.add(sta);
                     genericList.add(sta);
+                    sta.getFeedback();
                 }
             }
 
@@ -341,7 +343,7 @@ public class World {
             myReader = new Scanner(creatureToLocation);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     String[] frag = line.split(": ");
 
@@ -359,7 +361,7 @@ public class World {
             myReader = new Scanner(itemToLocation);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     String[] frag = line.split(": ");
 
@@ -377,7 +379,7 @@ public class World {
             myReader = new Scanner(objectToLocation);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     String[] frag = line.split(": ");
 
@@ -398,7 +400,7 @@ public class World {
             myReader = new Scanner(inventory);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     addToInventory(getItem(line));
                 }
@@ -423,7 +425,7 @@ public class World {
             myReader = new Scanner(flags);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                if (line != "") {
+                if (!line.equals("")) {
 
                     String[] frag = line.split(": ");
 

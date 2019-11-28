@@ -47,4 +47,9 @@ public GenericObject(String name, String shortName, String description)
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void getFeedback(){
+    String feedback = name + "(" + shortName + "): " + description;
+        System.out.println(feedback);
+    }
 }

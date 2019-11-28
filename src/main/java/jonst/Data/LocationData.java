@@ -19,7 +19,7 @@ public class LocationData {
 
         //Put these in separate methods later. Better, generate from a file!
 
-        locationDescriptions.put("Sugarcube Corner", "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house.");
+        locationDescriptions.put("Sugarcube Corner (outside)", "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house.");
         locationDescriptions.put("Sugarcube Corner interior", "The shop is busy with ponies enjoying baked goods.");
         locationDescriptions.put("Sugarcube Corner kitchen", "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?");
         locationDescriptions.put("Pinkie Pie's room", "This is Pinkie Pie's room. It's a complete mess.");
@@ -36,7 +36,7 @@ public class LocationData {
         locationDescriptions.put("Starlight's room", "Starlight's room. You hang out here sometimes.");
         //locationDescriptions.put();
 
-        locationShortNames.put("Sugarcube Corner", "bakery");
+        locationShortNames.put("Sugarcube Corner (outside)", "bakery");
         locationShortNames.put("Sugarcube Corner interior", "bakery interior");
         locationShortNames.put("Sugarcube Corner kitchen", "bakery kitchen");
         locationShortNames.put("Pinkie Pie's room", "Pinkie room");
@@ -54,7 +54,7 @@ public class LocationData {
         //locationShortNames.put();
 
 
-        legitimateExits.put("Sugarcube Corner", new ArrayList<String>() {{
+        legitimateExits.put("Sugarcube Corner (outside)", new ArrayList<String>() {{
             add("Castle of Friendship");
             add("Carousel Boutique");
             add("Sweet Apple Acres");
@@ -62,25 +62,25 @@ public class LocationData {
         }});
         legitimateExits.put("Carousel Boutique", new ArrayList<String>() {{
             add("Castle of Friendship");
-            add("Sugarcube Corner");
+            add("Sugarcube Corner (outside)");
             add("Sweet Apple Acres");
             add("Carousel Boutique interior");
         }});
         legitimateExits.put("Sweet Apple Acres", new ArrayList<String>() {{
             add("Castle of Friendship");
             add("Carousel Boutique");
-            add("Sugarcube Corner");
+            add("Sugarcube Corner (outside)");
             add("Farmhouse interior");
         }});
         legitimateExits.put("Castle of Friendship", new ArrayList<String>() {{
-            add("Sugarcube Corner");
+            add("Sugarcube Corner (outside)");
             add("Carousel Boutique");
             add("Sweet Apple Acres");
             add("Castle main hall");
         }});
 
         legitimateExits.put("Sugarcube Corner interior", new ArrayList<String>() {{
-            add("Sugarcube Corner");
+            add("Sugarcube Corner (outside)");
             add("Sugarcube Corner kitchen");
             add("Pinkie Pie's room");
             add("Party Cave");
