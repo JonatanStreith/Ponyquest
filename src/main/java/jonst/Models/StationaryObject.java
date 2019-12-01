@@ -7,8 +7,8 @@ import java.io.Console;
 public class StationaryObject extends GenericObject {
 
 
-    public StationaryObject(String name, String shortName, String description) {
-        super(name, shortName, description);
+    public StationaryObject(String name, String shortName, String description, String locationName) {
+        super(name, shortName, description, locationName);
     }
 
 

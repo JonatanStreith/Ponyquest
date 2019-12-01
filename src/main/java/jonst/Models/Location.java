@@ -21,9 +21,9 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
     private List<Item> itemsAtLocation = new ArrayList<Item>();
 
-    public Location(String name, String shortName, String description, ArrayList<String> legitimateExits)
+    public Location(String name, String shortName, String description, String locationName, ArrayList<String> legitimateExits)
     {
-        super(name, shortName, description);
+        super(name, shortName, description, locationName);
 
         this.legitimateExits = legitimateExits;
 

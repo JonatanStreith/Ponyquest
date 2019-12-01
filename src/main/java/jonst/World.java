@@ -244,7 +244,7 @@ public class World {
                 String line = myReader.nextLine();
                 if (!line.equals("")) {
 
-                    Location loc =new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), loD.getLegitimateExits(line));
+                    Location loc =new Location(line, loD.getLocationShortName(line), loD.getLocationDescription(line), "", loD.getLegitimateExits(line));
 
                     locationList.add(loc);
                     genericList.add(loc);
@@ -271,7 +271,7 @@ public class World {
                     String race = frag[1];
 
 
-                        Creature cre = new Creature(name, crD.getCreatureShortName(name), crD.getCreatureDescription(name), race);
+                        Creature cre = new Creature(name, crD.getCreatureShortName(name), crD.getCreatureDescription(name), "", race, new ArrayList<>());
 
                         creatureList.add(cre);
                         genericList.add(cre);
@@ -294,7 +294,7 @@ public class World {
                 String line = myReader.nextLine();
                 if (!line.equals("")) {
 
-                    Item ite = new Item(line, itD.getItemShortName(line), itD.getItemDescription(line));
+                    Item ite = new Item(line, itD.getItemShortName(line), itD.getItemDescription(line), "");
 
                     itemList.add(ite);
                     genericList.add(ite);
@@ -316,7 +316,7 @@ public class World {
                 String line = myReader.nextLine();
                 if (!line.equals("")) {
 
-                    StationaryObject sta = new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line));
+                    StationaryObject sta = new StationaryObject(line, soD.getStationaryObjectShortName(line), soD.getStationaryObjectDescription(line), "");
 
                     stationaryObjectList.add(sta);
                     genericList.add(sta);

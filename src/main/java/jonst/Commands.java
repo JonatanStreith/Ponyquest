@@ -9,6 +9,7 @@ import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Commands {
@@ -220,7 +221,7 @@ public class Commands {
 
     public static void getExits(World world) {
         Location loc = world.getLocation(world.getPlayer().getLocationName());
-        ArrayList<String> exits = loc.getExits();
+        List<String> exits = loc.getExits();
 
 
         System.out.println("Exits are: " + HelpfulMethods.turnStringListIntoString(exits) + ".");
@@ -295,7 +296,7 @@ public class Commands {
 
 
     public static void listItems(World world) {
-        ArrayList<Item> itemList = world.getLocation(world.getPlayer().getLocationName()).getItemsAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+        List<Item> itemList = world.getLocation(world.getPlayer().getLocationName()).getItemsAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
 
         int numItems = itemList.size();
 
@@ -307,7 +308,7 @@ public class Commands {
 
     public static void listCreatures(World world) {
 
-        ArrayList<Creature> creatureList = world.getLocation(world.getPlayer().getLocationName()).getCreaturesAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+        List<Creature> creatureList = world.getLocation(world.getPlayer().getLocationName()).getCreaturesAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
 
         int numCreatures = creatureList.size();
 

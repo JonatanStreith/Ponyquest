@@ -40,7 +40,7 @@ public class App
 
         do
         {
-            reply = SystemData.inputReader.nextLine();
+            reply = SystemData.inputReader.nextLine().toLowerCase();
 
 
             if (reply.equals("n"))
@@ -78,6 +78,17 @@ public class App
                 }
                 //Ask for one
             }
+
+//            else if(reply.equals("build")){       //Don't use this anymore, it'll overwrite everything!
+//                System.out.println("Building new files from data...");
+//                JsonBuilder.SaveJson();
+//            }
+
+            else if(reply.equals("test")){
+                System.out.println("Loading data from files...");
+                JsonBuilder.LoadJson();
+            }
+
             else
             { System.out.println("Sorry, what? Do you want to start a (N)ew game, or (L)oad a previous save?"); }
 

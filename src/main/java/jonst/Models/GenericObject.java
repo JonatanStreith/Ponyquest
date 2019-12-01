@@ -10,12 +10,13 @@ public class GenericObject {
 
     protected String locationName;
 
-public GenericObject(String name, String shortName, String description)
+public GenericObject(String name, String shortName, String description, String locationName)
 {
 
     this.name = name;
     this.shortName = shortName;
     this.description = description;
+    this.locationName = locationName;
 
 }
 

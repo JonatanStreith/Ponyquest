@@ -45,4 +45,16 @@ public class Notes {
 
 
     //https://howtodoinjava.com/library/json-simple-read-write-json-examples/
+
+
+    //IMPORTANT! Have a check of all objects to ensure that their "location" is valid, otherwise dump them into a special cleanup location.
+
+
+    //In order to allow a better system for organizing, have everything use IDs instead. When trying to interact with things (looking, going to, talking to, etc),
+    //First check if that thing is within range. I.e. if you type "Go to kitchen", check if any possible exits match that description; otherwise, refuse to go.
+
+
+    //Add "useeffect" to objects? Line written when you try to use something. Work out way to advance this to persistent effects.
+
+
 }
