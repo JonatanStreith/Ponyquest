@@ -27,22 +27,47 @@ public class World {
     private List<String> legitimateConjunctions;
     public Creature playerCharacter;
 
+    private Parser parser;
+
+
     public World(String loadFilePath) {
 
 
         loadListsFromFile(loadFilePath);        //Build lists
 
+        parser = new Parser(genericList);       //The parser holds lists of words, and parses input
 
-
-
-
-        generateParserTerms();                  //Build parser terms
 
         setMainCharacter("Trixie");             //Establish protagonist
 
         playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
     }  //End of World constructor
+
+
+    public void runGame() throws IOException {
+
+        System.out.println("------------------------------------------------------------------------------------------------------------------------");
+
+        String input;
+        String[] commandPhrase;         //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
+
+        Commands.LookAround(this);
+
+        while (true)                //Continously running play loop that parses instructions
+
+        {
+            System.out.println();
+            System.out.println("Please input command: ");
+            input = SystemData.inputReader.nextLine().toLowerCase();
+            commandPhrase = parser.parse(input);
+
+            parser.runCommand(commandPhrase, this);
+        }
+
+
+    }
+
 
 
 
@@ -130,10 +155,9 @@ public class World {
     }
 
 
-
     // --------------- Setters & Getters ------------------------
 
-    public boolean setMainCharacter(String name){
+    public boolean setMainCharacter(String name) {
         playerCharacter = null;
         for (Creature creature : creatureList) {
             if (creature.getName().equalsIgnoreCase(name))
@@ -141,7 +165,6 @@ public class World {
             break;
         }
         return (!(playerCharacter == null));
-
     }
 
     public Creature getPlayer() {
@@ -168,15 +191,19 @@ public class World {
         return genericList;
     }
 
+    public Parser getParser() {
+        return parser;
+    }
+
     public List<Item> getPlayerInventory() {
         return playerInventory;
     }
 
-    //Need to check the ones below this line
-
     public Location getPlayerLocation() {
         return getLocation(getPlayer().getLocationName());
     }
+
+    // ------------- Methods that returns objects from object lists ------------------
 
     public Location getLocation(String wantedLocation) {
         //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
@@ -249,15 +276,9 @@ public class World {
         return genericList.contains(getGenericObject(generic));
     }
 
-
-
-
-
-
-
     // ------------------ The load function! --------------------------
 
-    public void loadListsFromFile(String loadFilePath){
+    public void loadListsFromFile(String loadFilePath) {
         locationList = JsonBuilder.loadLocationList(loadFilePath);
         creatureList = JsonBuilder.loadCreatureList(loadFilePath);
         itemList = JsonBuilder.loadItemList(loadFilePath);
@@ -283,8 +304,8 @@ public class World {
         successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
 
         for (boolean boo : successes) {
-            if(!boo)
-                allSuccesses= false;
+            if (!boo)
+                allSuccesses = false;
         }
         return allSuccesses;        //If it successfully saves all files, return true
     }

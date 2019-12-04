@@ -83,8 +83,8 @@ public class JsonBuilder {
 
                 put("CasualDialog", new JSONObject() {{
 
-                            for (int i = 0; i < crea.getCasuaDialog().size(); i++) {   //Puts all exits into an array
-                                put(i, crea.getCasuaDialog().get(i));
+                            for (int i = 0; i < crea.getCasualDialog().size(); i++) {   //Puts all exits into an array
+                                put(i, crea.getCasualDialog().get(i));
                             }
                         }}
                 );
@@ -291,7 +291,7 @@ public class JsonBuilder {
 
         for (Creature creature : creatureList) {
             System.out.print("Full name: " + creature.getName() + "; Short name: " + creature.getShortName() + "; Race: " + creature.getRace() + "; Description: " + creature.getDescription() + "; Location: " + creature.getLocationName() + ". Casual lines: ");
-            for (String casual : creature.getCasuaDialog()) {
+            for (String casual : creature.getCasualDialog()) {
                 System.out.print(casual + ", ");
             }
             System.out.println("");
@@ -324,8 +324,8 @@ public class JsonBuilder {
 
                 put("CasualDialog", new JSONObject() {{
 
-                            for (int i = 0; i < crea.getCasuaDialog().size(); i++) {   //Puts all casual dialog lines into an object
-                                put(i, crea.getCasuaDialog().get(i));
+                            for (int i = 0; i < crea.getCasualDialog().size(); i++) {   //Puts all casual dialog lines into an object
+                                put(i, crea.getCasualDialog().get(i));
                             }
                         }}
                 );

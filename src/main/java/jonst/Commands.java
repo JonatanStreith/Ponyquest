@@ -123,13 +123,13 @@ public class Commands {
 
 
     public static void showInventory(World world) {
-//        ArrayList<Item> items = world.getInventory();
-//
-//        if (items.size() == 0) {
-//            System.out.println("You're not carrying anything.");
-//        } else {
-//            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
-//        }
+        List<Item> items = world.getInventory();
+
+        if (items.size() == 0) {
+            System.out.println("You're not carrying anything.");
+        } else {
+            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
+        }
     }
 
     public static void LookAround(World world) {
@@ -205,13 +205,7 @@ public class Commands {
         {
             System.out.println("You don't make a habit of talking to inanimate objects.");
         } else if ((world.getGenericObject(name) instanceof Creature)) {
-            if (!world.dialogs.hasCasualDialog(name))                                  //If no dialog entry exists for this character.
-            {
-                System.out.println(name + " doesn't have anything to say.");
-            } else {
-                System.out.println(world.dialogs.getRandomCasualDialog(name));         //This runs if you successfully talk to someone.
-
-            }
+            System.out.println(world.getCreature(name).getRandomCasualDialog());         //This runs if you successfully talk to someone.
         } else {
             System.out.println("Debug code. If this is shown, something didn't go right.");
         }
@@ -317,8 +311,8 @@ public class Commands {
         } else {
             System.out.println(HelpfulMethods.turnCreatureListIntoString(creatureList) + HelpfulMethods.isOrAre(numCreatures - 1) + " here.");
 
-            }
-
         }
 
     }
+
+}
