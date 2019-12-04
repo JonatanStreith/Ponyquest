@@ -470,6 +470,8 @@ public class JsonBuilder {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        //System.out.println("Creature list loaded from file.");
+
         return creatureList;
     }
 
@@ -511,6 +513,9 @@ public class JsonBuilder {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        //System.out.println("Location list loaded from file.");
+
         return locationList;
 
     }
@@ -547,6 +552,9 @@ public class JsonBuilder {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        //System.out.println("Stationary object list loaded from file.");
+
         return stationaryObjectList;
     }
 
@@ -581,6 +589,8 @@ public class JsonBuilder {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        //System.out.println("Item list loaded from file.");
+
         return itemList;
     }
 

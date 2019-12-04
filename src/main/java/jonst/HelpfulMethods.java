@@ -4,6 +4,7 @@ import jonst.Models.Creature;
 import jonst.Models.Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HelpfulMethods {
@@ -16,34 +17,9 @@ public class HelpfulMethods {
         return output;
     }
 
-
-
-
-
-
-
-
-
-
-
     public static String turnStringListIntoString(List<String> list)     //Takes a list of strings, pieces them together into one string
     {
         String fullString = "";
-        /*List<String> nameList = new ArrayList<String>();
-
-        for (String item : list)
-        { nameList.add(item); }
-
-        if (nameList.size() >= 2)
-        {
-            for (int i = 0; i < nameList.size() - 2; i++)
-            { nameList[i] += ", "; }
-
-            nameList[nameList.size() - 2] += " and ";
-        }
-
-        for (int i = 0; i < nameList.size(); i++)
-        { fullString += nameList[i]; }*/
 
         for (int i = 0; i < list.size(); i++) {
 
@@ -84,14 +60,6 @@ public class HelpfulMethods {
     }
 
 
-
-
-
-
-
-
-
-
     public static String turnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
     {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
         String fullString = "";
@@ -114,5 +82,27 @@ public class HelpfulMethods {
 
         return fullString;
     }
+
+
+    public static void reverseSortStringList(List<String> list){
+
+        Collections.sort(list);
+
+        int size = list.size();
+
+        for (int i = 0; i < size/2 ; i++) {
+
+            String temp = list.get(i);      //Set temp var to first position
+            list.set(i, list.get(size-i-1));  //Sets first position to last position
+            list.set(size-i-1, temp);         //Sets last position to temp var
+
+        }
+
+
+
+        //return theList;
+    }
+
+
 
 }

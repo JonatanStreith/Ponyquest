@@ -14,32 +14,33 @@ public class World {
 
     public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
-    public List<Location> locationList = new ArrayList<Location>();      //Main lists that store all game objects
-    public List<Creature> creatureList = new ArrayList<Creature>();
-    public List<StationaryObject> stationaryObjectList = new ArrayList<StationaryObject>();
-    public List<Item> itemList = new ArrayList<Item>();
-    public List<GenericObject> genericList = new ArrayList<GenericObject>();
+    private List<Location> locationList;      //Main lists that store all game objects
+    private List<Creature> creatureList;
+    private List<StationaryObject> stationaryObjectList;
+    private List<Item> itemList;
+    private List<GenericObject> genericList;
 
-    public List<Item> playerInventory = new ArrayList<Item>();
+    private List<Item> playerInventory;
 
-    public List<String> legitimateNouns = new ArrayList<String>();
-    public List<String> legitimateCommands = SystemData.getLegitimateCommands();
-    public List<String> legitimateConjunctions = SystemData.getLegitimateConjunctions();
-
-
-     DialogData dialogs;
+    public List<String> legitimateNouns;
+    public List<String> legitimateCommands;
+    private List<String> legitimateConjunctions;
+    public Creature playerCharacter;
 
     public World(String loadFilePath) {
 
 
-        loadListsFromFile(loadFilePath);
-
-        //Build lists
+        loadListsFromFile(loadFilePath);        //Build lists
 
 
 
-        createProperNounList();                      //Create and sort lists for the parser
-        sortCommandAndConjunctionLists();
+
+
+        generateParserTerms();                  //Build parser terms
+
+        setMainCharacter("Trixie");             //Establish protagonist
+
+        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
     }  //End of World constructor
 
@@ -106,31 +107,72 @@ public class World {
 
     //-------- List handling -----------------------
 
-    public void createProperNounList() {
+    public void generateParserTerms() {
+        legitimateCommands = SystemData.getLegitimateCommands();
+        legitimateConjunctions = SystemData.getLegitimateConjunctions();
+        legitimateNouns = new ArrayList<>();
+
         for (GenericObject gen : genericList) {
             legitimateNouns.add(gen.getName());
             legitimateNouns.add(gen.getShortName());
         }
-        Collections.sort(legitimateCommands);   //Sorts list; this avoids confusion (why do I do this?)
+
+
+        HelpfulMethods.reverseSortStringList(legitimateNouns);   //Sorts list in reverse; this avoids confusion
+        HelpfulMethods.reverseSortStringList(legitimateCommands);
+        HelpfulMethods.reverseSortStringList(legitimateConjunctions);
+
     }
 
 
     public void sortCommandAndConjunctionLists() {
-        Collections.sort(legitimateCommands);
-        Collections.sort(legitimateConjunctions);
+
     }
 
 
 
-    // --------------- Getters ------------------------
+    // --------------- Setters & Getters ------------------------
+
+    public boolean setMainCharacter(String name){
+        playerCharacter = null;
+        for (Creature creature : creatureList) {
+            if (creature.getName().equalsIgnoreCase(name))
+                playerCharacter = creature;
+            break;
+        }
+        return (!(playerCharacter == null));
+
+    }
 
     public Creature getPlayer() {
-        for (Creature creature : creatureList) {
-            if (creature.getName().toLowerCase().equals("Trixie"))
-                return creature;
-        }
-        return null;
+        return playerCharacter;
     }
+
+    public List<Location> getLocationList() {
+        return locationList;
+    }
+
+    public List<Creature> getCreatureList() {
+        return creatureList;
+    }
+
+    public List<StationaryObject> getStationaryObjectList() {
+        return stationaryObjectList;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public List<GenericObject> getGenericList() {
+        return genericList;
+    }
+
+    public List<Item> getPlayerInventory() {
+        return playerInventory;
+    }
+
+    //Need to check the ones below this line
 
     public Location getPlayerLocation() {
         return getLocation(getPlayer().getLocationName());
@@ -213,7 +255,7 @@ public class World {
 
 
 
-    // ------------------ The build methods --------------------------
+    // ------------------ The load function! --------------------------
 
     public void loadListsFromFile(String loadFilePath){
         locationList = JsonBuilder.loadLocationList(loadFilePath);
@@ -221,6 +263,7 @@ public class World {
         itemList = JsonBuilder.loadItemList(loadFilePath);
         stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
 
+        genericList = new ArrayList<>();
         genericList.addAll(locationList);
         genericList.addAll(creatureList);
         genericList.addAll(itemList);

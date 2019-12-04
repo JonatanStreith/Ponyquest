@@ -56,5 +56,8 @@ public class Notes {
 
     //Add "useeffect" to objects? Line written when you try to use something. Work out way to advance this to persistent effects.
 
+    //It's possible to have creatures move around based on time parameters! Just have the location dependent on a time parameter; when asking for someone's location, just provide the time
+    //and return a certain location matching that one! Could use a hashmap with time marks as keys!
+
 
 }
