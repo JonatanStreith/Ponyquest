@@ -12,7 +12,7 @@ import java.util.*;
 
 public class World {
 
-    public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
+    //public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
     private List<Location> locationList;      //Main lists that store all game objects
     private List<Creature> creatureList;
@@ -22,9 +22,9 @@ public class World {
 
     private List<Item> playerInventory;
 
-    public List<String> legitimateNouns;
-    public List<String> legitimateCommands;
-    private List<String> legitimateConjunctions;
+    //public List<String> legitimateNouns;
+    //public List<String> legitimateCommands;
+    //private List<String> legitimateConjunctions;
     public Creature playerCharacter;
 
     private Parser parser;
@@ -62,7 +62,7 @@ public class World {
             input = SystemData.inputReader.nextLine().toLowerCase();
             commandPhrase = parser.parse(input);
 
-            parser.runCommand(commandPhrase, this);
+            parser.runCommand(commandPhrase, this);     //Todo: Make runCommand return a boolean that says whether you want to break the loop?
         }
 
 
@@ -119,6 +119,8 @@ public class World {
 
     public void removeFromInventory(Item item) {
         playerInventory.remove(item);
+        item.setLocation(getPlayerLocation().getLocationName());
+
     }
 
     public boolean isInInventory(Item item) {
@@ -132,7 +134,7 @@ public class World {
 
     //-------- List handling -----------------------
 
-    public void generateParserTerms() {
+    /*public void generateParserTerms() {
         legitimateCommands = SystemData.getLegitimateCommands();
         legitimateConjunctions = SystemData.getLegitimateConjunctions();
         legitimateNouns = new ArrayList<>();
@@ -152,7 +154,7 @@ public class World {
 
     public void sortCommandAndConjunctionLists() {
 
-    }
+    }*/
 
 
     // --------------- Setters & Getters ------------------------
@@ -164,6 +166,7 @@ public class World {
                 playerCharacter = creature;
             break;
         }
+        //System.out.println("Main character "+ playerCharacter.getName() + " set.");
         return (!(playerCharacter == null));
     }
 

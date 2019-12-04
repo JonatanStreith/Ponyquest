@@ -25,10 +25,9 @@ public class App
 
         String filePath = getLoadingPath();     //This allows the user to choose between loading a save or starting a new game (default world)
 
-        World Equestria = new World(filePath);  //Build world
+        World world = new World(filePath);  //Build world
 
-
-        Equestria.runGame();      //Todo: Have a method run things instead
+        world.runGame();
 
         System.out.println("Thanks for playing!");
     }
@@ -60,7 +59,16 @@ public class App
                 for(String dir : new File(SystemData.savepath).list()  )
                 {
                     System.out.println(dir);
-                } //List save files - clean up later
+                }
+
+                /*
+
+                Todo:
+                Rebuild the "load from save" later. Use Json to build a "directory" that gets saved somewhere.
+                Something that maps an index (unique) to a save name (not) and a save path (use index and name to define it, maybe) - should be easy to build.
+                Just make sure that a save ADDS to the list, and doesn't OVERWRITE it.
+
+                */
 
                 System.out.println("Which save file do you want to load? ");
 
@@ -85,118 +93,4 @@ public class App
 
         return filePath;
     }
-
-
-//    public static void runCommand(String[] command, World world) throws IOException {
-//
-//        switch (command[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
-//        {
-//            case "brandish":
-//                //stuff
-//                break;
-//
-//            case "cast":
-//                //stuff
-//                break;
-//
-//            case "save":
-//                Commands.saveGame(world);
-//                break;
-//
-//            case "load":
-//                Commands.loadGame(world);
-//                break;
-//
-//            case "pick up":
-//                Commands.pickUp(command[1], world);
-//                break;
-//
-//            case "drop":
-//                Commands.drop(command[1], world);
-//                break;
-//
-//            case "inventory":
-//                Commands.showInventory(world);
-//                break;
-//
-//            case "nouns":
-//                Commands.listNouns(world);
-//                break;
-//
-//            case "help":
-//                Commands.help();
-//                break;
-//
-//            case "commands":
-//                Commands.ListCommands(world);
-//                break;
-//
-//
-//            case "quit":
-//                Commands.quit();
-//                break;
-//
-//            case "go to":
-//                Commands.goTo(command[1], world);
-//                break;
-//            case "go":
-//                Commands.goTo(command[1], world);
-//                break;
-//
-//
-//            case "talk to":
-//                Commands.talkTo(command[1], world);
-//                break;
-//
-//            case "look":
-//                Commands.LookAround(world);
-//                break;
-//
-//            case "look around":
-//                Commands.LookAround(world);
-//                break;
-//
-//            case "look at":
-//                Commands.lookAt(command[1], world);
-//                break;
-//
-//            case "exits":
-//                Commands.getExits(world);
-//                break;
-//
-//            case "teleport":
-//                Commands.teleportOther(command, world);
-//                break;
-//
-//            case "teleport to":
-//                Commands.teleportSelf(command, world);
-//                break;
-//
-//            case "ask":
-//                Commands.ask(command, world);
-//                break;
-//
-//            default:
-//                System.out.println("What do you mean?");
-//                break;
-//        }
-//
-//
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

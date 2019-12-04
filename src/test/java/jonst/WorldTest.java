@@ -28,11 +28,7 @@ public class WorldTest {
         assertNotNull(earth.getPlayer());
         assertEquals("Trixie", earth.getPlayer().getName());
 
-        assertNotNull(earth.legitimateNouns);
-        assertNotNull(earth.legitimateCommands);
-
-        assertNotEquals(0, earth.legitimateNouns);
-        assertNotEquals(0, earth.legitimateCommands);
+        assertNotNull(earth.getParser());
 
     }
 }

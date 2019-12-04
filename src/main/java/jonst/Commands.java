@@ -67,14 +67,14 @@ public class Commands {
 
         //Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(StringList)}");
 
-        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.legitimateCommands));
+        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands));
 
 
     }
 
 
     public static void listNouns(World world) {
-        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.legitimateNouns));
+        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateNouns));
 
     }
 
