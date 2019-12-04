@@ -9,6 +9,7 @@ public class SystemData {
     public static Scanner inputReader = new Scanner(System.in);
 
     public static String gamepath = "src/main/java/jonst";
+    public static String testpath = "src/main/java/jonst/Assets/Test/";
     public static String savepath = "src/main/java/jonst/Assets/Saves/";
     public static String defaultWorld = "src/main/java/jonst/Assets/DefaultWorld";
 

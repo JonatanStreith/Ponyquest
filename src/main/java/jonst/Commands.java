@@ -123,13 +123,13 @@ public class Commands {
 
 
     public static void showInventory(World world) {
-        ArrayList<Item> items = world.getInventory();
-
-        if (items.size() == 0) {
-            System.out.println("You're not carrying anything.");
-        } else {
-            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
-        }
+//        ArrayList<Item> items = world.getInventory();
+//
+//        if (items.size() == 0) {
+//            System.out.println("You're not carrying anything.");
+//        } else {
+//            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
+//        }
     }
 
     public static void LookAround(World world) {
