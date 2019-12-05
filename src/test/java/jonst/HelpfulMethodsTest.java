@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Models.Creature;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -35,6 +36,25 @@ public class HelpfulMethodsTest {
         ) {
             System.out.print(str+" ");
         }
+
+    }
+
+
+    @Test
+    public void turnCreatureListIntoStringTest() {
+
+        List<Creature> list = new ArrayList() {{
+            //add(new Creature("Pinkie Pie", "", "", "", "", new ArrayList<>() ));
+            //add(new Creature("Applejack", "", "", "", "", new ArrayList<>() ));
+            //add(new Creature("Rarity", "", "", "", "", new ArrayList<>() ));
+            //add(new Creature("Applejack", "", "", "", "", new ArrayList<>() ));
+            add(new Creature("Rarity", "", "", "", "", new ArrayList<>() ));
+        }};
+
+
+        String result = HelpfulMethods.turnCreatureListIntoString(list);
+
+        System.out.println(result);
 
     }
 }

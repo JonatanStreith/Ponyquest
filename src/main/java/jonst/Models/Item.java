@@ -1,8 +1,6 @@
 package jonst.Models;
 
-import jonst.Data.ItemData;
 
-import java.io.Console;
 
 public class Item extends GenericObject {
 

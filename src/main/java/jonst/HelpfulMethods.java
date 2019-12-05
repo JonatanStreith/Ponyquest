@@ -1,9 +1,11 @@
 package jonst;
 
 import jonst.Models.Creature;
+import jonst.Models.GenericObject;
 import jonst.Models.Item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,8 +13,8 @@ public class HelpfulMethods {
 
     public static String isOrAre(int num)
     {
-        String output = "is";
-        if (num > 1) { output = "are"; };
+        String output = " is ";
+        if (num > 1) { output = " are "; };
 
         return output;
     }
@@ -37,8 +39,9 @@ public class HelpfulMethods {
     }
 
 
-    public static String TurnItemListIntoString(List<Item> list)     //Takes a list of objects, pieces together their names into one string
-    {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
+
+    public static String turnItemListIntoString(List<Item> list)     //Takes a list of objects, pieces together their names into one string
+    {
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
 
@@ -48,9 +51,9 @@ public class HelpfulMethods {
         if (nameList.size() >= 2)
         {
             for (int i = 0; i < nameList.size() - 2; i++)
-            { nameList.set(i, ", "); }
+            { nameList.set(i, nameList.get(i) + ", "); }
 
-            nameList.set(nameList.size() - 2, " and ");
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
         }
 
         for (int i = 0; i < nameList.size(); i++)
@@ -61,23 +64,22 @@ public class HelpfulMethods {
 
 
     public static String turnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
-    {                                                                               //Note: This omits Trixie, as she doesn't need to be mentioned
+    {
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
 
         for(Creature item : list)
         { nameList.add(item.getName()); }    //Generates a list of names
 
-
-        if (nameList.size() >= 3)
+        if (nameList.size() >= 2)
         {
-            for (int i = 0; i < nameList.size() - 3; i++)
-            { nameList.set(i, ", "); }
+            for (int i = 0; i < nameList.size() - 2; i++)
+            { nameList.set(i, nameList.get(i) + ", "); }
 
-            nameList.set(nameList.size() - 3, " and ");
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
         }
 
-        for (int i = 0; i < nameList.size() - 1; i++)
+        for (int i = 0; i < nameList.size(); i++)
         { fullString += nameList.get(i); }
 
         return fullString;

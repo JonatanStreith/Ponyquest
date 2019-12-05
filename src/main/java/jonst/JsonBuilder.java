@@ -224,7 +224,7 @@ public class JsonBuilder {
                 //Don't forget to populate!
 
                 Creature creature = new Creature(fullName, shortName, description, location, race, casualDialog);
-                creature.setLocation(location);
+                //creature.setLocation(location);
 
                 creatureList.add(creature);
             }
@@ -241,7 +241,7 @@ public class JsonBuilder {
                 String location = (String) jObj.get("Location");
 
                 StationaryObject object = new StationaryObject(fullName, shortName, description, location);
-                object.setLocation(location);
+                //object.setLocation(location);
 
                 stationaryObjectList.add(object);
             }
@@ -264,7 +264,7 @@ public class JsonBuilder {
                 }
 
                 Location location = new Location(fullName, shortName, description, fullName, exits);
-                location.setLocation(fullName);
+                //location.setLocation(fullName);
 
                 locationList.add(location);
             }
@@ -501,7 +501,7 @@ public class JsonBuilder {
                 }
 
                 Location location = new Location(fullName, shortName, description, fullName, exits);
-                location.setLocation(fullName);
+                //location.setLocation(fullName);
 
                 locationList.add(location);
             }
@@ -540,7 +540,7 @@ public class JsonBuilder {
             String location = (String) jObj.get("Location");
 
             StationaryObject object = new StationaryObject(fullName, shortName, description, location);
-            object.setLocation(location);
+            //object.setLocation(location);
 
             stationaryObjectList.add(object);
         }

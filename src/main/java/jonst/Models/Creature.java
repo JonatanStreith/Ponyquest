@@ -10,7 +10,10 @@ public class Creature extends GenericObject {
     private String race;
     private List<String> casualDialog = new ArrayList<>();
 
-    private List<String> inventory = new ArrayList<String>();
+    //private List<String> inventory = new ArrayList<String>();
+
+
+
 
     public Creature(String name, String shortName, String description, String locationName, String race, List<String> casualDialog) {
         super(name, shortName, description, locationName);

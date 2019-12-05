@@ -3,9 +3,6 @@ package jonst;
 import jonst.Data.*;
 import jonst.Models.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,9 +19,6 @@ public class World {
 
     private List<Item> playerInventory;
 
-    //public List<String> legitimateNouns;
-    //public List<String> legitimateCommands;
-    //private List<String> legitimateConjunctions;
     public Creature playerCharacter;
 
     private Parser parser;
@@ -35,7 +29,10 @@ public class World {
 
         loadListsFromFile(loadFilePath);        //Build lists
 
+        populateLocationLists();
+
         parser = new Parser(genericList);       //The parser holds lists of words, and parses input
+
 
 
         setMainCharacter("Trixie");             //Establish protagonist
@@ -45,7 +42,7 @@ public class World {
     }  //End of World constructor
 
 
-    public void runGame() throws IOException {
+    public void runGame() {
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
@@ -54,7 +51,7 @@ public class World {
 
         Commands.LookAround(this);
 
-        while (true)                //Continously running play loop that parses instructions
+        while (true)                //Continuously running play loop that parses instructions
 
         {
             System.out.println();
@@ -62,7 +59,15 @@ public class World {
             input = SystemData.inputReader.nextLine().toLowerCase();
             commandPhrase = parser.parse(input);
 
-            parser.runCommand(commandPhrase, this);     //Todo: Make runCommand return a boolean that says whether you want to break the loop?
+            System.out.println("Your commands are: " + Arrays.toString(commandPhrase));
+
+
+            try {
+                parser.runCommand(commandPhrase, this);
+            } catch (IOException e) {
+                System.out.println("For some reason, the input failed.");
+                e.printStackTrace();
+            }
         }
 
 
@@ -81,7 +86,7 @@ public class World {
         Creature cre = getCreature(creature);
 
         loc.addCreature(cre);
-        cre.setLocation(location);
+        cre.setLocation(loc);
     }
 
     public void removeCreatureFromLocation(String creature, String location) {
@@ -90,8 +95,11 @@ public class World {
 
     public void addItemToLocation(String item, String location) {
         //Adds "item" to "location"
-        getLocation(location).addItem(getItem(item));
-        getItem(item).setLocation(location);
+        Location loc = getLocation(location);
+        Item it = getItem(item);
+
+        loc.addItem(it);
+        it.setLocation(loc);
     }
 
     public void removeItemFromLocation(String item, String location) {
@@ -105,7 +113,7 @@ public class World {
         StationaryObject sta = getStationaryObject(stationaryObject);
 
         loc.addObject(sta);
-        sta.setLocation(location);
+        sta.setLocation(loc);
     }
 
     public void removeObjectFromLocation(String stationaryObject, String location) {
@@ -114,12 +122,12 @@ public class World {
 
     public void addToInventory(Item item) {
         playerInventory.add(item);
-        item.setLocation("inventory");
+        item.setLocation(getLocation("inventory"));
     }
 
     public void removeFromInventory(Item item) {
         playerInventory.remove(item);
-        item.setLocation(getPlayerLocation().getLocationName());
+        item.setLocation(getPlayerLocation());
 
     }
 
@@ -134,27 +142,33 @@ public class World {
 
     //-------- List handling -----------------------
 
-    /*public void generateParserTerms() {
-        legitimateCommands = SystemData.getLegitimateCommands();
-        legitimateConjunctions = SystemData.getLegitimateConjunctions();
-        legitimateNouns = new ArrayList<>();
+    public void populateLocationLists(){
 
-        for (GenericObject gen : genericList) {
-            legitimateNouns.add(gen.getName());
-            legitimateNouns.add(gen.getShortName());
+        for (Location location: locationList) {
+
+            for (Creature creature : creatureList) {
+                if(creature.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                    location.addCreature(creature); //Adds creature to the location's list of creatures
+                    creature.setLocation(location); //Sets creature's location reference
+                }
+            }
+
+            for (Item item : itemList) {
+                if(item.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                    location.addItem(item);         //Adds item to the location's list of items
+                    item.setLocation(location);     //Sets item's location reference
+                }
+            }
+
+            for (StationaryObject object : stationaryObjectList) {
+                if(object.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                    location.addObject(object);     //Adds object to the location's list of objects
+                    object.setLocation(location);   //Sets object's location reference
+                }
+            }
         }
 
-
-        HelpfulMethods.reverseSortStringList(legitimateNouns);   //Sorts list in reverse; this avoids confusion
-        HelpfulMethods.reverseSortStringList(legitimateCommands);
-        HelpfulMethods.reverseSortStringList(legitimateConjunctions);
-
     }
-
-
-    public void sortCommandAndConjunctionLists() {
-
-    }*/
 
 
     // --------------- Setters & Getters ------------------------
@@ -172,6 +186,14 @@ public class World {
 
     public Creature getPlayer() {
         return playerCharacter;
+    }
+
+    public Location getPlayerLocation() {
+        return getLocation(getPlayer().getLocationName());
+    }
+
+    public List<Item> getPlayerInventory() {
+        return playerInventory;
     }
 
     public List<Location> getLocationList() {
@@ -198,18 +220,9 @@ public class World {
         return parser;
     }
 
-    public List<Item> getPlayerInventory() {
-        return playerInventory;
-    }
-
-    public Location getPlayerLocation() {
-        return getLocation(getPlayer().getLocationName());
-    }
-
     // ------------- Methods that returns objects from object lists ------------------
 
     public Location getLocation(String wantedLocation) {
-        //return locationList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Location location : locationList) {
             if (location.getName().toLowerCase().contains(wantedLocation.toLowerCase()))
@@ -219,7 +232,6 @@ public class World {
     }
 
     public Creature getCreature(String wantedCreature) {
-        //return creatureList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Creature creature : creatureList) {
             if (creature.getName().toLowerCase().contains(wantedCreature.toLowerCase()))
@@ -229,7 +241,6 @@ public class World {
     }
 
     public Item getItem(String wantedItem) {
-        //return itemList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (Item item : itemList) {
             if (item.getName().toLowerCase().contains(wantedItem.toLowerCase()))
@@ -239,7 +250,6 @@ public class World {
     }
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
-        //return stationaryObjectList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (StationaryObject stationaryObject : stationaryObjectList) {
             if (stationaryObject.getName().toLowerCase().equals(wantedStationaryObject.toLowerCase()))
@@ -249,7 +259,6 @@ public class World {
     }
 
     public GenericObject getGenericObject(String wantedGenericObject) {
-        //return genericList.Find(x = > x.GetName().ToLower().Contains(input.ToLower()));
 
         for (GenericObject genericObject : genericList) {
             if (genericObject.getName().toLowerCase().contains(wantedGenericObject.toLowerCase()))
@@ -271,12 +280,12 @@ public class World {
 
     // ------------- Boolean checks ---------------------
 
-    public boolean isObjectPresent(String generic) {
-        return ((getPlayer().getLocationName().equals(getGenericObject(generic).getLocationName())) || (getGenericObject(generic).getLocationName().equals("inventory")));
+    public boolean isObjectPresent(String selected) {
+        return ((getPlayerLocation() == (getGenericObject(selected).getLocation())) || (getPlayerLocation() == (getLocation("inventory"))));
     }
 
-    public boolean doesObjectExist(String generic) {
-        return genericList.contains(getGenericObject(generic));
+    public boolean doesObjectExist(String selected) {
+        return genericList.contains(getGenericObject(selected));
     }
 
     // ------------------ The load function! --------------------------
@@ -296,7 +305,7 @@ public class World {
 
     // ---------- The save function! -----------------------
 
-    public boolean saveToFile(String saveFilePath) throws IOException {
+    public boolean saveToFile(String saveFilePath) {
 
         boolean allSuccesses = true;
         Boolean[] successes = new Boolean[4];

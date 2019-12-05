@@ -2,10 +2,12 @@ package jonst.Models;
 
 import jonst.Commands;
 import jonst.Data.SystemData;
+import jonst.HelpfulMethods;
 import jonst.World;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Parser {
@@ -22,14 +24,68 @@ public class Parser {
             legitimateNouns.add(gen.getName());
             legitimateNouns.add(gen.getShortName());
         }
+
+        HelpfulMethods.reverseSortStringList(legitimateCommands);
+        HelpfulMethods.reverseSortStringList(legitimateConjunctions);
+        Collections.sort(legitimateNouns);
+
+
     }
 
 
-    public static String[] parse(String command)
+    public String[] parse(String commandInput)
     {
-        return command.split(" ");
+        StringBuilder commandLine = new StringBuilder(commandInput.toLowerCase().trim());
 
-        //Todo: Please rebuild the parser!
+        String[] cleanCommand = {"", "", "", ""};
+
+        for (String command : legitimateCommands) {
+            if (commandLine.toString().startsWith(command.toLowerCase())) {     //Now separate the command
+
+                cleanCommand[0] = command;
+
+                commandLine.delete(0, command.length());    //Delete the legit command from the stringbuilder
+
+                if (commandLine.length() > 0)
+                    while (commandLine.charAt(0) == ' ')    //Trim off empty spaces
+                        commandLine.deleteCharAt(0);
+                break;
+            }
+        }
+
+        for (String noun : legitimateNouns) {
+            if (commandLine.toString().startsWith(noun.toLowerCase())) {        //Now separate the noun
+
+                cleanCommand[1] = noun;
+
+                commandLine.delete(0, noun.length());    //Delete the legit noun from the stringbuilder
+
+                if (commandLine.length() > 0)
+                    while (commandLine.charAt(0) == ' ')    //Trim off empty spaces
+                        commandLine.deleteCharAt(0);
+                break;
+            }
+        }
+
+        for (String conj : legitimateConjunctions) {
+            if (commandLine.toString().startsWith(conj.toLowerCase())) {
+
+                cleanCommand[2] = conj;
+
+                commandLine.delete(0, conj.length());    //Delete the legit conjunction from the stringbuilder
+
+                if (commandLine.length() > 0)
+                    while (commandLine.charAt(0) == ' ')    //Trim off empty spaces
+                        commandLine.deleteCharAt(0);
+
+                break;
+            }
+        }
+
+        cleanCommand[3] = commandLine.toString();      //Add the remainder
+
+
+        return cleanCommand;
     }
 
 

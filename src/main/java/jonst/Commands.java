@@ -1,6 +1,5 @@
 package jonst;
 
-import jonst.Data.DialogData;
 import jonst.Data.SystemData;
 import jonst.Models.*;
 
@@ -9,6 +8,7 @@ import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -17,6 +17,8 @@ public class Commands {
 
     public static void saveGame(World world) throws IOException {
 
+
+        //Todo: Definitely fix up the save system better before doing something with this!
 
         System.out.println("Name your save: ");
         String choice = SystemData.inputReader.nextLine();
@@ -39,7 +41,7 @@ public class Commands {
     public static void loadGame(World world) {
         System.out.println("Sorry, loading is not implemented yet.");
 
-
+        //Todo: Make loading function.
     }
 
 
@@ -62,10 +64,6 @@ public class Commands {
     }
 
     public static void ListCommands(World world) {
-
-        //List<String> StringList = new List<String>(DataStorage.legitimateCommands);
-
-        //Console.WriteLine($"Commands are: {HelpfulMethods.TurnStringListIntoString(StringList)}");
 
         System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands));
 
@@ -128,7 +126,7 @@ public class Commands {
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");
         } else {
-            System.out.println("You are carrying: " + HelpfulMethods.TurnItemListIntoString(items) + ".");
+            System.out.println("You are carrying: " + HelpfulMethods.turnItemListIntoString(items) + ".");
         }
     }
 
@@ -295,21 +293,24 @@ public class Commands {
         int numItems = itemList.size();
 
         if (itemList.size() > 0) {
-            System.out.println("There " + HelpfulMethods.isOrAre(numItems) + HelpfulMethods.TurnItemListIntoString(itemList) + " here.");
+            System.out.println("There" + HelpfulMethods.isOrAre(numItems) + HelpfulMethods.turnItemListIntoString(itemList) + " here.");
         }
 
     }
 
     public static void listCreatures(World world) {
 
-        List<Creature> creatureList = world.getLocation(world.getPlayer().getLocationName()).getCreaturesAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+
+        List<Creature> creatureList = new ArrayList<>();
+        creatureList.addAll(world.getPlayerLocation().getCreaturesAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
+        creatureList.remove(world.getPlayer());
 
         int numCreatures = creatureList.size();
 
-        if (creatureList.size() == 1) {
+        if (creatureList.size() == 0) { //If only Trixie is here.
             System.out.println("There's nopony else here.");
         } else {
-            System.out.println(HelpfulMethods.turnCreatureListIntoString(creatureList) + HelpfulMethods.isOrAre(numCreatures - 1) + " here.");
+            System.out.println(HelpfulMethods.turnCreatureListIntoString(creatureList) + HelpfulMethods.isOrAre(numCreatures) + "here.");
 
         }
 

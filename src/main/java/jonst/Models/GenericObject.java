@@ -10,7 +10,10 @@ public class GenericObject {
 
     protected String locationName;
 
-public GenericObject(String name, String shortName, String description, String locationName)
+    private Location location;
+
+
+    public GenericObject(String name, String shortName, String description, String locationName)
 {
 
     this.name = name;
@@ -20,6 +23,14 @@ public GenericObject(String name, String shortName, String description, String l
 
 }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+        locationName = location.getLocationName();
+    }
 
     public String getName() {
         return name;
@@ -37,9 +48,9 @@ public GenericObject(String name, String shortName, String description, String l
         return locationName;
     }
 
-    public void setLocation(String locationName) {
-        this.locationName = locationName;
-    }
+//    public void setLocationName(String locationName) {
+//        this.locationName = locationName;
+//    }
 
     public void setShortName(String shortName) {
         this.shortName = shortName;

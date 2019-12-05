@@ -1,8 +1,5 @@
 package jonst.Models;
 
-import jonst.Data.CreatureData;
-import jonst.Data.LocationData;
-
 import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,8 @@ public class Location extends GenericObject {
     //IMPORTANT! Locations should store a list/array/Enumerator of legitimate exits: direction, and which location it leads to. FIGURE OUT!
 
 
+
+    //Todo: figure out way to use hashmaps instead of arraylists to store this; easier to search through.
 
     private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();

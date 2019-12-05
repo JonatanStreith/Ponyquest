@@ -17,9 +17,9 @@ import java.util.Scanner;
 public class App 
 {
 
+        //Todo: Better error handling! Main should not have throws IOException!
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
         System.out.println("Welcome to the game!");
 

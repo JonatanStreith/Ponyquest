@@ -1,8 +1,5 @@
 package jonst.Models;
 
-import jonst.Data.StationaryObjectData;
-
-import java.io.Console;
 
 public class StationaryObject extends GenericObject {
 
