@@ -35,28 +35,25 @@ public class App
 
 
     public static String getLoadingPath(){
-        SystemData.inputReader = new Scanner(System.in);
 
         String reply;
         boolean choiceMade = false;
         String filePath = "";
 
-        System.out.println("Do you want to start a (N)ew game, or (L)oad a previous save?");  //Maybe list saves?
-
         do
         {
-            reply = SystemData.inputReader.nextLine().toLowerCase();
-            if (reply.equals("n"))
+            reply = SystemData.getReply("Do you want to start a (N)ew game, or (L)oad a previous save?");
+            if (reply.equalsIgnoreCase("n"))
             {
-                filePath = SystemData.defaultWorld;
+                filePath = SystemData.getDefaultWorld();
                 choiceMade = true;
-                System.out.println(SystemData.introBlurb);
+                System.out.println(SystemData.getIntroBlurb());
             }
 
-            else if (reply.equals("l"))
+            else if (reply.equalsIgnoreCase("l"))
             {
                 System.out.println("Available saves:");
-                for(String dir : new File(SystemData.savepath).list()  )
+                for(String dir : new File(SystemData.getSavepath()).list()  )
                 {
                     System.out.println(dir);
                 }
@@ -70,13 +67,11 @@ public class App
 
                 */
 
-                System.out.println("Which save file do you want to load? ");
+                String choice = SystemData.getReply("Which save file do you want to load?");
 
-                String choice = SystemData.inputReader.nextLine();
-
-                if (new File(SystemData.savepath + choice).exists())
+                if (new File(SystemData.getSavepath() + choice).exists())
                 {
-                    filePath = SystemData.savepath + choice;
+                    filePath = SystemData.getSavepath() + choice;
                     System.out.println("Restoring from " + choice + "...");
                     choiceMade = true;
                 }
@@ -87,7 +82,7 @@ public class App
                 //Ask for one
             }
             else
-            { System.out.println("Sorry, what? Do you want to start a (N)ew game, or (L)oad a previous save?"); }
+            { System.out.println("Sorry, what?"); }
 
         } while (!choiceMade);
 

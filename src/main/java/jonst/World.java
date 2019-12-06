@@ -19,7 +19,7 @@ public class World {
 
     private List<Item> playerInventory;
 
-    public Creature playerCharacter;
+    private Creature playerCharacter;
 
     private Parser parser;
 
@@ -34,7 +34,6 @@ public class World {
         parser = new Parser(genericList);       //The parser holds lists of words, and parses input
 
 
-
         setMainCharacter("Trixie");             //Establish protagonist
 
         playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
@@ -46,27 +45,16 @@ public class World {
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
-        String input;
-        String[] commandPhrase;         //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
-
         Commands.LookAround(this);
 
         while (true)                //Continuously running play loop that parses instructions
 
         {
-            System.out.println();
-            System.out.println("Please input command: ");
-            input = SystemData.inputReader.nextLine().toLowerCase();
-            commandPhrase = parser.parse(input);
-
-            System.out.println("Your commands are: " + Arrays.toString(commandPhrase));
-
-
             try {
-                parser.runCommand(commandPhrase, this);
+                parser.runCommand(SystemData.getReply("Please input command: "), this);
             } catch (IOException e) {
                 System.out.println("For some reason, the input failed.");
-                e.printStackTrace();
+                e.printStackTrace();    //Todo: Remove this in final release
             }
         }
 
@@ -74,10 +62,23 @@ public class World {
     }
 
 
-
-
-
 //-------- Add/Remove stuff -----------------------------------
+
+    public void transferCreatureToLocation(String creature, String oldLocation, String newLocation) {
+        removeCreatureFromLocation(creature, oldLocation);
+        addCreatureToLocation(creature, newLocation);
+    }
+
+    public void transferItemToLocation(String item, String oldLocation, String newLocation) {
+        removeItemFromLocation(item, oldLocation);
+        addItemToLocation(item, newLocation);
+    }
+
+    public void transferObjectToLocation(String object, String oldLocation, String newLocation) {
+        removeObjectFromLocation(object, oldLocation);
+        addObjectToLocation(object, newLocation);
+    }
+
 
     public void addCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
@@ -90,7 +91,11 @@ public class World {
     }
 
     public void removeCreatureFromLocation(String creature, String location) {
-        getLocation(location).removeCreature(getCreature(creature));
+
+        Location loc = getLocation(location);
+        Creature cre = getCreature(creature);
+
+        loc.removeCreature(cre);
     }
 
     public void addItemToLocation(String item, String location) {
@@ -103,6 +108,10 @@ public class World {
     }
 
     public void removeItemFromLocation(String item, String location) {
+
+        Location loc = getLocation(location);
+        Item it = getItem(item);
+
         getLocation(location).removeItem(getItem(item));
     }
 
@@ -110,25 +119,32 @@ public class World {
         //Adds "stationary" to "location"
 
         Location loc = getLocation(location);
-        StationaryObject sta = getStationaryObject(stationaryObject);
+        StationaryObject obj = getStationaryObject(stationaryObject);
 
-        loc.addObject(sta);
-        sta.setLocation(loc);
+        loc.addObject(obj);
+        obj.setLocation(loc);
     }
 
     public void removeObjectFromLocation(String stationaryObject, String location) {
-        getLocation(location).removeObject(getStationaryObject(stationaryObject));
+
+        Location loc = getLocation(location);
+        StationaryObject obj = getStationaryObject(stationaryObject);
+
+        loc.removeObject(obj);
     }
 
     public void addToInventory(Item item) {
-        playerInventory.add(item);
-        item.setLocation(getLocation("inventory"));
+        if (!isInInventory(item)) {
+            playerInventory.add(item);
+            item.setLocation(getLocation("inventory"));
+        }
     }
 
     public void removeFromInventory(Item item) {
-        playerInventory.remove(item);
-        item.setLocation(getPlayerLocation());
-
+        if (isInInventory(item)) {
+            playerInventory.remove(item);
+            item.setLocation(getPlayerLocation());
+        }
     }
 
     public boolean isInInventory(Item item) {
@@ -142,32 +158,31 @@ public class World {
 
     //-------- List handling -----------------------
 
-    public void populateLocationLists(){
+    public void populateLocationLists() {
 
-        for (Location location: locationList) {
+        for (Location location : locationList) {
 
             for (Creature creature : creatureList) {
-                if(creature.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                if (creature.getLocationName().equalsIgnoreCase(location.getLocationName())) {
                     location.addCreature(creature); //Adds creature to the location's list of creatures
                     creature.setLocation(location); //Sets creature's location reference
                 }
             }
 
             for (Item item : itemList) {
-                if(item.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
                     location.addItem(item);         //Adds item to the location's list of items
                     item.setLocation(location);     //Sets item's location reference
                 }
             }
 
             for (StationaryObject object : stationaryObjectList) {
-                if(object.getLocationName().equalsIgnoreCase(location.getLocationName())){
+                if (object.getLocationName().equalsIgnoreCase(location.getLocationName())) {
                     location.addObject(object);     //Adds object to the location's list of objects
                     object.setLocation(location);   //Sets object's location reference
                 }
             }
         }
-
     }
 
 

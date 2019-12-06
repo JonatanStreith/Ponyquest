@@ -20,18 +20,16 @@ public class Commands {
 
         //Todo: Definitely fix up the save system better before doing something with this!
 
-        System.out.println("Name your save: ");
-        String choice = SystemData.inputReader.nextLine();
+        String choice = SystemData.getReply("Name your save: ");
 
-        String savePath = SystemData.savepath + choice;
+        String savePath = SystemData.getSavepath() + choice;
 
-        if (new File(SystemData.savepath + choice).exists()) {
+        if (new File(SystemData.getSavepath() + choice).exists()) {
             System.out.println("A save file with that name already exists.");
         } else {
             //Directory.CreateDirectory(savePath);
             world.saveToFile(savePath);
             System.out.println("Game saved as \"" + choice + "\"");
-
         }
 
 
@@ -46,12 +44,9 @@ public class Commands {
 
 
     public static void quit() {
-        System.out.println("Are you sure you want to quit? Y/N");
-        if (SystemData.inputReader.nextLine().toLowerCase().equals("y")) {
-            System.out.println("Okay, bye!");
-            SystemData.inputReader.nextLine();
-
-            SystemData.inputReader.close();
+        String choice = SystemData.getReply("Are you sure you want to quit? Y/N");
+        if (choice.equalsIgnoreCase("y")) {
+            SystemData.getReply("Okay, bye!\n[press return to continue]");
             System.exit(0);
         } else
             System.out.println("Okay, let's continue.");
@@ -66,18 +61,16 @@ public class Commands {
     public static void ListCommands(World world) {
 
         System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands));
-
-
     }
-
 
     public static void listNouns(World world) {
         System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateNouns));
-
     }
 
 
     public static void pickUp(String name, World world) {
+
+        //Todo: Not checked for functionality yet!
 
         if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
         {
@@ -108,6 +101,9 @@ public class Commands {
     }
 
     public static void drop(String name, World world) {
+
+        //Todo: Not checked for functionality yet!
+
         if (world.isInInventory(world.getItem(name))) {
             //drop
             world.removeFromInventory(world.getItem(name));
@@ -121,6 +117,9 @@ public class Commands {
 
 
     public static void showInventory(World world) {
+
+        //Todo: Not checked for functionality yet!
+
         List<Item> items = world.getInventory();
 
         if (items.size() == 0) {
@@ -131,6 +130,9 @@ public class Commands {
     }
 
     public static void LookAround(World world) {
+
+        //Todo: Not checked for functionality yet!
+
         System.out.println(world.getLocation(world.getPlayer().getLocationName()).getName());
         System.out.println();
         System.out.println(world.getLocation(world.getPlayer().getLocationName()).getDescription());
@@ -146,8 +148,10 @@ public class Commands {
     }
 
 
-    public static void lookAt(String argument, World world)          //Make sure you can't look at things that aren't present!
-    {
+    public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
+
+        //Todo: Not checked for functionality yet!
+
         if (argument.equals(""))
             System.out.println("Look at what?");
         else if (world.getPlayer().getLocationName().toLowerCase().equals(argument.toLowerCase()))      //Looks at place
@@ -166,6 +170,9 @@ public class Commands {
 
 
     public static void goTo(String newArea, World world) {
+
+        //Todo: Not checked for functionality yet!
+
         boolean canGo = false;
         for (String place : world.getLocation(world.getPlayer().getLocationName()).getExits())     //Check if any of the legitimate exits is the place we want to go to
         {
@@ -181,7 +188,7 @@ public class Commands {
             world.addCreatureToLocation("Trixie", newArea);                                             //Add player to new location
             //world.GetPlayer().SetLocation(newArea);                                                     //Change player's location variable; already included in prev command
             System.out.println("You go to " + world.getLocation(newArea).getName() + ".");
-            SystemData.inputReader.nextLine();
+            SystemData.getReply("[press enter to continue]");
             System.out.flush();
             LookAround(world);
         } else {
@@ -191,6 +198,9 @@ public class Commands {
 
 
     public static void talkTo(String name, World world) {
+
+        //Todo: Not checked for functionality yet!
+
         if (name.equals("")) {
             System.out.println("Talk to who?");
         } else if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
@@ -212,6 +222,9 @@ public class Commands {
 
 
     public static void getExits(World world) {
+
+        //Todo: Not checked for functionality yet!
+
         Location loc = world.getLocation(world.getPlayer().getLocationName());
         List<String> exits = loc.getExits();
 
@@ -220,8 +233,9 @@ public class Commands {
     }
 
 
-    public static void teleportOther(String[] command, World world)                             //TO DO Make sure you can teleport items and objects - different code?
-    {
+    public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
+
+        //Todo: Not checked for functionality yet!
 
         if (!world.doesObjectExist(command[1]))             //Subject doesn't exist
         {
@@ -235,7 +249,7 @@ public class Commands {
             world.addCreatureToLocation(world.getPlayer().getName(), command[3]);
 
             System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[3]).getName() + ".");
-            SystemData.inputReader.nextLine();
+            SystemData.getReply("[press enter to continue]");
             System.out.flush();
             LookAround(world);
         } else if (world.getGenericObject(command[1]) instanceof Creature) {
@@ -250,14 +264,15 @@ public class Commands {
     }
 
 
-    public static void teleportSelf(String[] command, World world)  //Make sure you can teleport items and objects - different code?
-    {
-        world.removeCreatureFromLocation(world.getPlayer().getName(), world.getPlayer().getLocationName());
-        world.addCreatureToLocation(world.getPlayer().getName(), command[1]);
+    public static void teleportSelf(String[] command, World world) { //Make sure you can teleport items and objects - different code?
+
+        //Todo: Not checked for functionality yet!
+
+        world.transferCreatureToLocation(world.getPlayer().getName(), world.getPlayerLocation().getName(), command[1]);
 
 
         System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[1]).getName() + ".");
-        SystemData.inputReader.nextLine();
+        SystemData.getReply("[press enter to continue]");
         System.out.flush();
         LookAround(world);
 
@@ -266,6 +281,8 @@ public class Commands {
 
 
     public static void ask(String[] command, World world) {
+
+        //Todo: Not checked for functionality yet!
 
         System.out.println("This command is still buggy.");
 
@@ -288,32 +305,33 @@ public class Commands {
 
 
     public static void listItems(World world) {
-        List<Item> itemList = world.getLocation(world.getPlayer().getLocationName()).getItemsAtLocation();      //Create a list of npcs at the location. Make sure to exclude Trixie.
+        List<Item> tempItemList = new ArrayList<>();
+        tempItemList.addAll(world.getPlayerLocation().getItemsAtLocation());      //Create a list of items at the location.
 
-        int numItems = itemList.size();
-
-        if (itemList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(numItems) + HelpfulMethods.turnItemListIntoString(itemList) + " here.");
+        if (tempItemList.size() > 0) {
+            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnItemListIntoString(tempItemList) + " here.");
         }
+    }
 
+    public static void listStationaryObjects(World world) {
+        List<StationaryObject> tempStationaryObjectList = new ArrayList<>();
+        tempStationaryObjectList.addAll(world.getPlayerLocation().getObjectsAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
+
+        if (tempStationaryObjectList.size() > 0) {
+            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnStationaryObjectListIntoString(tempStationaryObjectList) + " here.");
+        }
     }
 
     public static void listCreatures(World world) {
+        List<Creature> tempCreatureList = new ArrayList<>();
+        tempCreatureList.addAll(world.getPlayerLocation().getCreaturesAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
+        tempCreatureList.remove(world.getPlayer());
 
-
-        List<Creature> creatureList = new ArrayList<>();
-        creatureList.addAll(world.getPlayerLocation().getCreaturesAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
-        creatureList.remove(world.getPlayer());
-
-        int numCreatures = creatureList.size();
-
-        if (creatureList.size() == 0) { //If only Trixie is here.
+        if (tempCreatureList.size() == 0) { //If only Trixie is here.
             System.out.println("There's nopony else here.");
         } else {
-            System.out.println(HelpfulMethods.turnCreatureListIntoString(creatureList) + HelpfulMethods.isOrAre(numCreatures) + "here.");
-
+            System.out.println(HelpfulMethods.turnCreatureListIntoString(tempCreatureList) + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
         }
-
     }
 
 }

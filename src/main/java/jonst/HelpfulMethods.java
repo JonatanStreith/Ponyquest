@@ -3,13 +3,12 @@ package jonst;
 import jonst.Models.Creature;
 import jonst.Models.GenericObject;
 import jonst.Models.Item;
+import jonst.Models.StationaryObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class HelpfulMethods {
+
 
     public static String isOrAre(int num)
     {
@@ -39,6 +38,52 @@ public class HelpfulMethods {
     }
 
 
+//    public static <T> String turnListIntoString(T key, ArrayList<T> list) {
+//
+//        String fullString = "";
+//        List<String> nameList = new ArrayList<String>();
+//
+//        if(list instanceof Item){
+//            for (int i = 0; i < list.size() ; i++) {
+//                Item it = list.get(i);
+//                nameList.add(it.getName());
+//            }
+//
+//
+//
+//        } else if(list instanceof Creature) {
+//
+//        } else if (list instanceof StationaryObject){
+//
+//        }
+//
+//        //...
+//
+//        return fullString;
+//    }
+
+
+    public static String turnStationaryObjectListIntoString(List<StationaryObject> list)     //Takes a list of objects, pieces together their names into one string
+    {
+        String fullString = "";
+        List<String> nameList = new ArrayList<String>();
+
+        for (StationaryObject obj : list)
+        { nameList.add(obj.getName()); }    //Generates a list of names
+
+        if (nameList.size() >= 2)
+        {
+            for (int i = 0; i < nameList.size() - 2; i++)
+            { nameList.set(i, nameList.get(i) + ", "); }
+
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
+        }
+
+        for (int i = 0; i < nameList.size(); i++)
+        { fullString += nameList.get(i); }
+
+        return fullString;
+    }
 
     public static String turnItemListIntoString(List<Item> list)     //Takes a list of objects, pieces together their names into one string
     {
@@ -93,16 +138,10 @@ public class HelpfulMethods {
         int size = list.size();
 
         for (int i = 0; i < size/2 ; i++) {
-
             String temp = list.get(i);      //Set temp var to first position
             list.set(i, list.get(size-i-1));  //Sets first position to last position
             list.set(size-i-1, temp);         //Sets last position to temp var
-
         }
-
-
-
-        //return theList;
     }
 
 

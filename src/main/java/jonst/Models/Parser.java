@@ -35,6 +35,8 @@ public class Parser {
 
     public String[] parse(String commandInput)
     {
+        //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
+
         StringBuilder commandLine = new StringBuilder(commandInput.toLowerCase().trim());
 
         String[] cleanCommand = {"", "", "", ""};
@@ -89,9 +91,11 @@ public class Parser {
     }
 
 
-    public static void runCommand(String[] command, World world) throws IOException {
+    public void runCommand(String command, World world) throws IOException {
 
-        switch (command[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
+        String[] commandArray = parse(command);
+
+        switch (commandArray[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
             case "brandish":
                 //stuff
@@ -110,11 +114,11 @@ public class Parser {
                 break;
 
             case "pick up":
-                Commands.pickUp(command[1], world);
+                Commands.pickUp(commandArray[1], world);
                 break;
 
             case "drop":
-                Commands.drop(command[1], world);
+                Commands.drop(commandArray[1], world);
                 break;
 
             case "inventory":
@@ -139,15 +143,15 @@ public class Parser {
                 break;
 
             case "go to":
-                Commands.goTo(command[1], world);
+                Commands.goTo(commandArray[1], world);
                 break;
             case "go":
-                Commands.goTo(command[1], world);
+                Commands.goTo(commandArray[1], world);
                 break;
 
 
             case "talk to":
-                Commands.talkTo(command[1], world);
+                Commands.talkTo(commandArray[1], world);
                 break;
 
             case "look":
@@ -159,7 +163,7 @@ public class Parser {
                 break;
 
             case "look at":
-                Commands.lookAt(command[1], world);
+                Commands.lookAt(commandArray[1], world);
                 break;
 
             case "exits":
@@ -167,15 +171,15 @@ public class Parser {
                 break;
 
             case "teleport":
-                Commands.teleportOther(command, world);
+                Commands.teleportOther(commandArray, world);
                 break;
 
             case "teleport to":
-                Commands.teleportSelf(command, world);
+                Commands.teleportSelf(commandArray, world);
                 break;
 
             case "ask":
-                Commands.ask(command, world);
+                Commands.ask(commandArray, world);
                 break;
 
             default:

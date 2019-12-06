@@ -1,21 +1,50 @@
 package jonst.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SystemData {
 
-    public static Scanner inputReader = new Scanner(System.in);
+    private static Scanner inputReader = new Scanner(System.in);
 
-    public static String gamepath = "src/main/java/jonst";
-    public static String testpath = "src/main/java/jonst/Assets/Test/";
-    public static String savepath = "src/main/java/jonst/Assets/Saves/";
-    public static String defaultWorld = "src/main/java/jonst/Assets/DefaultWorld";
+    private static String gamepath = "src/main/java/jonst";
+    private static String testpath = "src/main/java/jonst/Assets/Test/";
+    private static String savepath = "src/main/java/jonst/Assets/Saves/";
+    private static String defaultWorld = "src/main/java/jonst/Assets/DefaultWorld";
+
+    private static String introBlurb = "Once upon a time, in the magical land of Equestria...\n" +
+            "A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.\n" +
+            "Then she returned again and made a great friend, and later helped save Equestria from the changeling menace, proving how all those neighsayers were foolish and wrong for doubting Trixie.\n" +
+            "Now, Trixie has returned to Ponyville once again. What adventures await her this time?";
+
+    public static String getGamepath() {
+        return gamepath;
+    }
+
+    public static String getTestpath() {
+        return testpath;
+    }
+
+    public static String getSavepath() {
+        return savepath;
+    }
+
+    public static String getDefaultWorld() {
+        return defaultWorld;
+    }
+
+    public static String getIntroBlurb() {
+        return introBlurb;
+    }
+
+
+
+
+
+
 
     public static ArrayList getLegitimateCommands() {
-
-        ArrayList<String> legitimateCommands = new ArrayList<String>() {{
+        return new ArrayList<String>() {{
             add("save");
             add("load");
             add("nouns");
@@ -38,14 +67,10 @@ public class SystemData {
             add("commands");
             add("inventory");
         }};
-
-
-        return legitimateCommands;
     }
 
     public static ArrayList getLegitimateConjunctions() {
-
-        ArrayList<String> legitimateConjunctions = new ArrayList<String>() {{
+        return new ArrayList<String>() {{
             add("to");
             add("about");
             add("behind");
@@ -55,14 +80,11 @@ public class SystemData {
             add("on");
             add("in");
         }};
-        return legitimateConjunctions;
     }
 
-
-    public static String introBlurb = "Once upon a time, in the magical land of Equestria...\n" +
-            "A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.\n" +
-            "Then she returned again and made a great friend, and later helped save Equestria from the changeling menace, proving how all those neighsayers were foolish and wrong for doubting Trixie.\n" +
-            "Now, Trixie has returned to Ponyville once again. What adventures await her this time?";
-
+    public static String getReply(String line) {
+        System.out.print(line);
+        return inputReader.nextLine();
+    }
 
 }

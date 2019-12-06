@@ -1,36 +1,41 @@
 package jonst.Models;
 
-import java.util.ArrayList;
-
 public class GenericObject {
-    protected String name;
-    protected String shortName;
+    private String name;
+    private String shortName;
 
-    protected String description;
+    private String description;
 
-    protected String locationName;
+    private String locationName;
 
     private Location location;
 
 
     public GenericObject(String name, String shortName, String description, String locationName)
 {
+    setName(name);
 
-    this.name = name;
-    this.shortName = shortName;
-    this.description = description;
-    this.locationName = locationName;
+    setShortName(shortName);
+    setDescription(description);
+    setLocationName(locationName);
 
 }
-
-    public Location getLocation() {
-        return location;
+    protected void setName(String name) {
+        this.name = name;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-        locationName = location.getLocationName();
+    protected void setShortName(String shortName) {
+        this.shortName = shortName;
     }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    protected void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
 
     public String getName() {
         return name;
@@ -48,20 +53,26 @@ public class GenericObject {
         return locationName;
     }
 
-//    public void setLocationName(String locationName) {
-//        this.locationName = locationName;
-//    }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLocation(Location location) {
+        this.location = location;
+        locationName = location.getLocationName();
     }
+
+
+
 
     public void getFeedback(){
     String feedback = name + "(" + shortName + "): " + description;
         System.out.println(feedback);
     }
+
+    public boolean isAtLocation(Location location){
+        return getLocation() == location;
+    }
+
 }

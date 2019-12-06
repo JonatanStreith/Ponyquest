@@ -19,7 +19,7 @@ public class JsonBuilderTest {
     public void buildCreatureListTest() {
 
 
-        List<Creature> test = JsonBuilder.loadCreatureList(SystemData.defaultWorld);
+        List<Creature> test = JsonBuilder.loadCreatureList(SystemData.getDefaultWorld());
 
         for (Creature cre : test) {
             System.out.println(cre.getName());
@@ -31,7 +31,7 @@ public class JsonBuilderTest {
     public void buildItemListTest() {
 
 
-        List<Item> test = JsonBuilder.loadItemList(SystemData.defaultWorld);
+        List<Item> test = JsonBuilder.loadItemList(SystemData.getDefaultWorld());
 
         for (Item ite : test) {
             System.out.println(ite.getName());
@@ -43,7 +43,7 @@ public class JsonBuilderTest {
     public void buildLocationListTest() {
 
 
-        List<Location> test = JsonBuilder.loadLocationList(SystemData.defaultWorld);
+        List<Location> test = JsonBuilder.loadLocationList(SystemData.getDefaultWorld());
 
         for (Location loc : test) {
             System.out.println(loc.getName());
@@ -55,7 +55,7 @@ public class JsonBuilderTest {
     public void buildObjectListTest() {
 
 
-        List<StationaryObject> test = JsonBuilder.loadStationaryObjectList(SystemData.defaultWorld);
+        List<StationaryObject> test = JsonBuilder.loadStationaryObjectList(SystemData.getDefaultWorld());
 
         for (StationaryObject sta : test) {
             System.out.println(sta.getName());
@@ -66,9 +66,9 @@ public class JsonBuilderTest {
     @Test
     public void saveCreatureListTest() {
 
-        List<Creature> testlist = JsonBuilder.loadCreatureList(SystemData.defaultWorld);
+        List<Creature> testlist = JsonBuilder.loadCreatureList(SystemData.getDefaultWorld());
 
-        boolean test = JsonBuilder.saveCreatureList(SystemData.testpath, testlist);
+        boolean test = JsonBuilder.saveCreatureList(SystemData.getTestpath(), testlist);
 
         assertTrue(test);
     }
@@ -77,27 +77,27 @@ public class JsonBuilderTest {
     @Test
     public void saveItemListTest() {
 
-        List<Item> testlist = JsonBuilder.loadItemList(SystemData.defaultWorld);
+        List<Item> testlist = JsonBuilder.loadItemList(SystemData.getDefaultWorld());
 
-        boolean test = JsonBuilder.saveItemList(SystemData.testpath, testlist);
+        boolean test = JsonBuilder.saveItemList(SystemData.getTestpath(), testlist);
 
         assertTrue(test);
     }
     @Test
     public void saveLocationListTest() {
 
-        List<Location> testlist = JsonBuilder.loadLocationList(SystemData.defaultWorld);
+        List<Location> testlist = JsonBuilder.loadLocationList(SystemData.getDefaultWorld());
 
-        boolean test = JsonBuilder.saveLocationList(SystemData.testpath, testlist);
+        boolean test = JsonBuilder.saveLocationList(SystemData.getTestpath(), testlist);
 
         assertTrue(test);
     }
     @Test
     public void saveStationaryObjectListTest() {
 
-        List<StationaryObject> testlist = JsonBuilder.loadStationaryObjectList(SystemData.defaultWorld);
+        List<StationaryObject> testlist = JsonBuilder.loadStationaryObjectList(SystemData.getDefaultWorld());
 
-        boolean test = JsonBuilder.saveStationaryObjectList(SystemData.testpath, testlist);
+        boolean test = JsonBuilder.saveStationaryObjectList(SystemData.getTestpath(), testlist);
 
         assertTrue(test);
     }

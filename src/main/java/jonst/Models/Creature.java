@@ -18,13 +18,18 @@ public class Creature extends GenericObject {
     public Creature(String name, String shortName, String description, String locationName, String race, List<String> casualDialog) {
         super(name, shortName, description, locationName);
 
-        this.race = race;
-        this.casualDialog = casualDialog;
+        setRace(race);
+        setCasualDialog(casualDialog);
 
     }
 
+    private void setCasualDialog(List<String> casualDialog) {
+        this.casualDialog = casualDialog;
+    }
 
-
+    public void setRace(String race) {
+        this.race = race;
+    }
 
     public String getRace()
     { return race; }
