@@ -120,7 +120,7 @@ public class Commands {
 
         //Todo: Not checked for functionality yet!
 
-        List<Item> items = world.getInventory();
+        List<Item> items = world.getPlayerInventory();
 
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");

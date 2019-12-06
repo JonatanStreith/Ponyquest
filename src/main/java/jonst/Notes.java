@@ -60,4 +60,11 @@ public class Notes {
     //and return a certain location matching that one! Could use a hashmap with time marks as keys!
 
 
+    //Should have "caster" object (class) that handles spellcasting. Stores spells, maybe.
+
+    //Note: It is permissible to have secondary inputs. If a command needs more info, you can prompt for more lines. Good idea!
+
+    //Turn shortName into a list of potential aliases? Work out how to get around multiple responses. Perhaps method that checks all LOCAL objects to match the alias?
+    //And reply "Which one?" in the case of multiple matches!
+
 }

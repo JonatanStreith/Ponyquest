@@ -19,13 +19,14 @@ public class World {
 
     private List<Item> playerInventory;
 
-    private Creature playerCharacter;
+    private Creature playerCharacter = null;
 
     private Parser parser;
 
 
     public World(String loadFilePath) {
 
+        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
         loadListsFromFile(loadFilePath);        //Build lists
 
@@ -34,9 +35,9 @@ public class World {
         parser = new Parser(genericList);       //The parser holds lists of words, and parses input
 
 
-        setMainCharacter("Trixie");             //Establish protagonist
+        setMainCharacter(getCreature("Trixie"));             //Establish protagonist
 
-        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
+
 
     }  //End of World constructor
 
@@ -65,18 +66,31 @@ public class World {
 //-------- Add/Remove stuff -----------------------------------
 
     public void transferCreatureToLocation(String creature, String oldLocation, String newLocation) {
-        removeCreatureFromLocation(creature, oldLocation);
-        addCreatureToLocation(creature, newLocation);
+
+        if (doesObjectExist(creature) && doesObjectExist(oldLocation) && doesObjectExist(newLocation)) {
+            removeCreatureFromLocation(creature, oldLocation);
+            addCreatureToLocation(creature, newLocation);
+        } else
+            System.out.println("Illegal operation: transferCreatureToLocation, " + creature + " from " + oldLocation + " to " + newLocation + ".");
     }
 
     public void transferItemToLocation(String item, String oldLocation, String newLocation) {
-        removeItemFromLocation(item, oldLocation);
-        addItemToLocation(item, newLocation);
+
+        if (doesObjectExist(item) && doesObjectExist(oldLocation) && doesObjectExist(newLocation)) {
+            removeItemFromLocation(item, oldLocation);
+            addItemToLocation(item, newLocation);
+        } else
+            System.out.println("Illegal operation: transferItemToLocation, " + item + " from " + oldLocation + " to " + newLocation + ".");
+
     }
 
     public void transferObjectToLocation(String object, String oldLocation, String newLocation) {
-        removeObjectFromLocation(object, oldLocation);
-        addObjectToLocation(object, newLocation);
+
+        if (doesObjectExist(object) && doesObjectExist(oldLocation) && doesObjectExist(newLocation)) {
+            removeObjectFromLocation(object, oldLocation);
+            addObjectToLocation(object, newLocation);
+        } else
+            System.out.println("Illegal operation: transferObjectToLocation, " + object + " from " + oldLocation + " to " + newLocation + ".");
     }
 
 
@@ -148,13 +162,9 @@ public class World {
     }
 
     public boolean isInInventory(Item item) {
-        return playerInventory.contains(item);
+        boolean isIn = playerInventory.contains(item);
+        return isIn;
     }
-
-    public List<Item> getInventory() {
-        return playerInventory;
-    }
-
 
     //-------- List handling -----------------------
 
@@ -170,7 +180,9 @@ public class World {
             }
 
             for (Item item : itemList) {
-                if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
+                if (item.getLocationName().equalsIgnoreCase("inventory")) {
+                    addToInventory(item);
+                } else if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
                     location.addItem(item);         //Adds item to the location's list of items
                     item.setLocation(location);     //Sets item's location reference
                 }
@@ -188,15 +200,12 @@ public class World {
 
     // --------------- Setters & Getters ------------------------
 
-    public boolean setMainCharacter(String name) {
-        playerCharacter = null;
-        for (Creature creature : creatureList) {
-            if (creature.getName().equalsIgnoreCase(name))
-                playerCharacter = creature;
-            break;
-        }
-        //System.out.println("Main character "+ playerCharacter.getName() + " set.");
-        return (!(playerCharacter == null));
+    public boolean setMainCharacter(Creature name) {
+
+                playerCharacter = name;
+
+                return !(playerCharacter == null);
+
     }
 
     public Creature getPlayer() {
@@ -240,7 +249,9 @@ public class World {
     public Location getLocation(String wantedLocation) {
 
         for (Location location : locationList) {
-            if (location.getName().toLowerCase().contains(wantedLocation.toLowerCase()))
+
+            //Instead of using equals, could use contains?
+            if (location.getName().equalsIgnoreCase(wantedLocation))
                 return location;
         }
         return null;
@@ -249,7 +260,7 @@ public class World {
     public Creature getCreature(String wantedCreature) {
 
         for (Creature creature : creatureList) {
-            if (creature.getName().toLowerCase().contains(wantedCreature.toLowerCase()))
+            if (creature.getName().equalsIgnoreCase(wantedCreature))
                 return creature;
         }
         return null;
@@ -258,7 +269,7 @@ public class World {
     public Item getItem(String wantedItem) {
 
         for (Item item : itemList) {
-            if (item.getName().toLowerCase().contains(wantedItem.toLowerCase()))
+            if (item.getName().equalsIgnoreCase(wantedItem))
                 return item;
         }
         return null;
@@ -267,7 +278,7 @@ public class World {
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
 
         for (StationaryObject stationaryObject : stationaryObjectList) {
-            if (stationaryObject.getName().toLowerCase().equals(wantedStationaryObject.toLowerCase()))
+            if (stationaryObject.getName().equalsIgnoreCase(wantedStationaryObject))
                 return stationaryObject;
         }
         return null;
@@ -276,17 +287,16 @@ public class World {
     public GenericObject getGenericObject(String wantedGenericObject) {
 
         for (GenericObject genericObject : genericList) {
-            if (genericObject.getName().toLowerCase().contains(wantedGenericObject.toLowerCase()))
+            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
                 return genericObject;
         }
         return null;
     }
 
     public String returnFullName(String name) {
-        String fullName = name;
 
         for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-            if (generic.getShortName().equals(name)) {
+            if (generic.getShortName().equalsIgnoreCase(name)) {
                 return generic.getName();
             }
         }
