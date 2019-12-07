@@ -100,6 +100,7 @@ public class CommandsTest {
 
     @Test
     public void listStationaryObjectsTest() {
+
         Commands.listStationaryObjects(world);
     }
 

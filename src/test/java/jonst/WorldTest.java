@@ -109,10 +109,6 @@ public class WorldTest {
 
         assertEquals(4, testinv.size());    //...and a plow
 
-        for (Item item : testinv) {
-            System.out.println(item.getName());
-        }
-
     }
 
 
@@ -127,11 +123,6 @@ public class WorldTest {
         world.removeFromInventory(world.getItem(world.returnFullName("hat")));
 
         assertEquals(2, testinv.size());
-
-        for (Item item : testinv) {
-            System.out.println(item.getName());
-        }
-
 
     }
 

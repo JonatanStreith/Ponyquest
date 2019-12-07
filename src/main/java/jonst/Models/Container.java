@@ -1,0 +1,32 @@
+package jonst.Models;
+
+import jonst.HelpfulMethods;
+
+import java.util.List;
+
+public class Container extends Item {
+
+    private List<Item> contains;
+
+    public Container(String name, String shortName, String description, String locationName) {
+        super(name, shortName, description, locationName);
+    }
+
+
+    public List<Item> getContains() {
+        return contains;
+    }
+
+    public String seeContents(){
+        return ("It contains " + HelpfulMethods.turnItemListIntoString(contains));
+    }
+
+
+    public void addContents(Item item){
+        contains.add(item);
+    }
+
+    public void removeContent(Item item){
+        contains.remove(item);
+    }
+}
