@@ -102,4 +102,10 @@ public class JsonBuilderTest {
         assertTrue(test);
     }
 
+    @Test
+    public void getSavesMenuTest() {
+
+        JsonBuilder.getSavesMenu();
+
+    }
 }

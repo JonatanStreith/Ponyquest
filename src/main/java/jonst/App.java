@@ -1,6 +1,7 @@
 package jonst;
 
 import jonst.Data.SystemData;
+import jonst.Models.SaveFile;
 
 import java.io.Console;
 import java.io.File;
@@ -8,22 +9,26 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
+public class App {
 
-        //Todo: Better error handling! Main should not have throws IOException!
+    //Todo: Better error handling! Main should not have throws IOException!
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         System.out.println("Welcome to the game!");
 
         String filePath = getLoadingPath();     //This allows the user to choose between loading a save or starting a new game (default world)
+
+
+        System.out.println(filePath);
+
+
 
         World world = new World(filePath);  //Build world
 
@@ -33,59 +38,62 @@ public class App
     }
 
 
-
-    public static String getLoadingPath(){
+    public static String getLoadingPath() {
 
         String reply;
-        boolean choiceMade = false;
-        String filePath = "";
+        Map<Long, String> saves;
 
-        do
-        {
+        while (true) {
+
             reply = SystemData.getReply("Do you want to start a (N)ew game, or (L)oad a previous save?");
-            if (reply.equalsIgnoreCase("n"))
-            {
-                filePath = SystemData.getDefaultWorld();
-                choiceMade = true;
+            if (reply.equalsIgnoreCase("n")) {
                 System.out.println(SystemData.getIntroBlurb());
-            }
 
-            else if (reply.equalsIgnoreCase("l"))
-            {
+                return SystemData.getDefaultWorld();
+
+            } else if (reply.equalsIgnoreCase("l")) {
                 System.out.println("Available saves:");
-                for(String dir : new File(SystemData.getSavepath()).list()  )
-                {
-                    System.out.println(dir);
+
+                saves = JsonBuilder.getSavesMenu();
+
+                for (Long saveId : saves.keySet()) {
+                    System.out.println(saveId + ": " + saves.get(saveId));
                 }
 
-                /*
+                while (true) {
 
-                Todo:
-                Rebuild the "load from save" later. Use Json to build a "directory" that gets saved somewhere.
-                Something that maps an index (unique) to a save name (not) and a save path (use index and name to define it, maybe) - should be easy to build.
-                Just make sure that a save ADDS to the list, and doesn't OVERWRITE it.
+                    reply = SystemData.getReply("Please input number of save file: ");
+                    try {
+                        long saveReply = Long.parseLong(reply);
 
-                */
-
-                String choice = SystemData.getReply("Which save file do you want to load?");
-
-                if (new File(SystemData.getSavepath() + choice).exists())
-                {
-                    filePath = SystemData.getSavepath() + choice;
-                    System.out.println("Restoring from " + choice + "...");
-                    choiceMade = true;
+                        if (saves.keySet().contains(saveReply)) {
+                            return SystemData.getSavepath() + saveReply + saves.get(saveReply);
+                        } else {
+                            System.out.println("That save does not exist.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect input.");
+                    }
                 }
-                else
-                {
-                    System.out.println("That file doesn't exist.");
-                }
-                //Ask for one
+            } else {
+                System.out.println("Sorry, what?");
             }
-            else
-            { System.out.println("Sorry, what?"); }
-
-        } while (!choiceMade);
-
-        return filePath;
+        }
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

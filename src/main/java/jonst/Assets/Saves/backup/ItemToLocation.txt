@@ -1,8 +1,0 @@
-﻿a juicy red apple: Sweet Apple Acres
-a bundle of fireworks: Sugarcube Corner
-a heavy plow: Sweet Apple Acres
-a spool of thread: Carousel Boutique
-an unfinished dress: Carousel Boutique
-a bucket of ice cream: Carousel Boutique
-Trixie's hat: inventory
-Trixie's cape: inventory

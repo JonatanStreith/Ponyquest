@@ -1,0 +1,74 @@
+[
+  {
+    "Description": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident.",
+    "FullName": "Cutie Map",
+    "ShortName": "map",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable.",
+    "FullName": "Friendship thrones",
+    "ShortName": "thrones",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is.",
+    "FullName": "Twilight's throne",
+    "ShortName": "Throne of Magic",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Rarity's throne. She probably brings cushions.",
+    "FullName": "Rarity's throne",
+    "ShortName": "Throne of Generosity",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Applejack's throne. You can tell by the dried apple juice stains.",
+    "FullName": "Applejack's throne",
+    "ShortName": "Throne of Honesty",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?",
+    "FullName": "Pinkie Pie's throne",
+    "ShortName": "Throne of Laughter",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Fluttershy's throne. She sits on it like she's afraid it'll break.",
+    "FullName": "Fluttershy's throne",
+    "ShortName": "Throne of Kindness",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Rainbow Dash's throne. It's just another napping spot to her.",
+    "FullName": "Rainbow Dash's throne",
+    "ShortName": "Throne of Loyalty",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "Spike's throne. A diminuitive seat for a diminuitive guy.",
+    "FullName": "Spike's throne",
+    "ShortName": "tiny throne",
+    "Location": "Cutie Map room"
+  },
+  {
+    "Description": "The tree has no apples right now... somepony must've harvested them already.",
+    "FullName": "an apple tree",
+    "ShortName": "tree",
+    "Location": "Sweet Apple Acres"
+  },
+  {
+    "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
+    "FullName": "Rarity's sewing machine",
+    "ShortName": "sewing machine",
+    "Location": "Carousel Boutique interior"
+  },
+  {
+    "Description": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you.",
+    "FullName": "baking oven",
+    "ShortName": "oven",
+    "Location": "Sugarcube Corner kitchen"
+  }
+]
