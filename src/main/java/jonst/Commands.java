@@ -15,6 +15,16 @@ import java.util.List;
 public class Commands {
 
 
+    public static void enter(String location, World world){
+        //Todo: have locations have an "enterLoc" and "exitLoc" to point to.
+        //So player can type "enter castle" and go inside to a specific "inside location". Same with "exit castle".
+    }
+
+    public static void exit(String location, World world){
+        //Todo
+    }
+
+
     public static void saveGame(World world) throws IOException {
 
 
@@ -44,7 +54,7 @@ public class Commands {
 
 
     public static void quit() {
-        String choice = SystemData.getReply("Are you sure you want to quit? Y/N");
+        String choice = SystemData.getReply("Are you sure you want to quit? Y/N ");
         if (choice.equalsIgnoreCase("y")) {
             SystemData.getReply("Okay, bye!\n[press return to continue]");
             System.exit(0);
@@ -102,12 +112,14 @@ public class Commands {
 
     public static void drop(String name, World world) {
 
+        String fullName = world.returnLocalFullName(name);
+
         //Todo: Not checked for functionality yet!
 
-        if (world.isInInventory(world.getItem(name))) {
+        if (world.isInInventory(world.getItem(fullName))) {
             //drop
-            world.removeFromInventory(world.getItem(name));
-            world.addItemToLocation(name, world.getPlayerLocation().getLocationName());              //Remove from loc
+            world.removeFromInventory(world.getItem(fullName));
+            world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
             System.out.println("You drop the " + world.getItem(name).getShortName() + ".");
         } else {
@@ -117,8 +129,6 @@ public class Commands {
 
 
     public static void showInventory(World world) {
-
-        //Todo: Not checked for functionality yet!
 
         List<Item> items = world.getPlayerInventory();
 
@@ -131,11 +141,9 @@ public class Commands {
 
     public static void LookAround(World world) {
 
-        //Todo: Not checked for functionality yet!
-
-        System.out.println(world.getLocation(world.getPlayer().getLocationName()).getName());
+        System.out.println(world.getPlayerLocation().getName());
         System.out.println();
-        System.out.println(world.getLocation(world.getPlayer().getLocationName()).getDescription());
+        System.out.println(world.getPlayerLocation().getDescription());
 
 
         System.out.println();
@@ -150,44 +158,47 @@ public class Commands {
 
     public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        //Todo: Not checked for functionality yet!
+        String fullName = world.returnFullName(argument);
+        String fullNameLocal = world.returnLocalFullName(argument);
 
-        if (argument.equals(""))
+        if (!(world.doesObjectExist(fullName))) { //Looks at something that doesn't exist
             System.out.println("Look at what?");
-        else if (world.getPlayer().getLocationName().toLowerCase().equals(argument.toLowerCase()))      //Looks at place
-        {
-            System.out.println(world.getLocation(world.getPlayer().getLocationName()).getDescription());
-        } else if (!(world.isObjectPresent(argument)))                                                   //Looks at something that isn't there)
-        {
-            System.out.println("You can't see " + world.getGenericObject(argument).getName() + " here.");
-        } else if (world.isObjectPresent(argument))       //Subject is present.
-        {
-            System.out.println(world.getGenericObject(argument).getDescription());
+
+        } else if (!(world.isObjectPresent(fullNameLocal))) {      //Looks at something that exists, but isn't present
+            System.out.println("You can't see that from here.");
+
         } else {
-            System.out.println("Look at what?");
+            System.out.println(world.getGenericObject(fullNameLocal).getDescription());
         }
     }
 
 
     public static void goTo(String newArea, World world) {
 
-        //Todo: Not checked for functionality yet!
-
+        List<String> newAreasFullName = world.returnFullNames(newArea); //A list of all places matching the shortname provided
         boolean canGo = false;
-        for (String place : world.getLocation(world.getPlayer().getLocationName()).getExits())     //Check if any of the legitimate exits is the place we want to go to
-        {
 
-            if (newArea.equals(place)) {
-                canGo = true;
+        String destination = "";
+
+        outerLoop:
+        for (String exit : world.getPlayerLocation().getExits())     //Check if any of the legitimate exits is the place we want to go to
+        {
+            for (String area : newAreasFullName) {
+
+                if (area.equalsIgnoreCase(exit)) {
+                    destination = area;
+
+                    break outerLoop;
+                }
             }
+
         }
 
-        if (canGo)               //Is newArea on the list of legitimate exits?
+        if (destination!="")               //Is a destination set?
         {
-            world.removeCreatureFromLocation("Trixie", world.getPlayer().getLocationName());            //Remove player from current location
-            world.addCreatureToLocation("Trixie", newArea);                                             //Add player to new location
+            world.transferCreatureToLocation("Trixie", world.getPlayerLocation().getName(), destination);                                            //Add player to new location
             //world.GetPlayer().SetLocation(newArea);                                                     //Change player's location variable; already included in prev command
-            System.out.println("You go to " + world.getLocation(newArea).getName() + ".");
+            System.out.println("You go to " + world.getLocation(destination).getName() + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             LookAround(world);

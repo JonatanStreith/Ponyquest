@@ -11,6 +11,10 @@ public class Location extends GenericObject {
 
     //IMPORTANT! Locations should store a list/array/Enumerator of legitimate exits: direction, and which location it leads to. FIGURE OUT!
 
+    //FACT: All location needs unique names (their "true full name"), but different locations can have the same shortname(s).
+    //For instance, "The Everfree Forest" may be "forest", and "Cottontail woods" may be "forest".
+    //As long as we resolve with returnLocalFullName, this should not be an issue.
+
 
     //Todo: figure out way to use hashmaps instead of arraylists to store this; easier to search through.
 
@@ -117,6 +121,16 @@ public class Location extends GenericObject {
 
     public boolean creatureIsAtLocation(Creature creature) {
         return getCreaturesAtLocation().contains(creature);
+    }
+
+    public List<GenericObject> getAllAtLocation(){
+        List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
+        genList.addAll(creaturesAtLocation);
+        genList.addAll(itemsAtLocation);
+        genList.addAll(objectsAtLocation);
+        genList.add(this);
+
+        return genList;
     }
 
 

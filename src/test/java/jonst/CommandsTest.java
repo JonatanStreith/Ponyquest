@@ -4,6 +4,8 @@ import jonst.Data.SystemData;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class CommandsTest {
 
 
@@ -54,16 +56,29 @@ public class CommandsTest {
 
     @Test
     public void showInventoryTest() {
+
+        Commands.showInventory(world);
     }
 
 
     @Test
     public void lookAtTest() {
+
+        Commands.lookAt("Applejack", world);
+        Commands.lookAt("maud", world);
+        Commands.lookAt("acres", world);
+        Commands.lookAt("twilight", world);
+
     }
 
 
     @Test
     public void goToTest() {
+
+        Commands.goTo("castle", world);
+
+        assertEquals(world.getLocation("Castle of Friendship"), world.getPlayerLocation());
+
     }
 
 

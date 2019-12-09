@@ -9,8 +9,9 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class JsonBuilderTest {
 
@@ -105,7 +106,11 @@ public class JsonBuilderTest {
     @Test
     public void getSavesMenuTest() {
 
-        JsonBuilder.getSavesMenu();
+        Map<Long, String> test = JsonBuilder.getSavesMenu();
+
+        assertNotNull(test);
+        assertNotEquals(0, test.size());
+        assertEquals("backup", test.get((long)1));
 
     }
 }

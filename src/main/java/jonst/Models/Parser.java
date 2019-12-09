@@ -27,7 +27,7 @@ public class Parser {
 
         HelpfulMethods.reverseSortStringList(legitimateCommands);
         HelpfulMethods.reverseSortStringList(legitimateConjunctions);
-        Collections.sort(legitimateNouns);
+        HelpfulMethods.reverseSortStringList(legitimateNouns);
 
 
     }

@@ -303,10 +303,46 @@ public class World {
         return name;        //if not, just return the short name
     }
 
+    public List<String> returnFullNames(String name){
+        //Returns list of Fullnames matching the shortName - in case multiple things have that shortName. Prepare for the alias field!
+
+        List<String> returnList = new ArrayList<>();
+
+        returnList.add(name);
+
+        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+            if (generic.getShortName().equalsIgnoreCase(name)) {
+                returnList.add(generic.getName());
+            }
+        }
+        return returnList;
+    }
+
+    public String returnLocalFullName(String name){
+
+        //Figure out how to handle if multiples have the same shortname!
+
+        List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
+
+        genList.addAll(getPlayerInventory());
+
+        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
+            if (generic.getShortName().equalsIgnoreCase(name)) {
+                return generic.getName();
+            }
+        }
+        return name;        //if not, just return the short name
+
+
+    }
+
     // ------------- Boolean checks ---------------------
 
     public boolean isObjectPresent(String selected) {
-        return ((getPlayerLocation() == (getGenericObject(selected).getLocation())) || (getPlayerLocation() == (getLocation("inventory"))));
+
+        return (getPlayerLocation().getAllAtLocation().contains(getGenericObject(selected)) || getPlayerInventory().contains( getItem(selected)));
+
+        //return ((getPlayerLocation() == (getGenericObject(selected).getLocation())) || (getPlayerLocation() == (getLocation("inventory"))));
     }
 
     public boolean doesObjectExist(String selected) {

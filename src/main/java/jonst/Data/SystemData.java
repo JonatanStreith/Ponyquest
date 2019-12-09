@@ -53,6 +53,8 @@ public class SystemData {
             add("look");
             add("go to");
             add("go");
+            add("enter");
+            add("exit");
             add("pick up");
             add("talk to");
             add("quit");
@@ -65,6 +67,7 @@ public class SystemData {
             add("teleport");
             add("help");
             add("commands");
+            add("nouns");
             add("inventory");
         }};
     }

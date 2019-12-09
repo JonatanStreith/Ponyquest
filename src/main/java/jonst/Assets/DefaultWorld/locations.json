@@ -49,7 +49,7 @@
     },
     "Description": "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?",
     "FullName": "Sugarcube Corner kitchen",
-    "ShortName": "bakery kitchen",
+    "ShortName": "kitchen",
     "Location": "Sugarcube Corner kitchen"
   },
   {
@@ -149,7 +149,7 @@
     },
     "Description": "The castle kitchen is a great place to stock up on snacks. As long as Spike doesn't catch you.",
     "FullName": "Castle kitchen",
-    "ShortName": "Kitchen",
+    "ShortName": "kitchen",
     "Location": "Castle kitchen"
   },
   {

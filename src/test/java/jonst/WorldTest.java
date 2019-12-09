@@ -14,7 +14,7 @@ public class WorldTest {
     World world;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         world = new World(SystemData.getDefaultWorld());
     }
 
@@ -288,13 +288,28 @@ public class WorldTest {
 
         String fullName1 = world.returnFullName("tree");
         String fullName2 = world.returnFullName("TwilighT");
-        String fullName3 = world.returnFullName("Ember");       //Full name
+        String fullName3 = world.returnFullName("Ember");
 
-        assertEquals("an apple tree", fullName1);
-        assertEquals("Twilight Sparkle", fullName2);
-        assertEquals("Ember", fullName3);
+        assertEquals("an apple tree", fullName1);       //Gets the full name
+        assertEquals("Twilight Sparkle", fullName2);    //Gets the full name, even though it's not case-correct
+        assertEquals("Ember", fullName3);               //Just gets the same, as it doesn't exist
 
     }
+
+    @Test
+    public void returnLocalFullNameTest() {
+
+        String fullName1 = world.returnLocalFullName("tree");
+        String fullName2 = world.returnLocalFullName("TwilighT");
+        String fullName3 = world.returnLocalFullName("Ember");
+        String fullName4 = world.returnLocalFullName("acres");
+
+        assertEquals("an apple tree", fullName1);           //Gets the full name
+        assertEquals("TwilighT", fullName2);                //Gets the same as the input, because Twilight isn't present
+        assertEquals("Ember", fullName3);                   //Gets the same, because Ember doesn't exist
+        assertEquals("Sweet Apple Acres", fullName4);
+    }
+
 
     // ------------- Boolean checks ---------------------
 
