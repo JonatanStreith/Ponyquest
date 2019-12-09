@@ -18,8 +18,8 @@ public class Creature extends GenericObject {
 
 
 
-    public Creature(String name, String shortName, String description, String locationName, String race, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, shortName, description, locationName);
+    public Creature(String name, String shortName, String description, String locationName, List<String> alias, String race, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, shortName, description, locationName, alias);
 
         setRace(race);
         setCasualDialog(casualDialog);

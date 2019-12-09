@@ -62,11 +62,11 @@ public class HelpfulMethodsTest {
     public void turnCreatureListIntoStringTest() {
 
         List<Creature> list = new ArrayList() {{
-            add(new Creature("Pinkie Pie", "", "", "", "", new ArrayList<>(), new HashMap<>()));
-            add(new Creature("Applejack", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Applejack", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Pinkie Pie", "", "", "", new ArrayList<>(), "", new ArrayList<>(), new HashMap<>()));
+            add(new Creature("Applejack", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Applejack", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
         }};
 
 
@@ -91,11 +91,11 @@ public class HelpfulMethodsTest {
     public void turnItemListIntoStringTest() {
 
         List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", "" ));
-            add(new Item("apple", "", "", "" ));
-            add(new Item("box", "", "", "" ));
-            add(new Item("crowbar", "", "", "" ));
-            add(new Item("shoe", "", "", "" ));
+            add(new Item("rope", "", "", "", new ArrayList<>() ));
+            add(new Item("apple", "", "", "", new ArrayList<>() ));
+            add(new Item("box", "", "", "", new ArrayList<>() ));
+            add(new Item("crowbar", "", "", "", new ArrayList<>() ));
+            add(new Item("shoe", "", "", "", new ArrayList<>() ));
         }};
 
 
@@ -120,11 +120,11 @@ public class HelpfulMethodsTest {
     public void turnStationaryObjectListIntoStringTest() {
 
         List<StationaryObject> list = new ArrayList() {{
-            add(new StationaryObject("Pinkie Pie", "", "", "" ));
-            add(new StationaryObject("Applejack", "", "", "" ));
-            add(new StationaryObject("Rarity", "", "", "" ));
-            add(new StationaryObject("Applejack", "", "", "" ));
-            add(new StationaryObject("Rarity", "", "", "" ));
+            add(new StationaryObject("Pinkie Pie", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
         }};
 
 

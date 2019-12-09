@@ -12,7 +12,14 @@
     },
 	"AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "The Great and Powerful Trixie",
+      "yourself",
+      "you",
+      "unicorn",
+      "best pony"
+    ]
   },
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
@@ -29,7 +36,14 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Twilight",
+      "Sparkle",
+      "princess",
+      "Twily",
+      "alicorn"
+    ]
   },
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
@@ -46,7 +60,13 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Rarara",
+      "fashion pony",
+      "Diva",
+      "unicorn"
+    ]
   },
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
@@ -63,7 +83,15 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Pinkie",
+      "Pie",
+      "baker",
+      "party pony",
+      "weirdo",
+      "earth pony"
+    ]
   },
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
@@ -80,7 +108,11 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "AJ",
+      "earth pony"
+    ]
   },
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
@@ -97,7 +129,13 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Rainbow",
+      "Dash",
+      "Dashie",
+      "pegasus"
+    ]
   },
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
@@ -114,7 +152,12 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Flutters",
+      "Shutterfly",
+      "pegasus"
+    ]
   },
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
@@ -131,7 +174,11 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Spiky",
+      "dragon"
+    ]
   },
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
@@ -148,7 +195,15 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Starlight",
+      "Glimmy",
+      "Glim-Glam",
+      "friend",
+      "best friend",
+      "unicorn"
+    ]
   },
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
@@ -165,7 +220,12 @@
     },
 	  "AskTopics": {
 	  "key": "Response"
-	}
+	},
+    "Alias": [
+      "maud",
+      "pie",
+      "earth pony"
+    ]
   },
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
@@ -182,7 +242,13 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Celly",
+      "Tia",
+      "princess",
+      "alicorn"
+    ]
   },
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
@@ -199,7 +265,14 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "Luna",
+      "Lulu",
+      "Moony",
+      "princess",
+      "alicorn"
+    ]
   },
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
@@ -216,7 +289,12 @@
     },
 	  "AskTopics": {
 	  "Key": "Response"
-	}
+	},
+    "Alias": [
+      "dissy",
+      "spirit",
+      "draconequus"
+    ]
   }
 ]
 

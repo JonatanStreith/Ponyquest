@@ -1,5 +1,7 @@
 package jonst.Models;
 
+import java.util.List;
+
 public class GenericObject {
     private String name;
     private String shortName;
@@ -10,14 +12,18 @@ public class GenericObject {
 
     private Location location;
 
+    private List<String> alias;
 
-    public GenericObject(String name, String shortName, String description, String locationName)
+    public GenericObject(String name, String shortName, String description, String locationName, List<String> alias)
 {
     setName(name);
 
     setShortName(shortName);
     setDescription(description);
     setLocationName(locationName);
+
+    setAlias(alias);
+
 
 }
     protected void setName(String name) {
@@ -35,6 +41,7 @@ public class GenericObject {
     protected void setLocationName(String locationName) {
         this.locationName = locationName;
     }
+
 
 
     public String getName() {
@@ -63,7 +70,13 @@ public class GenericObject {
         locationName = location.getLocationName();
     }
 
+    public List<String> getAlias() {
+        return alias;
+    }
 
+    public void setAlias(List<String> alias) {
+        this.alias = alias;
+    }
 
 
     public void getFeedback(){

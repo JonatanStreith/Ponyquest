@@ -85,11 +85,16 @@ public class JsonBuilder {
                         }}
                 );
                 put("AskTopics", new JSONObject() {{
-                    for (String key : askTopics.keySet() ) {
-                        put(key, askTopics.get(key));
+                            for (String key : askTopics.keySet()) {
+                                put(key, askTopics.get(key));
+                            }
+                        }}
+                );
+                put("Alias", new JSONArray() {{
+                    for (String alias : crea.getAlias() ) {
+                        add(alias);
                     }
                 }});
-
             }});
         }
 
@@ -123,6 +128,11 @@ public class JsonBuilder {
                             }
                         }}
                 );
+                put("Alias", new JSONArray() {{
+                    for (String alias : loc.getAlias()) {
+                        add(alias);
+                    }
+                }});
             }});
         }
 
@@ -149,6 +159,12 @@ public class JsonBuilder {
                 put("ShortName", ite.getShortName());
                 put("Description", ite.getDescription());
                 put("Location", ite.getLocationName());
+
+                put("Alias", new JSONArray() {{
+                    for (String alias : ite.getAlias()) {
+                        add(alias);
+                    }
+                }});
             }});
         }
 
@@ -175,6 +191,13 @@ public class JsonBuilder {
                 put("ShortName", sta.getShortName());
                 put("Description", sta.getDescription());
                 put("Location", sta.getLocationName());
+
+                put("Alias", new JSONArray() {{
+                    for (String alias : sta.getAlias()) {
+                        add(alias);
+                    }
+                }});
+
             }});
         }
 
@@ -198,7 +221,6 @@ public class JsonBuilder {
 
         List<Creature> creatureList = new ArrayList<>();
 
-        Map<String, String> askTopics = new HashMap<>();
 
         try {
 
@@ -213,6 +235,8 @@ public class JsonBuilder {
                 String race = (String) jObj.get("Race");
                 String location = (String) jObj.get("Location");
                 List<String> casualDialog = new ArrayList<>();
+                Map<String, String> askTopics = new HashMap<>();
+                List<String> alias = new ArrayList<>();
 
                 JSONObject jsCD = (JSONObject) jObj.get("CasualDialog");
 
@@ -229,8 +253,13 @@ public class JsonBuilder {
                     askTopics.put(key, (String) jsAT.get(key));
                 }
 
+                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
 
-                Creature creature = new Creature(fullName, shortName, description, location, race, casualDialog, askTopics);
+                for (Object xObj : jsAlias) {
+                    alias.add((String) xObj);
+                }
+
+                Creature creature = new Creature(fullName, shortName, description, location, alias, race, casualDialog, askTopics);
 
                 creatureList.add(creature);
             }
@@ -265,6 +294,13 @@ public class JsonBuilder {
                 String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 ArrayList<String> exits = new ArrayList<>();
+                List<String> alias = new ArrayList<>();
+
+                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+
+                for (Object xObj : jsAlias) {
+                    alias.add((String) xObj);
+                }
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
 
@@ -272,7 +308,7 @@ public class JsonBuilder {
                     exits.add((String) xObj);
                 }
 
-                Location location = new Location(fullName, shortName, description, fullName, exits);
+                Location location = new Location(fullName, shortName, description, fullName, alias, exits);
                 //location.setLocation(fullName);
 
                 locationList.add(location);
@@ -310,8 +346,15 @@ public class JsonBuilder {
                 String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
+                List<String> alias = new ArrayList<>();
 
-                StationaryObject object = new StationaryObject(fullName, shortName, description, location);
+                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+
+                for (Object xObj : jsAlias) {
+                    alias.add((String) xObj);
+                }
+
+                StationaryObject object = new StationaryObject(fullName, shortName, description, location, alias);
                 //object.setLocation(location);
 
                 stationaryObjectList.add(object);
@@ -348,8 +391,14 @@ public class JsonBuilder {
                 String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
+                List<String> alias = new ArrayList<>();
 
-                Item item = new Item(fullName, shortName, description, location);
+                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+
+                for (Object xObj : jsAlias) {
+                    alias.add((String) xObj);
+                }
+                Item item = new Item(fullName, shortName, description, location, alias);
 
 
                 itemList.add(item);

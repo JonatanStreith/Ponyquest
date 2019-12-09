@@ -79,5 +79,6 @@ public class Notes {
 
     //Add "gender" to Creature so we can use better pronouns.
 
+    //Every creature has their own inventory! This cannot go wrong.
 
 }

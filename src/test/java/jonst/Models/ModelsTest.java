@@ -14,28 +14,34 @@ import static org.junit.Assert.assertNotNull;
 public class ModelsTest {
 
 
-    World earth;
+    World world;
 
     @Before
     public void setUp() throws Exception {
-        earth = new World(SystemData.getDefaultWorld());
+        world = new World(SystemData.getDefaultWorld());
     }
 
 
     @Test
     public void ObjectsTest() {
 
-        List<Creature> creatureList = earth.getCreatureList();
+        List<Creature> creatureList = world.getCreatureList();
 
 //        for (Creature cre : creatureList) {
 //            System.out.println(cre.getName());
 //        }
 
 
-        System.out.println(earth.getCreature("Applejack").isAtLocation(earth.getLocation("Sweet Apple Acres")));
-        System.out.println(earth.getCreature("appleJack").isAtLocation(earth.getLocation("sweEt ApplE acRes")));
-        System.out.println(earth.getCreature("Twilight Sparkle").isAtLocation(earth.getLocation("Sweet Apple Acres")));
-        System.out.println(earth.getLocation("Sweet Apple Acres").creatureIsAtLocation(earth.getCreature("Applejack")));
+        System.out.println(world.getCreature("Applejack").isAtLocation(world.getLocation("Sweet Apple Acres")));
+        System.out.println(world.getCreature("appleJack").isAtLocation(world.getLocation("sweEt ApplE acRes")));
+        System.out.println(world.getCreature("Twilight Sparkle").isAtLocation(world.getLocation("Sweet Apple Acres")));
+        System.out.println(world.getLocation("Sweet Apple Acres").creatureIsAtLocation(world.getCreature("Applejack")));
 
+        List<String> aliases = world.getPlayer().getAlias();
+
+        for (String ali: aliases
+             ) {
+            System.out.println(ali);
+        }
     }
 }
