@@ -54,7 +54,6 @@ public class JsonBuilder {
 //        }
 
 
-
         return saves;
 
     }
@@ -63,8 +62,13 @@ public class JsonBuilder {
     //---------- save methods
     public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
 
+        Map<String, String> askTopics = new HashMap() {{
+            put("Key1", "Response");
+        }};
+
         boolean success = true;
         JSONArray creatureArray = new JSONArray();
+
 
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
             creatureArray.add(new JSONObject() {{
@@ -75,12 +79,16 @@ public class JsonBuilder {
                 put("Location", crea.getLocationName());
 
                 put("CasualDialog", new JSONObject() {{
-
                             for (int i = 0; i < crea.getCasualDialog().size(); i++) {   //Puts all casual dialog lines into an object
                                 put(i, crea.getCasualDialog().get(i));
                             }
                         }}
                 );
+                put("AskTopics", new JSONObject() {{
+                    for (String key : askTopics.keySet() ) {
+                        put(key, askTopics.get(key));
+                    }
+                }});
 
             }});
         }
@@ -190,6 +198,8 @@ public class JsonBuilder {
 
         List<Creature> creatureList = new ArrayList<>();
 
+        Map<String, String> askTopics = new HashMap<>();
+
         try {
 
             reader = new FileReader(filepath + "/creatures.json");
@@ -210,7 +220,17 @@ public class JsonBuilder {
                     casualDialog.add((String) xObj);
                 }
 
-                Creature creature = new Creature(fullName, shortName, description, location, race, casualDialog);
+                JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
+
+
+                for (Object xObj : jsAT.keySet()) {
+                    String key = (String) xObj;
+
+                    askTopics.put(key, (String) jsAT.get(key));
+                }
+
+
+                Creature creature = new Creature(fullName, shortName, description, location, race, casualDialog, askTopics);
 
                 creatureList.add(creature);
             }

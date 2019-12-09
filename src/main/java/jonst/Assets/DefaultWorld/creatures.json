@@ -9,7 +9,10 @@
       "0": "Talking to yourself is usually pointless.",
       "1": "Much as you're a wonderful conversationalist, there's not much point.",
       "2": "You'd rather not. Other ponies think you're weird enough as it is."
-    }
+    },
+	"AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
@@ -23,7 +26,10 @@
       "2": "\"Please don't bother me while I'm busy.\"",
       "3": "\"I'm sure Starlight is around here somewhere.\"",
       "4": "\"No, I won't teach you the 'Want it, Need it' spell. Stop asking.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
@@ -37,7 +43,10 @@
       "2": "\"Please. I'm 'in the zone' at the moment.\"",
       "3": "\"Do you want something? A new outfit?\"",
       "4": "\"If you set off another smoke bomb in here, I WILL tell Starlight.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
@@ -51,7 +60,10 @@
       "2": "\"Hey, what's your favorite flavor? Blueberry? Chocolate? Chili pepper? Nooo reason...\"",
       "3": "\"Sometimes I like to go WHEEEE! for no reason at all! You know what I'm talking about?\"",
       "4": "\"I think the programmer is trying to come up with new things for me to say.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
@@ -65,7 +77,10 @@
       "2": "\"For the love o' Celestia, don't cause another mess.\"",
       "3": "She snorts. \"Unlike some ponies, I'm too darn busy to stand around gawkin'.\"",
       "4": "\"Y'wanna make yerself useful? fetch me a... aw, forgot who I was talkin' to.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
@@ -79,7 +94,10 @@
       "2": "\"Hey, can you do fireworks on demand?\"",
       "3": "\"Zzzzz... uh? Huh?\"",
       "4": "\"I'm soooo bored.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
@@ -93,7 +111,10 @@
       "2": "\"Um. Yes? D-do you want something?\"",
       "3": "\"I... um... nevermind.\" *squeak*",
       "4": "\"Trixie, I... I... nevermind.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
@@ -107,7 +128,10 @@
       "2": "\"Oh... I think I've got stuff to do. Elsewhere.\"",
       "3": "\"Starlight's in the library, I think. Go bother her.\"",
       "4": "\"Uh, yeah?\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
@@ -121,7 +145,10 @@
       "2": "\"So what have you been up to lately? Anything exciting?\"",
       "3": "\"Wanna hang out later? We could work on magic or something. You choose.\"",
       "4": "\"You haven't been bothering Twilight, have you?\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
@@ -135,7 +162,10 @@
       "2": "\"...\"",
       "3": "\"I seem to have misplaced my chisel...\"",
       "4": "\"Seen any good rocks lately?\""
-    }
+    },
+	  "AskTopics": {
+	  "key": "Response"
+	}
   },
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
@@ -149,7 +179,10 @@
       "2": "\"Do you like bananas?\"",
       "3": "\"You're a bit of a troublemaker, aren't you? Equestria needs ponies like you, too.\"",
       "4": "Celestia smiles warmly at you. \"Yes?\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
@@ -163,7 +196,10 @@
       "2": "\"How may we be of assistance, citizen?\"",
       "3": "\"Ah, the Great and Powerful Trixie. We've... heard of you.\"",
       "4": "\"I really should be getting some sleep. Busy night, you know.\""
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   },
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
@@ -177,7 +213,10 @@
       "2": "\"Wait, are we in a game now? Splendid!\"",
       "3": "\"No, I'm not going to lend you my powers of chaos, no matter how fun that'd be. Fluttershy is still upset about the last time.\"",
       "4": "Discord grins and snaps his claw. You don't know what he might have done, but you should worry."
-    }
+    },
+	  "AskTopics": {
+	  "Key": "Response"
+	}
   }
 ]
 

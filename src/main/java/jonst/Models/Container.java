@@ -18,7 +18,7 @@ public class Container extends Item {
     }
 
     public String seeContents(){
-        return ("It contains " + HelpfulMethods.turnItemListIntoString(contains));
+        return ("It contains " + HelpfulMethods.turnItemListIntoString(contains, "and"));
     }
 
 

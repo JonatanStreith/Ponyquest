@@ -1,8 +1,12 @@
 package jonst;
 
 import jonst.Data.SystemData;
+import jonst.Models.Creature;
+import jonst.Models.Item;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -46,11 +50,36 @@ public class CommandsTest {
 
     @Test
     public void pickUpTest() {
+
+        Item plow = world.getItem("a heavy plow");
+
+        assertTrue(world.getPlayerLocation().itemIsAtLocation(plow));
+        assertFalse(world.isInInventory(plow));
+
+
+        Commands.pickUp("a heavy plow", world);
+
+        assertFalse(world.getPlayerLocation().itemIsAtLocation(plow));
+        assertTrue(world.isInInventory(plow));
+
+
     }
 
 
     @Test
     public void dropTest() {
+
+        Item hat = world.getItem("Trixie's hat");
+
+        assertFalse(world.getPlayerLocation().itemIsAtLocation(hat));
+        assertTrue(world.isInInventory(hat));
+
+        Commands.drop("hat", world);
+
+        assertTrue(world.getPlayerLocation().itemIsAtLocation(hat));
+        assertFalse(world.isInInventory(hat));
+
+
     }
 
 
@@ -84,11 +113,22 @@ public class CommandsTest {
 
     @Test
     public void talkToTest() {
+
+        Commands.talkTo("tree", world);
+        Commands.talkTo("Twilight", world);
+        Commands.talkTo("Applejack", world);
+        Commands.talkTo("maud", world);
+        Commands.talkTo("Ember", world);
+
+
     }
 
 
     @Test
     public void getExitsTest() {
+
+
+        Commands.getExits(world);
     }
 
 
@@ -103,6 +143,13 @@ public class CommandsTest {
 
     @Test
     public void askTest() {
+
+        Creature maud = world.getCreature("Maud Pie");
+
+        String[] commands = new String[] {"ask", "maud", "about", "key"};
+
+        Commands.ask(commands, world);
+
     }
 
 
@@ -125,13 +172,6 @@ public class CommandsTest {
 
         Commands.listCreatures(world);
     }
-
-
-    @Test
-    public void Test() {
-    }
-
-
 }
 
 

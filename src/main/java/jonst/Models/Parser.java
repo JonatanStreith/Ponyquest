@@ -105,6 +105,10 @@ public class Parser {
                 //stuff
                 break;
 
+            case "use":
+                //stuff
+                break;
+
             case "save":
                 Commands.saveGame(world);
                 break;
@@ -125,7 +129,7 @@ public class Parser {
                 Commands.showInventory(world);
                 break;
 
-            case "nouns":
+            case "list nouns":
                 Commands.listNouns(world);
                 break;
 
@@ -133,7 +137,7 @@ public class Parser {
                 Commands.help();
                 break;
 
-            case "commands":
+            case "list commands":
                 Commands.ListCommands(world);
                 break;
 
@@ -154,6 +158,11 @@ public class Parser {
                 Commands.talkTo(commandArray[1], world);
                 break;
 
+            case "talk":
+                Commands.talkTo(commandArray[1], world);
+                break;
+
+
             case "look":
                 Commands.LookAround(world);
                 break;
@@ -166,7 +175,7 @@ public class Parser {
                 Commands.lookAt(commandArray[1], world);
                 break;
 
-            case "exits":
+            case "list exits":
                 Commands.getExits(world);
                 break;
 

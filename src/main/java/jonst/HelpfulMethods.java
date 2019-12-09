@@ -18,7 +18,7 @@ public class HelpfulMethods {
         return output;
     }
 
-    public static String turnStringListIntoString(List<String> list)     //Takes a list of strings, pieces them together into one string
+    public static String turnStringListIntoString(List<String> list, String separator)     //Takes a list of strings, pieces them together into one string
     {
         String fullString = "";
 
@@ -27,7 +27,7 @@ public class HelpfulMethods {
             if(i == list.size() - 1)        //Last entry, just end with the word
                 fullString += list.get(i);
             else if(i == list.size() - 2)
-                fullString += (list.get(i) + " and ");
+                fullString += (list.get(i) + " " + separator + " ");
 
             else
                 fullString += (list.get(i) + ", ");
@@ -63,7 +63,7 @@ public class HelpfulMethods {
 //    }
 
 
-    public static String turnStationaryObjectListIntoString(List<StationaryObject> list)     //Takes a list of objects, pieces together their names into one string
+    public static String turnStationaryObjectListIntoString(List<StationaryObject> list, String separator)     //Takes a list of objects, pieces together their names into one string
     {
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
@@ -76,7 +76,7 @@ public class HelpfulMethods {
             for (int i = 0; i < nameList.size() - 2; i++)
             { nameList.set(i, nameList.get(i) + ", "); }
 
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
         }
 
         for (int i = 0; i < nameList.size(); i++)
@@ -85,7 +85,7 @@ public class HelpfulMethods {
         return fullString;
     }
 
-    public static String turnItemListIntoString(List<Item> list)     //Takes a list of objects, pieces together their names into one string
+    public static String turnItemListIntoString(List<Item> list, String separator)     //Takes a list of objects, pieces together their names into one string
     {
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
@@ -98,7 +98,7 @@ public class HelpfulMethods {
             for (int i = 0; i < nameList.size() - 2; i++)
             { nameList.set(i, nameList.get(i) + ", "); }
 
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
         }
 
         for (int i = 0; i < nameList.size(); i++)
@@ -108,7 +108,7 @@ public class HelpfulMethods {
     }
 
 
-    public static String turnCreatureListIntoString(List<Creature> list)     //Takes a list of objects, pieces together their names into one string
+    public static String turnCreatureListIntoString(List<Creature> list, String separator)     //Takes a list of objects, pieces together their names into one string
     {
         String fullString = "";
         List<String> nameList = new ArrayList<String>();
@@ -121,7 +121,7 @@ public class HelpfulMethods {
             for (int i = 0; i < nameList.size() - 2; i++)
             { nameList.set(i, nameList.get(i) + ", "); }
 
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " and ");
+            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
         }
 
         for (int i = 0; i < nameList.size(); i++)

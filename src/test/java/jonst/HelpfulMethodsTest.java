@@ -6,6 +6,7 @@ import jonst.Models.StationaryObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,7 +41,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnStringListIntoString(list);
+        String result1 = HelpfulMethods.turnStringListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -50,7 +51,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnStringListIntoString(list);
+        String result2 = HelpfulMethods.turnStringListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 
@@ -61,15 +62,15 @@ public class HelpfulMethodsTest {
     public void turnCreatureListIntoStringTest() {
 
         List<Creature> list = new ArrayList() {{
-            add(new Creature("Pinkie Pie", "", "", "", "", new ArrayList<>() ));
-            add(new Creature("Applejack", "", "", "", "", new ArrayList<>() ));
-            add(new Creature("Rarity", "", "", "", "", new ArrayList<>() ));
-            add(new Creature("Applejack", "", "", "", "", new ArrayList<>() ));
-            add(new Creature("Rarity", "", "", "", "", new ArrayList<>() ));
+            add(new Creature("Pinkie Pie", "", "", "", "", new ArrayList<>(), new HashMap<>()));
+            add(new Creature("Applejack", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Applejack", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "", "", new ArrayList<>(), new HashMap<>() ));
         }};
 
 
-        String result1 = HelpfulMethods.turnCreatureListIntoString(list);
+        String result1 = HelpfulMethods.turnCreatureListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -79,7 +80,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnCreatureListIntoString(list);
+        String result2 = HelpfulMethods.turnCreatureListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 
@@ -98,7 +99,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnItemListIntoString(list);
+        String result1 = HelpfulMethods.turnItemListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -108,7 +109,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnItemListIntoString(list);
+        String result2 = HelpfulMethods.turnItemListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 
@@ -127,7 +128,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnStationaryObjectListIntoString(list);
+        String result1 = HelpfulMethods.turnStationaryObjectListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -137,7 +138,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnStationaryObjectListIntoString(list);
+        String result2 = HelpfulMethods.turnStationaryObjectListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 

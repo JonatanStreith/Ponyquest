@@ -67,11 +67,17 @@ public class Notes {
     //Turn shortName into a list of potential aliases? Work out how to get around multiple responses. Perhaps method that checks all LOCAL objects to match the alias?
     //And reply "Which one?" in the case of multiple matches!
 
+    //have returnFullName return list of all things matching the shortname. If multiple returns, ask "which one?" Since it returns all names...
+    //Example: (assume Celestia and Luna are in the same room) talk to princess -> "Which princess? Princess Celestia or Princess Luna?"
+
     //Todo: MUST MAKE SURE PLAYER CAN ONLY, ONLY *ONLY* INTERACT WITH THINGS AT THE CURRENT LOCATION! Will ensure that you don't accidentally grab something that is somewhere else.
     //Could also allow for duplicates. If there are five apples at a location and you pick up one, who cares which one it is?
 
     //Items should have List<String> Qualities, which tracks what the item can be used for: wearable, activation, ligh source, food, etc.
 
     //Container object: Extends Item! Can hold other items. NOT ITSELF!
+
+    //Add "gender" to Creature so we can use better pronouns.
+
 
 }

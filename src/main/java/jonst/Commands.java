@@ -70,38 +70,59 @@ public class Commands {
 
     public static void ListCommands(World world) {
 
-        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands));
+        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands, "and"));
     }
 
     public static void listNouns(World world) {
-        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateNouns));
+        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateNouns, "and"));
     }
 
+    public static void drop(String name, World world) {
+
+        String fullName = world.returnLocalFullName(name);
+
+        if (world.isInInventory(world.getItem(fullName))) {
+            //drop
+            world.removeFromInventory(world.getItem(fullName));
+            world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
+
+            System.out.println("You drop the " + world.getItem(fullName).getShortName() + ".");
+        } else {
+            System.out.println("You're not carrying that.");
+        }
+    }
 
     public static void pickUp(String name, World world) {
 
-        //Todo: Not checked for functionality yet!
+        String fullName = world.returnFullName(name);
+        String fullNameLocal = world.returnLocalFullName(name);
 
-        if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
+
+        if (!(world.doesObjectExist(fullName)))                                                             //Subject doesn't exist.
         {
             System.out.println("You don't know what that is.");
-        } else if (!(world.isObjectPresent(name)))                                                   //Subject isn't present.
+
+        } else if (!(world.isObjectPresent(fullNameLocal)))                                                   //Subject isn't present.
         {
             System.out.println("You don't see " + world.getGenericObject(name).getName() + " here.");
-        } else if (world.getGenericObject(name) instanceof Creature)                                              //Subject is a creature.
-        {
-            System.out.println("You pick up " + world.getGenericObject(name).getName() + " and hold them for a moment before putting them down again.");
-        } else if (world.getGenericObject(name) instanceof StationaryObject)                                              //Subject is a stationary object.
-        {
-            System.out.println("You'd rather not try lifting " + world.getGenericObject(name).getName() + ". It's heavy.");
-        } else if (world.getGenericObject(name) instanceof Location)                                              //Subject is a stationary object.
-        {
-            System.out.println("You're really not strong enough to lift that.");
-        } else if ((world.getGenericObject(name) instanceof Item)) {
-            world.removeItemFromLocation(name, world.getPlayerLocation().getLocationName());              //Remove from loc
 
-            world.addToInventory(world.getItem(name));                              //Add to inventory
-            System.out.println("You pick up the " + world.getItem(name).getShortName() + ".");
+        } else if (world.getGenericObject(fullNameLocal) instanceof Creature)                                              //Subject is a creature.
+        {
+            System.out.println("You pick up " + world.getGenericObject(fullNameLocal).getName() + " and hold them for a moment before putting them down again.");
+
+        } else if (world.getGenericObject(fullNameLocal) instanceof StationaryObject)                                              //Subject is a stationary object.
+        {
+            System.out.println("You'd rather not try lifting " + world.getGenericObject(fullNameLocal).getName() + ". It's heavy.");
+
+        } else if (world.getGenericObject(fullNameLocal) instanceof Location)                                              //Subject is a stationary object.
+        {
+            System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
+
+        } else if ((world.getGenericObject(fullNameLocal) instanceof Item)) {
+            world.removeItemFromLocation(fullNameLocal, world.getPlayerLocation().getLocationName());              //Remove from loc
+
+            world.addToInventory(world.getItem(fullNameLocal));                              //Add to inventory
+            System.out.println("You pick up the " + world.getItem(fullNameLocal).getShortName() + ".");
 
         } else {
             System.out.println("Debug code. If this is shown, something didn't go right.");
@@ -110,23 +131,33 @@ public class Commands {
 
     }
 
-    public static void drop(String name, World world) {
+    public static void talkTo(String name, World world) {
 
-        String fullName = world.returnLocalFullName(name);
+        String fullName = world.returnFullName(name);
+        String fullNameLocal = world.returnLocalFullName(name);
 
-        //Todo: Not checked for functionality yet!
+        if (!(world.doesObjectExist(fullName)))                                                             //Subject doesn't exist.
+        {
+            System.out.println("Who is that?");
 
-        if (world.isInInventory(world.getItem(fullName))) {
-            //drop
-            world.removeFromInventory(world.getItem(fullName));
-            world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
+        } else if (!(world.isObjectPresent(fullNameLocal)))                                                   //Subject isn't present.
+        {
+            System.out.println(world.getGenericObject(fullName).getName() + " isn't here right now.");
 
-            System.out.println("You drop the " + world.getItem(name).getShortName() + ".");
+
+
+        } else if (!(world.getGenericObject(fullNameLocal) instanceof Creature))                                                //Subject isn't a creature.
+        {
+            System.out.println("You don't make a habit of talking to inanimate objects.");
+
+
+        } else if ((world.getGenericObject(fullNameLocal) instanceof Creature)) {
+            System.out.println(world.getCreature(fullNameLocal).getRandomCasualDialog());         //This runs if you successfully talk to someone.
         } else {
-            System.out.println("You're not carrying that.");
+            System.out.println("Debug code. If this is shown, something didn't go right.");
         }
-    }
 
+    }
 
     public static void showInventory(World world) {
 
@@ -135,7 +166,7 @@ public class Commands {
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");
         } else {
-            System.out.println("You are carrying: " + HelpfulMethods.turnItemListIntoString(items) + ".");
+            System.out.println("You are carrying: " + HelpfulMethods.turnItemListIntoString(items, "and") + ".");
         }
     }
 
@@ -208,66 +239,60 @@ public class Commands {
     }
 
 
-    public static void talkTo(String name, World world) {
 
-        //Todo: Not checked for functionality yet!
-
-        if (name.equals("")) {
-            System.out.println("Talk to who?");
-        } else if (!(world.doesObjectExist(name)))                                                             //Subject doesn't exist.
-        {
-            System.out.println("You don't know of anypony by that name.");
-        } else if (!(world.isObjectPresent(name)))                                                   //Subject isn't present.
-        {
-            System.out.println(world.getGenericObject(name).getName() + " isn't here right now.");
-        } else if (!(world.getGenericObject(name) instanceof Creature))                                                //Subject isn't a creature.
-        {
-            System.out.println("You don't make a habit of talking to inanimate objects.");
-        } else if ((world.getGenericObject(name) instanceof Creature)) {
-            System.out.println(world.getCreature(name).getRandomCasualDialog());         //This runs if you successfully talk to someone.
-        } else {
-            System.out.println("Debug code. If this is shown, something didn't go right.");
-        }
-
-    }
 
 
     public static void getExits(World world) {
 
-        //Todo: Not checked for functionality yet!
-
         Location loc = world.getLocation(world.getPlayer().getLocationName());
         List<String> exits = loc.getExits();
 
-
-        System.out.println("Exits are: " + HelpfulMethods.turnStringListIntoString(exits) + ".");
+        System.out.println("Exits are: " + HelpfulMethods.turnStringListIntoString(exits, "and") + ".");
     }
 
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
 
-        //Todo: Not checked for functionality yet!
+        String target = command[1];
+        String destination = command[3];
 
-        if (!world.doesObjectExist(command[1]))             //Subject doesn't exist
+        String targetFullName = world.returnFullName(target);
+        String targetFullNameLocal = world.returnLocalFullName(target);
+
+        String destinationFullName = world.returnFullName(destination);
+
+        if (!world.doesObjectExist(targetFullName))             //Subject doesn't exist
         {
             System.out.println("You can't teleport something that doesn't exist.");
-        } else if (!world.isObjectPresent(command[1]))        //Subject isn't in the area
-        {
-            System.out.println("You can only teleport things within eyesight.");
-        } else if (world.getGenericObject(command[1]).getName().toLowerCase().equals("Trixie"))           //Are you instructing the game to teleport Trixie herself?
-        {
-            world.removeCreatureFromLocation(world.getPlayer().getName(), world.getPlayer().getLocationName());
-            world.addCreatureToLocation(world.getPlayer().getName(), command[3]);
+        } else if(!world.doesObjectExist(destinationFullName)){
+            System.out.println("You can't teleport things to made-up places.");
 
-            System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[3]).getName() + ".");
-            SystemData.getReply("[press enter to continue]");
-            System.out.flush();
-            LookAround(world);
-        } else if (world.getGenericObject(command[1]) instanceof Creature) {
-            world.removeCreatureFromLocation(world.getCreature(command[1]).getName(), world.getPlayer().getLocationName());
-            world.addCreatureToLocation(command[1], command[3]);
 
-            System.out.println(command[1] + " vanishes in a burst of smoke!");
+        } else if (!world.isObjectPresent(targetFullNameLocal))        //Subject isn't in the area
+        {
+            System.out.println("You can only teleport things within sight.");
+
+        } else if (world.getGenericObject(targetFullNameLocal) == world.getPlayer())           //Are you instructing the game to teleport Trixie herself?
+        {
+            Commands.teleportSelf(command, world);
+
+        } else if (world.getGenericObject(targetFullNameLocal) instanceof Location) {
+            System.out.println("You'd rather not teleport " + target + " anywhere. That will just end badly.");
+
+
+        } else if (world.getGenericObject(targetFullNameLocal) instanceof Creature) {
+            world.transferCreatureToLocation(targetFullNameLocal, world.getPlayerLocation().getName(), destinationFullName);
+            System.out.println("The " + target + " vanishes in a burst of smoke!");
+
+        } else if (world.getGenericObject(targetFullNameLocal) instanceof Item) {
+            world.transferItemToLocation(targetFullNameLocal, world.getPlayerLocation().getName(), destinationFullName);
+            System.out.println(targetFullNameLocal + " vanishes in a burst of smoke!");
+
+        } else if (world.getGenericObject(targetFullNameLocal) instanceof StationaryObject) {
+            world.transferObjectToLocation(targetFullNameLocal, world.getPlayerLocation().getName(), destinationFullName);
+            System.out.println("The " + target + " vanishes in a burst of smoke!");
+
+
         } else {
             System.out.println("Your spell fizzles for some reason.");
         }
@@ -277,12 +302,13 @@ public class Commands {
 
     public static void teleportSelf(String[] command, World world) { //Make sure you can teleport items and objects - different code?
 
-        //Todo: Not checked for functionality yet!
-
-        world.transferCreatureToLocation(world.getPlayer().getName(), world.getPlayerLocation().getName(), command[1]);
+        String destinationFullName = world.returnFullName(command[1]);
 
 
-        System.out.println("You vanish in a burst of smoke, and reappear at " + world.getLocation(command[1]).getName() + ".");
+        world.transferCreatureToLocation(world.getPlayer().getName(), world.getPlayerLocation().getName(), destinationFullName);
+
+
+        System.out.println("You vanish in a burst of smoke, and reappear at " + destinationFullName + ".");
         SystemData.getReply("[press enter to continue]");
         System.out.flush();
         LookAround(world);
@@ -295,32 +321,50 @@ public class Commands {
 
         //Todo: Not checked for functionality yet!
 
-        System.out.println("This command is still buggy.");
+        String creature = command[1];
+        String topic = command[3];
+
+        String fullName = world.returnFullName(creature);
+        String fullNameLocal = world.returnLocalFullName(creature);
+
+        if (!(world.doesObjectExist(fullName)))                                                             //Subject doesn't exist.
+        {
+            System.out.println("Who is that?");
+
+        } else if (!(world.isObjectPresent(fullNameLocal)))                                                   //Subject isn't present.
+        {
+            System.out.println(world.getGenericObject(fullName).getName() + " isn't here right now.");
 
 
-//        if (!world.doesObjectExist(command[1]))         //Nonexistent
-//        {
-//            System.out.println("Ask who?");
-//        } else if (!world.isObjectPresent(command[1]))        //Not present
-//        {
-//            System.out.println("They might hear you better if they're actually present, you know.");
-//        } else if (!(world.getGenericObject(command[1]) instanceof Creature))                                                //Subject isn't a creature.
-//        {
-//            System.out.println("There's not much point in asking inanimate objects.");
-//        } else if (!(DialogData.askTopic.ContainsKey(command[3]))) {
-//            System.out.println(world.getCreature(command[1]).getName() + " doesn't know anything about that.");
-//        } else {
-//            System.out.println(DialogData.askArray[DialogData.askCreature[command[1]], DialogData.askTopic[command[3]]]);
-//        }
+
+        } else if (!(world.getGenericObject(fullNameLocal) instanceof Creature))                                                //Subject isn't a creature.
+        {
+            System.out.println("You don't make a habit of talking to inanimate objects.");
+
+
+        } else if ((world.getGenericObject(fullNameLocal) instanceof Creature)) {
+            System.out.println(world.getCreature(fullNameLocal).askAbout(topic));         //This runs if you successfully talk to someone.
+        } else {
+            System.out.println("Debug code. If this is shown, something didn't go right.");
+        }
+
+
+
     }
 
 
+
+
+
+
+
+    //--------------- Not for direct use -----------------------
     public static void listItems(World world) {
         List<Item> tempItemList = new ArrayList<>();
         tempItemList.addAll(world.getPlayerLocation().getItemsAtLocation());      //Create a list of items at the location.
 
         if (tempItemList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnItemListIntoString(tempItemList) + " here.");
+            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnItemListIntoString(tempItemList, "and") + " here.");
         }
     }
 
@@ -329,7 +373,7 @@ public class Commands {
         tempStationaryObjectList.addAll(world.getPlayerLocation().getObjectsAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
 
         if (tempStationaryObjectList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnStationaryObjectListIntoString(tempStationaryObjectList) + " here.");
+            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnStationaryObjectListIntoString(tempStationaryObjectList, "and") + " here.");
         }
     }
 
@@ -341,7 +385,7 @@ public class Commands {
         if (tempCreatureList.size() == 0) { //If only Trixie is here.
             System.out.println("There's nopony else here.");
         } else {
-            System.out.println(HelpfulMethods.turnCreatureListIntoString(tempCreatureList) + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
+            System.out.println(HelpfulMethods.turnCreatureListIntoString(tempCreatureList, "and") + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
         }
     }
 

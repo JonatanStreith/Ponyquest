@@ -40,35 +40,33 @@ public class SystemData {
 
 
 
-
-
-
     public static ArrayList getLegitimateCommands() {
         return new ArrayList<String>() {{
             add("save");
             add("load");
-            add("nouns");
-            add("look at");
-            add("look around");
-            add("look");
-            add("go to");
-            add("go");
+            add("look at");     //Works!
+            add("look around"); //Works!
+            add("look");        //Works!
+            add("go to");       //Works!
+            add("go");          //Works!
             add("enter");
             add("exit");
-            add("pick up");
-            add("talk to");
-            add("quit");
-            add("drop");
+            add("use");
+            add("pick up");     //Works!
+            add("talk to");     //Works!
+            add("talk");        //Works!
+            add("quit");        //Works!
+            add("drop");        //Works!
             add("brandish");
             add("ask");
             add("cast");
-            add("exits");
-            add("teleport to");
-            add("teleport");
-            add("help");
-            add("commands");
-            add("nouns");
-            add("inventory");
+            add("list exits");  //Works!
+            add("teleport to"); //Works!
+            add("teleport");    //Works!
+            add("help");        //Works!
+            add("list commands");//Works!
+            add("list nouns");  //Works!
+            add("inventory");   //Works!
         }};
     }
 
