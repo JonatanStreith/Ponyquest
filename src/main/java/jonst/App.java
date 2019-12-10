@@ -26,9 +26,6 @@ public class App {
         String filePath = getLoadingPath();     //This allows the user to choose between loading a save or starting a new game (default world)
 
 
-        System.out.println(filePath);
-
-
 
         World world = new World(filePath);  //Build world
 
@@ -41,7 +38,7 @@ public class App {
     public static String getLoadingPath() {
 
         String reply;
-        Map<Long, String> saves;
+
 
         while (true) {
 
@@ -52,34 +49,46 @@ public class App {
                 return SystemData.getDefaultWorld();
 
             } else if (reply.equalsIgnoreCase("l")) {
-                System.out.println("Available saves:");
 
-                saves = JsonBuilder.getSavesMenu();
+                return getLoadData();
 
-                for (Long saveId : saves.keySet()) {
-                    System.out.println(saveId + ": " + saves.get(saveId));
-                }
-
-                while (true) {
-
-                    reply = SystemData.getReply("Please input number of save file: ");
-                    try {
-                        long saveReply = Long.parseLong(reply);
-
-                        if (saves.keySet().contains(saveReply)) {
-                            return SystemData.getSavepath() + saveReply + saves.get(saveReply);
-                        } else {
-                            System.out.println("That save does not exist.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Incorrect input.");
-                    }
-                }
             } else {
                 System.out.println("Sorry, what?");
             }
         }
     }
+
+
+    public static String getLoadData(){
+
+        System.out.println("Available saves:");
+
+        Map<Long, String> saves = JsonBuilder.getSavesMenu();
+
+        for (Long saveId : saves.keySet()) {
+            System.out.println(saveId + ": " + saves.get(saveId));
+        }
+
+        while (true) {
+            String reply = SystemData.getReply("Please input number of save file: ");
+            try {
+                long saveReply = Long.parseLong(reply);
+
+                if (saves.keySet().contains(saveReply)) {
+                    return SystemData.getSavepath() + saveReply + saves.get(saveReply);
+                } else {
+                    System.out.println("That save does not exist.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Incorrect input.");
+            }
+        }
+
+
+
+    }
+
+
 
 
 }

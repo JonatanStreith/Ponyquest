@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.SortIgnoreCase;
 import jonst.Models.Creature;
 import jonst.Models.GenericObject;
 import jonst.Models.Item;
@@ -8,6 +9,9 @@ import jonst.Models.StationaryObject;
 import java.util.*;
 
 public class HelpfulMethods {
+
+
+
 
 
     public static String isOrAre(int num)
@@ -44,6 +48,8 @@ public class HelpfulMethods {
 //        List<String> nameList = new ArrayList<String>();
 //
 //        if(list instanceof Item){
+            //USE CASTING!
+
 //            for (int i = 0; i < list.size() ; i++) {
 //                Item it = list.get(i);
 //                nameList.add(it.getName());
@@ -133,7 +139,7 @@ public class HelpfulMethods {
 
     public static void reverseSortStringList(List<String> list){
 
-        Collections.sort(list);
+        Collections.sort(list, new SortIgnoreCase());
 
         int size = list.size();
 
@@ -145,5 +151,48 @@ public class HelpfulMethods {
     }
 
 
+
+//    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
+//    {
+//
+//        // Create a new ArrayList
+//        ArrayList<T> newList = new ArrayList<T>();
+//
+//        // Traverse through the first list
+//        for (T element : list) {
+//
+//            // If this element is not present in newList
+//            // then add it
+//            if (!newList.contains(element)) {
+//
+//                newList.add(element);
+//            }
+//        }
+//
+//        // return the new list
+//        return newList;
+//    }
+
+
+    public static  List<String> removeDuplicates(ArrayList<String> list)
+    {
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<>();
+
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+
+        // return the new list
+        return newList;
+    }
 
 }

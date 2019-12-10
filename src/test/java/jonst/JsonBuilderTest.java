@@ -112,5 +112,16 @@ public class JsonBuilderTest {
         assertNotEquals(0, test.size());
         assertEquals("backup", test.get((long)1));
 
+        for (long key: test.keySet() ) {
+            System.out.println(key + ": " + test.get(key));
+        }
+
+    }
+
+    @Test
+    public void addToSavesMenuTest() {
+
+        JsonBuilder.addToSavesMenu("Lars");
+
     }
 }

@@ -19,6 +19,60 @@ import java.util.Map;
 public class JsonBuilder {
 
 
+    //TODO: Set .close() on all filereaders!
+
+    public static long addToSavesMenu(String saveName) {
+        //Method takes a proposed save name, checks for a free place in the saves menu;
+        //If possible, builds an entry and saves it, then returns the used number.
+        //If return is -1, something went wrong (usually out of saves slots)
+
+        Map<Long, String> saves = getSavesMenu();
+
+        long freeNumber = -1;
+
+        for (long i = 1; i <= 1000; i++) {  //Checks to find a number that isn't used
+            if (!saves.containsKey(i)) {
+                freeNumber = i;
+                break;
+            }
+        }
+
+        if (freeNumber != -1) {        //If we didn't find a free number, this will still be -1, so if it's not, we found a number
+            saves.put(freeNumber, saveName); //Add an entry
+            boolean success = buildSavesMenu(saves);    //Make method that builds the Json anew
+        }
+
+        return freeNumber;
+    }
+
+    public static boolean buildSavesMenu(Map<Long, String> saves) {
+
+
+        boolean success = true;
+        JSONArray savesJSON = new JSONArray();
+
+        for (long key : saves.keySet()) {
+            savesJSON.add(new JSONObject() {{
+                              put("id", key);
+                              put("savename", saves.get(key));
+                          }}
+            );
+        }
+
+        try (FileWriter file = new FileWriter(SystemData.getGamepath() + "/sys/saverecord.json")) {
+
+            file.write(savesJSON.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            success = false;
+        }
+        return success;
+
+    }
+
+
     public static Map<Long, String> getSavesMenu() {
 
         FileReader reader;
@@ -48,10 +102,6 @@ public class JsonBuilder {
             e.printStackTrace();
         }
 
-//        for (SaveFile save2 : saves.values()
-//             ) {
-//            System.out.println("Name: " + save2.getName() + ", path: " + save2.getPath());
-//        }
 
 
         return saves;
@@ -91,7 +141,7 @@ public class JsonBuilder {
                         }}
                 );
                 put("Alias", new JSONArray() {{
-                    for (String alias : crea.getAlias() ) {
+                    for (String alias : crea.getAlias()) {
                         add(alias);
                     }
                 }});

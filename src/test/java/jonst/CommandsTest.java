@@ -22,6 +22,7 @@ public class CommandsTest {
 
     @Test
     public void saveGameTest() {
+
     }
 
     @Test
@@ -119,6 +120,8 @@ public class CommandsTest {
         Commands.talkTo("Applejack", world);
         Commands.talkTo("maud", world);
         Commands.talkTo("Ember", world);
+
+Commands.talkTo("earth pony", world);
 
 
     }

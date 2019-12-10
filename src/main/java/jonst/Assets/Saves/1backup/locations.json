@@ -5,7 +5,12 @@
     "Description": "This is where you keep your possessions and things.",
     "FullName": "Inventory",
     "ShortName": "inv",
-    "Location": "Inventory"
+    "Location": "Inventory",
+    "Alias": [
+      "inv",
+      "storage",
+      "pocket"
+    ]
   },
   {
     "Exits": {
@@ -17,7 +22,12 @@
     "Description": "The Castle of Friendship is a majestic crystal structure that looks incredibly out of place with the rest of Ponyville. It's a nice place to hang out, though.",
     "FullName": "Castle of Friendship",
     "ShortName": "castle",
-    "Location": "Castle of Friendship"
+    "Location": "Castle of Friendship",
+    "Alias": [
+      "castle",
+      "Twilight's castle",
+      "friendship castle"
+    ]
   },
   {
     "Exits": {
@@ -29,7 +39,12 @@
     "Description": "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house.",
     "FullName": "Sugarcube Corner",
     "ShortName": "bakery",
-    "Location": "Sugarcube Corner"
+    "Location": "Sugarcube Corner",
+    "Alias": [
+      "bakery",
+      "cake shop",
+      "store"
+    ]
   },
   {
     "Exits": {
@@ -41,7 +56,13 @@
     "Description": "The shop is busy with ponies enjoying baked goods.",
     "FullName": "Sugarcube Corner interior",
     "ShortName": "bakery interior",
-    "Location": "Sugarcube Corner interior"
+    "Location": "Sugarcube Corner interior",
+    "Alias": [
+      "bakery interior",
+      "bakery",
+      "store",
+      "cake shop"
+    ]
   },
   {
     "Exits": {
@@ -49,8 +70,11 @@
     },
     "Description": "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?",
     "FullName": "Sugarcube Corner kitchen",
-    "ShortName": "bakery kitchen",
-    "Location": "Sugarcube Corner kitchen"
+    "ShortName": "kitchen",
+    "Location": "Sugarcube Corner kitchen",
+    "Alias": [
+      "kitchen"
+    ]
   },
   {
     "Exits": {
@@ -59,7 +83,12 @@
     "Description": "This is Pinkie Pie's room. It's a complete mess.",
     "FullName": "Pinkie Pie's room",
     "ShortName": "Pinkie room",
-    "Location": "Pinkie Pie's room"
+    "Location": "Pinkie Pie's room",
+    "Alias": [
+      "pinkie's room",
+      "pinkie room",
+      "bedroom"
+    ]
   },
   {
     "Exits": {
@@ -68,7 +97,12 @@
     "Description": "This underground sanctum is where Pinkie Pie stores most of her party supplies, and also where she maintains surveillance on everypony's birthdays and other anniversaries. EVERYPONY'S. The implications are terrifying.",
     "FullName": "Party Cave",
     "ShortName": "Partycave",
-    "Location": "Party Cave"
+    "Location": "Party Cave",
+    "Alias": [
+      "partycave",
+      "secret cave",
+      "cave"
+    ]
   },
   {
     "Exits": {
@@ -80,7 +114,15 @@
     "Description": "The Carousel Boutique is a bright and airy shop full of outfits of all kinds, all hoof-made by its proprietor, Rarity. Of course, already being dressed to perfection, you have no need of her services.",
     "FullName": "Carousel Boutique",
     "ShortName": "Boutique",
-    "Location": "Carousel Boutique"
+    "Location": "Carousel Boutique",
+    "Alias": [
+      "boutique exterior",
+      "boutique",
+      "dress store",
+      "store",
+      "storefront",
+      "rarity's place"
+    ]
   },
   {
     "Exits": {
@@ -89,7 +131,14 @@
     "Description": "The shop is full of ponyquins and displays showing Rarity's latest creations. It's surprisingly roomy.",
     "FullName": "Carousel Boutique interior",
     "ShortName": "Boutique interior",
-    "Location": "Carousel Boutique interior"
+    "Location": "Carousel Boutique interior",
+    "Alias": [
+      "boutique interior",
+      "boutique",
+      "dress store",
+      "store",
+      "rarity's place"
+    ]
   },
   {
     "Exits": {
@@ -101,7 +150,12 @@
     "Description": "Sweet Apple Acres is a beautiful pastoral farmstead, run by the Apple family. Unsurprisingly, they grow apples.",
     "FullName": "Sweet Apple Acres",
     "ShortName": "Acres",
-    "Location": "Sweet Apple Acres"
+    "Location": "Sweet Apple Acres",
+    "Alias": [
+      "acres",
+      "apple farm",
+      "farm"
+    ]
   },
   {
     "Exits": {
@@ -110,7 +164,12 @@
     "Description": "This rustic home is where Applejack and her family lives. It's cozy, quaint and so stereotypical you almost gag.",
     "FullName": "Farmhouse interior",
     "ShortName": "Acres interior",
-    "Location": "Farmhouse interior"
+    "Location": "Farmhouse interior",
+    "Alias": [
+      "farmhouse",
+      "Applejack's house",
+      "house"
+    ]
   },
   {
     "Exits": {
@@ -123,7 +182,11 @@
     "Description": "This is the main hall, which leads to every other room in the castle. Try not to get lost again.",
     "FullName": "Castle main hall",
     "ShortName": "Main hall",
-    "Location": "Castle main hall"
+    "Location": "Castle main hall",
+    "Alias": [
+      "main hall",
+      "hall"
+    ]
   },
   {
     "Exits": {
@@ -132,7 +195,11 @@
     "Description": "The room is dominated by the grand Cutie Map, and the six... seven thrones from which Twilight Sparkle and her friends do friendship stuff, or something.",
     "FullName": "Cutie Map room",
     "ShortName": "Map room",
-    "Location": "Cutie Map room"
+    "Location": "Cutie Map room",
+    "Alias": [
+      "map room",
+      "throne room"
+    ]
   },
   {
     "Exits": {
@@ -141,7 +208,11 @@
     "Description": "The library holds copies of every book in Equestria that Twilight Sparkle could get her hooves on. If you need to look something up, you suppose you could come here.",
     "FullName": "Castle library",
     "ShortName": "Library",
-    "Location": "Castle library"
+    "Location": "Castle library",
+    "Alias": [
+      "library",
+      "study"
+    ]
   },
   {
     "Exits": {
@@ -149,8 +220,11 @@
     },
     "Description": "The castle kitchen is a great place to stock up on snacks. As long as Spike doesn't catch you.",
     "FullName": "Castle kitchen",
-    "ShortName": "Kitchen",
-    "Location": "Castle kitchen"
+    "ShortName": "kitchen",
+    "Location": "Castle kitchen",
+    "Alias": [
+      "kitchen"
+    ]
   },
   {
     "Exits": {
@@ -159,6 +233,9 @@
     "Description": "Starlight's room. You hang out here sometimes.",
     "FullName": "Starlight's room",
     "ShortName": "Starlight room",
-    "Location": "Starlight's room"
+    "Location": "Starlight's room",
+    "Alias": [
+      "Starlight room"
+    ]
   }
 ]

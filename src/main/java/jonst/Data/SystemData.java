@@ -53,6 +53,7 @@ public class SystemData {
             add("exit");
             add("use");
             add("pick up");     //Works!
+            add("take");        //Works!
             add("talk to");     //Works!
             add("talk");        //Works!
             add("quit");        //Works!

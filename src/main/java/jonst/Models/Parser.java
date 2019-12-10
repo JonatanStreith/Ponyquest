@@ -22,7 +22,9 @@ public class Parser {
 
         for (GenericObject gen : genericList) {
             legitimateNouns.add(gen.getName());
-            legitimateNouns.add(gen.getShortName());
+            legitimateNouns.addAll(gen.getAlias());
+
+            legitimateNouns =  HelpfulMethods.removeDuplicates((ArrayList<String>) legitimateNouns);
         }
 
         HelpfulMethods.reverseSortStringList(legitimateCommands);
@@ -97,6 +99,15 @@ public class Parser {
 
         switch (commandArray[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
+
+            case "quicksave":
+                //stuff
+                break;
+
+            case "quickload":
+                //stuff
+                break;
+
             case "brandish":
                 //stuff
                 break;
@@ -118,6 +129,10 @@ public class Parser {
                 break;
 
             case "pick up":
+                Commands.pickUp(commandArray[1], world);
+                break;
+
+            case "take":
                 Commands.pickUp(commandArray[1], world);
                 break;
 

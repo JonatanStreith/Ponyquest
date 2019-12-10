@@ -3,6 +3,7 @@ package jonst;
 import jonst.Data.*;
 import jonst.Models.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -38,9 +39,22 @@ public class World {
         setMainCharacter(getCreature("Trixie"));             //Establish protagonist
 
 
-
     }  //End of World constructor
 
+
+    public void updateWorld(String loadFilePath) {
+
+        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
+
+        loadListsFromFile(loadFilePath);        //Build lists
+
+        populateLocationLists();
+
+        parser = new Parser(genericList);       //The parser holds lists of words, and parses input
+
+        setMainCharacter(getCreature("Trixie"));             //Establish protagonist
+
+    }
 
     public void runGame() {
 
@@ -202,9 +216,9 @@ public class World {
 
     public boolean setMainCharacter(Creature name) {
 
-                playerCharacter = name;
+        playerCharacter = name;
 
-                return !(playerCharacter == null);
+        return !(playerCharacter == null);
 
     }
 
@@ -293,54 +307,141 @@ public class World {
         return null;
     }
 
-    public String returnFullName(String name) {
+//    public String returnFullName(String name) {
+//
+//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+//            if (generic.getShortName().equalsIgnoreCase(name)) {
+//                return generic.getName();
+//            }
+//        }
+//        return name;        //if not, just return the short name
+//    }
+//
+//    public List<String> returnFullNames(String name) {
+//        //Returns list of Fullnames matching the shortName - in case multiple things have that shortName. Prepare for the alias field!
+//
+//        List<String> returnList = new ArrayList<>();
+//
+//        returnList.add(name);
+//
+//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+//            if (generic.getShortName().equalsIgnoreCase(name)) {
+//                returnList.add(generic.getName());
+//            }
+//        }
+//        return returnList;
+//    }
+
+
+    public List<String> matchNameMultiple(String name) {
+
+        List<String> results = new ArrayList<>();
 
         for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-            if (generic.getShortName().equalsIgnoreCase(name)) {
-                return generic.getName();
+
+            if (generic.getName().equalsIgnoreCase(name)) {
+                results.add(generic.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : generic.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(generic.getName());
+                    }
+                }
             }
         }
-        return name;        //if not, just return the short name
+
+        return results;
     }
 
-    public List<String> returnFullNames(String name){
-        //Returns list of Fullnames matching the shortName - in case multiple things have that shortName. Prepare for the alias field!
+    public String matchName(String name) {
 
-        List<String> returnList = new ArrayList<>();
-
-        returnList.add(name);
+        List<String> results = new ArrayList<>();
 
         for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-            if (generic.getShortName().equalsIgnoreCase(name)) {
-                returnList.add(generic.getName());
+
+
+            if (generic.getName().equalsIgnoreCase(name)) {
+                results.add(generic.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : generic.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(generic.getName());
+                    }
+                }
             }
         }
-        return returnList;
+
+        if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
+            return "";
+        } else if (results.size() == 0) {
+            System.out.println("'" + name + "' doesn't exist.");
+            return "";
+        } else {
+
+            return results.get(0);
+        }
+
     }
 
-    public String returnLocalFullName(String name){
-
-        //Figure out how to handle if multiples have the same shortname!
+    public String matchLocalName(String name) {
 
         List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
 
         genList.addAll(getPlayerInventory());
 
+        List<String> results = new ArrayList<>();
+        //genList is now everything at the location.
+
         for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
-            if (generic.getShortName().equalsIgnoreCase(name)) {
-                return generic.getName();
+
+            if (generic.getName().equalsIgnoreCase(name)) {
+                results.add(generic.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : generic.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(generic.getName());
+                    }
+                }
             }
         }
-        return name;        //if not, just return the short name
 
+        if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
+            return "";
+        } else if (results.size() == 0) {
+            System.out.println("You don't see '" + name + "' here.");
+            return "";
+        } else {
 
+            return results.get(0);
+        }
     }
+
+
+//    public String returnLocalFullName(String name) {
+//
+//        //Figure out how to handle if multiples have the same shortname!
+//
+//        List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
+//
+//        genList.addAll(getPlayerInventory());
+//
+//        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
+//            if (generic.getShortName().equalsIgnoreCase(name)) {
+//                return generic.getName();
+//            }
+//        }
+//        return name;        //if not, just return the short name
+//
+//
+//    }
 
     // ------------- Boolean checks ---------------------
 
     public boolean isObjectPresent(String selected) {
 
-        return (getPlayerLocation().getAllAtLocation().contains(getGenericObject(selected)) || getPlayerInventory().contains( getItem(selected)));
+        return (getPlayerLocation().getAllAtLocation().contains(getGenericObject(selected)) || getPlayerInventory().contains(getItem(selected)));
 
         //return ((getPlayerLocation() == (getGenericObject(selected).getLocation())) || (getPlayerLocation() == (getLocation("inventory"))));
     }
@@ -366,10 +467,25 @@ public class World {
 
     // ---------- The save function! -----------------------
 
-    public boolean saveToFile(String saveFilePath) {
+    public boolean saveToFile() {
 
-        boolean allSuccesses = true;
         Boolean[] successes = new Boolean[4];
+
+        String choice = SystemData.getReply("Name your save: ");
+
+        Long savekey = JsonBuilder.addToSavesMenu(choice);  //if savekey is -1, this failed.
+
+        if (savekey == -1) {
+            System.out.println("No free save slots left.");
+            return false;
+        }
+
+        String saveFilePath = SystemData.getSavepath() + savekey + choice;
+        File saveFile = new File(saveFilePath + "/");
+
+        if (!saveFile.exists())
+            saveFile.mkdir();
+
 
         successes[0] = JsonBuilder.saveLocationList(saveFilePath, locationList);
         successes[1] = JsonBuilder.saveCreatureList(saveFilePath, creatureList);
@@ -378,9 +494,10 @@ public class World {
 
         for (boolean boo : successes) {
             if (!boo)
-                allSuccesses = false;
+                return false;
         }
-        return allSuccesses;        //If it successfully saves all files, return true
+
+        return true;        //If it successfully saves all files, return true
     }
 
 }
