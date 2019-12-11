@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -62,11 +63,11 @@ public class HelpfulMethodsTest {
     public void turnCreatureListIntoStringTest() {
 
         List<Creature> list = new ArrayList() {{
-            add(new Creature("Pinkie Pie", "", "", "", new ArrayList<>(), "", new ArrayList<>(), new HashMap<>()));
-            add(new Creature("Applejack", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Applejack", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "", new ArrayList<>(),"", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Pinkie Pie", "", "", new ArrayList<>(),  "","", new ArrayList<>(), new HashMap<>()));
+            add(new Creature("Applejack", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Applejack", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "",  new ArrayList<>(),"", "",  new ArrayList<>(), new HashMap<>() ));
         }};
 
 
@@ -91,11 +92,11 @@ public class HelpfulMethodsTest {
     public void turnItemListIntoStringTest() {
 
         List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", "", new ArrayList<>() ));
-            add(new Item("apple", "", "", "", new ArrayList<>() ));
-            add(new Item("box", "", "", "", new ArrayList<>() ));
-            add(new Item("crowbar", "", "", "", new ArrayList<>() ));
-            add(new Item("shoe", "", "", "", new ArrayList<>() ));
+            add(new Item("rope", "", "", new ArrayList<>() ));
+            add(new Item("apple", "", "",  new ArrayList<>() ));
+            add(new Item("box", "", "",  new ArrayList<>() ));
+            add(new Item("crowbar", "", "",  new ArrayList<>() ));
+            add(new Item("shoe", "", "",  new ArrayList<>() ));
         }};
 
 
@@ -120,11 +121,11 @@ public class HelpfulMethodsTest {
     public void turnStationaryObjectListIntoStringTest() {
 
         List<StationaryObject> list = new ArrayList() {{
-            add(new StationaryObject("Pinkie Pie", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Pinkie Pie", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "",  new ArrayList<>() ));
         }};
 
 
@@ -163,5 +164,33 @@ public class HelpfulMethodsTest {
         assertEquals("Cecil", test.get(0));
         assertEquals("Adam", test.get(2));
 
+    }
+
+    @Test
+    public void turnListIntoStringTest() {
+
+        List<Item> list = new ArrayList() {{
+            add(new Item("rope", "", "", new ArrayList<>() ));
+            add(new Item("apple", "", "",  new ArrayList<>() ));
+            add(new Item("box", "", "",  new ArrayList<>() ));
+            add(new Item("crowbar", "", "",  new ArrayList<>() ));
+            add(new Item("shoe", "", "",  new ArrayList<>() ));
+        }};
+
+
+        //String result = HelpfulMethods.turnListIntoString(list);
+
+
+    }
+
+
+    @Test
+    public void time() throws InterruptedException {
+
+
+        System.out.println("start");
+
+        TimeUnit.MINUTES.sleep(1);
+        System.out.println("end");
     }
 }

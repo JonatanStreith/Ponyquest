@@ -1,10 +1,12 @@
 package jonst.Models;
 
+import jonst.App;
+
 import java.util.List;
 
 public class GenericObject {
     private String name;
-    private String shortName;
+    //private String shortName;
 
     private String description;
 
@@ -14,11 +16,11 @@ public class GenericObject {
 
     private List<String> alias;
 
-    public GenericObject(String name, String shortName, String description, String locationName, List<String> alias)
+    public GenericObject(String name, String description, String locationName, List<String> alias)
 {
     setName(name);
 
-    setShortName(shortName);
+    //setShortName(shortName);
     setDescription(description);
     setLocationName(locationName);
 
@@ -30,9 +32,9 @@ public class GenericObject {
         this.name = name;
     }
 
-    protected void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
+//    protected void setShortName(String shortName) {
+//        this.shortName = shortName;
+//    }
 
     protected void setDescription(String description) {
         this.description = description;
@@ -48,9 +50,9 @@ public class GenericObject {
         return name;
     }
 
-    public String getShortName() {
-        return shortName;
-    }
+//    public String getShortName() {
+//        return shortName;
+//    }
 
     public String getDescription() {
         return description;
@@ -80,12 +82,31 @@ public class GenericObject {
 
 
     public void getFeedback(){
-    String feedback = name + "(" + shortName + "): " + description;
+    String feedback = name + ": " + description;
         System.out.println(feedback);
     }
 
     public boolean isAtLocation(Location location){
         return getLocation() == location;
+    }
+
+    public boolean addAlias(String specificAlias){
+
+        alias.add(specificAlias);
+
+        App.getWorld().getParser().addToNouns(specificAlias);
+
+        return true;
+    }
+
+    public boolean removeAlias(String specificAlias){
+        if(alias.contains(specificAlias)) {
+            alias.remove(specificAlias);
+        }
+        App.getWorld().getParser().removeFromNouns(specificAlias);
+
+
+        return true;
     }
 
 }

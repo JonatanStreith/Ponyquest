@@ -25,10 +25,14 @@ public class JsonBuilder {
         //Method takes a proposed save name, checks for a free place in the saves menu;
         //If possible, builds an entry and saves it, then returns the used number.
         //If return is -1, something went wrong (usually out of saves slots)
-
-        Map<Long, String> saves = getSavesMenu();
+        //If return is -100, there was an error reading/writing to the file.
 
         long freeNumber = -1;
+        Map<Long, String> saves = getSavesMenu();
+
+        if(saves==null){
+            return -100;        //Oh no, file writing error
+        }
 
         for (long i = 1; i <= 1000; i++) {  //Checks to find a number that isn't used
             if (!saves.containsKey(i)) {
@@ -40,6 +44,10 @@ public class JsonBuilder {
         if (freeNumber != -1) {        //If we didn't find a free number, this will still be -1, so if it's not, we found a number
             saves.put(freeNumber, saveName); //Add an entry
             boolean success = buildSavesMenu(saves);    //Make method that builds the Json anew
+
+            if(!success){
+                return -100;
+            }
         }
 
         return freeNumber;
@@ -48,7 +56,6 @@ public class JsonBuilder {
     public static boolean buildSavesMenu(Map<Long, String> saves) {
 
 
-        boolean success = true;
         JSONArray savesJSON = new JSONArray();
 
         for (long key : saves.keySet()) {
@@ -65,10 +72,11 @@ public class JsonBuilder {
             file.flush();
 
         } catch (IOException e) {
+            System.out.println("There was an error writing to the saverecord.");
             e.printStackTrace();
-            success = false;
+            return false;
         }
-        return success;
+        return true;
 
     }
 
@@ -81,7 +89,7 @@ public class JsonBuilder {
         Map<Long, String> saves = new HashMap();
 
 
-        try {
+        try {       //If this part fails, it just won't access the save record.
 
             reader = new FileReader(SystemData.getGamepath() + "/sys/saverecord.json");
             JSONArray savesJSON = (JSONArray) jsonParser.parse(reader);
@@ -95,11 +103,17 @@ public class JsonBuilder {
             }
 
         } catch (FileNotFoundException e) {
+            System.out.println("Saverecord file not found.");
             e.printStackTrace();
+            return null;            //Return null to confirm that something went wrong!
         } catch (IOException e) {
+            System.out.println("There was an error reading the saverecord.");
             e.printStackTrace();
+            return null;            //Return null to confirm that something went wrong!
         } catch (ParseException e) {
+            System.out.println("Saverecord file corrupt, or there was an error during the reading.");
             e.printStackTrace();
+            return null;            //Return null to confirm that something went wrong!
         }
 
 
@@ -123,7 +137,7 @@ public class JsonBuilder {
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
             creatureArray.add(new JSONObject() {{
                 put("FullName", crea.getName());
-                put("ShortName", crea.getShortName());
+                //put("ShortName", crea.getShortName());
                 put("Race", crea.getRace());
                 put("Description", crea.getDescription());
                 put("Location", crea.getLocationName());
@@ -168,7 +182,7 @@ public class JsonBuilder {
         for (Location loc : locationList) {        //This creates one JSONObject for every location in the list, populates it with data, and adds it to "locations"
             locationArray.add(new JSONObject() {{
                 put("FullName", loc.getName());
-                put("ShortName", loc.getShortName());
+                //put("ShortName", loc.getShortName());
                 put("Description", loc.getDescription());
                 put("Location", loc.getLocationName());
                 put("Exits", new JSONObject() {{
@@ -206,7 +220,7 @@ public class JsonBuilder {
         for (Item ite : itemList) {        //This creates one JSONObject for every item in the list, populates it with data, and adds it to "items"
             itemArray.add(new JSONObject() {{
                 put("FullName", ite.getName());
-                put("ShortName", ite.getShortName());
+                //put("ShortName", ite.getShortName());
                 put("Description", ite.getDescription());
                 put("Location", ite.getLocationName());
 
@@ -238,7 +252,7 @@ public class JsonBuilder {
         for (StationaryObject sta : objectList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
             objectArray.add(new JSONObject() {{
                 put("FullName", sta.getName());
-                put("ShortName", sta.getShortName());
+                //put("ShortName", sta.getShortName());
                 put("Description", sta.getDescription());
                 put("Location", sta.getLocationName());
 
@@ -280,9 +294,10 @@ public class JsonBuilder {
             for (Object obj : creatureJSON) {
                 JSONObject jObj = (JSONObject) obj;
                 String fullName = (String) jObj.get("FullName");
-                String shortName = (String) jObj.get("ShortName");
+                //String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 String race = (String) jObj.get("Race");
+                String gender = (String) jObj.get("Gender");
                 String location = (String) jObj.get("Location");
                 List<String> casualDialog = new ArrayList<>();
                 Map<String, String> askTopics = new HashMap<>();
@@ -309,16 +324,19 @@ public class JsonBuilder {
                     alias.add((String) xObj);
                 }
 
-                Creature creature = new Creature(fullName, shortName, description, location, alias, race, casualDialog, askTopics);
+                Creature creature = new Creature(fullName, description, location, alias, race, gender, casualDialog, askTopics);
 
                 creatureList.add(creature);
             }
 
         } catch (FileNotFoundException e) {
+            System.out.println("Creatures file not found.");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("There was an error reading the creatures file.");
             e.printStackTrace();
         } catch (ParseException e) {
+            System.out.println("Creatures file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
         //System.out.println("Creature list loaded from file.");
@@ -341,7 +359,7 @@ public class JsonBuilder {
             for (Object obj : locationJSON) {
                 JSONObject jObj = (JSONObject) obj;
                 String fullName = (String) jObj.get("FullName");
-                String shortName = (String) jObj.get("ShortName");
+                //String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
@@ -358,20 +376,22 @@ public class JsonBuilder {
                     exits.add((String) xObj);
                 }
 
-                Location location = new Location(fullName, shortName, description, fullName, alias, exits);
+                Location location = new Location(fullName, description, fullName, alias, exits);
                 //location.setLocation(fullName);
 
                 locationList.add(location);
             }
 
         } catch (FileNotFoundException e) {
+            System.out.println("Locations file not found.");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("There was an error reading the locations file.");
             e.printStackTrace();
         } catch (ParseException e) {
+            System.out.println("Locations file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
-
         //System.out.println("Location list loaded from file.");
 
         return locationList;
@@ -393,7 +413,7 @@ public class JsonBuilder {
             for (Object obj : stationaryObjectJSON) {
                 JSONObject jObj = (JSONObject) obj;
                 String fullName = (String) jObj.get("FullName");
-                String shortName = (String) jObj.get("ShortName");
+                //String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
@@ -404,20 +424,22 @@ public class JsonBuilder {
                     alias.add((String) xObj);
                 }
 
-                StationaryObject object = new StationaryObject(fullName, shortName, description, location, alias);
+                StationaryObject object = new StationaryObject(fullName, description, location, alias);
                 //object.setLocation(location);
 
                 stationaryObjectList.add(object);
             }
 
         } catch (FileNotFoundException e) {
+            System.out.println("Stationaryobjects file not found.");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("There was an error reading the stationaryobjects file.");
             e.printStackTrace();
         } catch (ParseException e) {
+            System.out.println("Stationaryobjects file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
-
         //System.out.println("Stationary object list loaded from file.");
 
         return stationaryObjectList;
@@ -438,7 +460,7 @@ public class JsonBuilder {
             for (Object obj : itemJSON) {
                 JSONObject jObj = (JSONObject) obj;
                 String fullName = (String) jObj.get("FullName");
-                String shortName = (String) jObj.get("ShortName");
+                //String shortName = (String) jObj.get("ShortName");
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
@@ -448,16 +470,19 @@ public class JsonBuilder {
                 for (Object xObj : jsAlias) {
                     alias.add((String) xObj);
                 }
-                Item item = new Item(fullName, shortName, description, location, alias);
+                Item item = new Item(fullName, description, location, alias);
 
 
                 itemList.add(item);
             }
         } catch (FileNotFoundException e) {
+            System.out.println("Items file not found.");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("There was an error reading the items file.");
             e.printStackTrace();
         } catch (ParseException e) {
+            System.out.println("Items file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
         //System.out.println("Item list loaded from file.");

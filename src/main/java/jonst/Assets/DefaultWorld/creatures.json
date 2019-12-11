@@ -3,7 +3,7 @@
     "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
     "FullName": "Trixie",
     "Race": "unicorn",
-    "ShortName": "yourself",
+    "Gender": "female",
     "Location": "Sweet Apple Acres",
     "CasualDialog": {
       "0": "Talking to yourself is usually pointless.",
@@ -25,7 +25,7 @@
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
     "FullName": "Twilight Sparkle",
     "Race": "alicorn",
-    "ShortName": "Twilight",
+    "Gender": "female",
     "Location": "Castle library",
     "CasualDialog": {
       "0": "She looks at you with a frown. \"Oh... hello, Trixie.\"",
@@ -49,7 +49,7 @@
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
     "FullName": "Rarity",
     "Race": "unicorn",
-    "ShortName": "Rarity",
+    "Gender": "female",
     "Location": "Carousel Boutique interior",
     "CasualDialog": {
       "0": "\"Hello, Trixie.\"",
@@ -72,7 +72,7 @@
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
     "FullName": "Pinkie Pie",
     "Race": "earth pony",
-    "ShortName": "Pinkie",
+    "Gender": "female",
     "Location": "Sugarcube Corner interior",
     "CasualDialog": {
       "0": "\"Hi Trixie!\"",
@@ -97,7 +97,7 @@
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
     "FullName": "Applejack",
     "Race": "earth pony",
-    "ShortName": "AJ",
+    "Gender": "female",
     "Location": "Sweet Apple Acres",
     "CasualDialog": {
       "0": "\"Hey there, Trixie.\"",
@@ -118,7 +118,7 @@
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
     "FullName": "Rainbow Dash",
     "Race": "pegasus",
-    "ShortName": "Dashie",
+    "Gender": "female",
     "Location": "Sugarcube Corner",
     "CasualDialog": {
       "0": "\"Oh, hey.\"",
@@ -141,7 +141,7 @@
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
     "FullName": "Fluttershy",
     "Race": "pegasus",
-    "ShortName": "Fluttershy",
+    "Gender": "female",
     "Location": "Carousel Boutique interior",
     "CasualDialog": {
       "0": "\"Umm...\"",
@@ -163,7 +163,7 @@
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
     "FullName": "Spike",
     "Race": "dragon",
-    "ShortName": "Spike",
+    "Gender": "male",
     "Location": "Castle library",
     "CasualDialog": {
       "0": "\"What do you want?\"",
@@ -184,7 +184,7 @@
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
     "FullName": "Starlight Glimmer",
     "Race": "unicorn",
-    "ShortName": "Starlight",
+    "Gender": "female",
     "Location": "Cutie Map room",
     "CasualDialog": {
       "0": "\"Oh, hi, Trixie!\"",
@@ -209,7 +209,7 @@
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
     "FullName": "Maud Pie",
     "Race": "earth pony",
-    "ShortName": "Maud",
+    "Gender": "female",
     "Location": "Sweet Apple Acres",
     "CasualDialog": {
       "0": "\"Trixie. Hello.\"",
@@ -231,7 +231,7 @@
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
     "FullName": "Princess Celestia",
     "Race": "alicorn",
-    "ShortName": "Celestia",
+    "Gender": "female",
     "Location": "Castle kitchen",
     "CasualDialog": {
       "0": "\"Hello, my little pony.\"",
@@ -254,7 +254,7 @@
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
     "FullName": "Princess Luna",
     "Race": "alicorn",
-    "ShortName": "Luna",
+    "Gender": "female",
     "Location": "Castle main hall",
     "CasualDialog": {
       "0": "\"GREET... *ahem* greetings, faithful subject.\"",
@@ -278,7 +278,7 @@
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
     "FullName": "Discord",
     "Race": "draconequus",
-    "ShortName": "Discord",
+    "Gender": "male",
     "Location": "Party cave",
     "CasualDialog": {
       "0": "\"Well, if it isn't Trixie!\"",

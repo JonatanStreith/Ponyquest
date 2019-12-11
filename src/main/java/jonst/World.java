@@ -453,10 +453,29 @@ public class World {
     // ------------------ The load function! --------------------------
 
     public void loadListsFromFile(String loadFilePath) {
-        locationList = JsonBuilder.loadLocationList(loadFilePath);
-        creatureList = JsonBuilder.loadCreatureList(loadFilePath);
-        itemList = JsonBuilder.loadItemList(loadFilePath);
-        stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
+
+        boolean loadingSuccess;
+
+        int counter = 0;
+
+        do {        //Checks to see if the lists are populated properly. Yes, this means they need to have one entry minimum by default.
+
+            counter++;
+            loadingSuccess = true;
+            locationList = JsonBuilder.loadLocationList(loadFilePath);
+            creatureList = JsonBuilder.loadCreatureList(loadFilePath);
+            itemList = JsonBuilder.loadItemList(loadFilePath);
+            stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
+
+            if(locationList.size()==0 || creatureList.size()==0 || itemList.size()==0 || stationaryObjectList.size()==0){
+                loadingSuccess = false;
+            }
+
+        } while(!loadingSuccess && counter<10);     //Keep repeating loading tries ten times or until it succeeds, in case it's something temporary
+
+        if(!loadingSuccess){
+            System.out.println("World lists may not be populated properly due to errors. You may experience problems.");
+        }
 
         genericList = new ArrayList<>();
         genericList.addAll(locationList);
@@ -477,6 +496,11 @@ public class World {
 
         if (savekey == -1) {
             System.out.println("No free save slots left.");
+            return false;
+        }
+
+        if(savekey == -100){
+            System.out.println("There was a problem accessing the saverecord.");
             return false;
         }
 

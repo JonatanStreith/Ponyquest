@@ -19,6 +19,8 @@ public class App {
 
     //Todo: Better error handling! Main should not have throws IOException!
 
+    private static World world;
+
     public static void main(String[] args) {
 
         System.out.println("Welcome to the game!");
@@ -27,7 +29,7 @@ public class App {
 
 
 
-        World world = new World(filePath);  //Build world
+        world = new World(filePath);  //Build world
 
         world.runGame();
 
@@ -88,9 +90,9 @@ public class App {
 
     }
 
-
-
-
+    public static World getWorld() {
+        return world;
+    }
 }
 
 

@@ -8,8 +8,8 @@ public class Container extends Item {
 
     private List<Item> contains;
 
-    public Container(String name, String shortName, String description, String locationName, List<String> alias) {
-        super(name, shortName, description, locationName, alias);
+    public Container(String name, String description, String locationName, List<String> alias) {
+        super(name, description, locationName, alias);
     }
 
 

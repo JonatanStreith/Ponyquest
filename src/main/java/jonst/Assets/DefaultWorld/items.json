@@ -2,7 +2,6 @@
    {
       "Description": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too.",
       "FullName": "Trixie's hat",
-      "ShortName": "hat",
       "Location": "inventory",
       "Alias": [
          "hat",
@@ -13,7 +12,6 @@
    {
       "Description": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too.",
       "FullName": "Trixie's cape",
-      "ShortName": "cape",
       "Location": "inventory",
       "Alias": [
          "cape",
@@ -24,7 +22,6 @@
    {
       "Description": "A wooden crate for putting things in.",
       "FullName": "a wooden crate",
-      "ShortName": "crate",
       "Location": "Sweet Apple Acres",
       "Alias": [
          "crate",
@@ -36,7 +33,6 @@
    {
       "Description": "It's a rock. You saw enough of them during your time on the rock farm.",
       "FullName": "a rock",
-      "ShortName": "rock",
       "Location": "Sweet Apple Acres",
       "Alias": [
          "rock",
@@ -46,7 +42,6 @@
    {
       "Description": "Fragrant and delicious, just the thing for a quick snack.",
       "FullName": "a red apple",
-      "ShortName": "apple",
       "Location": "Sweet Apple Acres",
       "Alias": [
          "apple",
@@ -58,7 +53,6 @@
    {
       "Description": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already.",
       "FullName": "a heavy plow",
-      "ShortName": "plow",
       "Location": "Sweet Apple Acres",
       "Alias": [
          "plow",
@@ -68,7 +62,6 @@
    {
       "Description": "A spool of blue thread. Rarity probably won't miss it.",
       "FullName": "a spool of blue thread",
-      "ShortName": "thread",
       "Location": "Carousel Boutique interior",
       "Alias": [
          "thread",
@@ -79,7 +72,6 @@
    {
       "Description": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week.",
       "FullName": "an unfinished dress",
-      "ShortName": "dress",
       "Location": "Carousel Boutique interior",
       "Alias": [
          "dress",
@@ -90,7 +82,6 @@
    {
       "Description": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today.",
       "FullName": "a bucket of ice cream",
-      "ShortName": "ice cream",
       "Location": "Sugarcube Corner interior",
       "Alias": [
          "ice cream",
@@ -101,7 +92,6 @@
    {
       "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!.",
       "FullName": "a bundle of fireworks",
-      "ShortName": "fireworks",
       "Location": "inventory",
       "Alias": [
          "fireworks",

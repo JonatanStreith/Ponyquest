@@ -9,6 +9,8 @@ public class Creature extends GenericObject {
 
     private String race;
     private List<String> casualDialog;
+    private String gender;
+
 
     private Map<String, String> askTopics;
 
@@ -18,13 +20,22 @@ public class Creature extends GenericObject {
 
 
 
-    public Creature(String name, String shortName, String description, String locationName, List<String> alias, String race, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, shortName, description, locationName, alias);
+    public Creature(String name, String description, String locationName, List<String> alias, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, description, locationName, alias);
 
         setRace(race);
+        setGender(gender);
         setCasualDialog(casualDialog);
         setAskTopics(askTopics);
 
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     private void setCasualDialog(List<String> casualDialog) {
@@ -35,12 +46,14 @@ public class Creature extends GenericObject {
         this.askTopics = askTopics;
     }
 
-    public void setRace(String race) {
-        this.race = race;
-    }
+
 
     public String getRace()
     { return race; }
+
+    public String getGender() {
+        return gender;
+    }
 
     public List<String> getCasualDialog() {
         return casualDialog;
@@ -49,6 +62,10 @@ public class Creature extends GenericObject {
     public Map<String, String> getAskTopics() {
         return askTopics;
     }
+
+
+
+
 
     public String getRandomCasualDialog(){
         return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));

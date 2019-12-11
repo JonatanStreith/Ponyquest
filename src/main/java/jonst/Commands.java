@@ -96,7 +96,7 @@ public class Commands {
                 world.removeFromInventory(world.getItem(fullName));
                 world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
-                System.out.println("You drop the " + world.getItem(fullName).getShortName() + ".");
+                System.out.println("You drop the " + name + ".");
             } else {
                 System.out.println("You're not carrying that.");
             }
@@ -128,7 +128,7 @@ public class Commands {
                 world.removeItemFromLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
                 world.addToInventory(world.getItem(fullName));                              //Add to inventory
-                System.out.println("You pick up the " + world.getItem(fullName).getShortName() + ".");
+                System.out.println("You pick up the " + name + ".");
 
             } else {
                 System.out.println("Debug code. If this is shown, something didn't go right.");

@@ -11,9 +11,6 @@ import java.util.*;
 public class HelpfulMethods {
 
 
-
-
-
     public static String isOrAre(int num)
     {
         String output = " is ";
@@ -41,33 +38,37 @@ public class HelpfulMethods {
         return fullString;
     }
 
+/*
+    public static <T> String turnListIntoString(ArrayList<T> list) {
 
-//    public static <T> String turnListIntoString(T key, ArrayList<T> list) {
-//
-//        String fullString = "";
-//        List<String> nameList = new ArrayList<String>();
-//
-//        if(list instanceof Item){
-            //USE CASTING!
+        String fullString = "";
+        List<String> nameList = new ArrayList<String>();
 
-//            for (int i = 0; i < list.size() ; i++) {
-//                Item it = list.get(i);
-//                nameList.add(it.getName());
-//            }
-//
-//
-//
-//        } else if(list instanceof Creature) {
-//
-//        } else if (list instanceof StationaryObject){
-//
-//        }
-//
-//        //...
-//
-//        return fullString;
-//    }
+        if(T instanceof Item){
 
+            for (int i = 0; i < list.size() ; i++) {
+                Item it = (Item) list.get(i);
+                nameList.add(it.getName());
+            }
+
+
+
+        } else if(T instanceof Creature) {
+
+            for (int i = 0; i < list.size() ; i++) {
+                Creature it = (Creature) list.get(i);
+                nameList.add(it.getName());
+            }
+
+        } else if (T instanceof StationaryObject){
+
+        }
+
+
+
+        return fullString;
+    }
+*/
 
     public static String turnStationaryObjectListIntoString(List<StationaryObject> list, String separator)     //Takes a list of objects, pieces together their names into one string
     {
@@ -152,26 +153,26 @@ public class HelpfulMethods {
 
 
 
-//    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
-//    {
-//
-//        // Create a new ArrayList
-//        ArrayList<T> newList = new ArrayList<T>();
-//
-//        // Traverse through the first list
-//        for (T element : list) {
-//
-//            // If this element is not present in newList
-//            // then add it
-//            if (!newList.contains(element)) {
-//
-//                newList.add(element);
-//            }
-//        }
-//
-//        // return the new list
-//        return newList;
-//    }
+    public static <T> ArrayList<T> removeDuplicatesT(ArrayList<T> list)
+    {
+
+        // Create a new ArrayList
+        ArrayList<T> newList = new ArrayList<T>();
+
+        // Traverse through the first list
+        for (T element : list) {
+
+            // If this element is not present in newList
+            // then add it
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+
+        // return the new list
+        return newList;
+    }
 
 
     public static  List<String> removeDuplicates(ArrayList<String> list)

@@ -214,4 +214,14 @@ public class Parser {
 
     }
 
+    public void addToNouns(String specificAlias) {
+        legitimateNouns.add(specificAlias);
+        HelpfulMethods.reverseSortStringList(legitimateNouns);
+    }
+
+    public void removeFromNouns(String specificAlias) {
+        if(legitimateNouns.contains(specificAlias)) {
+            legitimateNouns.remove(specificAlias);
+        }
+    }
 }
