@@ -53,4 +53,9 @@ public class Notes {
 
     //Every creature has their own inventory! This cannot go wrong.
 
+
+
+    //IDEA! Make a big HashMap that can parse inputted topics against Real Topics, i.e. AJ -> Applejack, etc. That way, we don't have to
+    //give each creature five identical entries for the same, differently phrased topic.
+
 }
