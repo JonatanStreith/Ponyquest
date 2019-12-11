@@ -5,14 +5,14 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
-    "CasualDialog": {
-      "0": "Talking to yourself is usually pointless.",
-      "1": "Much as you're a wonderful conversationalist, there's not much point.",
-      "2": "You'd rather not. Other ponies think you're weird enough as it is."
+    "CasualDialog": [
+      "Talking to yourself is usually pointless.",
+      "Much as you're a wonderful conversationalist, there's not much point.",
+      "You'd rather not. Other ponies think you're weird enough as it is."
+    ],
+    "AskTopics": {
+      "Default": "You're not the type of pony to question yourself."
     },
-	"AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "The Great and Powerful Trixie",
       "yourself",
@@ -27,16 +27,20 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle library",
-    "CasualDialog": {
-      "0": "She looks at you with a frown. \"Oh... hello, Trixie.\"",
-      "1": "\"Do you want something?\"",
-      "2": "\"Please don't bother me while I'm busy.\"",
-      "3": "\"I'm sure Starlight is around here somewhere.\"",
-      "4": "\"No, I won't teach you the 'Want it, Need it' spell. Stop asking.\""
+    "CasualDialog": [
+      "She looks at you with a frown. \"Oh... hello, Trixie.\"",
+      "\"Do you want something?\"",
+      "\"Please don't bother me while I'm busy.\"",
+      "\"I'm sure Starlight is around here somewhere.\"",
+      "\"No, I won't teach you the 'Want it, Need it' spell. Stop asking.\""
+    ],
+    "AskTopics": {
+      "Default": "\"I'm not quite sure. Can I look it up later?\"",
+      "Alicorn amulet": "\"Princess Celestia took care of it, Trixie. You're not getting it back.\"",
+      "Magic": "\"You'll have to be more specific, Trixie. It's kind of my speciality. Is there a specific spell you want to know about?\"",
+      "Teleportation": "\"Teleportation allows you to move things, including yourself, anywhere else you can imagine. I'm actually impressed you can do it... it's not something just anypony can master.\"",
+      "Transformation": "\"Transformation allows you to turn things into other things. Now if you could create something other than teacups...\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Twilight",
       "Sparkle",
@@ -51,16 +55,17 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Carousel Boutique interior",
-    "CasualDialog": {
-      "0": "\"Hello, Trixie.\"",
-      "1": "\"Yes, dear?\"",
-      "2": "\"Please. I'm 'in the zone' at the moment.\"",
-      "3": "\"Do you want something? A new outfit?\"",
-      "4": "\"If you set off another smoke bomb in here, I WILL tell Starlight.\""
+    "CasualDialog": [
+      "\"Hello, Trixie.\"",
+      "\"Yes, dear?\"",
+      "\"Please. I'm 'in the zone' at the moment.\"",
+      "\"Do you want something? A new outfit?\"",
+      "\"If you set off another smoke bomb in here, I WILL tell Starlight.\""
+    ],
+    "AskTopics": {
+      "Default": "\"Oh, I really don't know anything about that.\"",
+      "Alicorn amulet": "\"As reprehensible as it was tasteless. I can think of nicer things for you to wear.\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Rarara",
       "fashion pony",
@@ -74,16 +79,17 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sugarcube Corner interior",
-    "CasualDialog": {
-      "0": "\"Hi Trixie!\"",
-      "1": "\"Yeah? You want something? You want me to throw you a party?\"",
-      "2": "\"Hey, what's your favorite flavor? Blueberry? Chocolate? Chili pepper? Nooo reason...\"",
-      "3": "\"Sometimes I like to go WHEEEE! for no reason at all! You know what I'm talking about?\"",
-      "4": "\"I think the programmer is trying to come up with new things for me to say.\""
+    "CasualDialog": [
+      "\"Hi Trixie!\"",
+      "\"Yeah? You want something? You want me to throw you a party?\"",
+      "\"Hey, what's your favorite flavor? Blueberry? Chocolate? Chili pepper? Nooo reason...\"",
+      "\"Sometimes I like to go WHEEEE! for no reason at all! You know what I'm talking about?\"",
+      "\"I think the programmer is trying to come up with new things for me to say.\""
+    ],
+    "AskTopics": {
+      "Default": "\"I dunno!\"",
+      "Alicorn amulet": "\"Uh, it's evil and nasty and we like you better when you're not going crazy and evil and stuff?\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Pinkie",
       "Pie",
@@ -99,16 +105,17 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
-    "CasualDialog": {
-      "0": "\"Hey there, Trixie.\"",
-      "1": "\"You want somethin'?\"",
-      "2": "\"For the love o' Celestia, don't cause another mess.\"",
-      "3": "She snorts. \"Unlike some ponies, I'm too darn busy to stand around gawkin'.\"",
-      "4": "\"Y'wanna make yerself useful? fetch me a... aw, forgot who I was talkin' to.\""
+    "CasualDialog": [
+      "\"Hey there, Trixie.\"",
+      "\"You want somethin'?\"",
+      "\"For the love o' Celestia, don't cause another mess.\"",
+      "She snorts. \"Unlike some ponies, I'm too darn busy to stand around gawkin'.\"",
+      "\"Y'wanna make yerself useful? fetch me a... aw, forgot who I was talkin' to.\""
+    ],
+    "AskTopics": {
+      "Default": "\"Can't help ya with that.\"",
+      "Alicorn amulet": "\"You wanna start that kinda nonsense again?\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "AJ",
       "earth pony"
@@ -120,16 +127,17 @@
     "Race": "pegasus",
     "Gender": "female",
     "Location": "Sugarcube Corner",
-    "CasualDialog": {
-      "0": "\"Oh, hey.\"",
-      "1": "\"When did you get here?\"",
-      "2": "\"Hey, can you do fireworks on demand?\"",
-      "3": "\"Zzzzz... uh? Huh?\"",
-      "4": "\"I'm soooo bored.\""
+    "CasualDialog": [
+      "\"Oh, hey.\"",
+      "\"When did you get here?\"",
+      "\"Hey, can you do fireworks on demand?\"",
+      "\"Zzzzz... uh? Huh?\"",
+      "\"I'm soooo bored.\""
+    ],
+    "AskTopics": {
+      "Default": "\"...What?\"",
+      "Alicorn amulet": "\"Now why'd you have to go and bring that up again?\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Rainbow",
       "Dash",
@@ -143,16 +151,17 @@
     "Race": "pegasus",
     "Gender": "female",
     "Location": "Carousel Boutique interior",
-    "CasualDialog": {
-      "0": "\"Umm...\"",
-      "1": "Fluttershy looks away bashfully.",
-      "2": "\"Um. Yes? D-do you want something?\"",
-      "3": "\"I... um... nevermind.\" *squeak*",
-      "4": "\"Trixie, I... I... nevermind.\""
+    "CasualDialog": [
+      "\"Umm...\"",
+      "Fluttershy looks away bashfully.",
+      "\"Um. Yes? D-do you want something?\"",
+      "\"I... um... nevermind.\" *squeak*",
+      "\"Trixie, I... I... nevermind.\""
+    ],
+    "AskTopics": {
+      "Default": "\"Um... sorry, I don't know anything about that.\"",
+      "Alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject."
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Flutters",
       "Shutterfly",
@@ -165,16 +174,17 @@
     "Race": "dragon",
     "Gender": "male",
     "Location": "Castle library",
-    "CasualDialog": {
-      "0": "\"What do you want?\"",
-      "1": "\"Please tell me you're not going to break stuff again.\"",
-      "2": "\"Oh... I think I've got stuff to do. Elsewhere.\"",
-      "3": "\"Starlight's in the library, I think. Go bother her.\"",
-      "4": "\"Uh, yeah?\""
+    "CasualDialog": [
+      "\"What do you want?\"",
+      "\"Please tell me you're not going to break stuff again.\"",
+      "\"Oh... I think I've got stuff to do. Elsewhere.\"",
+      "\"Starlight's in the library, I think. Go bother her.\"",
+      "\"Uh, yeah?\""
+    ],
+    "AskTopics": {
+      "Default": "\"Uh, I dunno.\"",
+      "Alicorn amulet": "\"Oh, no no no. You're not getting that thing back.\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Spiky",
       "dragon"
@@ -186,16 +196,17 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Cutie Map room",
-    "CasualDialog": {
-      "0": "\"Oh, hi, Trixie!\"",
-      "1": "\"I didn't know you were back in town.\"",
-      "2": "\"So what have you been up to lately? Anything exciting?\"",
-      "3": "\"Wanna hang out later? We could work on magic or something. You choose.\"",
-      "4": "\"You haven't been bothering Twilight, have you?\""
+    "CasualDialog": [
+      "\"Oh, hi, Trixie!\"",
+      "\"I didn't know you were back in town.\"",
+      "\"So what have you been up to lately? Anything exciting?\"",
+      "\"Wanna hang out later? We could work on magic or something. You choose.\"",
+      "\"You haven't been bothering Twilight, have you?\""
+    ],
+    "AskTopics": {
+      "Default": "\"Sorry, Trixie. I don't really know.\"",
+      "Alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts, you hear?\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Starlight",
       "Glimmy",
@@ -211,16 +222,16 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
-    "CasualDialog": {
-      "0": "\"Trixie. Hello.\"",
-      "1": "\"Do you want something?\"",
-      "2": "\"...\"",
-      "3": "\"I seem to have misplaced my chisel...\"",
-      "4": "\"Seen any good rocks lately?\""
+    "CasualDialog": [
+      "\"Trixie. Hello.\"",
+      "\"Do you want something?\"",
+      "\"...\"",
+      "\"I seem to have misplaced my chisel...\"",
+      "\"Seen any good rocks lately?\""
+    ],
+    "AskTopics": {
+      "Default": "Maud looks disinterested."
     },
-	  "AskTopics": {
-	  "key": "Response"
-	},
     "Alias": [
       "maud",
       "pie",
@@ -233,16 +244,17 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle kitchen",
-    "CasualDialog": {
-      "0": "\"Hello, my little pony.\"",
-      "1": "\"Trixie, hmm? I've heard about you. Don't worry, they're good things. Well, mostly good things.\"",
-      "2": "\"Do you like bananas?\"",
-      "3": "\"You're a bit of a troublemaker, aren't you? Equestria needs ponies like you, too.\"",
-      "4": "Celestia smiles warmly at you. \"Yes?\""
+    "CasualDialog": [
+      "\"Hello, my little pony.\"",
+      "\"Trixie, hmm? I've heard about you. Don't worry, they're good things. Well, mostly good things.\"",
+      "\"Do you like bananas?\"",
+      "\"You're a bit of a troublemaker, aren't you? Equestria needs ponies like you, too.\"",
+      "Celestia smiles warmly at you. \"Yes?\""
+    ],
+    "AskTopics": {
+      "Default": "\"Oh dear, I can't really help you with that. Have you tried asking somepony more knowledgeable about the subject?\"",
+      "Alicorn amulet": "\"Don't worry, it's safely locked away where it can't hurt anypony again.\" She gives you a pointed look. \"Let's not talk about that anymore.\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Celly",
       "Tia",
@@ -256,16 +268,17 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle main hall",
-    "CasualDialog": {
-      "0": "\"GREET... *ahem* greetings, faithful subject.\"",
-      "1": "\"We recognize you... you're that pony who sends all the fan letters, correct?\"",
-      "2": "\"How may we be of assistance, citizen?\"",
-      "3": "\"Ah, the Great and Powerful Trixie. We've... heard of you.\"",
-      "4": "\"I really should be getting some sleep. Busy night, you know.\""
+    "CasualDialog": [
+      "\"GREET... *ahem* greetings, faithful subject.\"",
+      "\"We recognize you... you're that pony who sends all the fan letters, correct?\"",
+      "\"How may we be of assistance, citizen?\"",
+      "\"Ah, the Great and Powerful Trixie. We've... heard of you.\"",
+      "\"I really should be getting some sleep. Busy night, you know.\""
+    ],
+    "AskTopics": {
+      "Default": "\"We are... uncertain about that subject.\"",
+      "Alicorn amulet": "\"'Tis an evil, evil thing. You should not concern yourself about it, little pony.\""
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "Luna",
       "Lulu",
@@ -280,16 +293,17 @@
     "Race": "draconequus",
     "Gender": "male",
     "Location": "Party cave",
-    "CasualDialog": {
-      "0": "\"Well, if it isn't Trixie!\"",
-      "1": "\"Hmm. Care to assist me in a prank later? I could use a patsy... I mean, partner.\"",
-      "2": "\"Wait, are we in a game now? Splendid!\"",
-      "3": "\"No, I'm not going to lend you my powers of chaos, no matter how fun that'd be. Fluttershy is still upset about the last time.\"",
-      "4": "Discord grins and snaps his claw. You don't know what he might have done, but you should worry."
+    "CasualDialog": [
+      "\"Well, if it isn't Trixie!\"",
+      "\"Hmm. Care to assist me in a prank later? I could use a patsy... I mean, partner.\"",
+      "\"Wait, are we in a game now? Splendid!\"",
+      "\"No, I'm not going to lend you my powers of chaos, no matter how fun that'd be. Fluttershy is still upset about the last time.\"",
+      "Discord grins and snaps his claw. You don't know what he might have done, but you should worry."
+    ],
+    "AskTopics": {
+      "Default": "\"Oh, the things I could tell you! But I won't. Because it's more fun this way.\"",
+      "Alicorn amulet": "\"Such a nice little toy! But, ah, I don't think anypony should DIG it up again. It could cause... trouble."
     },
-	  "AskTopics": {
-	  "Key": "Response"
-	},
     "Alias": [
       "dissy",
       "spirit",

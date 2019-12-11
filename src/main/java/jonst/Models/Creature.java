@@ -75,7 +75,7 @@ public class Creature extends GenericObject {
         if(askTopics.containsKey(topic))
         return askTopics.get(topic);
         else
-            return "They don't seem to know anything about that.";
+            return askTopics.get("Default");
     }
 
 

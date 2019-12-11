@@ -30,7 +30,7 @@ public class JsonBuilder {
         long freeNumber = -1;
         Map<Long, String> saves = getSavesMenu();
 
-        if(saves==null){
+        if (saves == null) {
             return -100;        //Oh no, file writing error
         }
 
@@ -45,7 +45,7 @@ public class JsonBuilder {
             saves.put(freeNumber, saveName); //Add an entry
             boolean success = buildSavesMenu(saves);    //Make method that builds the Json anew
 
-            if(!success){
+            if (!success) {
                 return -100;
             }
         }
@@ -117,7 +117,6 @@ public class JsonBuilder {
         }
 
 
-
         return saves;
 
     }
@@ -142,18 +141,17 @@ public class JsonBuilder {
                 put("Description", crea.getDescription());
                 put("Location", crea.getLocationName());
 
-                put("CasualDialog", new JSONObject() {{
-                            for (int i = 0; i < crea.getCasualDialog().size(); i++) {   //Puts all casual dialog lines into an object
-                                put(i, crea.getCasualDialog().get(i));
+                put("CasualDialog", new JSONArray() {{
+
+                            for (String dialog : crea.getCasualDialog()) {
+                                add(dialog);
                             }
-                        }}
-                );
+                        }});
                 put("AskTopics", new JSONObject() {{
-                            for (String key : askTopics.keySet()) {
-                                put(key, askTopics.get(key));
+                            for (String key : crea.getAskTopics().keySet()) {
+                                put(key, crea.getAskTopics().get(key));
                             }
-                        }}
-                );
+                        }});
                 put("Alias", new JSONArray() {{
                     for (String alias : crea.getAlias()) {
                         add(alias);
@@ -303,23 +301,18 @@ public class JsonBuilder {
                 Map<String, String> askTopics = new HashMap<>();
                 List<String> alias = new ArrayList<>();
 
-                JSONObject jsCD = (JSONObject) jObj.get("CasualDialog");
-
-                for (Object xObj : jsCD.values()) {
+                JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
+                for (Object xObj : jsCD) {
                     casualDialog.add((String) xObj);
                 }
 
                 JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
-
-
                 for (Object xObj : jsAT.keySet()) {
                     String key = (String) xObj;
-
                     askTopics.put(key, (String) jsAT.get(key));
                 }
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-
                 for (Object xObj : jsAlias) {
                     alias.add((String) xObj);
                 }
