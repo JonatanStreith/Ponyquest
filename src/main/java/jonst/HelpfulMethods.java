@@ -11,10 +11,12 @@ import java.util.*;
 public class HelpfulMethods {
 
 
-    public static String isOrAre(int num)
-    {
+    public static String isOrAre(int num) {
         String output = " is ";
-        if (num > 1) { output = " are "; };
+        if (num > 1) {
+            output = " are ";
+        }
+        ;
 
         return output;
     }
@@ -25,136 +27,73 @@ public class HelpfulMethods {
 
         for (int i = 0; i < list.size(); i++) {
 
-            if(i == list.size() - 1)        //Last entry, just end with the word
+            if (i == list.size() - 1)        //Last entry, just end with the word
                 fullString += list.get(i);
-            else if(i == list.size() - 2)
+            else if (i == list.size() - 2)  //Second to last, put an an "and"
                 fullString += (list.get(i) + " " + separator + " ");
 
             else
-                fullString += (list.get(i) + ", ");
+                fullString += (list.get(i) + ", "); //Comma separate
 
         }
 
         return fullString;
     }
 
-/*
-    public static <T> String turnListIntoString(ArrayList<T> list) {
 
-        String fullString = "";
+//    public static <T> String turnListIntoString(ArrayList<T> list) {
+//        List<String> nameList = new ArrayList<String>();
+//
+//        if(list.size()>0) {
+//            if (list.get(0) instanceof Item) {
+//                for (int i = 0; i < list.size(); i++) {
+//                    Item it = (Item) list.get(i);
+//                    nameList.add(it.getName());
+//                }
+//
+//            } else if (list.get(0) instanceof Creature) {
+//                for (int i = 0; i < list.size(); i++) {
+//                    Creature cr = (Creature) list.get(i);
+//                    nameList.add(cr.getName());
+//                }
+//
+//            } else if (list.get(0) instanceof StationaryObject) {
+//                for (int i = 0; i < list.size(); i++) {
+//                    StationaryObject st = (StationaryObject) list.get(i);
+//                    nameList.add(st.getName());
+//                }
+//            }
+//        }
+//        return turnStringListIntoString(nameList, "and");
+//    }
+
+
+    public static <T> String turnListIntoString(List<T> list, String separator) {
         List<String> nameList = new ArrayList<String>();
 
-        if(T instanceof Item){
-
-            for (int i = 0; i < list.size() ; i++) {
-                Item it = (Item) list.get(i);
-                nameList.add(it.getName());
-            }
-
-
-
-        } else if(T instanceof Creature) {
-
-            for (int i = 0; i < list.size() ; i++) {
-                Creature it = (Creature) list.get(i);
-                nameList.add(it.getName());
-            }
-
-        } else if (T instanceof StationaryObject){
-
+        for (int i = 0; i < list.size(); i++) {
+            GenericObject obj = (GenericObject) list.get(i);
+            nameList.add(obj.getName());
         }
 
-
-
-        return fullString;
-    }
-*/
-
-    public static String turnStationaryObjectListIntoString(List<StationaryObject> list, String separator)     //Takes a list of objects, pieces together their names into one string
-    {
-        String fullString = "";
-        List<String> nameList = new ArrayList<String>();
-
-        for (StationaryObject obj : list)
-        { nameList.add(obj.getName()); }    //Generates a list of names
-
-        if (nameList.size() >= 2)
-        {
-            for (int i = 0; i < nameList.size() - 2; i++)
-            { nameList.set(i, nameList.get(i) + ", "); }
-
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
-        }
-
-        for (int i = 0; i < nameList.size(); i++)
-        { fullString += nameList.get(i); }
-
-        return fullString;
+        return turnStringListIntoString(nameList, "and");
     }
 
-    public static String turnItemListIntoString(List<Item> list, String separator)     //Takes a list of objects, pieces together their names into one string
-    {
-        String fullString = "";
-        List<String> nameList = new ArrayList<String>();
-
-        for (Item item : list)
-        { nameList.add(item.getName()); }    //Generates a list of names
-
-        if (nameList.size() >= 2)
-        {
-            for (int i = 0; i < nameList.size() - 2; i++)
-            { nameList.set(i, nameList.get(i) + ", "); }
-
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
-        }
-
-        for (int i = 0; i < nameList.size(); i++)
-        { fullString += nameList.get(i); }
-
-        return fullString;
-    }
-
-
-    public static String turnCreatureListIntoString(List<Creature> list, String separator)     //Takes a list of objects, pieces together their names into one string
-    {
-        String fullString = "";
-        List<String> nameList = new ArrayList<String>();
-
-        for(Creature item : list)
-        { nameList.add(item.getName()); }    //Generates a list of names
-
-        if (nameList.size() >= 2)
-        {
-            for (int i = 0; i < nameList.size() - 2; i++)
-            { nameList.set(i, nameList.get(i) + ", "); }
-
-            nameList.set(nameList.size() - 2, nameList.get(nameList.size() - 2) +  " " + separator + " ");
-        }
-
-        for (int i = 0; i < nameList.size(); i++)
-        { fullString += nameList.get(i); }
-
-        return fullString;
-    }
-
-
-    public static void reverseSortStringList(List<String> list){
+    public static void reverseSortStringList(List<String> list) {
 
         Collections.sort(list, new SortIgnoreCase());
 
         int size = list.size();
 
-        for (int i = 0; i < size/2 ; i++) {
+        for (int i = 0; i < size / 2; i++) {
             String temp = list.get(i);      //Set temp var to first position
-            list.set(i, list.get(size-i-1));  //Sets first position to last position
-            list.set(size-i-1, temp);         //Sets last position to temp var
+            list.set(i, list.get(size - i - 1));  //Sets first position to last position
+            list.set(size - i - 1, temp);         //Sets last position to temp var
         }
     }
 
 
-
-    public static <T> ArrayList<T> removeDuplicatesT(ArrayList<T> list)
-    {
+    public static <T> ArrayList<T> removeDuplicatesT(ArrayList<T> list) {
 
         // Create a new ArrayList
         ArrayList<T> newList = new ArrayList<T>();
@@ -175,8 +114,7 @@ public class HelpfulMethods {
     }
 
 
-    public static  List<String> removeDuplicates(ArrayList<String> list)
-    {
+    public static List<String> removeDuplicates(ArrayList<String> list) {
 
         // Create a new ArrayList
         List<String> newList = new ArrayList<>();

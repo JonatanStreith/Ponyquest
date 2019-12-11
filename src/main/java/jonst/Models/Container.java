@@ -2,6 +2,7 @@ package jonst.Models;
 
 import jonst.HelpfulMethods;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Container extends Item {
@@ -18,7 +19,7 @@ public class Container extends Item {
     }
 
     public String seeContents(){
-        return ("It contains " + HelpfulMethods.turnItemListIntoString(contains, "and"));
+        return ("It contains " + HelpfulMethods.turnListIntoString(contains, "and"));
     }
 
 

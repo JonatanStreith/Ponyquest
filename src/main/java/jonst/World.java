@@ -38,6 +38,10 @@ public class World {
 
         setMainCharacter(getCreature("Trixie"));             //Establish protagonist
 
+        System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemsAtLocation().size());
+        System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
+        System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
+
 
     }  //End of World constructor
 
@@ -54,9 +58,14 @@ public class World {
 
         setMainCharacter(getCreature("Trixie"));             //Establish protagonist
 
+        System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemsAtLocation().size());
+        System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
+        System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
+
     }
 
     public void runGame() {
+
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
@@ -207,6 +216,21 @@ public class World {
                     location.addObject(object);     //Adds object to the location's list of objects
                     object.setLocation(location);   //Sets object's location reference
                 }
+            }
+        }
+
+        Location junkyard = getLocation("Junkyard");
+
+        for (GenericObject gen : genericList) {     //Everything with an incorrect location gets sent to the junkyard.
+            if(gen.getLocation() == null){
+                gen.setLocation(junkyard);
+
+                if(gen instanceof Item)
+                    junkyard.addItem((Item)gen);
+                else if(gen instanceof Creature)
+                    junkyard.addCreature((Creature)gen);
+                else if(gen instanceof StationaryObject)
+                    junkyard.addObject((StationaryObject)gen);
             }
         }
     }

@@ -71,7 +71,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnCreatureListIntoString(list, "and");
+        String result1 = HelpfulMethods.turnListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -81,7 +81,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnCreatureListIntoString(list, "and");
+        String result2 = HelpfulMethods.turnListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 
@@ -100,7 +100,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnItemListIntoString(list, "and");
+        String result1 = HelpfulMethods.turnListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -110,7 +110,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnItemListIntoString(list, "and");
+        String result2 = HelpfulMethods.turnListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 
@@ -129,7 +129,7 @@ public class HelpfulMethodsTest {
         }};
 
 
-        String result1 = HelpfulMethods.turnStationaryObjectListIntoString(list, "and");
+        String result1 = HelpfulMethods.turnListIntoString(list, "and");
 
         System.out.println(result1);
 
@@ -139,7 +139,7 @@ public class HelpfulMethodsTest {
 
         list.clear();
 
-        String result2 = HelpfulMethods.turnStationaryObjectListIntoString(list, "and");
+        String result2 = HelpfulMethods.turnListIntoString(list, "and");
 
         assertEquals("", result2);          //Assume the line is blank now
 

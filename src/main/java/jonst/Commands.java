@@ -164,7 +164,7 @@ public class Commands {
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");
         } else {
-            System.out.println("You are carrying: " + HelpfulMethods.turnItemListIntoString(items, "and") + ".");
+            System.out.println("You are carrying: " + HelpfulMethods.turnListIntoString(items, "and") + ".");
         }
     }
 
@@ -331,7 +331,7 @@ public class Commands {
         tempItemList.addAll(world.getPlayerLocation().getItemsAtLocation());      //Create a list of items at the location.
 
         if (tempItemList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnItemListIntoString(tempItemList, "and") + " here.");
+            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnListIntoString(tempItemList, "and") + " here.");
         }
     }
 
@@ -340,7 +340,7 @@ public class Commands {
         tempStationaryObjectList.addAll(world.getPlayerLocation().getObjectsAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
 
         if (tempStationaryObjectList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnStationaryObjectListIntoString(tempStationaryObjectList, "and") + " here.");
+            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnListIntoString(tempStationaryObjectList, "and") + " here.");
         }
     }
 
@@ -352,7 +352,7 @@ public class Commands {
         if (tempCreatureList.size() == 0) { //If only Trixie is here.
             System.out.println("There's nopony else here.");
         } else {
-            System.out.println(HelpfulMethods.turnCreatureListIntoString(tempCreatureList, "and") + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
+            System.out.println(HelpfulMethods.turnListIntoString(tempCreatureList, "and") + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
         }
     }
 

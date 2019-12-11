@@ -10,7 +10,16 @@
       "storage",
       "pocket"
     ]
+  },{
+  "Exits": {
   },
+  "Description": "This is where objects should end up if they can't be placed elsewhere.",
+  "FullName": "Junkyard",
+  "Location": "Junkyard",
+  "Alias": [
+    "garbage collector"
+  ]
+},
   {
     "Exits": {
       "0": "Sugarcube Corner",

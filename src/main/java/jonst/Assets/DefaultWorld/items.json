@@ -90,13 +90,21 @@
       ]
    },
    {
-      "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!.",
+      "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!",
       "FullName": "a bundle of fireworks",
       "Location": "inventory",
       "Alias": [
          "fireworks",
          "bundle of fireworks",
          "explody things"
+      ]
+   },
+   {
+      "Description": "An error test object.",
+      "FullName": "Error item",
+      "Location": "unknown",
+      "Alias": [
+         "error"
       ]
    }
 ]
