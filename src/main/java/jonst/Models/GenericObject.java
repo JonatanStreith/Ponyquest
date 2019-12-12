@@ -2,6 +2,7 @@ package jonst.Models;
 
 import jonst.App;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GenericObject {
@@ -16,6 +17,9 @@ public class GenericObject {
 
     private List<String> alias;
 
+    private List<Item> itemList;
+
+
     public GenericObject(String name, String description, String locationName, List<String> alias)
 {
     setName(name);
@@ -25,6 +29,8 @@ public class GenericObject {
     setLocationName(locationName);
 
     setAlias(alias);
+
+    itemList = new ArrayList<>();
 
 
 }
@@ -67,6 +73,11 @@ public class GenericObject {
         return location;
     }
 
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+
     public void setLocation(Location location) {
         this.location = location;
         locationName = location.getLocationName();
@@ -105,8 +116,23 @@ public class GenericObject {
         }
         App.getWorld().getParser().removeFromNouns(specificAlias);
 
-
         return true;
     }
+
+//    public boolean addItem(Item item){
+//        if(!itemList.contains(item)) {
+//            itemList.add(item);
+//            return true;
+//        } else
+//            return false;
+//    }
+//
+//    public boolean removeItem(Item item){
+//        if(itemList.contains(item)) {
+//            itemList.remove(item);
+//            return true;
+//        } else
+//            return false;
+//    }
 
 }

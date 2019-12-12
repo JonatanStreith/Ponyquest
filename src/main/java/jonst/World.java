@@ -219,6 +219,19 @@ public class World {
             }
         }
 
+        //Todo: This stuff. When I have a head.
+
+//        for (Item item : itemList) {
+//            for (GenericObject gen: genericList) {
+//
+//             if(item.getLocationName().equalsIgnoreCase(gen.getName())){
+//                 gen.addItem(item);
+//                 item.setOwner(gen);
+//             }
+//            }
+//        }
+
+
         Location junkyard = getLocation("Junkyard");
 
         for (GenericObject gen : genericList) {     //Everything with an incorrect location gets sent to the junkyard.

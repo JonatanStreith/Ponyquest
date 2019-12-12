@@ -90,10 +90,11 @@ public class Commands {
 
         if (!fullName.equals("")) {
 
+            Item item = world.getItem(fullName);
 
-            if (world.isInInventory(world.getItem(fullName))) {
+            if (world.isInInventory(item)) {
                 //drop
-                world.removeFromInventory(world.getItem(fullName));
+                world.removeFromInventory(item);
                 world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
                 System.out.println("You drop the " + name + ".");
@@ -112,19 +113,23 @@ public class Commands {
 
         if (!fullName.equals("")) {
 
-            if (world.getGenericObject(fullName) instanceof Creature)                                              //Subject is a creature.
-            {
-                System.out.println("You pick up " + world.getGenericObject(fullName).getName() + " and hold them for a moment before putting them down again.");
+            GenericObject subject = world.getGenericObject(fullName);
 
-            } else if (world.getGenericObject(fullName) instanceof StationaryObject)                                              //Subject is a stationary object.
-            {
-                System.out.println("You'd rather not try lifting " + world.getGenericObject(fullName).getName() + ". It's heavy.");
 
-            } else if (world.getGenericObject(fullName) instanceof Location)                                              //Subject is a stationary object.
+            if (subject instanceof Creature)                                              //Subject is a creature.
+            {
+                Creature creature = (Creature) subject;
+                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + HelpfulMethods.himOrHer(creature.getGender()) + " for a moment before putting " + HelpfulMethods.himOrHer(creature.getGender()) + " down again.");
+
+            } else if (subject instanceof StationaryObject)                                              //Subject is a stationary object.
+            {
+                System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
+
+            } else if (subject instanceof Location)                                              //Subject is a stationary object.
             {
                 System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
 
-            } else if ((world.getGenericObject(fullName) instanceof Item)) {
+            } else if ((subject instanceof Item)) {
                 world.removeItemFromLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
                 world.addToInventory(world.getItem(fullName));                              //Add to inventory

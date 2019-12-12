@@ -11,6 +11,28 @@ import java.util.*;
 public class HelpfulMethods {
 
 
+    public static String heOrShe(String gender){
+        switch(gender.toLowerCase()){
+            case "male":
+                return "he";
+            case "female":
+                return "she";
+            default:
+                return "it";
+        }
+    }
+
+    public static String himOrHer(String gender){
+        switch(gender.toLowerCase()){
+            case "male":
+                return "him";
+            case "female":
+                return "her";
+            default:
+                return "it";
+        }
+    }
+
     public static String isOrAre(int num) {
         String output = " is ";
         if (num > 1) {
