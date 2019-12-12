@@ -309,15 +309,16 @@ public class JsonBuilder {
                 JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
                 for (Object xObj : jsAT.keySet()) {
                     String key = (String) xObj;
-                    askTopics.put(key, (String) jsAT.get(key));
+                    askTopics.put(key.toLowerCase(), (String) jsAT.get(key));
                 }
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
-                    alias.add((String) xObj);
+                    String newAlias = (String) xObj;
+                    alias.add(newAlias.toLowerCase());
                 }
 
-                Creature creature = new Creature(fullName, description, location, alias, race, gender, casualDialog, askTopics);
+                Creature creature = new Creature(fullName, description, location.toLowerCase(), alias, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
 
                 creatureList.add(creature);
             }
@@ -358,9 +359,9 @@ public class JsonBuilder {
                 List<String> alias = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-
                 for (Object xObj : jsAlias) {
-                    alias.add((String) xObj);
+                    String newAlias = (String) xObj;
+                    alias.add(newAlias.toLowerCase());
                 }
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
@@ -412,9 +413,9 @@ public class JsonBuilder {
                 List<String> alias = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-
                 for (Object xObj : jsAlias) {
-                    alias.add((String) xObj);
+                    String newAlias = (String) xObj;
+                    alias.add(newAlias.toLowerCase());
                 }
 
                 StationaryObject object = new StationaryObject(fullName, description, location, alias);
@@ -459,10 +460,12 @@ public class JsonBuilder {
                 List<String> alias = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-
                 for (Object xObj : jsAlias) {
-                    alias.add((String) xObj);
+                    String newAlias = (String) xObj;
+                    alias.add(newAlias.toLowerCase());
                 }
+
+
                 Item item = new Item(fullName, description, location, alias);
 
 

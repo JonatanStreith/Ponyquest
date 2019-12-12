@@ -9,11 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Parser {
     public List<String> legitimateNouns;
     public List<String> legitimateCommands;
     private List<String> legitimateConjunctions;
+    private Map<String, String> topicParseList;
+
 
     public Parser(List<GenericObject> genericList) {
         legitimateCommands = SystemData.getLegitimateCommands();
@@ -31,6 +34,8 @@ public class Parser {
         HelpfulMethods.reverseSortStringList(legitimateConjunctions);
         HelpfulMethods.reverseSortStringList(legitimateNouns);
 
+
+        topicParseList = SystemData.getTopicParseList();
 
     }
 
@@ -174,6 +179,7 @@ public class Parser {
                 break;
 
             case "talk":
+
                 Commands.talkTo(commandArray[1], world);
                 break;
 
@@ -224,4 +230,12 @@ public class Parser {
             legitimateNouns.remove(specificAlias);
         }
     }
+
+    public String parseTopic(String term){
+        if(topicParseList.containsValue(term))
+            return term;
+        else
+            return topicParseList.get(term);
+    }
+
 }

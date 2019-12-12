@@ -63,8 +63,8 @@
       "\"If you set off another smoke bomb in here, I WILL tell Starlight.\""
     ],
     "AskTopics": {
-      "Default": "\"Oh, I really don't know anything about that.\"",
-      "Alicorn amulet": "\"As reprehensible as it was tasteless. I can think of nicer things for you to wear.\""
+      "default": "\"Oh, I really don't know anything about that.\"",
+      "alicorn amulet": "\"As reprehensible as it was tasteless. I can think of nicer things for you to wear.\""
     },
     "Alias": [
       "Rarara",
@@ -87,8 +87,8 @@
       "\"I think the programmer is trying to come up with new things for me to say.\""
     ],
     "AskTopics": {
-      "Default": "\"I dunno!\"",
-      "Alicorn amulet": "\"Uh, it's evil and nasty and we like you better when you're not going crazy and evil and stuff?\""
+      "default": "\"I dunno!\"",
+      "alicorn amulet": "\"Uh, it's evil and nasty and we like you better when you're not going crazy and evil and stuff?\""
     },
     "Alias": [
       "Pinkie",
@@ -113,8 +113,8 @@
       "\"Y'wanna make yerself useful? fetch me a... aw, forgot who I was talkin' to.\""
     ],
     "AskTopics": {
-      "Default": "\"Can't help ya with that.\"",
-      "Alicorn amulet": "\"You wanna start that kinda nonsense again?\""
+      "default": "\"Can't help ya with that.\"",
+      "alicorn amulet": "\"You wanna start that kinda nonsense again?\""
     },
     "Alias": [
       "AJ",
@@ -135,8 +135,8 @@
       "\"I'm soooo bored.\""
     ],
     "AskTopics": {
-      "Default": "\"...What?\"",
-      "Alicorn amulet": "\"Now why'd you have to go and bring that up again?\""
+      "default": "\"...What?\"",
+      "alicorn amulet": "\"Now why'd you have to go and bring that up again?\""
     },
     "Alias": [
       "Rainbow",
@@ -159,8 +159,8 @@
       "\"Trixie, I... I... nevermind.\""
     ],
     "AskTopics": {
-      "Default": "\"Um... sorry, I don't know anything about that.\"",
-      "Alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject."
+      "default": "\"Um... sorry, I don't know anything about that.\"",
+      "alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject."
     },
     "Alias": [
       "Flutters",
@@ -182,8 +182,8 @@
       "\"Uh, yeah?\""
     ],
     "AskTopics": {
-      "Default": "\"Uh, I dunno.\"",
-      "Alicorn amulet": "\"Oh, no no no. You're not getting that thing back.\""
+      "default": "\"Uh, I dunno.\"",
+      "alicorn amulet": "\"Oh, no no no. You're not getting that thing back.\""
     },
     "Alias": [
       "Spiky",
@@ -204,8 +204,8 @@
       "\"You haven't been bothering Twilight, have you?\""
     ],
     "AskTopics": {
-      "Default": "\"Sorry, Trixie. I don't really know.\"",
-      "Alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts, you hear?\""
+      "default": "\"Sorry, Trixie. I don't really know.\"",
+      "alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts, you hear?\""
     },
     "Alias": [
       "Starlight",
@@ -230,7 +230,7 @@
       "\"Seen any good rocks lately?\""
     ],
     "AskTopics": {
-      "Default": "Maud looks disinterested."
+      "default": "Maud looks disinterested."
     },
     "Alias": [
       "maud",
@@ -252,8 +252,8 @@
       "Celestia smiles warmly at you. \"Yes?\""
     ],
     "AskTopics": {
-      "Default": "\"Oh dear, I can't really help you with that. Have you tried asking somepony more knowledgeable about the subject?\"",
-      "Alicorn amulet": "\"Don't worry, it's safely locked away where it can't hurt anypony again.\" She gives you a pointed look. \"Let's not talk about that anymore.\""
+      "default": "\"Oh dear, I can't really help you with that. Have you tried asking somepony more knowledgeable about the subject?\"",
+      "alicorn amulet": "\"Don't worry, it's safely locked away where it can't hurt anypony again.\" She gives you a pointed look. \"Let's not talk about that anymore.\""
     },
     "Alias": [
       "Celly",
@@ -276,8 +276,8 @@
       "\"I really should be getting some sleep. Busy night, you know.\""
     ],
     "AskTopics": {
-      "Default": "\"We are... uncertain about that subject.\"",
-      "Alicorn amulet": "\"'Tis an evil, evil thing. You should not concern yourself about it, little pony.\""
+      "default": "\"We are... uncertain about that subject.\"",
+      "alicorn amulet": "\"'Tis an evil, evil thing. You should not concern yourself about it, little pony.\""
     },
     "Alias": [
       "Luna",
@@ -301,8 +301,8 @@
       "Discord grins and snaps his claw. You don't know what he might have done, but you should worry."
     ],
     "AskTopics": {
-      "Default": "\"Oh, the things I could tell you! But I won't. Because it's more fun this way.\"",
-      "Alicorn amulet": "\"Such a nice little toy! But, ah, I don't think anypony should DIG it up again. It could cause... trouble."
+      "default": "\"Oh, the things I could tell you! But I won't. Because it's more fun this way.\"",
+      "alicorn amulet": "\"Such a nice little toy! But, ah, I don't think anypony should DIG it up again. It could cause... trouble."
     },
     "Alias": [
       "dissy",

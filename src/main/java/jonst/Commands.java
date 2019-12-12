@@ -305,6 +305,8 @@ public class Commands {
 
         String creature = command[1];
         String topic = command[3];
+        String parsedTopic = world.getParser().parseTopic(topic.toLowerCase());
+
 
         String fullName = world.matchLocalName(creature);
 
@@ -316,7 +318,7 @@ public class Commands {
 
 
             } else if ((world.getGenericObject(fullName) instanceof Creature)) {
-                System.out.println(world.getCreature(fullName).askAbout(topic));         //This runs if you successfully talk to someone.
+                System.out.println(world.getCreature(fullName).askAbout(parsedTopic));         //This runs if you successfully talk to someone.
             } else {
                 System.out.println("Debug code. If this is shown, something didn't go right.");
             }

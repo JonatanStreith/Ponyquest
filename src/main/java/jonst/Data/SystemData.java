@@ -1,6 +1,8 @@
 package jonst.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class SystemData {
@@ -36,9 +38,6 @@ public class SystemData {
     public static String getIntroBlurb() {
         return introBlurb;
     }
-
-
-
 
     public static ArrayList getLegitimateCommands() {
         return new ArrayList<String>() {{
@@ -87,6 +86,28 @@ public class SystemData {
     public static String getReply(String line) {
         System.out.print(line);
         return inputReader.nextLine();
+    }
+
+
+    public static Map<String, String> getTopicParseList(){
+        return new HashMap(){{
+            //First entry is a word that could be inputted; second is a True Topic.
+            put("alicorn amulet", "alicorn amulet");
+            put("amulet", "alicorn amulet");
+            put("evil amulet", "alicorn amulet");
+            put("magic","magic");
+            put("magics", "magic");
+            put("magik", "magic");
+            put("teleportation", "teleportation");
+            put("teleport", "teleportation");
+            put("transformation", "transformation");
+            put("transform", "transformation");
+            put("discord", "discord");
+            put("draconequus", "discord");
+
+        }};
+
+
     }
 
 }
