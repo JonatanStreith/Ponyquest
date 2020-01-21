@@ -27,7 +27,7 @@ public class World {
 
     public World(String loadFilePath) {
 
-        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
+        //playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
         loadListsFromFile(loadFilePath);        //Build lists
 
@@ -48,7 +48,7 @@ public class World {
 
     public void updateWorld(String loadFilePath) {
 
-        playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
+        //playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
         loadListsFromFile(loadFilePath);        //Build lists
 
@@ -135,22 +135,26 @@ public class World {
         loc.removeCreature(cre);
     }
 
-    public void addItemToLocation(String item, String location) {
-        //Adds "item" to "location"
-        Location loc = getLocation(location);
-        Item it = getItem(item);
+//    public void addItemToLocation(String item, String location) {
+//        //Adds "item" to "location"
+//        Location loc = getLocation(location);
+//        Item it = getItem(item);
+//
+//        loc.addItem(it);
+//        it.setLocation(loc);
+//    }
+//
+//    public void removeItemFromLocation(String item, String location) {
+//
+//        Location loc = getLocation(location);
+//        Item it = getItem(item);
+//
+//        getLocation(location).removeItem(getItem(item));
+//    }
 
-        loc.addItem(it);
-        it.setLocation(loc);
-    }
 
-    public void removeItemFromLocation(String item, String location) {
 
-        Location loc = getLocation(location);
-        Item it = getItem(item);
 
-        getLocation(location).removeItem(getItem(item));
-    }
 
     public void addObjectToLocation(String stationaryObject, String location) {
         //Adds "stationary" to "location"
@@ -170,24 +174,24 @@ public class World {
         loc.removeObject(obj);
     }
 
-    public void addToInventory(Item item) {
-        if (!isInInventory(item)) {
-            playerInventory.add(item);
-            item.setLocation(getLocation("inventory"));
-        }
-    }
-
-    public void removeFromInventory(Item item) {
-        if (isInInventory(item)) {
-            playerInventory.remove(item);
-            item.setLocation(getPlayerLocation());
-        }
-    }
-
-    public boolean isInInventory(Item item) {
-        boolean isIn = playerInventory.contains(item);
-        return isIn;
-    }
+//    public void addToInventory(Item item) {
+//        if (!isInInventory(item)) {
+//            playerInventory.add(item);
+//            item.setLocation(getLocation("inventory"));
+//        }
+//    }
+//
+//    public void removeFromInventory(Item item) {
+//        if (isInInventory(item)) {
+//            playerInventory.remove(item);
+//            item.setLocation(getPlayerLocation());
+//        }
+//    }
+//
+//    public boolean isInInventory(Item item) {
+//        boolean isIn = playerInventory.contains(item);
+//        return isIn;
+//    }
 
     //-------- List handling -----------------------
 
@@ -202,14 +206,30 @@ public class World {
                 }
             }
 
+
+
+
+
             for (Item item : itemList) {
-                if (item.getLocationName().equalsIgnoreCase("inventory")) {
-                    addToInventory(item);
-                } else if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
-                    location.addItem(item);         //Adds item to the location's list of items
-                    item.setLocation(location);     //Sets item's location reference
+                for (GenericObject gen: genericList) {
+
+                    if(item.getLocationName().equalsIgnoreCase(gen.getName())){
+                        gen.addItem(item);
+                        item.setOwner(gen);
+                    }
                 }
             }
+
+
+
+//            for (Item item : itemList) {
+//                if (item.getLocationName().equalsIgnoreCase("inventory")) {
+//                    addToInventory(item);
+//                } else if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
+//                    location.addItem(item);         //Adds item to the location's list of items
+//                    item.setLocation(location);     //Sets item's location reference
+//                }
+//            }
 
             for (StationaryObject object : stationaryObjectList) {
                 if (object.getLocationName().equalsIgnoreCase(location.getLocationName())) {
@@ -221,15 +241,6 @@ public class World {
 
         //Todo: This stuff. When I have a head.
 
-//        for (Item item : itemList) {
-//            for (GenericObject gen: genericList) {
-//
-//             if(item.getLocationName().equalsIgnoreCase(gen.getName())){
-//                 gen.addItem(item);
-//                 item.setOwner(gen);
-//             }
-//            }
-//        }
 
 
         Location junkyard = getLocation("Junkyard");

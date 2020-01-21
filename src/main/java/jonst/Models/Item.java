@@ -20,4 +20,7 @@ public class Item extends GenericObject {
         return true;
     }
 
+    public GenericObject getOwner() {
+        return owner;
+    }
 }

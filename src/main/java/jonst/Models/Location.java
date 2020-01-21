@@ -68,17 +68,17 @@ public class Location extends GenericObject {
         }
     }
 
-    public void addItem(Item name) {
-        if (!itemIsAtLocation(name)) {
-            itemsAtLocation.add(name);
-        }
-    }
-
-    public void removeItem(Item name) {
-        if (itemIsAtLocation(name)) {
-            itemsAtLocation.remove(name);
-        }
-    }
+//    public void addItem(Item name) {
+//        if (!itemIsAtLocation(name)) {
+//            itemsAtLocation.add(name);
+//        }
+//    }
+//
+//    public void removeItem(Item name) {
+//        if (itemIsAtLocation(name)) {
+//            itemsAtLocation.remove(name);
+//        }
+//    }
 
     public List<String> getExits() {
         return legitimateExits;

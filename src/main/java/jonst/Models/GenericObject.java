@@ -119,20 +119,29 @@ public class GenericObject {
         return true;
     }
 
-//    public boolean addItem(Item item){
-//        if(!itemList.contains(item)) {
-//            itemList.add(item);
-//            return true;
-//        } else
-//            return false;
-//    }
-//
-//    public boolean removeItem(Item item){
-//        if(itemList.contains(item)) {
-//            itemList.remove(item);
-//            return true;
-//        } else
-//            return false;
-//    }
+    public boolean addItem(Item item){
+        if(!itemList.contains(item)) {
+            itemList.add(item);
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean removeItem(Item item){
+        if(itemList.contains(item)) {
+            itemList.remove(item);
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean hasItem(Item item){
+
+        if(itemList.contains(item)) {
+            return true;
+        } else
+            return false;
+    }
+
 
 }
