@@ -10,7 +10,7 @@ import java.util.*;
 
 public class World {
 
-    //public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
+    public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
     private List<Location> locationList;      //Main lists that store all game objects
     private List<Creature> creatureList;
@@ -379,9 +379,24 @@ public class World {
     public List<Item> getLocalItems(Location location){
         List<Item> localItemsList = new ArrayList<>();
 
-        for (Item item : itemList) {
+        for (Item item : itemList) {        //Add all loose items to the local items list
             if (item.getLocation() == location)
                 localItemsList.add(item);
+        }
+
+
+        List<Item> tmpItemsList = new ArrayList<>();
+        for (Item item : localItemsList){
+            tmpItemsList.addAll(item.getItemList());
+        }
+        localItemsList.addAll(tmpItemsList);
+
+        for (StationaryObject obj : getLocalStationaryObjects(location)) {
+            localItemsList.addAll(obj.getItemList());       //Later, have some SO's closed so you can't reach contents
+        }
+
+        for (Creature cre : getLocalCreatures(location)) {
+            localItemsList.addAll(cre.getItemList());
         }
 
         return localItemsList;

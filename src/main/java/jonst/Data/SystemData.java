@@ -80,6 +80,7 @@ public class SystemData {
             add("in front of");
             add("on");
             add("in");
+            add("for");
         }};
     }
 
@@ -92,6 +93,15 @@ public class SystemData {
     public static Map<String, String> getTopicParseList(){
         return new HashMap(){{
             //First entry is a word that could be inputted; second is a True Topic.
+            put("Twilight Sparkle", "Twilight Sparkle");
+            put("Twilight", "Twilight Sparkle");
+            put("Rarity", "Rarity");
+            put("Fluttershy", "Fluttershy");
+            put("Rainbow Dash", "Rainbow Dash");
+            put("Rainbow", "Rainbow Dash");
+            put("Applejack", "Applejack");
+            put("Pinkie Pie", "Pinkie Pie");
+            put("Pinkie", "Pinkie Pie");
             put("alicorn amulet", "alicorn amulet");
             put("amulet", "alicorn amulet");
             put("evil amulet", "alicorn amulet");
@@ -104,6 +114,10 @@ public class SystemData {
             put("transform", "transformation");
             put("discord", "discord");
             put("draconequus", "discord");
+            put("cupcakes", "cupcakes");
+            put("cupcake", "cupcakes");
+            put("pies", "pies");
+            put("pie", "pies");
 
         }};
 

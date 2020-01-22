@@ -12,6 +12,9 @@ public class Creature extends GenericObject {
     private String gender;
 
 
+    private String disposition;     //TODO: Implement this!
+
+
     private Map<String, String> askTopics;
 
 
@@ -20,8 +23,8 @@ public class Creature extends GenericObject {
 
 
 
-    public Creature(String name, String description, String locationName, List<String> alias, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, description, locationName, alias);
+    public Creature(String name, String id, String description, String locationName, List<String> alias, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, id, description, locationName, alias);
 
         setRace(race);
         setGender(gender);
@@ -75,7 +78,7 @@ public class Creature extends GenericObject {
         if(askTopics.containsKey(topic))
         return askTopics.get(topic);
         else
-            return askTopics.get("Default");
+            return askTopics.get("default");
     }
 
 

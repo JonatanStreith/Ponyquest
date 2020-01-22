@@ -63,11 +63,11 @@ public class HelpfulMethodsTest {
     public void turnCreatureListIntoStringTest() {
 
         List<Creature> list = new ArrayList() {{
-            add(new Creature("Pinkie Pie", "", "", new ArrayList<>(),  "","", new ArrayList<>(), new HashMap<>()));
-            add(new Creature("Applejack", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Applejack", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "",  new ArrayList<>(),"", "",  new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Pinkie Pie", "", "", "", new ArrayList<>(),  "","", new ArrayList<>(), new HashMap<>()));
+            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+            add(new Creature("Rarity", "", "", "",  new ArrayList<>(),"", "",  new ArrayList<>(), new HashMap<>() ));
         }};
 
 
@@ -92,11 +92,11 @@ public class HelpfulMethodsTest {
     public void turnItemListIntoStringTest() {
 
         List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", new ArrayList<>() ));
-            add(new Item("apple", "", "",  new ArrayList<>() ));
-            add(new Item("box", "", "",  new ArrayList<>() ));
-            add(new Item("crowbar", "", "",  new ArrayList<>() ));
-            add(new Item("shoe", "", "",  new ArrayList<>() ));
+            add(new Item("rope", "", "", "", new ArrayList<>() ));
+            add(new Item("apple", "", "", "",  new ArrayList<>() ));
+            add(new Item("box", "", "", "",  new ArrayList<>() ));
+            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
+            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
         }};
 
 
@@ -121,11 +121,11 @@ public class HelpfulMethodsTest {
     public void turnStationaryObjectListIntoStringTest() {
 
         List<StationaryObject> list = new ArrayList() {{
-            add(new StationaryObject("Pinkie Pie", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "",  new ArrayList<>() ));
+            add(new StationaryObject("Pinkie Pie", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+            add(new StationaryObject("Rarity", "", "", "",  new ArrayList<>() ));
         }};
 
 
@@ -170,11 +170,11 @@ public class HelpfulMethodsTest {
     public void turnListIntoStringTest() {
 
         List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", new ArrayList<>() ));
-            add(new Item("apple", "", "",  new ArrayList<>() ));
-            add(new Item("box", "", "",  new ArrayList<>() ));
-            add(new Item("crowbar", "", "",  new ArrayList<>() ));
-            add(new Item("shoe", "", "",  new ArrayList<>() ));
+            add(new Item("rope", "", "", "", new ArrayList<>() ));
+            add(new Item("apple", "", "", "",  new ArrayList<>() ));
+            add(new Item("box", "", "", "",  new ArrayList<>() ));
+            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
+            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
         }};
 
 
@@ -202,6 +202,7 @@ public class HelpfulMethodsTest {
         TimeUnit.MINUTES.sleep(1);
         System.out.println("end");
     }
+
 
 
 }

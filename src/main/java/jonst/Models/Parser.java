@@ -102,6 +102,12 @@ public class Parser {
 
         String[] commandArray = parse(command);
 
+        for (String str: commandArray) {
+            System.out.println(str);
+        }
+
+
+
         switch (commandArray[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
 
@@ -232,10 +238,13 @@ public class Parser {
     }
 
     public String parseTopic(String term){
-        if(topicParseList.containsValue(term))
-            return term;
-        else
+        if(topicParseList.containsKey(term))
             return topicParseList.get(term);
+        else
+            return term;
     }
+
+
+
 
 }

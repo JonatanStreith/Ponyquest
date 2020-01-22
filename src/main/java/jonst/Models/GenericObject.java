@@ -7,7 +7,8 @@ import java.util.List;
 
 public class GenericObject {
     private String name;
-    //private String shortName;
+
+    private String id;
 
     private String description;
 
@@ -19,11 +20,14 @@ public class GenericObject {
 
     private List<Item> itemList;
 
+    private List<String> attributes;        //Contains all attributes that can affect how interactions work!
 
-    public GenericObject(String name, String description, String locationName, List<String> alias)
+
+    public GenericObject(String name, String id, String description, String locationName, List<String> alias)
 {
     setName(name);
 
+    setId(id);
     //setShortName(shortName);
     setDescription(description);
     setLocationName(locationName);
@@ -38,9 +42,9 @@ public class GenericObject {
         this.name = name;
     }
 
-//    protected void setShortName(String shortName) {
-//        this.shortName = shortName;
-//    }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     protected void setDescription(String description) {
         this.description = description;
@@ -56,9 +60,9 @@ public class GenericObject {
         return name;
     }
 
-//    public String getShortName() {
-//        return shortName;
-//    }
+    public String getId() {
+        return id;
+    }
 
     public String getDescription() {
         return description;

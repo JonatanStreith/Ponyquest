@@ -47,9 +47,7 @@ public class Notes {
 
     //Items should have List<String> Qualities, which tracks what the item can be used for: wearable, activation, ligh source, food, etc.
 
-    //Container object: Extends Item! Can hold other items. NOT ITSELF!
 
-    //Add "gender" to Creature so we can use better pronouns.
 
     //Every creature has their own inventory! This cannot go wrong.
 
@@ -57,5 +55,17 @@ public class Notes {
 
     //IDEA! Make a big HashMap that can parse inputted topics against Real Topics, i.e. AJ -> Applejack, etc. That way, we don't have to
     //give each creature five identical entries for the same, differently phrased topic.
+
+
+
+
+    //Definitely make a unique ID system.
+
+    //Find a way to look at/interact with things inside containers/carried.
+
+
+    //Attributes: ClosedContainer = kan inte "se" innehållet.
+
+    //Add "(Carried by <>)" when looking at contained things!
 
 }

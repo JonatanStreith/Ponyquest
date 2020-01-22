@@ -325,23 +325,38 @@ public class Commands {
         //Todo: Not checked for functionality yet!
 
         String creature = command[1];
+        String conjunction = command[2];
         String topic = command[3];
+
         String parsedTopic = world.getParser().parseTopic(topic.toLowerCase());
-
-
         String fullName = world.matchLocalName(creature);
+
 
         if (!fullName.equals("")) {
 
-            if (!(world.getGenericObject(fullName) instanceof Creature))                                                //Subject isn't a creature.
-            {
+            GenericObject target = world.getGenericObject(fullName);
+
+            if (!(target instanceof Creature)) {
                 System.out.println("You don't make a habit of talking to inanimate objects.");
+            } else {            //This runs if you successfully talk to someone.
+                switch(conjunction){
+                    case "about":
+                        System.out.println(((Creature) target).askAbout(parsedTopic));
+                        break;
+
+                    case "for":
+                        System.out.println("You ask for a certain item. But this code isn't written yet...");
+                        break;
+
+                    default:
+                        System.out.println("You may ask " + target.getName() + " 'about' or 'for' something. This is not correct.");
+                        break;
 
 
-            } else if ((world.getGenericObject(fullName) instanceof Creature)) {
-                System.out.println(world.getCreature(fullName).askAbout(parsedTopic));         //This runs if you successfully talk to someone.
-            } else {
-                System.out.println("Debug code. If this is shown, something didn't go right.");
+                }
+
+
+
             }
         }
 

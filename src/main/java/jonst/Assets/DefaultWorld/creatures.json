@@ -1,6 +1,7 @@
 [
   {
     "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
+    "Id": "Creature_Trixie",
     "FullName": "Trixie",
     "Race": "unicorn",
     "Gender": "female",
@@ -23,6 +24,7 @@
   },
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
+    "Id": "Creature_Twilight_Sparkle",
     "FullName": "Twilight Sparkle",
     "Race": "alicorn",
     "Gender": "female",
@@ -51,6 +53,7 @@
   },
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
+    "Id": "Creature_Rarity",
     "FullName": "Rarity",
     "Race": "unicorn",
     "Gender": "female",
@@ -75,6 +78,7 @@
   },
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
+    "Id": "Creature_Pinkie_Pie",
     "FullName": "Pinkie Pie",
     "Race": "earth pony",
     "Gender": "female",
@@ -101,6 +105,7 @@
   },
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
+    "Id": "Creature_Applejack",
     "FullName": "Applejack",
     "Race": "earth pony",
     "Gender": "female",
@@ -123,6 +128,7 @@
   },
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
+    "Id": "Creature_Rainbow_Dash",
     "FullName": "Rainbow Dash",
     "Race": "pegasus",
     "Gender": "female",
@@ -147,6 +153,7 @@
   },
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
+    "Id": "Creature_Fluttershy",
     "FullName": "Fluttershy",
     "Race": "pegasus",
     "Gender": "female",
@@ -170,6 +177,7 @@
   },
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
+    "Id": "Creature_Spike",
     "FullName": "Spike",
     "Race": "dragon",
     "Gender": "male",
@@ -192,6 +200,7 @@
   },
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
+    "Id": "Creature_Starlight_Glimmer",
     "FullName": "Starlight Glimmer",
     "Race": "unicorn",
     "Gender": "female",
@@ -218,6 +227,7 @@
   },
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
+    "Id": "Creature_Maud_Pie",
     "FullName": "Maud Pie",
     "Race": "earth pony",
     "Gender": "female",
@@ -240,6 +250,7 @@
   },
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
+    "Id": "Creature_Celestia",
     "FullName": "Princess Celestia",
     "Race": "alicorn",
     "Gender": "female",
@@ -264,6 +275,7 @@
   },
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
+    "Id": "Creature_Luna",
     "FullName": "Princess Luna",
     "Race": "alicorn",
     "Gender": "female",
@@ -289,6 +301,7 @@
   },
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
+    "Id": "Creature_Discord",
     "FullName": "Discord",
     "Race": "draconequus",
     "Gender": "male",

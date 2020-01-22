@@ -1,6 +1,7 @@
 [
   {
     "Description": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident.",
+    "Id": "Object_Cutiemap",
     "FullName": "Cutie Map",
     "Location": "Cutie Map room",
     "Alias": [
@@ -11,6 +12,7 @@
   },
   {
     "Description": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable.",
+    "Id": "Object_Throne_Group",
     "FullName": "Friendship thrones",
     "Location": "Cutie Map room",
     "Alias": [
@@ -21,6 +23,7 @@
   },
   {
     "Description": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is.",
+    "Id": "Object_Throne_Twilight",
     "FullName": "Twilight's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -31,6 +34,7 @@
   },
   {
     "Description": "Rarity's throne. She probably brings cushions.",
+    "Id": "Object_Throne_Rarity",
     "FullName": "Rarity's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -41,6 +45,7 @@
   },
   {
     "Description": "Applejack's throne. You can tell by the dried apple juice stains.",
+    "Id": "Object_Throne_Applejack",
     "FullName": "Applejack's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -51,6 +56,7 @@
   },
   {
     "Description": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?",
+    "Id": "Object_Throne_Pinkie",
     "FullName": "Pinkie Pie's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -61,6 +67,7 @@
   },
   {
     "Description": "Fluttershy's throne. She sits on it like she's afraid it'll break.",
+    "Id": "Object_Throne_Fluttershy",
     "FullName": "Fluttershy's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -71,6 +78,7 @@
   },
   {
     "Description": "Rainbow Dash's throne. It's just another napping spot to her.",
+    "Id": "Object_Throne_Rainbow",
     "FullName": "Rainbow Dash's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -82,6 +90,7 @@
   },
   {
     "Description": "Spike's throne. A diminuitive seat for a diminuitive guy.",
+    "Id": "Object_Throne_Spike",
     "FullName": "Spike's throne",
     "Location": "Cutie Map room",
     "Alias": [
@@ -91,6 +100,7 @@
   },
   {
     "Description": "The tree has no apples right now... somepony must've harvested them already.",
+    "Id": "Object_Acres_Tree",
     "FullName": "an apple tree",
     "Location": "Sweet Apple Acres",
     "Alias": [
@@ -100,6 +110,7 @@
   },
   {
     "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
+    "Id": "Object_Boutique_Sewingmachine",
     "FullName": "Rarity's sewing machine",
     "Location": "Carousel Boutique interior",
     "Alias": [
@@ -108,6 +119,7 @@
   },
   {
     "Description": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you.",
+    "Id": "Object_Sugarcube_Oven",
     "FullName": "baking oven",
     "Location": "Sugarcube Corner kitchen",
     "Alias": [

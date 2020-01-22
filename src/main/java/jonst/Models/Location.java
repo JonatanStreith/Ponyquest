@@ -22,8 +22,8 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
  //   private List<Item> itemsAtLocation = new ArrayList<Item>();
 
-    public Location(String name, String description, String locationName, List<String> alias, ArrayList<String> legitimateExits) {
-        super(name, description, locationName, alias);
+    public Location(String name, String id, String description, String locationName, List<String> alias, ArrayList<String> legitimateExits) {
+        super(name, id, description, locationName, alias);
 
         this.legitimateExits = legitimateExits;
 
@@ -131,7 +131,14 @@ public class Location extends GenericObject {
         genList.addAll(creaturesAtLocation);
         genList.addAll(getItemList());
         genList.addAll(objectsAtLocation);
-        genList.add(this);
+
+        List<Item> containedItemsList = new ArrayList<>();  //Add every contained item to a list, and add that to the genList
+        for (GenericObject gen: genList) {
+            containedItemsList.addAll(gen.getItemList());
+        }
+        genList.addAll(containedItemsList);
+
+        genList.add(this);   
 
         return genList;
     }
