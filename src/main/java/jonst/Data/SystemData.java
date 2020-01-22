@@ -118,6 +118,9 @@ public class SystemData {
             put("cupcake", "cupcakes");
             put("pies", "pies");
             put("pie", "pies");
+            put("self", "self");
+            put("herself", "self");
+            put("himself", "self");
 
         }};
 

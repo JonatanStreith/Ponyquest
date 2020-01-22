@@ -131,7 +131,8 @@
     ],
     "AskTopics": {
       "default": "\"Can't help ya with that.\"",
-      "alicorn amulet": "\"You wanna start that kinda nonsense again?\""
+      "alicorn amulet": "\"You wanna start that kinda nonsense again?\"",
+      "self": "\"Me? Shucks, I don't wanna brag, but I'm an honest apple farmer. Me an' my family run Sweet Apple Acres.\""
     },
     "Alias": [
       "AJ",

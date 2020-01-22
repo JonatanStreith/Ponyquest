@@ -73,6 +73,11 @@ public class Creature extends GenericObject {
     public String askAbout(String topic){
         if(askTopics.containsKey(topic))
         return askTopics.get(topic);
+        else if(topic.equalsIgnoreCase(getName())){
+            return askTopics.get("self");
+        }
+
+
         else
             return askTopics.get("default");
     }
