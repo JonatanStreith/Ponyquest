@@ -12,12 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Hello world!
- */
 public class App {
-
-    //Todo: Better error handling! Main should not have throws IOException!
 
     private static World world;
 
@@ -26,8 +21,6 @@ public class App {
         System.out.println("Welcome to the game!");
 
         String filePath = getLoadingPath();     //This allows the user to choose between loading a save or starting a new game (default world)
-
-
 
         world = new World(filePath);  //Build world
 
@@ -40,7 +33,6 @@ public class App {
     public static String getLoadingPath() {
 
         String reply;
-
 
         while (true) {
 
@@ -85,9 +77,6 @@ public class App {
                 System.out.println("Incorrect input.");
             }
         }
-
-
-
     }
 
     public static World getWorld() {

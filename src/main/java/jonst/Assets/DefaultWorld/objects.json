@@ -8,6 +8,9 @@
       "map",
       "map table",
       "table"
+    ],
+    "Attributes": [
+      "Usable"
     ]
   },
   {
@@ -19,6 +22,9 @@
       "thrones",
       "seats",
       "chairs"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -30,6 +36,9 @@
       "Throne of Magic",
       "Twilight's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -41,6 +50,9 @@
       "Throne of Generosity",
       "Rarity's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -52,6 +64,9 @@
       "Throne of Honesty",
       "Applejack's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -63,6 +78,9 @@
       "Throne of Laughter",
       "Pinkie's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -74,6 +92,9 @@
       "Throne of Kindness",
       "Fluttershy's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -86,6 +107,9 @@
       "Rainbow Dash's throne",
       "Rainbow's throne",
       "throne"
+    ],
+    "Attributes": [
+      "Sittable"
     ]
   },
   {
@@ -96,6 +120,9 @@
     "Alias": [
       "tiny throne",
       "throne"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -106,6 +133,9 @@
     "Alias": [
       "tree",
       "apple tree"
+    ],
+    "Attributes": [
+      "Container"
     ]
   },
   {
@@ -115,6 +145,9 @@
     "Location": "Carousel Boutique interior",
     "Alias": [
       "sewing machine"
+    ],
+    "Attributes": [
+      "Usable"
     ]
   },
   {
@@ -124,6 +157,9 @@
     "Location": "Sugarcube Corner kitchen",
     "Alias": [
       "oven"
+    ],
+    "Attributes": [
+      "Usable"
     ]
   }
 ]

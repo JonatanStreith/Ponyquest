@@ -157,6 +157,14 @@ public class JsonBuilder {
                         add(alias);
                     }
                 }});
+                put("Attributes", new JSONArray() {{
+                    for (String attribute : crea.getAttributes()) {
+                        add(attribute);
+                    }
+                }});
+
+
+
             }});
         }
 
@@ -195,6 +203,11 @@ public class JsonBuilder {
                         add(alias);
                     }
                 }});
+                put("Attributes", new JSONArray() {{
+                    for (String attribute : loc.getAttributes()) {
+                        add(attribute);
+                    }
+                }});
             }});
         }
 
@@ -225,6 +238,11 @@ public class JsonBuilder {
                 put("Alias", new JSONArray() {{
                     for (String alias : ite.getAlias()) {
                         add(alias);
+                    }
+                }});
+                put("Attributes", new JSONArray() {{
+                    for (String attribute : ite.getAttributes()) {
+                        add(attribute);
                     }
                 }});
             }});
@@ -259,7 +277,11 @@ public class JsonBuilder {
                         add(alias);
                     }
                 }});
-
+                put("Attributes", new JSONArray() {{
+                    for (String attribute : sta.getAttributes()) {
+                        add(attribute);
+                    }
+                }});
             }});
         }
 
@@ -300,6 +322,7 @@ public class JsonBuilder {
                 List<String> casualDialog = new ArrayList<>();
                 Map<String, String> askTopics = new HashMap<>();
                 List<String> alias = new ArrayList<>();
+                List<String> attributes = new ArrayList<>();
 
                 JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
                 for (Object xObj : jsCD) {
@@ -318,7 +341,14 @@ public class JsonBuilder {
                     alias.add(newAlias.toLowerCase());
                 }
 
-                Creature creature = new Creature(fullName, id, description, location.toLowerCase(), alias, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
+                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+                for (Object xObj : jsAttributes) {
+                    String newAttribute = (String) xObj;
+                    attributes.add(newAttribute.toLowerCase());
+                }
+
+
+                Creature creature = new Creature(fullName, id, description, location.toLowerCase(), alias, attributes, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
 
                 creatureList.add(creature);
             }
@@ -357,11 +387,18 @@ public class JsonBuilder {
                 String description = (String) jObj.get("Description");
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
+                List<String> attributes = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
                     String newAlias = (String) xObj;
                     alias.add(newAlias.toLowerCase());
+                }
+
+                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+                for (Object xObj : jsAttributes) {
+                    String newAttribute = (String) xObj;
+                    attributes.add(newAttribute.toLowerCase());
                 }
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
@@ -370,7 +407,7 @@ public class JsonBuilder {
                     exits.add((String) xObj);
                 }
 
-                Location location = new Location(fullName, id, description, fullName, alias, exits);
+                Location location = new Location(fullName, id, description, fullName, alias, attributes, exits);
                 //location.setLocation(fullName);
 
                 locationList.add(location);
@@ -411,6 +448,7 @@ public class JsonBuilder {
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
+                List<String> attributes = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
@@ -418,7 +456,13 @@ public class JsonBuilder {
                     alias.add(newAlias.toLowerCase());
                 }
 
-                StationaryObject object = new StationaryObject(fullName, id, description, location, alias);
+                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+                for (Object xObj : jsAttributes) {
+                    String newAttribute = (String) xObj;
+                    attributes.add(newAttribute.toLowerCase());
+                }
+
+                StationaryObject object = new StationaryObject(fullName, id, description, location, alias, attributes);
                 //object.setLocation(location);
 
                 stationaryObjectList.add(object);
@@ -458,6 +502,7 @@ public class JsonBuilder {
                 String description = (String) jObj.get("Description");
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
+                List<String> attributes = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
@@ -465,8 +510,13 @@ public class JsonBuilder {
                     alias.add(newAlias.toLowerCase());
                 }
 
+                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+                for (Object xObj : jsAttributes) {
+                    String newAttribute = (String) xObj;
+                    attributes.add(newAttribute.toLowerCase());
+                }
 
-                Item item = new Item(fullName, id, description, location, alias);
+                Item item = new Item(fullName, id, description, location, alias, attributes);
 
 
                 itemList.add(item);

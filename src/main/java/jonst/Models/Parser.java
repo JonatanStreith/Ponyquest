@@ -155,7 +155,7 @@ public class Parser {
                 Commands.showInventory(world);
                 break;
 
-            case "list nouns":
+            case "nouns":
                 Commands.listNouns(world);
                 break;
 
@@ -163,7 +163,7 @@ public class Parser {
                 Commands.help();
                 break;
 
-            case "list commands":
+            case "commands":
                 Commands.ListCommands(world);
                 break;
 
@@ -191,18 +191,18 @@ public class Parser {
 
 
             case "look":
-                Commands.LookAround(world);
+                Commands.lookAround(world);
                 break;
 
             case "look around":
-                Commands.LookAround(world);
+                Commands.lookAround(world);
                 break;
 
             case "look at":
                 Commands.lookAt(commandArray[1], world);
                 break;
 
-            case "list exits":
+            case "exits":
                 Commands.getExits(world);
                 break;
 

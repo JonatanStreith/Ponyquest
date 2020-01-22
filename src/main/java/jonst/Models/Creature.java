@@ -18,13 +18,9 @@ public class Creature extends GenericObject {
     private Map<String, String> askTopics;
 
 
-    //private List<String> inventory = new ArrayList<String>();
 
-
-
-
-    public Creature(String name, String id, String description, String locationName, List<String> alias, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, id, description, locationName, alias);
+    public Creature(String name, String id, String description, String locationName, List<String> alias, List<String> attributes, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, id, description, locationName, alias, attributes);
 
         setRace(race);
         setGender(gender);

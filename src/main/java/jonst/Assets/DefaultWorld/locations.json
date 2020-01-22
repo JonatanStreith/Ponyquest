@@ -10,6 +10,9 @@
       "inv",
       "storage",
       "pocket"
+    ],
+    "Attributes": [
+      ""
     ]
   },{
   "Exits": {
@@ -20,6 +23,9 @@
   "Location": "Junkyard",
   "Alias": [
     "garbage collector"
+  ],
+  "Attributes": [
+    ""
   ]
 },
   {
@@ -37,6 +43,9 @@
       "castle",
       "Twilight's castle",
       "friendship castle"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -54,6 +63,9 @@
       "bakery",
       "cake shop",
       "store"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -72,6 +84,9 @@
       "bakery",
       "store",
       "cake shop"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -84,6 +99,9 @@
     "Location": "Sugarcube Corner kitchen",
     "Alias": [
       "kitchen"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -98,6 +116,9 @@
       "pinkie's room",
       "pinkie room",
       "bedroom"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -112,6 +133,9 @@
       "partycave",
       "secret cave",
       "cave"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -132,6 +156,9 @@
       "store",
       "storefront",
       "rarity's place"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -148,6 +175,9 @@
       "dress store",
       "store",
       "rarity's place"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -165,6 +195,9 @@
       "acres",
       "apple farm",
       "farm"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -179,6 +212,9 @@
       "farmhouse",
       "Applejack's house",
       "house"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -196,6 +232,9 @@
     "Alias": [
       "main hall",
       "hall"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -209,6 +248,9 @@
     "Alias": [
       "map room",
       "throne room"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -222,6 +264,9 @@
     "Alias": [
       "library",
       "study"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -234,6 +279,9 @@
     "Location": "Castle kitchen",
     "Alias": [
       "kitchen"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -246,6 +294,9 @@
     "Location": "Starlight's room",
     "Alias": [
       "Starlight room"
+    ],
+    "Attributes": [
+      ""
     ]
   }
 ]

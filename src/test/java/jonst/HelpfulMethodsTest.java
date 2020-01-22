@@ -59,92 +59,92 @@ public class HelpfulMethodsTest {
 
     }
 
-    @Test
-    public void turnCreatureListIntoStringTest() {
-
-        List<Creature> list = new ArrayList() {{
-            add(new Creature("Pinkie Pie", "", "", "", new ArrayList<>(),  "","", new ArrayList<>(), new HashMap<>()));
-            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
-            add(new Creature("Rarity", "", "", "",  new ArrayList<>(),"", "",  new ArrayList<>(), new HashMap<>() ));
-        }};
-
-
-        String result1 = HelpfulMethods.turnListIntoString(list, "and");
-
-        System.out.println(result1);
-
-        assertNotEquals("", result1);               //Assume the line's not blank
-        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
-
-
-        list.clear();
-
-        String result2 = HelpfulMethods.turnListIntoString(list, "and");
-
-        assertEquals("", result2);          //Assume the line is blank now
-
-    }
-
-
-    @Test
-    public void turnItemListIntoStringTest() {
-
-        List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", "", new ArrayList<>() ));
-            add(new Item("apple", "", "", "",  new ArrayList<>() ));
-            add(new Item("box", "", "", "",  new ArrayList<>() ));
-            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
-            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
-        }};
+//    @Test
+//    public void turnCreatureListIntoStringTest() {
+//
+//        List<Creature> list = new ArrayList() {{
+//            add(new Creature("Pinkie Pie", "", "", "", new ArrayList<>(),  "","", new ArrayList<>(), new HashMap<>()));
+//            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+//            add(new Creature("Rarity", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+//            add(new Creature("Applejack", "", "", "", new ArrayList<>(), "","", new ArrayList<>(), new HashMap<>() ));
+//            add(new Creature("Rarity", "", "", "",  new ArrayList<>(),"", "",  new ArrayList<>(), new HashMap<>() ));
+//        }};
+//
+//
+//        String result1 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        System.out.println(result1);
+//
+//        assertNotEquals("", result1);               //Assume the line's not blank
+//        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
+//
+//
+//        list.clear();
+//
+//        String result2 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        assertEquals("", result2);          //Assume the line is blank now
+//
+//    }
 
 
-        String result1 = HelpfulMethods.turnListIntoString(list, "and");
+//    @Test
+//    public void turnItemListIntoStringTest() {
+//
+//        List<Item> list = new ArrayList() {{
+//            add(new Item("rope", "", "", "", new ArrayList<>() ));
+//            add(new Item("apple", "", "", "",  new ArrayList<>() ));
+//            add(new Item("box", "", "", "",  new ArrayList<>() ));
+//            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
+//            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
+//        }};
+//
+//
+//        String result1 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        System.out.println(result1);
+//
+//        assertNotEquals("", result1);               //Assume the line's not blank
+//        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
+//
+//
+//        list.clear();
+//
+//        String result2 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        assertEquals("", result2);          //Assume the line is blank now
+//
+//
+//    }
 
-        System.out.println(result1);
-
-        assertNotEquals("", result1);               //Assume the line's not blank
-        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
-
-
-        list.clear();
-
-        String result2 = HelpfulMethods.turnListIntoString(list, "and");
-
-        assertEquals("", result2);          //Assume the line is blank now
-
-
-    }
-
-    @Test
-    public void turnStationaryObjectListIntoStringTest() {
-
-        List<StationaryObject> list = new ArrayList() {{
-            add(new StationaryObject("Pinkie Pie", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
-            add(new StationaryObject("Rarity", "", "", "",  new ArrayList<>() ));
-        }};
-
-
-        String result1 = HelpfulMethods.turnListIntoString(list, "and");
-
-        System.out.println(result1);
-
-        assertNotEquals("", result1);               //Assume the line's not blank
-        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
-
-
-        list.clear();
-
-        String result2 = HelpfulMethods.turnListIntoString(list, "and");
-
-        assertEquals("", result2);          //Assume the line is blank now
-
-
-    }
+//    @Test
+//    public void turnStationaryObjectListIntoStringTest() {
+//
+//        List<StationaryObject> list = new ArrayList() {{
+//            add(new StationaryObject("Pinkie Pie", "", "", "", new ArrayList<>() ));
+//            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+//            add(new StationaryObject("Rarity", "", "", "", new ArrayList<>() ));
+//            add(new StationaryObject("Applejack", "", "", "", new ArrayList<>() ));
+//            add(new StationaryObject("Rarity", "", "", "",  new ArrayList<>() ));
+//        }};
+//
+//
+//        String result1 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        System.out.println(result1);
+//
+//        assertNotEquals("", result1);               //Assume the line's not blank
+//        assertTrue(result1.contains(list.get(0).getName()));    //Assume the line contains the first entry's name
+//
+//
+//        list.clear();
+//
+//        String result2 = HelpfulMethods.turnListIntoString(list, "and");
+//
+//        assertEquals("", result2);          //Assume the line is blank now
+//
+//
+//    }
 
     @Test
     public void reverseSortStringListTest() {
@@ -166,20 +166,20 @@ public class HelpfulMethodsTest {
 
     }
 
-    @Test
-    public void turnListIntoStringTest() {
-
-        List<Item> list = new ArrayList() {{
-            add(new Item("rope", "", "", "", new ArrayList<>() ));
-            add(new Item("apple", "", "", "",  new ArrayList<>() ));
-            add(new Item("box", "", "", "",  new ArrayList<>() ));
-            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
-            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
-        }};
-
-
-        //String result = HelpfulMethods.turnListIntoString(list);
-    }
+//    @Test
+//    public void turnListIntoStringTest() {
+//
+//        List<Item> list = new ArrayList() {{
+//            add(new Item("rope", "", "", "", new ArrayList<>() ));
+//            add(new Item("apple", "", "", "",  new ArrayList<>() ));
+//            add(new Item("box", "", "", "",  new ArrayList<>() ));
+//            add(new Item("crowbar", "", "", "",  new ArrayList<>() ));
+//            add(new Item("shoe", "", "", "",  new ArrayList<>() ));
+//        }};
+//
+//
+//        //String result = HelpfulMethods.turnListIntoString(list);
+//    }
 
     @Test
     public void capitalizeTest() {

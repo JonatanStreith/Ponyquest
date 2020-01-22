@@ -4,7 +4,6 @@ import jonst.Data.SystemData;
 import jonst.Models.*;
 
 
-
 import java.io.Console;
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +51,7 @@ public class Commands {
                 System.out.println("Loading game...");
 
                 world.updateWorld(savePath);
-                LookAround(world);
+                lookAround(world);
 
                 break;
 
@@ -95,7 +94,7 @@ public class Commands {
 
             Item item = world.getItem(fullName);
 
-            if (world.isInInventory(item)) {
+            if (world.getPlayer().hasItem(item)) {
                 //drop
 
                 world.transferItemToNewOwner(fullName, world.getPlayer().getName(), world.getPlayerLocation().getLocationName());
@@ -128,23 +127,27 @@ public class Commands {
                 Creature creature = (Creature) subject;
                 System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature.getGender()) + " for a moment before putting " + himOrHer(creature.getGender()) + " down again.");
 
-            } else if (subject instanceof StationaryObject)                                              //Subject is a stationary object.
+            } else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
             {
                 System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
 
-            } else if (subject instanceof Location)                                              //Subject is a stationary object.
+            } else if (subject instanceof Location)                                       //Subject is a location.
             {
                 System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
 
             } else if ((subject instanceof Item)) {
 
+                if (((Item) subject).getOwner() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
+                    world.transferItemToNewOwner(fullName, ((Item) subject).getOwner().getName(), world.getPlayer().getName());
+                    System.out.println("You pick up the " + name + ".");
 
-                world.transferItemToNewOwner(fullName, world.getPlayerLocation().getLocationName(), world.getPlayer().getName());
-
-                //world.removeItemFromGeneric(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
-
-                //world.addToInventory(world.getItem(fullName));                              //Add to inventory
-                System.out.println("You pick up the " + name + ".");
+                } else if (((Item) subject).getOwner() instanceof Creature) {
+                    System.out.println("You can't just take that from " + ((Item) subject).getOwner().getName() + ". Try asking nicely.");
+                } if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
+                    System.out.println("Currently, items in containers need to be TAKEn specifically from the container.");
+                } else {
+                    System.out.println("That doesn't work.");
+                }
 
             } else {
                 System.out.println("Debug code. If this is shown, something didn't go right.");
@@ -184,17 +187,17 @@ public class Commands {
         }
     }
 
-    public static void LookAround(World world) {
+    public static void lookAround(World world) {
 
         Location loc = world.getPlayerLocation();
 
         System.out.println(loc.getName());
         System.out.println();
         System.out.println(loc.getDescription());
-
-
         System.out.println();
         listCreatures(world);   //Lists all creatures on location.
+        System.out.println();
+        listStationaryObjects(world);
         System.out.println();
         listOwnedItems(world, loc);       //Lists all items on location.
 
@@ -211,9 +214,14 @@ public class Commands {
 
             GenericObject gen = world.getGenericObject(fullName);
 
-            System.out.println(gen.getDescription());
-            System.out.println();
-            listOwnedItems(world, gen);
+            if (gen == world.getPlayerLocation()) {
+                lookAround(world);
+            } else {
+                System.out.println(gen.getDescription());
+                System.out.println();
+                listOwnedItems(world, gen);
+            }
+
 
         }
     }
@@ -245,7 +253,7 @@ public class Commands {
             System.out.println("You go to " + world.getLocation(destination).getName() + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
-            LookAround(world);
+            lookAround(world);
         } else {
             System.out.println("You can't get there from here.");
         }
@@ -263,12 +271,12 @@ public class Commands {
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
 
-         String target = world.matchLocalName(command[1]);
+        String target = world.matchLocalName(command[1]);
 
         String destination = world.matchName(command[3]);
 
 
-        if(!target.equals("") && !destination.equals("")) {
+        if (!target.equals("") && !destination.equals("")) {
 
 
             if (world.getGenericObject(target) == world.getPlayer())           //Are you instructing the game to teleport Trixie herself?
@@ -314,7 +322,7 @@ public class Commands {
             System.out.println("You vanish in a burst of smoke, and reappear at " + destinationFullName + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
-            LookAround(world);
+            lookAround(world);
 
         }
     }
@@ -339,7 +347,7 @@ public class Commands {
             if (!(target instanceof Creature)) {
                 System.out.println("You don't make a habit of talking to inanimate objects.");
             } else {            //This runs if you successfully talk to someone.
-                switch(conjunction){
+                switch (conjunction) {
                     case "about":
                         System.out.println(((Creature) target).askAbout(parsedTopic));
                         break;
@@ -354,7 +362,6 @@ public class Commands {
 
 
                 }
-
 
 
             }
@@ -373,25 +380,22 @@ public class Commands {
         }
     }
 
-    public static void listOwnedItems(World world, GenericObject owner){
+    public static void listOwnedItems(World world, GenericObject owner) {
         List<Item> itemList = owner.getItemList();
 
-        if(owner instanceof Location){
+        if (owner instanceof Location) {
             if (itemList.size() > 0) {
                 System.out.println("There is " + turnListIntoString(itemList, "and") + " here.");
             }
-        }
-        else if(owner instanceof Creature){
+        } else if (owner instanceof Creature) {
             if (itemList.size() > 0) {
-                System.out.println(capitalize(heOrShe(((Creature) owner).getGender()))  + " carries " + turnListIntoString(itemList, "and") + ".");
+                System.out.println(capitalize(heOrShe(((Creature) owner).getGender())) + " carries " + turnListIntoString(itemList, "and") + ".");
             }
-        }
-        else if(owner instanceof StationaryObject || owner instanceof Item){
+        } else if (owner instanceof StationaryObject || owner instanceof Item) {
             if (itemList.size() > 0) {
                 System.out.println("It contains " + turnListIntoString(itemList, "and") + ".");
             }
-        }
-        else{
+        } else {
             System.out.println("This is not my beautiful code! This is not my beautiful string! How did I get here?");
         }
 

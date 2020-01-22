@@ -8,6 +8,9 @@
          "hat",
          "wizard hat",
          "magician's hat"
+      ],
+      "Attributes": [
+         "Wearable"
       ]
    },
    {
@@ -19,6 +22,9 @@
          "cape",
          "wizard cape",
          "magician's cape"
+      ],
+      "Attributes": [
+         "Wearable"
       ]
    },
    {
@@ -31,6 +37,9 @@
          "wooden crate",
          "box",
          "wooden box"
+      ],
+      "Attributes": [
+         "Container"
       ]
    },
    {
@@ -41,6 +50,9 @@
       "Alias": [
          "rock",
          "stone"
+      ],
+      "Attributes": [
+         ""
       ]
    },
    {
@@ -53,6 +65,9 @@
          "fruit",
          "red fruit",
          "red apple"
+      ],
+      "Attributes": [
+         "Edible"
       ]
    },   {
    "Description": "A pile of freshly-harvested turnips. Bland and boring.",
@@ -63,6 +78,9 @@
       "turnips",
       "tubers",
       "vegetables"
+   ],
+   "Attributes": [
+      "Edible"
    ]
 },
    {
@@ -73,6 +91,9 @@
       "Alias": [
          "plow",
          "farming tool"
+      ],
+      "Attributes": [
+         ""
       ]
    },
    {
@@ -84,6 +105,9 @@
          "thread",
          "blue thread",
          "spool"
+      ],
+      "Attributes": [
+         ""
       ]
    },
    {
@@ -95,6 +119,9 @@
          "dress",
          "unfinished dress",
          "outfit"
+      ],
+      "Attributes": [
+         "Wearable"
       ]
    },
    {
@@ -106,6 +133,9 @@
          "ice cream",
          "bucket",
          "bucket of ice cream"
+      ],
+      "Attributes": [
+         "Edible"
       ]
    },
    {
@@ -117,6 +147,9 @@
          "fireworks",
          "bundle of fireworks",
          "explody things"
+      ],
+      "Attributes": [
+         "Usable"
       ]
    },   {
    "Description": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill.",
@@ -128,6 +161,9 @@
       "gemstone",
       "dragon food",
       "shiny thing"
+   ],
+   "Attributes": [
+      "Gemstone"
    ]
 },
    {
@@ -137,6 +173,9 @@
       "Location": "unknown",
       "Alias": [
          "error"
+      ],
+      "Attributes": [
+         "Error"
       ]
    }
 ]

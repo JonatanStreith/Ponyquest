@@ -26,35 +26,14 @@ public class World {
 
 
     public World(String loadFilePath) {
-
-        //playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
-
-        loadListsFromFile(loadFilePath);        //Build lists
-
-        populateLocationLists();
-
-        parser = new Parser(genericList);       //The parser holds lists of words, and parses input
-
-
-        setMainCharacter(getCreature("Trixie"));             //Establish protagonist
-
-        playerInventory = playerCharacter.getItemList();
-
-        System.out.println("Printing inventory:");
-        for (Item it: playerInventory) {
-            System.out.println(it.getName());
-        }
-
-        System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemList().size());
-        System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
-        System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
-
-
-    }  //End of World constructor
-
+        buildWorld(loadFilePath);
+    }
 
     public void updateWorld(String loadFilePath) {
+        buildWorld(loadFilePath);
+    }
 
+    public void buildWorld(String loadFilePath){
         //playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
         loadListsFromFile(loadFilePath);        //Build lists
@@ -68,15 +47,17 @@ public class World {
         System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemList().size());
         System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
         System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
+
 
     }
 
-    public void runGame() {
 
+
+    public void runGame() {
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
-        Commands.LookAround(this);
+        Commands.lookAround(this);
 
         while (true)                //Continuously running play loop that parses instructions
 
@@ -88,8 +69,6 @@ public class World {
                 e.printStackTrace();    //Todo: Remove this in final release
             }
         }
-
-
     }
 
 
@@ -123,6 +102,14 @@ public class World {
             System.out.println("Illegal operation: transferObjectToLocation, " + object + " from " + oldLocation + " to " + newLocation + ".");
     }
 
+    public void removeCreatureFromLocation(String creature, String location) {
+
+        Location loc = getLocation(location);
+        Creature cre = getCreature(creature);
+
+        loc.removeCreature(cre);
+        cre.setLocation(null);
+    }
 
     public void addCreatureToLocation(String creature, String location) {
         //Adds "creature" to "location"
@@ -134,16 +121,14 @@ public class World {
         cre.setLocation(loc);
     }
 
-    public void removeCreatureFromLocation(String creature, String location) {
+    public void removeItemFromGeneric(String item, String generic) {
 
-        Location loc = getLocation(location);
-        Creature cre = getCreature(creature);
+        GenericObject gen = getGenericObject(generic);
+        Item it = getItem(item);
 
-        loc.removeCreature(cre);
+        gen.removeItem(it);
+        it.setOwner(null);
     }
-
-
-
 
     public void addItemToGeneric(String item, String generic) {
         //Adds "item" to "location"
@@ -159,39 +144,16 @@ public class World {
         else {
             it.setLocation(null);
         }
-
-
     }
 
-    public void removeItemFromGeneric(String item, String generic) {
+    public void removeObjectFromLocation(String stationaryObject, String location) {
 
-        GenericObject gen = getGenericObject(generic);
-        Item it = getItem(item);
+        Location loc = getLocation(location);
+        StationaryObject obj = getStationaryObject(stationaryObject);
 
-        gen.removeItem(it);
-        it.setOwner(null);
+        loc.removeObject(obj);
+        obj.setLocation(null);
     }
-
-//    public void addItemToLocation(String item, String location) {
-//        //Adds "item" to "location"
-//        Location loc = getLocation(location);
-//        Item it = getItem(item);
-//
-//        loc.addItem(it);
-//        it.setLocation(loc);
-//    }
-//
-//    public void removeItemFromLocation(String item, String location) {
-//
-//        Location loc = getLocation(location);
-//        Item it = getItem(item);
-//
-//        getLocation(location).removeItem(getItem(item));
-//    }
-
-
-
-
 
     public void addObjectToLocation(String stationaryObject, String location) {
         //Adds "stationary" to "location"
@@ -203,32 +165,6 @@ public class World {
         obj.setLocation(loc);
     }
 
-    public void removeObjectFromLocation(String stationaryObject, String location) {
-
-        Location loc = getLocation(location);
-        StationaryObject obj = getStationaryObject(stationaryObject);
-
-        loc.removeObject(obj);
-    }
-
-    public void addToInventory(Item item) {
-        if (!isInInventory(item)) {
-            playerInventory.add(item);
-            item.setLocation(getLocation("inventory"));
-        }
-    }
-
-    public void removeFromInventory(Item item) {
-        if (isInInventory(item)) {
-            playerInventory.remove(item);
-            item.setLocation(getPlayerLocation());
-        }
-    }
-
-    public boolean isInInventory(Item item) {
-        boolean isIn = playerInventory.contains(item);
-        return isIn;
-    }
 
     //-------- List handling -----------------------
 
@@ -243,40 +179,6 @@ public class World {
                 }
             }
 
-
-
-
-
-            for (Item item : itemList) {
-                for (GenericObject gen: genericList) {
-
-                    if(item.getLocationName().equalsIgnoreCase(gen.getName())){
-                        System.out.println(gen.getName() + ", " + item.getName());
-                        gen.addItem(item);
-                        item.setOwner(gen);
-
-                        if(gen instanceof Location){
-                            item.setLocation((Location) gen);
-                        }
-                        else {
-                            item.setLocation(null);
-                        }
-
-                    }
-                }
-            }
-
-
-
-//            for (Item item : itemList) {
-//                if (item.getLocationName().equalsIgnoreCase("inventory")) {
-//                    addToInventory(item);
-//                } else if (item.getLocationName().equalsIgnoreCase(location.getLocationName())) {
-//                    location.addItem(item);         //Adds item to the location's list of items
-//                    item.setLocation(location);     //Sets item's location reference
-//                }
-//            }
-
             for (StationaryObject object : stationaryObjectList) {
                 if (object.getLocationName().equalsIgnoreCase(location.getLocationName())) {
                     location.addObject(object);     //Adds object to the location's list of objects
@@ -285,7 +187,24 @@ public class World {
             }
         }
 
-        //Todo: This stuff. When I have a head.
+        for (Item item : itemList) {
+            for (GenericObject gen: genericList) {
+
+                if(item.getLocationName().equalsIgnoreCase(gen.getName())){
+                    System.out.println(gen.getName() + ", " + item.getName());
+                    gen.addItem(item);
+                    item.setOwner(gen);
+
+                    if(gen instanceof Location){
+                        item.setLocation((Location) gen);
+                    }
+                    else {
+                        item.setLocation(null);
+                    }
+
+                }
+            }
+        }
 
 
 
@@ -308,9 +227,9 @@ public class World {
 
     // --------------- Setters & Getters ------------------------
 
-    public boolean setMainCharacter(Creature name) {
+    public boolean setMainCharacter(Creature cre) {
 
-        playerCharacter = name;
+        playerCharacter = cre;
 
         return !(playerCharacter == null);
 
@@ -325,7 +244,7 @@ public class World {
     }
 
     public List<Item> getPlayerInventory() {
-        return playerInventory;
+        return getPlayer().getItemList();
     }
 
     public List<Location> getLocationList() {
@@ -354,7 +273,7 @@ public class World {
 
     // ------------- Methods that returns objects from object lists ------------------
 
-    public List<StationaryObject> getLocalStationaryObjects(Location location){
+/*    public List<StationaryObject> getLocalStationaryObjects(Location location){
         List<StationaryObject> localObjectsList = new ArrayList<>();
 
         for (StationaryObject obj : stationaryObjectList) {
@@ -363,9 +282,9 @@ public class World {
         }
 
         return localObjectsList;
-    }
+    }*/
 
-    public List<Creature> getLocalCreatures(Location location){
+/*    public List<Creature> getLocalCreatures(Location location){
         List<Creature> localCreaturesList = new ArrayList<>();
 
         for (Creature cre : creatureList) {
@@ -374,9 +293,9 @@ public class World {
         }
 
         return localCreaturesList;
-    }
+    }*/
 
-    public List<Item> getLocalItems(Location location){
+/*    public List<Item> getLocalItems(Location location){
         List<Item> localItemsList = new ArrayList<>();
 
         for (Item item : itemList) {        //Add all loose items to the local items list
@@ -400,9 +319,9 @@ public class World {
         }
 
         return localItemsList;
-    }
+    }*/
 
-    public List<GenericObject> getLocalAll(Location location){
+/*    public List<GenericObject> getLocalAll(Location location){
         List<GenericObject> localGenericsList = new ArrayList<>();
 
         for (GenericObject gen : genericList) {
@@ -411,7 +330,7 @@ public class World {
         }
 
         return localGenericsList;
-    }
+    }*/
 
 
 
@@ -462,31 +381,8 @@ public class World {
         return null;
     }
 
-//    public String returnFullName(String name) {
-//
-//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-//            if (generic.getShortName().equalsIgnoreCase(name)) {
-//                return generic.getName();
-//            }
-//        }
-//        return name;        //if not, just return the short name
-//    }
-//
-//    public List<String> returnFullNames(String name) {
-//        //Returns list of Fullnames matching the shortName - in case multiple things have that shortName. Prepare for the alias field!
-//
-//        List<String> returnList = new ArrayList<>();
-//
-//        returnList.add(name);
-//
-//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-//            if (generic.getShortName().equalsIgnoreCase(name)) {
-//                returnList.add(generic.getName());
-//            }
-//        }
-//        return returnList;
-//    }
 
+    // --------------- Match name methods ------------------------
 
     public List<String> matchNameMultiple(String name) {
 
@@ -543,7 +439,6 @@ public class World {
 
         List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
 
-        genList.addAll(getPlayerInventory());
 
         List<String> results = new ArrayList<>();
         //genList is now everything at the location.
@@ -573,33 +468,7 @@ public class World {
         }
     }
 
-
-//    public String returnLocalFullName(String name) {
-//
-//        //Figure out how to handle if multiples have the same shortname!
-//
-//        List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
-//
-//        genList.addAll(getPlayerInventory());
-//
-//        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
-//            if (generic.getShortName().equalsIgnoreCase(name)) {
-//                return generic.getName();
-//            }
-//        }
-//        return name;        //if not, just return the short name
-//
-//
-//    }
-
     // ------------- Boolean checks ---------------------
-
-    public boolean isObjectPresent(String selected) {
-
-        return (getPlayerLocation().getAllAtLocation().contains(getGenericObject(selected)) || getPlayerInventory().contains(getItem(selected)));
-
-        //return ((getPlayerLocation() == (getGenericObject(selected).getLocation())) || (getPlayerLocation() == (getLocation("inventory"))));
-    }
 
     public boolean doesObjectExist(String selected) {
         return genericList.contains(getGenericObject(selected));
@@ -614,7 +483,6 @@ public class World {
         int counter = 0;
 
         do {        //Checks to see if the lists are populated properly. Yes, this means they need to have one entry minimum by default.
-
             counter++;
             loadingSuccess = true;
             locationList = JsonBuilder.loadLocationList(loadFilePath);

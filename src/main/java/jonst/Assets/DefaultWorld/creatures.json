@@ -20,6 +20,9 @@
       "you",
       "unicorn",
       "best pony"
+    ],
+    "Attributes": [
+      "Playable"
     ]
   },
   {
@@ -49,6 +52,9 @@
       "princess",
       "Twily",
       "alicorn"
+    ],
+    "Attributes": [
+      "Blank"
     ]
   },
   {
@@ -74,6 +80,9 @@
       "fashion pony",
       "Diva",
       "unicorn"
+    ],
+    "Attributes": [
+      "Blank"
     ]
   },
   {
@@ -101,6 +110,9 @@
       "party pony",
       "weirdo",
       "earth pony"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -124,6 +136,9 @@
     "Alias": [
       "AJ",
       "earth pony"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -149,6 +164,9 @@
       "Dash",
       "Dashie",
       "pegasus"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -173,6 +191,9 @@
       "Flutters",
       "Shutterfly",
       "pegasus"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -196,6 +217,9 @@
     "Alias": [
       "Spiky",
       "dragon"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -223,6 +247,9 @@
       "friend",
       "best friend",
       "unicorn"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -246,6 +273,9 @@
       "maud",
       "pie",
       "earth pony"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -271,6 +301,9 @@
       "Tia",
       "princess",
       "alicorn"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -297,6 +330,9 @@
       "Moony",
       "princess",
       "alicorn"
+    ],
+    "Attributes": [
+      ""
     ]
   },
   {
@@ -321,6 +357,9 @@
       "dissy",
       "spirit",
       "draconequus"
+    ],
+    "Attributes": [
+      ""
     ]
   }
 ]

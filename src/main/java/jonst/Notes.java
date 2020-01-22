@@ -66,6 +66,10 @@ public class Notes {
 
     //Attributes: ClosedContainer = kan inte "se" innehållet.
 
+    //Todo: Make function that checks attributes for inconsistencies and contradictions - i.e. "open" and "closed". Could be done with simple rules.
+
     //Add "(Carried by <>)" when looking at contained things!
+
+    //Oh yeah! Can probably put in limitations on what you can put into containers based on size, using Attributes! If it has "huge container" it can house "huge" items, or have a number, or something...
 
 }
