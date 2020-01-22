@@ -33,6 +33,14 @@ public class HelpfulMethods {
         }
     }
 
+    public static String capitalize(String str){
+
+        String cap = str.substring(0,1).toUpperCase();
+        String remainder = str.substring(1);
+        return cap+remainder;
+    }
+
+
     public static String isOrAre(int num) {
         String output = " is ";
         if (num > 1) {

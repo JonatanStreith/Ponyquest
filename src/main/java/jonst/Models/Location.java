@@ -20,7 +20,7 @@ public class Location extends GenericObject {
 
     private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
-    private List<Item> itemsAtLocation = new ArrayList<Item>();
+ //   private List<Item> itemsAtLocation = new ArrayList<Item>();
 
     public Location(String name, String description, String locationName, List<String> alias, ArrayList<String> legitimateExits) {
         super(name, description, locationName, alias);
@@ -39,9 +39,9 @@ public class Location extends GenericObject {
         return objectsAtLocation;
     }
 
-    public List<Item> getItemsAtLocation() {
-        return itemsAtLocation;
-    }
+//    public List<Item> getItemsAtLocation() {
+//        return itemsAtLocation;
+//    }
 
 
     public void addCreature(Creature name) {
@@ -84,14 +84,14 @@ public class Location extends GenericObject {
         return legitimateExits;
     }
 
-    public Item getItemByName(String name) {
-
-        for (Item item : getItemsAtLocation()) {
-            if (item.getName().equalsIgnoreCase(name))
-                return item;
-        }
-        return null;
-    }
+//    public Item getItemByName(String name) {
+//
+//        for (Item item : getItemList()) {
+//            if (item.getName().equalsIgnoreCase(name))
+//                return item;
+//        }
+//        return null;
+//    }
 
     public Creature getCreatureByName(String name) {
 
@@ -111,9 +111,9 @@ public class Location extends GenericObject {
         return null;
     }
 
-    public boolean itemIsAtLocation(Item item) {
-        return getItemsAtLocation().contains(item);
-    }
+//    public boolean itemIsAtLocation(Item item) {
+//        return getItemsAtLocation().contains(item);
+//    }
 
     public boolean stationaryObjectIsAtLocation(StationaryObject object) {
         return getObjectsAtLocation().contains(object);
@@ -123,10 +123,13 @@ public class Location extends GenericObject {
         return getCreaturesAtLocation().contains(creature);
     }
 
+
+
+
     public List<GenericObject> getAllAtLocation(){
         List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
         genList.addAll(creaturesAtLocation);
-        genList.addAll(itemsAtLocation);
+        genList.addAll(getItemList());
         genList.addAll(objectsAtLocation);
         genList.add(this);
 

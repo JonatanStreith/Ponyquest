@@ -49,39 +49,39 @@ public class CommandsTest {
     public void listNounsTest() {
     }
 
-    @Test
-    public void pickUpTest() {
-
-        Item plow = world.getItem("a heavy plow");
-
-        assertTrue(world.getPlayerLocation().itemIsAtLocation(plow));
-        assertFalse(world.isInInventory(plow));
-
-
-        Commands.pickUp("a heavy plow", world);
-
-        assertFalse(world.getPlayerLocation().itemIsAtLocation(plow));
-        assertTrue(world.isInInventory(plow));
-
-
-    }
-
-
-    @Test
-    public void dropTest() {
-
-        Item hat = world.getItem("Trixie's hat");
-
-        assertFalse(world.getPlayerLocation().itemIsAtLocation(hat));
-        assertTrue(world.isInInventory(hat));
-
-        Commands.drop("hat", world);
-
-        assertTrue(world.getPlayerLocation().itemIsAtLocation(hat));
-        assertFalse(world.isInInventory(hat));
+//    @Test
+//    public void pickUpTest() {
+//
+//        Item plow = world.getItem("a heavy plow");
+//
+//        assertTrue(world.getPlayerLocation().itemIsAtLocation(plow));
+//        assertFalse(world.isInInventory(plow));
+//
+//
+//        Commands.pickUp("a heavy plow", world);
+//
+//        assertFalse(world.getPlayerLocation().itemIsAtLocation(plow));
+//        assertTrue(world.isInInventory(plow));
+//
+//
+//    }
 
 
-    }
+//    @Test
+//    public void dropTest() {
+//
+//        Item hat = world.getItem("Trixie's hat");
+//
+//        assertFalse(world.getPlayerLocation().itemIsAtLocation(hat));
+//        assertTrue(world.isInInventory(hat));
+//
+//        Commands.drop("hat", world);
+//
+//        assertTrue(world.getPlayerLocation().itemIsAtLocation(hat));
+//        assertFalse(world.isInInventory(hat));
+//
+//
+//    }
 
 
     @Test

@@ -2,7 +2,7 @@
    {
       "Description": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too.",
       "FullName": "Trixie's hat",
-      "Location": "inventory",
+      "Location": "Trixie",
       "Alias": [
          "hat",
          "wizard hat",
@@ -12,7 +12,7 @@
    {
       "Description": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too.",
       "FullName": "Trixie's cape",
-      "Location": "inventory",
+      "Location": "Trixie",
       "Alias": [
          "cape",
          "wizard cape",
@@ -42,7 +42,7 @@
    {
       "Description": "Fragrant and delicious, just the thing for a quick snack.",
       "FullName": "a red apple",
-      "Location": "Sweet Apple Acres",
+      "Location": "an apple tree",
       "Alias": [
          "apple",
          "fruit",
@@ -92,13 +92,22 @@
    {
       "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!",
       "FullName": "a bundle of fireworks",
-      "Location": "inventory",
+      "Location": "Trixie",
       "Alias": [
          "fireworks",
          "bundle of fireworks",
          "explody things"
       ]
-   },
+   },   {
+   "Description": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill.",
+   "FullName": "a diamond",
+   "Location": "Maud Pie",
+   "Alias": [
+      "gemstone",
+      "dragon food",
+      "shiny thing"
+   ]
+},
    {
       "Description": "An error test object.",
       "FullName": "Error item",

@@ -179,10 +179,19 @@ public class HelpfulMethodsTest {
 
 
         //String result = HelpfulMethods.turnListIntoString(list);
-
-
     }
 
+    @Test
+    public void capitalizeTest() {
+
+    String str = "hello";
+    String str2 = HelpfulMethods.capitalize(str);
+
+        System.out.println(str2);
+
+        assertEquals("Hello", str2);
+
+    }
 
     @Test
     public void time() throws InterruptedException {
@@ -193,4 +202,6 @@ public class HelpfulMethodsTest {
         TimeUnit.MINUTES.sleep(1);
         System.out.println("end");
     }
+
+
 }

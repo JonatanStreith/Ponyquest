@@ -4,12 +4,15 @@ import jonst.Data.SystemData;
 import jonst.Models.*;
 
 
+
 import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static jonst.HelpfulMethods.*;
 
 
 public class Commands {
@@ -77,11 +80,11 @@ public class Commands {
 
     public static void ListCommands(World world) {
 
-        System.out.println("Commands are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateCommands, "and"));
+        System.out.println("Commands are: " + turnStringListIntoString(world.getParser().legitimateCommands, "and"));
     }
 
     public static void listNouns(World world) {
-        System.out.println("Nouns are: " + HelpfulMethods.turnStringListIntoString(world.getParser().legitimateNouns, "and"));
+        System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().legitimateNouns, "and"));
     }
 
     public static void drop(String name, World world) {
@@ -94,8 +97,12 @@ public class Commands {
 
             if (world.isInInventory(item)) {
                 //drop
-                world.removeFromInventory(item);
-                world.addItemToLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
+
+                world.transferItemToNewOwner(fullName, world.getPlayer().getName(), world.getPlayerLocation().getLocationName());
+
+
+                //world.removeFromInventory(item);
+                //world.addItemToGeneric(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
                 System.out.println("You drop the " + name + ".");
             } else {
@@ -119,7 +126,7 @@ public class Commands {
             if (subject instanceof Creature)                                              //Subject is a creature.
             {
                 Creature creature = (Creature) subject;
-                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + HelpfulMethods.himOrHer(creature.getGender()) + " for a moment before putting " + HelpfulMethods.himOrHer(creature.getGender()) + " down again.");
+                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature.getGender()) + " for a moment before putting " + himOrHer(creature.getGender()) + " down again.");
 
             } else if (subject instanceof StationaryObject)                                              //Subject is a stationary object.
             {
@@ -130,9 +137,13 @@ public class Commands {
                 System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
 
             } else if ((subject instanceof Item)) {
-                world.removeItemFromLocation(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
-                world.addToInventory(world.getItem(fullName));                              //Add to inventory
+
+                world.transferItemToNewOwner(fullName, world.getPlayerLocation().getLocationName(), world.getPlayer().getName());
+
+                //world.removeItemFromGeneric(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
+
+                //world.addToInventory(world.getItem(fullName));                              //Add to inventory
                 System.out.println("You pick up the " + name + ".");
 
             } else {
@@ -169,21 +180,23 @@ public class Commands {
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");
         } else {
-            System.out.println("You are carrying: " + HelpfulMethods.turnListIntoString(items, "and") + ".");
+            System.out.println("You are carrying: " + turnListIntoString(items, "and") + ".");
         }
     }
 
     public static void LookAround(World world) {
 
-        System.out.println(world.getPlayerLocation().getName());
+        Location loc = world.getPlayerLocation();
+
+        System.out.println(loc.getName());
         System.out.println();
-        System.out.println(world.getPlayerLocation().getDescription());
+        System.out.println(loc.getDescription());
 
 
         System.out.println();
         listCreatures(world);   //Lists all creatures on location.
         System.out.println();
-        listItems(world);       //Lists all items on location.
+        listOwnedItems(world, loc);       //Lists all items on location.
 
         //To do: List items and objects
 
@@ -196,8 +209,11 @@ public class Commands {
 
         if (!fullName.equals("")) {
 
+            GenericObject gen = world.getGenericObject(fullName);
 
-            System.out.println(world.getGenericObject(fullName).getDescription());
+            System.out.println(gen.getDescription());
+            System.out.println();
+            listOwnedItems(world, gen);
 
         }
     }
@@ -241,7 +257,7 @@ public class Commands {
         Location loc = world.getLocation(world.getPlayer().getLocationName());
         List<String> exits = loc.getExits();
 
-        System.out.println("Exits are: " + HelpfulMethods.turnStringListIntoString(exits, "and") + ".");
+        System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
     }
 
 
@@ -268,7 +284,7 @@ public class Commands {
                 System.out.println("The " + target + " vanishes in a burst of smoke!");
 
             } else if (world.getGenericObject(target) instanceof Item) {
-                world.transferItemToLocation(target, world.getPlayerLocation().getName(), destination);
+                world.transferItemToNewOwner(target, world.getPlayerLocation().getName(), destination);
                 System.out.println(target + " vanishes in a burst of smoke!");
 
             } else if (world.getGenericObject(target) instanceof StationaryObject) {
@@ -335,19 +351,44 @@ public class Commands {
     //--------------- Not for direct use -----------------------
     public static void listItems(World world) {
         List<Item> tempItemList = new ArrayList<>();
-        tempItemList.addAll(world.getPlayerLocation().getItemsAtLocation());      //Create a list of items at the location.
+        tempItemList.addAll(world.getPlayerLocation().getItemList());      //Create a list of items at the location.
 
         if (tempItemList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempItemList.size()) + HelpfulMethods.turnListIntoString(tempItemList, "and") + " here.");
+            System.out.println("There" + isOrAre(tempItemList.size()) + turnListIntoString(tempItemList, "and") + " here.");
         }
     }
+
+    public static void listOwnedItems(World world, GenericObject owner){
+        List<Item> itemList = owner.getItemList();
+
+        if(owner instanceof Location){
+            if (itemList.size() > 0) {
+                System.out.println("There is " + turnListIntoString(itemList, "and") + " here.");
+            }
+        }
+        else if(owner instanceof Creature){
+            if (itemList.size() > 0) {
+                System.out.println(capitalize(heOrShe(((Creature) owner).getGender()))  + " carries " + turnListIntoString(itemList, "and") + ".");
+            }
+        }
+        else if(owner instanceof StationaryObject || owner instanceof Item){
+            if (itemList.size() > 0) {
+                System.out.println("It contains " + turnListIntoString(itemList, "and") + ".");
+            }
+        }
+        else{
+            System.out.println("This is not my beautiful code! This is not my beautiful string! How did I get here?");
+        }
+
+    }
+
 
     public static void listStationaryObjects(World world) {
         List<StationaryObject> tempStationaryObjectList = new ArrayList<>();
         tempStationaryObjectList.addAll(world.getPlayerLocation().getObjectsAtLocation());     //Create a list of npcs at the location. Make sure to exclude Trixie.
 
         if (tempStationaryObjectList.size() > 0) {
-            System.out.println("There" + HelpfulMethods.isOrAre(tempStationaryObjectList.size()) + HelpfulMethods.turnListIntoString(tempStationaryObjectList, "and") + " here.");
+            System.out.println("There" + isOrAre(tempStationaryObjectList.size()) + turnListIntoString(tempStationaryObjectList, "and") + " here.");
         }
     }
 
@@ -359,7 +400,7 @@ public class Commands {
         if (tempCreatureList.size() == 0) { //If only Trixie is here.
             System.out.println("There's nopony else here.");
         } else {
-            System.out.println(HelpfulMethods.turnListIntoString(tempCreatureList, "and") + HelpfulMethods.isOrAre(tempCreatureList.size()) + "here.");
+            System.out.println(turnListIntoString(tempCreatureList, "and") + isOrAre(tempCreatureList.size()) + "here.");
         }
     }
 

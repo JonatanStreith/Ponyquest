@@ -80,7 +80,10 @@ public class GenericObject {
 
     public void setLocation(Location location) {
         this.location = location;
+        if (location != null)
         locationName = location.getLocationName();
+        else
+            locationName = "Carried, not at a location";
     }
 
     public List<String> getAlias() {
@@ -142,6 +145,9 @@ public class GenericObject {
         } else
             return false;
     }
+
+
+
 
 
 }
