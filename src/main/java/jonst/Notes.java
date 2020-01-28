@@ -72,4 +72,21 @@ public class Notes {
 
     //Oh yeah! Can probably put in limitations on what you can put into containers based on size, using Attributes! If it has "huge container" it can house "huge" items, or have a number, or something...
 
+
+//    Build in an internal clock! Every turn advances one minute. Use to track how creatures react to things at certain times. Also, have a "schedule" that makes creatures move to other locations at relevant times (i.e. at 3:00 Rarity and Spike go spelunking for jewels.)
+//
+//    Somehow make dialog dependent on location?
+//
+//    Have "failed to place" objects put in the Mail office lost & found room.
+//
+//    Set up "Behavior", which might shift depending on their routine. Looking at them, you get a line like "Spike is shelving books" or "Rarity is inspecting gemstones" or "Rainbow Dash is sleeping".
+//
+//    Give Creatures "status", i.e. "sleeping", etc.
+//
+//
+//    Have Exit as a GenericObject?
+//
+//    Add CreateExit(String) and RemoveExit(String) to Location class! Use to add exits.
+
+
 }
