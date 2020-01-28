@@ -79,14 +79,27 @@ public class Notes {
 //
 //    Have "failed to place" objects put in the Mail office lost & found room.
 //
-//    Set up "Behavior", which might shift depending on their routine. Looking at them, you get a line like "Spike is shelving books" or "Rarity is inspecting gemstones" or "Rainbow Dash is sleeping".
-//
-//    Give Creatures "status", i.e. "sleeping", etc.
 //
 //
 //    Have Exit as a GenericObject?
 //
-//    Add CreateExit(String) and RemoveExit(String) to Location class! Use to add exits.
+
+//
+//    "Think about" command.
+//
+//    Add a tutorial - basically a multi-page guide to how to use commands. Can be displayed with "tutorial" or something.
+//
+//    Magic interface! Basically a command that leads to a continued loop (until you break it) where you can do in-depth magic commands. Possibly set up a magicParser() method.
+//
+//    Add a "text" field to items. the json doesn't need entries for things that aren't "readable" (attribute), so they'll become null. If the item isn't "readable", trying to read it will just return a "There's nothing to read."
+//
+//    Train station! The train is a Stationary, use or "board" it will check if you have a ticket, then take you to that place. Better: boarding will list which tickets you have, and you have to choose destination! Then go there! Yeah, that's cool. (Train/ticket pony: "All Aboard").
+//
+//    "Discard" command. ASK IF PLAYER WANTS TO DO IT. Yeah, hardcore oldschool.
+//
+
+
+
 
 
 }

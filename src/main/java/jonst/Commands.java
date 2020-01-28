@@ -416,6 +416,10 @@ public class Commands {
 
     }
 
+    public static void cast(String[] command, World world){
+        System.out.println("You cast " + command[1] +  " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
+    }
+
 
     //--------------- Not for direct use -----------------------
     public static void listItems(World world) {

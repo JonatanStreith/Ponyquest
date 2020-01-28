@@ -60,8 +60,8 @@ public class SystemData {
             add("look");        //Works!
             add("go to");       //Works!
             add("go");          //Works!
-            add("enter");
-            add("exit");
+            add("enter");       //Works!
+            add("exit");        //Works!
             add("use");
             add("pick up");     //Works!
             add("take");        //Works!
@@ -72,6 +72,7 @@ public class SystemData {
             add("brandish");
             add("ask");
             add("cast");
+            add("buy");
             add("exits");       //Works!
             add("teleport to"); //Works!
             add("teleport");    //Works!
@@ -79,6 +80,7 @@ public class SystemData {
             add("commands");    //Works!
             add("nouns");       //Works!
             add("inventory");   //Works!
+            add("attack");
         }};
     }
 
@@ -93,6 +95,22 @@ public class SystemData {
             add("on");
             add("in");
             add("for");
+            add("from");
+            add("inside");
+        }};
+    }
+
+
+    public static ArrayList getLegitimateSpells() {
+        return new ArrayList<String>() {{
+            add("fireball");
+            add("teleport");
+            add("bodyswap");
+            add("telekinesis");
+            add("cloudwalk");
+            add("teacupify");
+            add("disintegrate");
+            add("fireworks");
         }};
     }
 
