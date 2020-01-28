@@ -51,10 +51,10 @@ public class SystemData {
 
     public static ArrayList getLegitimateCommands() {
         return new ArrayList<String>() {{
-            add("save");
-            add("load");
-            add("quicksave");
-            add("quickload");
+            add("save");        //Works!
+            add("load");        //Works!
+            add("quicksave");   //Works!
+            add("quickload");   //Works!
             add("look at");     //Works!
             add("look around"); //Works!
             add("look");        //Works!
@@ -72,12 +72,12 @@ public class SystemData {
             add("brandish");
             add("ask");
             add("cast");
-            add("exits");  //Works!
+            add("exits");       //Works!
             add("teleport to"); //Works!
             add("teleport");    //Works!
             add("help");        //Works!
-            add("commands");//Works!
-            add("nouns");  //Works!
+            add("commands");    //Works!
+            add("nouns");       //Works!
             add("inventory");   //Works!
         }};
     }

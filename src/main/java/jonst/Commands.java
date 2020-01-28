@@ -17,42 +17,23 @@ import static jonst.HelpfulMethods.*;
 public class Commands {
 
 
-    public static void enter(String location, World world) {
-        //Todo: have locations have an "enterLoc" and "exitLoc" to point to.
-        //So player can type "enter castle" and go inside to a specific "inside location". Same with "exit castle".
-    }
-
-    public static void exit(String location, World world) {
-        //Todo
-    }
-
     public static void saveQuick(World world) {
         boolean success = world.quickSave();
     }
-
-
-
 
     public static void saveGame(World world) {
         boolean success = world.saveToFile();
     }
 
-
     public static void loadQuick(World world) {
+        String savePath = SystemData.getQuickSave();
 
-
-                String savePath = SystemData.getQuickSave();
-
-                System.out.println("Loading game...");
+        System.out.println("Loading game...");
 
         System.out.println(savePath);
 
-                world.updateWorld(savePath);
-                lookAround(world);
-
-
-
-
+        world.updateWorld(savePath);
+        lookAround(world);
     }
 
     public static void loadGame(World world) {
@@ -63,7 +44,7 @@ public class Commands {
             case "y":
                 String savePath = App.getLoadData();
 
-                if(savePath!="") {
+                if (savePath != "") {
                     System.out.println("Loading game...");
 
                     System.out.println(savePath);
@@ -161,7 +142,8 @@ public class Commands {
 
                 } else if (((Item) subject).getOwner() instanceof Creature) {
                     System.out.println("You can't just take that from " + ((Item) subject).getOwner().getName() + ". Try asking nicely.");
-                } if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
+                }
+                if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
                     System.out.println("Currently, items in containers need to be TAKEn specifically from the container.");
                 } else {
                     System.out.println("That doesn't work.");
@@ -226,10 +208,9 @@ public class Commands {
 
     public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        if(argument == ""){     //If you just type "look", "look at" or "look around"
+        if (argument == "") {     //If you just type "look", "look at" or "look around"
             lookAround(world);
-        }
-        else {
+        } else {
             String fullName = world.matchLocalName(argument);
 
             if (!fullName.equals("")) {
@@ -278,6 +259,40 @@ public class Commands {
         } else {
             System.out.println("You can't get there from here.");
         }
+    }
+
+    public static void enter(String location, World world) {
+
+        if (location.equals("")) {
+            goTo(world.getPlayerLocation().getDefaultEnter(), world);
+            return;
+        }
+
+        List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
+        for (String area : possibleAreas) {
+            if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
+                goTo(world.getPlayerLocation().getDefaultEnter(), world);
+                return;
+            }
+        }
+        System.out.println("You can only enter your current location.");
+
+    }
+
+    public static void exit(String location, World world) {
+        if (location.equals("")) {
+            goTo(world.getPlayerLocation().getDefaultExit(), world);
+            return;
+        }
+
+        List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
+        for (String area : possibleAreas) {
+            if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
+                goTo(world.getPlayerLocation().getDefaultExit(), world);
+                return;
+            }
+        }
+        System.out.println("You can only exit your current location.");
     }
 
 

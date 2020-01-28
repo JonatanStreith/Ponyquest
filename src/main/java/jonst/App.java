@@ -1,16 +1,9 @@
 package jonst;
 
 import jonst.Data.SystemData;
-import jonst.Models.SaveFile;
 
-import java.io.Console;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
+
 import java.util.Map;
-import java.util.Scanner;
 
 public class App {
 

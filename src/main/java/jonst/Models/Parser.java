@@ -102,7 +102,7 @@ public class Parser {
 
         String[] commandArray = parse(command);
 
-        switch (commandArray[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
+        switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
 
             case "quicksave":
@@ -123,6 +123,14 @@ public class Parser {
 
             case "use":
                 //stuff
+                break;
+
+            case "enter":
+                Commands.enter(commandArray[1], world);
+                break;
+
+            case "exit":
+                Commands.exit(commandArray[1], world);
                 break;
 
             case "save":

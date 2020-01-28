@@ -80,7 +80,6 @@ public class JsonBuilder {
 
     }
 
-
     public static Map<Long, String> getSavesMenu() {
 
         FileReader reader;
@@ -117,7 +116,6 @@ public class JsonBuilder {
         return saves;
 
     }
-
 
     //---------- save methods
     public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
@@ -197,6 +195,10 @@ public class JsonBuilder {
                         add(attribute);
                     }
                 }});
+
+                put("DefaultEnter", loc.getDefaultEnter());
+                put("DefaultExit", loc.getDefaultExit());
+
 
                 put("Exits", new JSONObject() {{
 
@@ -383,6 +385,11 @@ public class JsonBuilder {
                 String fullName = (String) jObj.get("FullName");
                 String id = (String) jObj.get("Id");
                 String description = (String) jObj.get("Description");
+
+                String defaultEnter = (String) jObj.get("DefaultEnter");
+                String defaultExit = (String) jObj.get("DefaultExit");
+
+
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
@@ -405,7 +412,7 @@ public class JsonBuilder {
                     exits.add((String) xObj);
                 }
 
-                Location location = new Location(fullName, id, description, fullName, alias, attributes, exits);
+                Location location = new Location(fullName, id, description, fullName, alias, attributes, exits, defaultEnter, defaultExit);
                 //location.setLocation(fullName);
 
                 locationList.add(location);

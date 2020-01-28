@@ -8,24 +8,20 @@ public class Location extends GenericObject {
 
     private List<String> legitimateExits;
 
-
-    //IMPORTANT! Locations should store a list/array/Enumerator of legitimate exits: direction, and which location it leads to. FIGURE OUT!
-
-    //FACT: All location needs unique names (their "true full name"), but different locations can have the same shortname(s).
-    //For instance, "The Everfree Forest" may be "forest", and "Cottontail woods" may be "forest".
-    //As long as we resolve with returnLocalFullName, this should not be an issue.
-
-
-    //Todo: figure out way to use hashmaps instead of arraylists to store this; easier to search through.
+    private String defaultEnter;
+    private String defaultExit;
 
     private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
- //   private List<Item> itemsAtLocation = new ArrayList<Item>();
 
-    public Location(String name, String id, String description, String locationName, List<String> alias, List<String> attributes, ArrayList<String> legitimateExits) {
+
+    public Location(String name, String id, String description, String locationName, List<String> alias, List<String> attributes, ArrayList<String> legitimateExits, String defaultEnter, String defaultExit) {
         super(name, id, description, locationName, alias, attributes);
 
         this.legitimateExits = legitimateExits;
+
+        setDefaultEnter(defaultEnter);
+        setDefaultExit(defaultExit);
 
         setLocation(this);
     }
@@ -68,30 +64,31 @@ public class Location extends GenericObject {
         }
     }
 
-//    public void addItem(Item name) {
-//        if (!itemIsAtLocation(name)) {
-//            itemsAtLocation.add(name);
-//        }
-//    }
-//
-//    public void removeItem(Item name) {
-//        if (itemIsAtLocation(name)) {
-//            itemsAtLocation.remove(name);
-//        }
-//    }
-
     public List<String> getExits() {
         return legitimateExits;
     }
 
-//    public Item getItemByName(String name) {
-//
-//        for (Item item : getItemList()) {
-//            if (item.getName().equalsIgnoreCase(name))
-//                return item;
-//        }
-//        return null;
-//    }
+    public String getDefaultEnter() {
+        return defaultEnter;
+    }
+
+    public void setDefaultEnter(String defaultEnter) {
+        if(legitimateExits.contains(defaultEnter)){        //Only set a defaultEnter if it's on the list!
+        this.defaultEnter = defaultEnter;                  //Otherwise it'll be null. This method should only be called during worldbuilding.
+        }
+
+
+    }
+
+    public String getDefaultExit() {
+        return defaultExit;
+    }
+
+    public void setDefaultExit(String defaultExit) {
+        if(legitimateExits.contains(defaultExit)){        //Only set a defaultExit if it's on the list!
+            this.defaultExit = defaultExit;               //Otherwise it'll be null. This method should only be called during worldbuilding.
+        }
+    }
 
     public Creature getCreatureByName(String name) {
 

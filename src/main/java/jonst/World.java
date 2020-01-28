@@ -470,7 +470,8 @@ public class World {
     // ------------- Boolean checks ---------------------
 
     public boolean doesObjectExist(String selected) {
-        return genericList.contains(getGenericObject(selected));
+
+        return getGenericObject(selected)!= null;
     }
 
     // ------------------ The load function! --------------------------
@@ -557,8 +558,6 @@ public class World {
 
         }
     }
-
-
 
     public boolean quickSave() {
 
