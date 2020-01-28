@@ -5,7 +5,7 @@ import jonst.App;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericObject {
+public abstract class GenericObject {
     private String name;
     private String id;
     private String description;
@@ -89,6 +89,12 @@ public class GenericObject {
 
     public Location getLocation() {
         return location;
+    }
+
+    //----------------------------------------
+
+    public boolean hasAttribute(String attr){
+        return attributes.contains(attr);
     }
 
     public boolean isAtLocation(Location location) {

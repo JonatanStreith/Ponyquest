@@ -18,8 +18,6 @@ public class World {
     private List<Item> itemList;
     private List<GenericObject> genericList;
 
-    private List<Item> playerInventory;
-
     private Creature playerCharacter = null;
 
     private Parser parser;
@@ -34,7 +32,6 @@ public class World {
     }
 
     public void buildWorld(String loadFilePath){
-        //playerInventory = new ArrayList<>();        //Todo: Find way to generate inventory
 
         loadListsFromFile(loadFilePath);        //Build lists
 
@@ -42,11 +39,13 @@ public class World {
 
         parser = new Parser(genericList);       //The parser holds lists of words, and parses input
 
-        setMainCharacter(getCreature("Trixie"));             //Establish protagonist
+        setMainCharacter(getCreature(SystemData.getProtagonist()));             //Establish protagonist
 
+/*
         System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemList().size());
         System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
         System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
+*/
 
 
     }
@@ -513,21 +512,59 @@ public class World {
 
         Boolean[] successes = new Boolean[4];
 
-        String choice = SystemData.getReply("Name your save: ");
+        String choice = SystemData.getReply("Name your save. Type 'Q' to abort. ");
 
-        Long savekey = JsonBuilder.addToSavesMenu(choice);  //if savekey is -1, this failed.
-
-        if (savekey == -1) {
-            System.out.println("No free save slots left.");
+        if(choice.equalsIgnoreCase("q")){
+            System.out.println("Game not saved.");
             return false;
         }
 
-        if(savekey == -100){
-            System.out.println("There was a problem accessing the saverecord.");
-            return false;
-        }
+        else {
 
-        String saveFilePath = SystemData.getSavepath() + savekey + choice;
+            Long savekey = JsonBuilder.addToSavesMenu(choice);  //if savekey is -1, this failed.
+
+            if (savekey == -1) {
+                System.out.println("No free save slots left.");
+                return false;
+            }
+
+            if (savekey == -100) {
+                System.out.println("There was a problem accessing the saverecord.");
+                return false;
+            }
+
+            String saveFilePath = SystemData.getSavepath() + savekey + choice;
+            File saveFile = new File(saveFilePath + "/");
+
+            if (!saveFile.exists())
+                saveFile.mkdir();
+
+
+            successes[0] = JsonBuilder.saveLocationList(saveFilePath, locationList);
+            successes[1] = JsonBuilder.saveCreatureList(saveFilePath, creatureList);
+            successes[2] = JsonBuilder.saveItemList(saveFilePath, itemList);
+            successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
+
+            for (boolean boo : successes) {
+                if (!boo)
+                    System.out.println("Game failed to save correctly.");
+                    return false;
+            }
+
+
+            System.out.println("Game saved successfully.");
+            return true;        //If it successfully saves all files, return true
+
+        }
+    }
+
+
+
+    public boolean quickSave() {
+
+        Boolean[] successes = new Boolean[4];
+
+        String saveFilePath = SystemData.getQuickSave();
         File saveFile = new File(saveFilePath + "/");
 
         if (!saveFile.exists())
@@ -541,9 +578,11 @@ public class World {
 
         for (boolean boo : successes) {
             if (!boo)
+                System.out.println("Game failed to quicksave correctly.");
                 return false;
         }
 
+        System.out.println("Game quicksaved successfully.");
         return true;        //If it successfully saves all files, return true
     }
 

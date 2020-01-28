@@ -11,12 +11,9 @@ public class Creature extends GenericObject {
     private List<String> casualDialog;
     private String gender;
 
-
-    private String disposition;     //TODO: Implement this!
-
-
     private Map<String, String> askTopics;
 
+    private BehaviorCore behavior;
 
 
     public Creature(String name, String id, String description, String locationName, List<String> alias, List<String> attributes, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
@@ -27,6 +24,7 @@ public class Creature extends GenericObject {
         setCasualDialog(casualDialog);
         setAskTopics(askTopics);
 
+        behavior = new BehaviorCore();
     }
 
     public void setRace(String race) {
@@ -46,9 +44,9 @@ public class Creature extends GenericObject {
     }
 
 
-
-    public String getRace()
-    { return race; }
+    public String getRace() {
+        return race;
+    }
 
     public String getGender() {
         return gender;
@@ -63,23 +61,53 @@ public class Creature extends GenericObject {
     }
 
 
-
-
-
-    public String getRandomCasualDialog(){
+    public String getRandomCasualDialog() {
         return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));
     }
 
-    public String askAbout(String topic){
-        if(askTopics.containsKey(topic))
-        return askTopics.get(topic);
-        else if(topic.equalsIgnoreCase(getName())){
+    public String askAbout(String topic) {
+        if (askTopics.containsKey(topic))
+            return askTopics.get(topic);
+        else if (topic.equalsIgnoreCase(getName())) {
             return askTopics.get("self");
-        }
-
-
-        else
+        } else
             return askTopics.get("default");
+    }
+
+    public String getMood() {
+        return behavior.getMood();
+    }
+
+    public String getActivity() {
+        return behavior.getActivity();
+    }
+
+    public String getAllegiance() {
+        return behavior.getAllegiance();
+    }
+
+    public String getStatus() {
+        return behavior.getStatus();
+    }
+
+    public boolean setMood(String newMood) {
+        behavior.setMood(newMood);
+        return true;
+    }
+
+    public boolean setActivity(String newActivity) {
+        behavior.setActivity(newActivity);
+        return true;
+    }
+
+    public boolean setAllegiance(String newAllegiance) {
+        behavior.setAllegiance(newAllegiance);
+        return true;
+    }
+
+    public boolean setStatus(String newStatus) {
+        behavior.setStatus(newStatus);
+        return true;
     }
 
 

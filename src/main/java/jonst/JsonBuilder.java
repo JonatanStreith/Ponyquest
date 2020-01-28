@@ -104,16 +104,13 @@ public class JsonBuilder {
 
         } catch (FileNotFoundException e) {
             System.out.println("Saverecord file not found.");
-            e.printStackTrace();
-            return null;            //Return null to confirm that something went wrong!
+            return saves;
         } catch (IOException e) {
             System.out.println("There was an error reading the saverecord.");
-            e.printStackTrace();
-            return null;            //Return null to confirm that something went wrong!
+            return saves;            //Return null to confirm that something went wrong!
         } catch (ParseException e) {
             System.out.println("Saverecord file corrupt, or there was an error during the reading.");
-            e.printStackTrace();
-            return null;            //Return null to confirm that something went wrong!
+            return saves;            //Return null to confirm that something went wrong!
         }
 
 
@@ -125,9 +122,9 @@ public class JsonBuilder {
     //---------- save methods
     public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
 
-        Map<String, String> askTopics = new HashMap() {{
-            put("Key1", "Response");
-        }};
+//        Map<String, String> askTopics = new HashMap() {{
+//            put("Key1", "Response");
+//        }};
 
         boolean success = true;
         JSONArray creatureArray = new JSONArray();
@@ -136,22 +133,10 @@ public class JsonBuilder {
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
             creatureArray.add(new JSONObject() {{
                 put("FullName", crea.getName());
-                put("ShortName", crea.getId());
-                put("Race", crea.getRace());
+                put("Id", crea.getId());
                 put("Description", crea.getDescription());
                 put("Location", crea.getLocationName());
 
-                put("CasualDialog", new JSONArray() {{
-
-                            for (String dialog : crea.getCasualDialog()) {
-                                add(dialog);
-                            }
-                        }});
-                put("AskTopics", new JSONObject() {{
-                            for (String key : crea.getAskTopics().keySet()) {
-                                put(key, crea.getAskTopics().get(key));
-                            }
-                        }});
                 put("Alias", new JSONArray() {{
                     for (String alias : crea.getAlias()) {
                         add(alias);
@@ -163,8 +148,18 @@ public class JsonBuilder {
                     }
                 }});
 
-
-
+                put("Race", crea.getRace());
+                put("Gender", crea.getGender());
+                put("CasualDialog", new JSONArray() {{
+                            for (String dialog : crea.getCasualDialog()) {
+                                add(dialog);
+                            }
+                        }});
+                put("AskTopics", new JSONObject() {{
+                            for (String key : crea.getAskTopics().keySet()) {
+                                put(key, crea.getAskTopics().get(key));
+                            }
+                        }});
             }});
         }
 
@@ -191,13 +186,7 @@ public class JsonBuilder {
                 put("Id", loc.getId());
                 put("Description", loc.getDescription());
                 put("Location", loc.getLocationName());
-                put("Exits", new JSONObject() {{
 
-                            for (int i = 0; i < loc.getExits().size(); i++) {   //Puts all exits into an array
-                                put(i, loc.getExits().get(i));
-                            }
-                        }}
-                );
                 put("Alias", new JSONArray() {{
                     for (String alias : loc.getAlias()) {
                         add(alias);
@@ -208,6 +197,15 @@ public class JsonBuilder {
                         add(attribute);
                     }
                 }});
+
+                put("Exits", new JSONObject() {{
+
+                            for (int i = 0; i < loc.getExits().size(); i++) {   //Puts all exits into an array
+                                put(i, loc.getExits().get(i));
+                            }
+                        }}
+                );
+
             }});
         }
 

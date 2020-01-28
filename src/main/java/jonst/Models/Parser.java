@@ -102,21 +102,15 @@ public class Parser {
 
         String[] commandArray = parse(command);
 
-        for (String str: commandArray) {
-            System.out.println(str);
-        }
-
-
-
         switch (commandArray[0])     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
 
             case "quicksave":
-                //stuff
+                Commands.saveQuick(world);
                 break;
 
             case "quickload":
-                //stuff
+                Commands.loadQuick(world);
                 break;
 
             case "brandish":
@@ -173,17 +167,12 @@ public class Parser {
                 break;
 
             case "go to":
-                Commands.goTo(commandArray[1], world);
-                break;
             case "go":
                 Commands.goTo(commandArray[1], world);
                 break;
 
 
             case "talk to":
-                Commands.talkTo(commandArray[1], world);
-                break;
-
             case "talk":
 
                 Commands.talkTo(commandArray[1], world);
@@ -191,13 +180,7 @@ public class Parser {
 
 
             case "look":
-                Commands.lookAround(world);
-                break;
-
             case "look around":
-                Commands.lookAround(world);
-                break;
-
             case "look at":
                 Commands.lookAt(commandArray[1], world);
                 break;

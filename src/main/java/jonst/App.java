@@ -29,14 +29,13 @@ public class App {
         System.out.println("Thanks for playing!");
     }
 
-
     public static String getLoadingPath() {
 
         String reply;
 
         while (true) {
 
-            reply = SystemData.getReply("Do you want to start a (N)ew game, or (L)oad a previous save?");
+            reply = SystemData.getReply("Do you want to start a (N)ew game, or (L)oad a previous save? ");
             if (reply.equalsIgnoreCase("n")) {
                 System.out.println(SystemData.getIntroBlurb());
 
@@ -44,7 +43,11 @@ public class App {
 
             } else if (reply.equalsIgnoreCase("l")) {
 
-                return getLoadData();
+                String loadData = getLoadData();
+
+                if (loadData != "") {
+                    return loadData;
+                }
 
             } else {
                 System.out.println("Sorry, what?");
@@ -52,30 +55,42 @@ public class App {
         }
     }
 
-
-    public static String getLoadData(){
+    public static String getLoadData() {
 
         System.out.println("Available saves:");
 
         Map<Long, String> saves = JsonBuilder.getSavesMenu();
 
-        for (Long saveId : saves.keySet()) {
-            System.out.println(saveId + ": " + saves.get(saveId));
-        }
+        if (saves.size() > 0) {
 
-        while (true) {
-            String reply = SystemData.getReply("Please input number of save file: ");
-            try {
-                long saveReply = Long.parseLong(reply);
-
-                if (saves.keySet().contains(saveReply)) {
-                    return SystemData.getSavepath() + saveReply + saves.get(saveReply);
-                } else {
-                    System.out.println("That save does not exist.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect input.");
+            for (Long saveId : saves.keySet()) {
+                System.out.println(saveId + ": " + saves.get(saveId));
             }
+
+            while (true) {
+                String reply = SystemData.getReply("Please input number of save file: ('c' to cancel) ");
+
+                if (reply.equalsIgnoreCase("c")) {
+                    System.out.println("Loading cancelled.");
+                    return "";
+                } else {
+                    try {
+                        long saveReply = Long.parseLong(reply);
+
+                        if (saves.keySet().contains(saveReply)) {
+                            return SystemData.getSavepath() + saveReply + saves.get(saveReply);
+                        } else {
+                            System.out.println("That save does not exist.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect input.");
+                    }
+                }
+            }
+        } else {
+            System.out.println("You have no saved games.");
+
+            return "";
         }
     }
 

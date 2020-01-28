@@ -26,19 +26,34 @@ public class Commands {
         //Todo
     }
 
-
-    public static void saveGame(World world) {
-
-
-        boolean success = world.saveToFile();
-
-        if (success)
-            System.out.println("Game saved successfully.");
-        else
-            System.out.println("Game failed to save correctly.");
-
+    public static void saveQuick(World world) {
+        boolean success = world.quickSave();
     }
 
+
+
+
+    public static void saveGame(World world) {
+        boolean success = world.saveToFile();
+    }
+
+
+    public static void loadQuick(World world) {
+
+
+                String savePath = SystemData.getQuickSave();
+
+                System.out.println("Loading game...");
+
+        System.out.println(savePath);
+
+                world.updateWorld(savePath);
+                lookAround(world);
+
+
+
+
+    }
 
     public static void loadGame(World world) {
 
@@ -48,11 +63,14 @@ public class Commands {
             case "y":
                 String savePath = App.getLoadData();
 
-                System.out.println("Loading game...");
+                if(savePath!="") {
+                    System.out.println("Loading game...");
 
-                world.updateWorld(savePath);
-                lookAround(world);
+                    System.out.println(savePath);
 
+                    world.updateWorld(savePath);
+                    lookAround(world);
+                }
                 break;
 
             default:
@@ -197,7 +215,7 @@ public class Commands {
         System.out.println();
         listCreatures(world);   //Lists all creatures on location.
         System.out.println();
-        listStationaryObjects(world);
+        listStationaryObjects(world);   //Lists all objects on location.
         System.out.println();
         listOwnedItems(world, loc);       //Lists all items on location.
 
@@ -208,21 +226,24 @@ public class Commands {
 
     public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        String fullName = world.matchLocalName(argument);
+        if(argument == ""){     //If you just type "look", "look at" or "look around"
+            lookAround(world);
+        }
+        else {
+            String fullName = world.matchLocalName(argument);
 
-        if (!fullName.equals("")) {
+            if (!fullName.equals("")) {
 
-            GenericObject gen = world.getGenericObject(fullName);
+                GenericObject gen = world.getGenericObject(fullName);
 
-            if (gen == world.getPlayerLocation()) {
-                lookAround(world);
-            } else {
-                System.out.println(gen.getDescription());
-                System.out.println();
-                listOwnedItems(world, gen);
+                if (gen == world.getPlayerLocation()) {
+                    lookAround(world);
+                } else {
+                    System.out.println(gen.getDescription());
+                    System.out.println();
+                    listOwnedItems(world, gen);
+                }
             }
-
-
         }
     }
 

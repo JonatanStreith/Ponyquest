@@ -13,6 +13,8 @@ public class SystemData {
     private static String testpath = "src/main/java/jonst/Assets/Test/";
     private static String savepath = "src/main/java/jonst/Assets/Saves/";
     private static String defaultWorld = "src/main/java/jonst/Assets/DefaultWorld";
+    private static String quickSave = "src/main/java/jonst/Assets/Saves/QuickSave";
+    private static String protagonist = "Trixie";
 
     private static String introBlurb = "Once upon a time, in the magical land of Equestria...\n" +
             "A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.\n" +
@@ -35,14 +37,24 @@ public class SystemData {
         return defaultWorld;
     }
 
+    public static String getQuickSave() {
+        return quickSave;
+    }
+
     public static String getIntroBlurb() {
         return introBlurb;
+    }
+
+    public static String getProtagonist() {
+        return protagonist;
     }
 
     public static ArrayList getLegitimateCommands() {
         return new ArrayList<String>() {{
             add("save");
             add("load");
+            add("quicksave");
+            add("quickload");
             add("look at");     //Works!
             add("look around"); //Works!
             add("look");        //Works!
@@ -60,12 +72,12 @@ public class SystemData {
             add("brandish");
             add("ask");
             add("cast");
-            add("list exits");  //Works!
+            add("exits");  //Works!
             add("teleport to"); //Works!
             add("teleport");    //Works!
             add("help");        //Works!
-            add("list commands");//Works!
-            add("list nouns");  //Works!
+            add("commands");//Works!
+            add("nouns");  //Works!
             add("inventory");   //Works!
         }};
     }
