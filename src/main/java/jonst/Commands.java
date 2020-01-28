@@ -263,6 +263,11 @@ public class Commands {
 
     public static void enter(String location, World world) {
 
+        if(world.getPlayerLocation().getDefaultEnter().equals("")){
+            System.out.println("Enter where? You don't see any particular place that stands out.");
+            return;
+        }
+
         if (location.equals("")) {
             goTo(world.getPlayerLocation().getDefaultEnter(), world);
             return;
@@ -280,6 +285,12 @@ public class Commands {
     }
 
     public static void exit(String location, World world) {
+
+        if(world.getPlayerLocation().getDefaultEnter().equals("")){
+            System.out.println("You're not in a place with a clear exit.");
+            return;
+        }
+
         if (location.equals("")) {
             goTo(world.getPlayerLocation().getDefaultExit(), world);
             return;
