@@ -6,6 +6,7 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "Talking to yourself is usually pointless.",
       "Much as you're a wonderful conversationalist, there's not much point.",
@@ -32,6 +33,7 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle library",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "She looks at you with a frown. \"Oh... hello, Trixie.\"",
       "\"Do you want something?\"",
@@ -64,6 +66,7 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Carousel Boutique interior",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hello, Trixie.\"",
       "\"Yes, dear?\"",
@@ -92,6 +95,7 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sugarcube Corner interior",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hi Trixie!\"",
       "\"Yeah? You want something? You want me to throw you a party?\"",
@@ -122,6 +126,7 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hey there, Trixie.\"",
       "\"You want somethin'?\"",
@@ -149,6 +154,7 @@
     "Race": "pegasus",
     "Gender": "female",
     "Location": "Sugarcube Corner",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Oh, hey.\"",
       "\"When did you get here?\"",
@@ -177,6 +183,7 @@
     "Race": "pegasus",
     "Gender": "female",
     "Location": "Carousel Boutique interior",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Umm...\"",
       "Fluttershy looks away bashfully.",
@@ -204,6 +211,7 @@
     "Race": "dragon",
     "Gender": "male",
     "Location": "Castle library",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"What do you want?\"",
       "\"Please tell me you're not going to break stuff again.\"",
@@ -230,6 +238,7 @@
     "Race": "unicorn",
     "Gender": "female",
     "Location": "Cutie Map room",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Oh, hi, Trixie!\"",
       "\"I didn't know you were back in town.\"",
@@ -260,6 +269,7 @@
     "Race": "earth pony",
     "Gender": "female",
     "Location": "Sweet Apple Acres",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Trixie. Hello.\"",
       "\"Do you want something?\"",
@@ -286,6 +296,7 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle kitchen",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hello, my little pony.\"",
       "\"Trixie, hmm? I've heard about you. Don't worry, they're good things. Well, mostly good things.\"",
@@ -314,6 +325,7 @@
     "Race": "alicorn",
     "Gender": "female",
     "Location": "Castle main hall",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"GREET... *ahem* greetings, faithful subject.\"",
       "\"We recognize you... you're that pony who sends all the fan letters, correct?\"",
@@ -343,6 +355,7 @@
     "Race": "draconequus",
     "Gender": "male",
     "Location": "Party cave",
+    "DefaultUse": "look at",
     "CasualDialog": [
       "\"Well, if it isn't Trixie!\"",
       "\"Hmm. Care to assist me in a prank later? I could use a patsy... I mean, partner.\"",

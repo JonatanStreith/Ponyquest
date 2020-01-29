@@ -61,12 +61,7 @@ public class World {
         while (true)                //Continuously running play loop that parses instructions
 
         {
-            try {
                 parser.runCommand(SystemData.getReply("Please input command: "), this);
-            } catch (IOException e) {
-                System.out.println("For some reason, the input failed.");
-                e.printStackTrace();    //Todo: Remove this in final release
-            }
         }
     }
 
@@ -409,7 +404,6 @@ public class World {
 
         for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
 
-
             if (generic.getName().equalsIgnoreCase(name)) {
                 results.add(generic.getName());     //If the name we're looking for is its full name
             } else {
@@ -454,6 +448,8 @@ public class World {
                 }
             }
         }
+
+        results = HelpfulMethods.removeDuplicates(results);
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");

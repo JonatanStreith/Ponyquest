@@ -18,9 +18,6 @@ import java.util.Map;
 
 public class JsonBuilder {
 
-
-    //TODO: Set .close() on all filereaders!
-
     public static long addToSavesMenu(String saveName) {
         //Method takes a proposed save name, checks for a free place in the saves menu;
         //If possible, builds an entry and saves it, then returns the used number.
@@ -76,22 +73,20 @@ public class JsonBuilder {
             e.printStackTrace();
             return false;
         }
+
         return true;
 
     }
 
     public static Map<Long, String> getSavesMenu() {
 
-        FileReader reader;
-        JSONParser jsonParser = new JSONParser();
 
         Map<Long, String> saves = new HashMap();
 
 
-        try {       //If this part fails, it just won't access the save record.
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/sys/saverecord.json")) {       //If this part fails, it just won't access the save record.
 
-            reader = new FileReader(SystemData.getGamepath() + "/sys/saverecord.json");
-            JSONArray savesJSON = (JSONArray) jsonParser.parse(reader);
+            JSONArray savesJSON = (JSONArray) new JSONParser().parse(reader);
 
             for (Object obj : savesJSON) {
                 JSONObject jObj = (JSONObject) obj;
@@ -111,7 +106,6 @@ public class JsonBuilder {
             System.out.println("Saverecord file corrupt, or there was an error during the reading.");
             return saves;            //Return null to confirm that something went wrong!
         }
-
 
         return saves;
 
@@ -134,6 +128,8 @@ public class JsonBuilder {
                 put("Id", crea.getId());
                 put("Description", crea.getDescription());
                 put("Location", crea.getLocationName());
+                put("Text", crea.getText());
+                put("DefaultUse", crea.getDefaultUse());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : crea.getAlias()) {
@@ -184,6 +180,8 @@ public class JsonBuilder {
                 put("Id", loc.getId());
                 put("Description", loc.getDescription());
                 put("Location", loc.getLocationName());
+                put("Text", loc.getText());
+                put("DefaultUse", loc.getDefaultUse());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : loc.getAlias()) {
@@ -234,6 +232,9 @@ public class JsonBuilder {
                 put("Id", ite.getId());
                 put("Description", ite.getDescription());
                 put("Location", ite.getLocationName());
+                put("Text", ite.getText());
+                put("DefaultUse", ite.getDefaultUse());
+
 
                 put("Alias", new JSONArray() {{
                     for (String alias : ite.getAlias()) {
@@ -271,6 +272,8 @@ public class JsonBuilder {
                 put("Id", sta.getId());
                 put("Description", sta.getDescription());
                 put("Location", sta.getLocationName());
+                put("Text", sta.getText());
+                put("DefaultUse", sta.getDefaultUse());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : sta.getAlias()) {
@@ -300,16 +303,13 @@ public class JsonBuilder {
     //---------- load methods
     public static List<Creature> loadCreatureList(String filepath) {
 
-        FileReader reader;
-        JSONParser jsonParser = new JSONParser();
 
         List<Creature> creatureList = new ArrayList<>();
 
 
-        try {
+        try (FileReader reader = new FileReader(filepath + "/creatures.json")) {
 
-            reader = new FileReader(filepath + "/creatures.json");
-            JSONArray creatureJSON = (JSONArray) jsonParser.parse(reader);
+            JSONArray creatureJSON = (JSONArray) new JSONParser().parse(reader);
 
             for (Object obj : creatureJSON) {
                 JSONObject jObj = (JSONObject) obj;
@@ -319,6 +319,9 @@ public class JsonBuilder {
                 String race = (String) jObj.get("Race");
                 String gender = (String) jObj.get("Gender");
                 String location = (String) jObj.get("Location");
+                String text = (String) jObj.get("Text");
+                String defaultUse = (String) jObj.get("DefaultUse");
+
                 List<String> casualDialog = new ArrayList<>();
                 Map<String, String> askTopics = new HashMap<>();
                 List<String> alias = new ArrayList<>();
@@ -349,6 +352,8 @@ public class JsonBuilder {
 
 
                 Creature creature = new Creature(fullName, id, description, location.toLowerCase(), alias, attributes, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
+                creature.setText(text);
+                creature.setDefaultUse(defaultUse);
 
                 creatureList.add(creature);
             }
@@ -370,15 +375,12 @@ public class JsonBuilder {
 
     public static List<Location> loadLocationList(String filepath) {
 
-        FileReader reader;
-        JSONParser jsonParser = new JSONParser();
 
         List<Location> locationList = new ArrayList<>();
 
-        try {
+        try (FileReader reader = new FileReader(filepath + "/locations.json")){
 
-            reader = new FileReader(filepath + "/locations.json");
-            JSONArray locationJSON = (JSONArray) jsonParser.parse(reader);
+            JSONArray locationJSON = (JSONArray) new JSONParser().parse(reader);
 
             for (Object obj : locationJSON) {
                 JSONObject jObj = (JSONObject) obj;
@@ -388,6 +390,8 @@ public class JsonBuilder {
 
                 String defaultEnter = (String) jObj.get("DefaultEnter");
                 String defaultExit = (String) jObj.get("DefaultExit");
+                String text = (String) jObj.get("Text");
+                String defaultUse = (String) jObj.get("DefaultUse");
 
 
                 ArrayList<String> exits = new ArrayList<>();
@@ -413,7 +417,9 @@ public class JsonBuilder {
                 }
 
                 Location location = new Location(fullName, id, description, fullName, alias, attributes, exits, defaultEnter, defaultExit);
-                //location.setLocation(fullName);
+                location.setText(text);
+                location.setDefaultUse(defaultUse);
+
 
                 locationList.add(location);
             }
@@ -436,15 +442,11 @@ public class JsonBuilder {
 
     public static List<StationaryObject> loadStationaryObjectList(String filepath) {
 
-        FileReader reader;
-        JSONParser jsonParser = new JSONParser();
-
         List<StationaryObject> stationaryObjectList = new ArrayList<>();
 
-        try {
+        try (FileReader reader = new FileReader(filepath + "/objects.json")) {
 
-            reader = new FileReader(filepath + "/objects.json");
-            JSONArray stationaryObjectJSON = (JSONArray) jsonParser.parse(reader);
+            JSONArray stationaryObjectJSON = (JSONArray) new JSONParser().parse(reader);
 
             for (Object obj : stationaryObjectJSON) {
                 JSONObject jObj = (JSONObject) obj;
@@ -454,6 +456,8 @@ public class JsonBuilder {
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
+                String text = (String) jObj.get("Text");
+                String defaultUse = (String) jObj.get("DefaultUse");
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
@@ -468,7 +472,9 @@ public class JsonBuilder {
                 }
 
                 StationaryObject object = new StationaryObject(fullName, id, description, location, alias, attributes);
-                //object.setLocation(location);
+                object.setText(text);
+                object.setDefaultUse(defaultUse);
+
 
                 stationaryObjectList.add(object);
             }
@@ -490,15 +496,11 @@ public class JsonBuilder {
 
     public static List<Item> loadItemList(String filepath) {
 
-        FileReader reader;
-        JSONParser jsonParser = new JSONParser();
-
         List<Item> itemList = new ArrayList<>();
 
-        try {
+        try (FileReader reader = new FileReader(filepath + "/items.json")) {
 
-            reader = new FileReader(filepath + "/items.json");
-            JSONArray itemJSON = (JSONArray) jsonParser.parse(reader);
+            JSONArray itemJSON = (JSONArray) new JSONParser().parse(reader);
 
             for (Object obj : itemJSON) {
                 JSONObject jObj = (JSONObject) obj;
@@ -508,6 +510,8 @@ public class JsonBuilder {
                 String location = (String) jObj.get("Location");
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
+                String text = (String) jObj.get("Text");
+                String defaultUse = (String) jObj.get("DefaultUse");
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 for (Object xObj : jsAlias) {
@@ -522,7 +526,8 @@ public class JsonBuilder {
                 }
 
                 Item item = new Item(fullName, id, description, location, alias, attributes);
-
+                item.setText(text);
+                item.setDefaultUse(defaultUse);
 
                 itemList.add(item);
             }

@@ -14,6 +14,8 @@ public abstract class GenericObject {
     private List<String> alias;
     private List<Item> itemList;
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
+    private String text;
+    private String defaultUse;
 
 
     public GenericObject(String name, String id, String description, String locationName, List<String> alias, List<String> attributes) {
@@ -91,9 +93,24 @@ public abstract class GenericObject {
         return location;
     }
 
+    public String getDefaultUse() {
+        return defaultUse;
+    }
+
+    public void setDefaultUse(String defaultUse) {
+        this.defaultUse = defaultUse;
+    }
+
     //----------------------------------------
 
-    public boolean hasAttribute(String attr){
+    public boolean equals(GenericObject other) {
+        if (other.getName().equals(this.getName()) && other.getAlias().equals(this.getAlias()))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean hasAttribute(String attr) {
         return attributes.contains(attr);
     }
 
@@ -142,5 +159,14 @@ public abstract class GenericObject {
         }
         App.getWorld().getParser().removeFromNouns(specificAlias);
         return true;
+    }
+
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

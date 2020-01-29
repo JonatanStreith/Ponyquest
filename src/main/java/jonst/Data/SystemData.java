@@ -64,7 +64,6 @@ public class SystemData {
             add("exit");        //Works!
             add("use");
             add("pick up");     //Works!
-            add("take");        //Works!
             add("talk to");     //Works!
             add("talk");        //Works!
             add("quit");        //Works!
@@ -81,6 +80,15 @@ public class SystemData {
             add("nouns");       //Works!
             add("inventory");   //Works!
             add("attack");
+            add("harvest");
+            add("read");
+
+            add("take");
+            add("retrieve");
+
+            add("put");
+            add("place");
+
         }};
     }
 
@@ -111,6 +119,9 @@ public class SystemData {
             add("teacupify");
             add("disintegrate");
             add("fireworks");
+            add("wings");
+            add("want it need it");
+            add("sleep");
         }};
     }
 

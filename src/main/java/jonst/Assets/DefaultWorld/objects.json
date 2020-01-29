@@ -128,7 +128,7 @@
   {
     "Description": "The tree has no apples right now... somepony must've harvested them already.",
     "Id": "Object_Acres_Tree",
-    "FullName": "an apple tree",
+    "FullName": "apple tree",
     "Location": "Sweet Apple Acres",
     "Alias": [
       "tree",
@@ -141,10 +141,10 @@
   {
     "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
     "Id": "Object_Boutique_Sewingmachine",
-    "FullName": "Rarity's sewing machine",
+    "FullName": "sewing machine",
     "Location": "Carousel Boutique interior",
     "Alias": [
-      "sewing machine"
+      "Rarity's sewing machine"
     ],
     "Attributes": [
       "Usable"

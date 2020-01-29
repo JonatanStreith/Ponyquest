@@ -1,4 +1,4 @@
-package jonst.Models;
+package jonst.Obsolete_data;
 
 public class SaveFile {
 

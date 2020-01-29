@@ -62,13 +62,21 @@ public class Parser {
     }
 
 
-    public void runCommand(String command, World world) throws IOException {
+
+
+
+    public void runCommand(String command, World world) {
 
         String[] commandArray = parse(command);
 
+        runCommandArray(commandArray, world);
+
+    }
+
+
+    public void runCommandArray(String[] commandArray, World world){
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
-
             case "quicksave":
                 Commands.saveQuick(world);
                 break;
@@ -91,12 +99,21 @@ public class Parser {
 
                 break;
 
+            case "harvest":
+
+                break;
+
+
+            case "read":
+                Commands.read(commandArray[1], world);
+                break;
+
             case "board":
                 //Can only board vehicles. Some vehicles need tickets.
                 break;
 
             case "use":
-                //stuff
+                Commands.use(commandArray, world);
                 break;
 
             case "attack":
@@ -120,10 +137,6 @@ public class Parser {
                 break;
 
             case "pick up":
-                Commands.pickUp(commandArray[1], world);
-                break;
-
-            case "take":
                 Commands.pickUp(commandArray[1], world);
                 break;
 
@@ -187,12 +200,23 @@ public class Parser {
                 Commands.ask(commandArray, world);
                 break;
 
+            case "put":
+            case "place":
+
+                break;
+
+
+            case "take":
+            case "retrieve":
+
+                break;
+
             default:
                 System.out.println("What do you mean?");
                 break;
+
+
         }
-
-
     }
 
     public void addToNouns(String specificAlias) {

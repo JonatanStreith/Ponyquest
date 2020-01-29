@@ -98,7 +98,18 @@ public class Notes {
 //    "Discard" command. ASK IF PLAYER WANTS TO DO IT. Yeah, hardcore oldschool.
 //
 
+/*
+On the subject of 'use'. This is where scripts come into play.
+Every object has a hashmap of scripts - a key and a string. When a more complex matter needs to be done, we can call:
 
+{ obj.runScript(scriptkey);   }
+
+Which then retrieves a commandline from its map of scripts and runs it through a scriptparser to do things.
+
+For instance, if Trixie goes through the mirror to the human world, we might call the script "go to human world"; "transform into human"; etc.
+
+
+ */
 
 
 

@@ -17,6 +17,25 @@ import static jonst.HelpfulMethods.*;
 public class Commands {
 
 
+
+    public static void read(String subject, World world) {
+
+
+            String fullName = world.matchLocalName(subject);
+
+            if (!fullName.equals("")) {
+
+                GenericObject gen = world.getGenericObject(fullName);
+
+                if(gen.hasAttribute("readable")){
+                    System.out.println(gen.getText());
+                } else {
+                    System.out.println("There's nothing to read.");
+                }
+            }
+
+    }
+
     public static void saveQuick(World world) {
         boolean success = world.quickSave();
     }
@@ -205,6 +224,27 @@ public class Commands {
 
     }
 
+
+    public static void use(String[] commandArray, World world) {
+
+        String subject = commandArray[1];
+
+        String fullName = world.matchLocalName(subject);
+
+        if (!fullName.equals("")) {
+
+            GenericObject gen = world.getGenericObject(fullName);
+
+            String defaultUse = gen.getDefaultUse();
+            if (defaultUse == null)
+                System.out.println("You have no clear idea of how to use that.");
+            else {
+                commandArray[0] = defaultUse;
+
+                world.getParser().runCommandArray(commandArray, world);
+            }
+        }
+    }
 
     public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
 
@@ -473,6 +513,7 @@ public class Commands {
             System.out.println(turnListIntoString(tempCreatureList, "and") + isOrAre(tempCreatureList.size()) + "here.");
         }
     }
+
 
 
 }
