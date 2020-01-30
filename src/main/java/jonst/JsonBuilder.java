@@ -145,15 +145,20 @@ public class JsonBuilder {
                 put("Race", crea.getRace());
                 put("Gender", crea.getGender());
                 put("CasualDialog", new JSONArray() {{
-                            for (String dialog : crea.getCasualDialog()) {
-                                add(dialog);
-                            }
-                        }});
+                    for (String dialog : crea.getCasualDialog()) {
+                        add(dialog);
+                    }
+                }});
                 put("AskTopics", new JSONObject() {{
-                            for (String key : crea.getAskTopics().keySet()) {
-                                put(key, crea.getAskTopics().get(key));
-                            }
-                        }});
+                    for (String key : crea.getAskTopics().keySet()) {
+                        put(key, crea.getAskTopics().get(key));
+                    }
+                }});
+                put("ComplexUse", new JSONObject() {{
+                    for (String key : crea.getComplexUse().keySet()) {
+                        put(key, crea.getComplexUse().get(key));
+                    }
+                }});
             }});
         }
 
@@ -200,11 +205,15 @@ public class JsonBuilder {
 
                 put("Exits", new JSONObject() {{
 
-                            for (int i = 0; i < loc.getExits().size(); i++) {   //Puts all exits into an array
-                                put(i, loc.getExits().get(i));
-                            }
-                        }}
-                );
+                    for (int i = 0; i < loc.getExits().size(); i++) {   //Puts all exits into an array
+                        put(i, loc.getExits().get(i));
+                    }
+                }});
+                put("ComplexUse", new JSONObject() {{
+                    for (String key : loc.getComplexUse().keySet()) {
+                        put(key, loc.getComplexUse().get(key));
+                    }
+                }});
 
             }});
         }
@@ -246,6 +255,11 @@ public class JsonBuilder {
                         add(attribute);
                     }
                 }});
+                put("ComplexUse", new JSONObject() {{
+                    for (String key : ite.getComplexUse().keySet()) {
+                        put(key, ite.getComplexUse().get(key));
+                    }
+                }});
             }});
         }
 
@@ -283,6 +297,11 @@ public class JsonBuilder {
                 put("Attributes", new JSONArray() {{
                     for (String attribute : sta.getAttributes()) {
                         add(attribute);
+                    }
+                }});
+                put("ComplexUse", new JSONObject() {{
+                    for (String key : sta.getComplexUse().keySet()) {
+                        put(key, sta.getComplexUse().get(key));
                     }
                 }});
             }});
@@ -324,36 +343,51 @@ public class JsonBuilder {
 
                 List<String> casualDialog = new ArrayList<>();
                 Map<String, String> askTopics = new HashMap<>();
+                Map<String, String> complexUse = new HashMap<>();
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
 
                 JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
-                for (Object xObj : jsCD) {
-                    casualDialog.add((String) xObj);
-                }
+                if (jsCD != null)
+                    for (Object xObj : jsCD) {
+                        casualDialog.add((String) xObj);
+                    }
 
                 JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
-                for (Object xObj : jsAT.keySet()) {
-                    String key = (String) xObj;
-                    askTopics.put(key.toLowerCase(), (String) jsAT.get(key));
-                }
+                if (jsAT != null)
+                    for (Object xObj : jsAT.keySet()) {
+                        String key = (String) xObj;
+                        askTopics.put(key.toLowerCase(), (String) jsAT.get(key));
+                    }
+
+                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                for (Object xObj : jsAlias) {
-                    String newAlias = (String) xObj;
-                    alias.add(newAlias.toLowerCase());
-                }
+                if (jsAlias != null)
+                    for (Object xObj : jsAlias) {
+                        String newAlias = (String) xObj;
+                        alias.add(newAlias.toLowerCase());
+                    }
 
                 JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                for (Object xObj : jsAttributes) {
-                    String newAttribute = (String) xObj;
-                    attributes.add(newAttribute.toLowerCase());
-                }
+                if (jsAttributes != null)
+                    for (Object xObj : jsAttributes) {
+                        String newAttribute = (String) xObj;
+                        attributes.add(newAttribute.toLowerCase());
+                    }
 
 
                 Creature creature = new Creature(fullName, id, description, location.toLowerCase(), alias, attributes, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
                 creature.setText(text);
                 creature.setDefaultUse(defaultUse);
+
+                creature.setComplexUse(complexUse);
 
                 creatureList.add(creature);
             }
@@ -378,7 +412,7 @@ public class JsonBuilder {
 
         List<Location> locationList = new ArrayList<>();
 
-        try (FileReader reader = new FileReader(filepath + "/locations.json")){
+        try (FileReader reader = new FileReader(filepath + "/locations.json")) {
 
             JSONArray locationJSON = (JSONArray) new JSONParser().parse(reader);
 
@@ -393,32 +427,45 @@ public class JsonBuilder {
                 String text = (String) jObj.get("Text");
                 String defaultUse = (String) jObj.get("DefaultUse");
 
+                Map<String, String> complexUse = new HashMap<>();
 
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                for (Object xObj : jsAlias) {
-                    String newAlias = (String) xObj;
-                    alias.add(newAlias.toLowerCase());
-                }
+                if (jsAlias != null)
+                    for (Object xObj : jsAlias) {
+                        String newAlias = (String) xObj;
+                        alias.add(newAlias.toLowerCase());
+                    }
 
                 JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                for (Object xObj : jsAttributes) {
-                    String newAttribute = (String) xObj;
-                    attributes.add(newAttribute.toLowerCase());
-                }
+                if (jsAttributes != null)
+                    for (Object xObj : jsAttributes) {
+                        String newAttribute = (String) xObj;
+                        attributes.add(newAttribute.toLowerCase());
+                    }
+
+                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
-
-                for (Object xObj : jsExits.values()) {
-                    exits.add((String) xObj);
-                }
+                if (jsExits != null)
+                    for (Object xObj : jsExits.values()) {
+                        exits.add((String) xObj);
+                    }
 
                 Location location = new Location(fullName, id, description, fullName, alias, attributes, exits, defaultEnter, defaultExit);
                 location.setText(text);
                 location.setDefaultUse(defaultUse);
+
+                location.setComplexUse(complexUse);
 
 
                 locationList.add(location);
@@ -459,21 +506,34 @@ public class JsonBuilder {
                 String text = (String) jObj.get("Text");
                 String defaultUse = (String) jObj.get("DefaultUse");
 
+                Map<String, String> complexUse = new HashMap<>();
+
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                for (Object xObj : jsAlias) {
-                    String newAlias = (String) xObj;
-                    alias.add(newAlias.toLowerCase());
-                }
+                if (jsAlias != null)
+                    for (Object xObj : jsAlias) {
+                        String newAlias = (String) xObj;
+                        alias.add(newAlias.toLowerCase());
+                    }
 
                 JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                for (Object xObj : jsAttributes) {
-                    String newAttribute = (String) xObj;
-                    attributes.add(newAttribute.toLowerCase());
-                }
+                if (jsAttributes != null)
+                    for (Object xObj : jsAttributes) {
+                        String newAttribute = (String) xObj;
+                        attributes.add(newAttribute.toLowerCase());
+                    }
+
+                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
 
                 StationaryObject object = new StationaryObject(fullName, id, description, location, alias, attributes);
                 object.setText(text);
                 object.setDefaultUse(defaultUse);
+
+                object.setComplexUse(complexUse);
 
 
                 stationaryObjectList.add(object);
@@ -513,21 +573,36 @@ public class JsonBuilder {
                 String text = (String) jObj.get("Text");
                 String defaultUse = (String) jObj.get("DefaultUse");
 
+                Map<String, String> complexUse = new HashMap<>();
+
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                for (Object xObj : jsAlias) {
-                    String newAlias = (String) xObj;
-                    alias.add(newAlias.toLowerCase());
-                }
+                if (jsAlias != null)
+                    for (Object xObj : jsAlias) {
+                        String newAlias = (String) xObj;
+                        alias.add(newAlias.toLowerCase());
+                    }
 
                 JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                for (Object xObj : jsAttributes) {
-                    String newAttribute = (String) xObj;
-                    attributes.add(newAttribute.toLowerCase());
-                }
+                if (jsAttributes != null)
+                    for (Object xObj : jsAttributes) {
+                        String newAttribute = (String) xObj;
+                        attributes.add(newAttribute.toLowerCase());
+                    }
+
+                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+
 
                 Item item = new Item(fullName, id, description, location, alias, attributes);
                 item.setText(text);
                 item.setDefaultUse(defaultUse);
+
+                item.setComplexUse(complexUse);
+
 
                 itemList.add(item);
             }

@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.*;
 import jonst.Models.*;
+import sun.net.www.content.text.Generic;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,66 +69,62 @@ public class World {
 
 //-------- Add/Remove stuff -----------------------------------
 
-    public void transferCreatureToLocation(String creature, String oldLocation, String newLocation) {
+    public void transferCreatureToLocation(Creature creature, Location oldLocation, Location newLocation) {
 
-        if (doesObjectExist(creature) && doesObjectExist(oldLocation) && doesObjectExist(newLocation)) {
+        if (creature != null && oldLocation != null && newLocation != null) {
             removeCreatureFromLocation(creature, oldLocation);
             addCreatureToLocation(creature, newLocation);
         } else
             System.out.println("Illegal operation: transferCreatureToLocation, " + creature + " from " + oldLocation + " to " + newLocation + ".");
     }
 
-    public void transferItemToNewOwner(String item, String oldOwner, String newOwner) {
+    public void transferItemToNewOwner(Item item, GenericObject oldOwner, GenericObject newOwner) {
 
-        if (doesObjectExist(item) && doesObjectExist(oldOwner) && doesObjectExist(newOwner)) {
+        if (item!=null && oldOwner!=null && newOwner!=null) {
             removeItemFromGeneric(item, oldOwner);
             addItemToGeneric(item, newOwner);
         } else
-            System.out.println("Illegal operation: transferItemToNewOwner, " + item + " from " + oldOwner + " to " + newOwner + ".");
+            System.out.println("Illegal operation: transferItemToNewOwner.");
 
     }
 
-    public void transferObjectToLocation(String object, String oldLocation, String newLocation) {
+    public void transferObjectToLocation(StationaryObject object, Location oldLocation, Location newLocation) {
 
-        if (doesObjectExist(object) && doesObjectExist(oldLocation) && doesObjectExist(newLocation)) {
+        if (object != null && oldLocation != null && newLocation != null) {
             removeObjectFromLocation(object, oldLocation);
             addObjectToLocation(object, newLocation);
         } else
-            System.out.println("Illegal operation: transferObjectToLocation, " + object + " from " + oldLocation + " to " + newLocation + ".");
+            System.out.println("Illegal operation: transferObjectToLocation.");
     }
 
-    public void removeCreatureFromLocation(String creature, String location) {
+    public void removeCreatureFromLocation(Creature creature, Location location) {
 
-        Location loc = getLocation(location);
-        Creature cre = getCreature(creature);
 
-        loc.removeCreature(cre);
-        cre.setLocation(null);
+        location.removeCreature(creature);
+        creature.setLocation(null);
     }
 
-    public void addCreatureToLocation(String creature, String location) {
+    public void addCreatureToLocation(Creature creature, Location location) {
         //Adds "creature" to "location"
 
-        Location loc = getLocation(location);
-        Creature cre = getCreature(creature);
 
-        loc.addCreature(cre);
-        cre.setLocation(loc);
+        location.addCreature(creature);
+        creature.setLocation(location);
     }
 
-    public void removeItemFromGeneric(String item, String generic) {
+    public void removeItemFromGeneric(Item it, GenericObject gen) {
 
-        GenericObject gen = getGenericObject(generic);
-        Item it = getItem(item);
+//        GenericObject gen = getGenericObject(generic);
+//        Item it = getItem(item);
 
         gen.removeItem(it);
         it.setOwner(null);
     }
 
-    public void addItemToGeneric(String item, String generic) {
+    public void addItemToGeneric(Item it, GenericObject gen) {
         //Adds "item" to "location"
-        GenericObject gen = getGenericObject(generic);
-        Item it = getItem(item);
+//        GenericObject gen = getGenericObject(generic);
+//        Item it = getItem(item);
 
         gen.addItem(it);
         it.setOwner(gen);
@@ -140,23 +137,19 @@ public class World {
         }
     }
 
-    public void removeObjectFromLocation(String stationaryObject, String location) {
+    public void removeObjectFromLocation(StationaryObject stationaryObject, Location location) {
 
-        Location loc = getLocation(location);
-        StationaryObject obj = getStationaryObject(stationaryObject);
 
-        loc.removeObject(obj);
-        obj.setLocation(null);
+        location.removeObject(stationaryObject);
+        stationaryObject.setLocation(null);
     }
 
-    public void addObjectToLocation(String stationaryObject, String location) {
+    public void addObjectToLocation(StationaryObject stationaryObject, Location location) {
         //Adds "stationary" to "location"
 
-        Location loc = getLocation(location);
-        StationaryObject obj = getStationaryObject(stationaryObject);
 
-        loc.addObject(obj);
-        obj.setLocation(loc);
+        location.addObject(stationaryObject);
+        stationaryObject.setLocation(location);
     }
 
 
@@ -375,6 +368,19 @@ public class World {
         return null;
     }
 
+    public GenericObject getLocalGenericObject(String wantedGenericObject){
+
+        List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
+
+        for (GenericObject genericObject : localList) {
+            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
+                return genericObject;
+        }
+        return null;
+
+    }
+
+
 
     // --------------- Match name methods ------------------------
 
@@ -428,6 +434,37 @@ public class World {
 
     }
 
+    public String matchNameFromInventory(String name){
+
+        List<Item> itemList = getPlayerInventory();
+
+        List<String> results = new ArrayList<>();
+
+        for (Item item : itemList) { //Check if something exists that has "name" as its short name, then return its full name
+
+            if (item.getName().equalsIgnoreCase(name)) {
+                results.add(item.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : item.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(item.getName());
+                    }
+                }
+            }
+        }
+
+        if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
+            return "";
+        } else if (results.size() == 0) {
+            System.out.println("You don't carry a '" + name + "'.");
+            return "";
+        } else {
+
+            return results.get(0);
+        }    }
+
+
     public String matchLocalName(String name) {
 
         List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
@@ -455,7 +492,7 @@ public class World {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
             return "";
         } else if (results.size() == 0) {
-            System.out.println("You don't see '" + name + "' here.");
+            System.out.println("You don't see a '" + name + "' here.");
             return "";
         } else {
 

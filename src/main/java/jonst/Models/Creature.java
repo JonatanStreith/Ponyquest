@@ -1,6 +1,7 @@
 package jonst.Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public class Creature extends GenericObject {
     private List<String> casualDialog;
     private String gender;
 
-    private Map<String, String> askTopics;
+    private Map<String, String> askTopics = new HashMap<>();
 
     private BehaviorCore behavior;
 
@@ -108,6 +109,11 @@ public class Creature extends GenericObject {
     public boolean setStatus(String newStatus) {
         behavior.setStatus(newStatus);
         return true;
+    }
+
+    public String getPersonalQuote(String key){
+
+        return behavior.getPersonalQuotes().get(key);
     }
 
 

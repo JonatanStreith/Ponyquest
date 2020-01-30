@@ -3,6 +3,7 @@ package jonst.Models;
 import jonst.Commands;
 import jonst.Data.SystemData;
 import jonst.HelpfulMethods;
+import jonst.Scripts;
 import jonst.World;
 
 import java.io.IOException;
@@ -205,6 +206,10 @@ public class Parser {
 
                 break;
 
+            case "give":
+                Commands.give(commandArray, world);
+                break;
+
 
             case "take":
             case "retrieve":
@@ -279,8 +284,6 @@ public class Parser {
         return "";  //A return if the command isn't found
     }
 
-
-
     public String extractConjunction(StringBuilder sb) {
         for (String conj : legitimateConjunctions) {
             if (sb.toString().startsWith(conj.toLowerCase())) {
@@ -293,4 +296,34 @@ public class Parser {
         }
         return "";
     }
+
+
+    //-------- Scriptparser stuff ------------------------
+
+    public void runScriptCommand(String script, World world) {
+
+        String[] scriptCommandArray = script.split(" ");
+
+        runScriptCommandArray(scriptCommandArray, world);
+    }
+
+
+    public void runScriptCommandArray(String[] scriptCommandArray, World world){
+        switch (scriptCommandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
+        {
+            case "setmood":
+                Scripts.setMood(scriptCommandArray, world);
+                break;
+
+
+
+
+
+
+
+
+        }
+    }
+
+
 }

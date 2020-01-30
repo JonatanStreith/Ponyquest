@@ -83,6 +83,8 @@ public class SystemData {
             add("harvest");
             add("read");
 
+
+            add("give");
             add("take");
             add("retrieve");
 
@@ -91,6 +93,16 @@ public class SystemData {
 
         }};
     }
+
+    public static ArrayList getDefaultNouns() {
+        return new ArrayList<String>() {{
+            add("anyitem");
+            add("anycreature");
+            add("anylocation");
+            add("anygenericobject");
+        }};
+    }
+
 
     public static ArrayList getLegitimateConjunctions() {
         return new ArrayList<String>() {{

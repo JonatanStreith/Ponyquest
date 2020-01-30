@@ -6,7 +6,7 @@ import java.util.List;
 public class Location extends GenericObject {
 
 
-    private List<String> legitimateExits;
+    private List<String> legitimateExits = new ArrayList<>();
 
     private String defaultEnter;
     private String defaultExit;

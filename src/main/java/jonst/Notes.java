@@ -109,8 +109,12 @@ Which then retrieves a commandline from its map of scripts and runs it through a
 For instance, if Trixie goes through the mirror to the human world, we might call the script "go to human world"; "transform into human"; etc.
 
 
+Responsive actions! Have commands where a certain thing is interacted with send a respondScript(command); to the thing; If there's a script
+with that key, they will run that script!
+
+
  */
 
-
+//  TODO: Convert to ID for choosing where to go with "go to"! Probably a good idea to do so for all things.
 
 }

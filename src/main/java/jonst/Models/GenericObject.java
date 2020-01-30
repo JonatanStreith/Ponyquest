@@ -3,7 +3,9 @@ package jonst.Models;
 import jonst.App;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class GenericObject {
     private String name;
@@ -17,6 +19,10 @@ public abstract class GenericObject {
     private String text;
     private String defaultUse;
 
+    private Map<String, String> complexUse = new HashMap<>();
+
+    private Map<String, String> responseScripts = new HashMap<>();
+
 
     public GenericObject(String name, String id, String description, String locationName, List<String> alias, List<String> attributes) {
         setName(name);
@@ -27,6 +33,10 @@ public abstract class GenericObject {
         setAttributes(attributes);
 
         itemList = new ArrayList<>();
+
+
+        responseScripts.put("pick up", "setmood " + name + " annoyed");
+
     }
 
     protected void setName(String name) {
@@ -101,6 +111,22 @@ public abstract class GenericObject {
         this.defaultUse = defaultUse;
     }
 
+    public Map<String, String> getComplexUse() {
+        return complexUse;
+    }
+
+    public void setComplexUse(Map<String, String> complexUse) {
+        this.complexUse = complexUse;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     //----------------------------------------
 
     public boolean equals(GenericObject other) {
@@ -142,6 +168,17 @@ public abstract class GenericObject {
             return false;
     }
 
+    public Item getOwnedItemByName(String name){
+
+        for (Item item : itemList) {
+            if(item.getName().equalsIgnoreCase(name)){
+                return item;
+            }
+        }
+        return null;
+    }
+
+
     public void getFeedback() {
         String feedback = name + ": " + description;
         System.out.println(feedback);
@@ -161,12 +198,13 @@ public abstract class GenericObject {
         return true;
     }
 
-
-    public String getText() {
-        return text;
+    public String getComplexUseCommand(String key){
+        return complexUse.get(key.toLowerCase());
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void runResponseScript(String command){
+
+        String responseCommand = responseScripts.get(command);
+        App.getWorld().getParser().runScriptCommand(responseCommand, App.getWorld());
     }
 }

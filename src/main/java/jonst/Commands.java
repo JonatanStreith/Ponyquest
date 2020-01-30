@@ -16,23 +16,51 @@ import static jonst.HelpfulMethods.*;
 
 public class Commands {
 
+    public static void give(String[] commandArray, World world) {
+
+        String subjectName = world.matchNameFromInventory(commandArray[1]);
+        String targetName = world.matchLocalName(commandArray[3]);
+
+        if(!(subjectName.equals("") || targetName.equals(""))) {
+
+            Item subject = world.getPlayer().getOwnedItemByName(subjectName);
+            GenericObject target = world.getGenericObject(targetName);
+
+            if(!(target instanceof Creature)){
+                System.out.println("You realize you're trying to present a gift to a non-sentient object. This is stupid.");
+                return;
+            }
+
+            if(subject != null){
+                //do gift thing
+                world.transferItemToNewOwner(subject, world.getPlayer(), target);
+                System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
+
+
+            }
+
+
+
+        }
+
+    }
 
 
     public static void read(String subject, World world) {
 
 
-            String fullName = world.matchLocalName(subject);
+        String fullName = world.matchLocalName(subject);
 
-            if (!fullName.equals("")) {
+        if (!fullName.equals("")) {
 
-                GenericObject gen = world.getGenericObject(fullName);
+            GenericObject gen = world.getGenericObject(fullName);
 
-                if(gen.hasAttribute("readable")){
-                    System.out.println(gen.getText());
-                } else {
-                    System.out.println("There's nothing to read.");
-                }
+            if (gen.hasAttribute("readable")) {
+                System.out.println(gen.getText());
+            } else {
+                System.out.println("There's nothing to read.");
             }
+        }
 
     }
 
@@ -110,12 +138,12 @@ public class Commands {
 
         if (!fullName.equals("")) {
 
-            Item item = world.getItem(fullName);
+            Item item = world.getPlayer().getOwnedItemByName(fullName);
 
-            if (world.getPlayer().hasItem(item)) {
+            if (item != null) {
                 //drop
 
-                world.transferItemToNewOwner(fullName, world.getPlayer().getName(), world.getPlayerLocation().getLocationName());
+                world.transferItemToNewOwner(item, world.getPlayer(), world.getPlayerLocation());
 
 
                 //world.removeFromInventory(item);
@@ -144,7 +172,7 @@ public class Commands {
             {
                 Creature creature = (Creature) subject;
                 System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature.getGender()) + " for a moment before putting " + himOrHer(creature.getGender()) + " down again.");
-
+                creature.runResponseScript("pick up");
             } else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
             {
                 System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
@@ -156,13 +184,12 @@ public class Commands {
             } else if ((subject instanceof Item)) {
 
                 if (((Item) subject).getOwner() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
-                    world.transferItemToNewOwner(fullName, ((Item) subject).getOwner().getName(), world.getPlayer().getName());
+                    world.transferItemToNewOwner((Item) subject, ((Item) subject).getOwner(), world.getPlayer());
                     System.out.println("You pick up the " + name + ".");
 
                 } else if (((Item) subject).getOwner() instanceof Creature) {
                     System.out.println("You can't just take that from " + ((Item) subject).getOwner().getName() + ". Try asking nicely.");
-                }
-                if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
+                } else if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
                     System.out.println("Currently, items in containers need to be TAKEn specifically from the container.");
                 } else {
                     System.out.println("That doesn't work.");
@@ -229,19 +256,61 @@ public class Commands {
 
         String subject = commandArray[1];
 
-        String fullName = world.matchLocalName(subject);
+        String conjunction = commandArray[2];
+        String target = commandArray[3];
 
-        if (!fullName.equals("")) {
 
-            GenericObject gen = world.getGenericObject(fullName);
+        String subjectFullName = world.matchLocalName(subject);
+        GenericObject genSub = world.getGenericObject(subjectFullName); //Remember, this will be null if subject doesn't exist here.
 
-            String defaultUse = gen.getDefaultUse();
-            if (defaultUse == null)
-                System.out.println("You have no clear idea of how to use that.");
-            else {
-                commandArray[0] = defaultUse;
 
-                world.getParser().runCommandArray(commandArray, world);
+        if (!subjectFullName.equals("")) {
+
+
+            if (conjunction.equals("") && genSub != null) {       //This is if you do a singular command without a proper conjunction. Also null check, though shouldn't be needed.
+                String defaultUse = genSub.getDefaultUse();
+                if (defaultUse == null) {
+                    System.out.println("You have no clear idea of how to use that.");
+                } else {
+                    commandArray[0] = defaultUse;
+                    world.getParser().runCommandArray(commandArray, world);
+                }
+
+            } else {
+                //Multicommand
+
+                String targetFullName = world.matchLocalName(target);
+
+
+                if (!targetFullName.equals("")) {
+                    String commandLine = genSub.getComplexUseCommand(targetFullName);
+
+
+
+/*                  This is a bit too advanced right now. It requires replacing parts of the command line...
+
+                    if(commandLine == null){
+
+                        GenericObject gen = world.getGenericObject(targetFullName);
+
+                        if(gen instanceof Item){
+                            commandLine = genSub.getComplexUseCommand("anyitem");
+                        } else if(gen instanceof Creature){
+                             commandLine = genSub.getComplexUseCommand("anycreature");
+                        }
+                    }
+
+*/
+
+
+                    if (commandLine != null) {  //If we have a legitimate commandline, run it.
+
+
+                        world.getParser().runCommand(commandLine, world);
+                    } else {
+                        System.out.println("You have no clear idea of how to use that.");
+                    }
+                }
             }
         }
     }
@@ -261,6 +330,11 @@ public class Commands {
                     lookAround(world);
                 } else {
                     System.out.println(gen.getDescription());
+
+                    if(gen instanceof Creature){
+                        Creature cre = (Creature) gen;
+                    System.out.println(heOrShe(cre.getGender()) + " looks " + cre.getMood() + ".");
+                    }
                     System.out.println();
                     listOwnedItems(world, gen);
                 }
@@ -290,7 +364,7 @@ public class Commands {
 
         if (destination != "")               //Is a destination found?
         {
-            world.transferCreatureToLocation("Trixie", world.getPlayerLocation().getName(), destination);                                            //Add player to new location
+            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), world.getLocation(destination));                                            //Add player to new location
             //world.GetPlayer().SetLocation(newArea);                                                     //Change player's location variable; already included in prev command
             System.out.println("You go to " + world.getLocation(destination).getName() + ".");
             SystemData.getReply("[press enter to continue]");
@@ -303,7 +377,7 @@ public class Commands {
 
     public static void enter(String location, World world) {
 
-        if(world.getPlayerLocation().getDefaultEnter().equals("")){
+        if (world.getPlayerLocation().getDefaultEnter().equals("")) {
             System.out.println("Enter where? You don't see any particular place that stands out.");
             return;
         }
@@ -326,7 +400,7 @@ public class Commands {
 
     public static void exit(String location, World world) {
 
-        if(world.getPlayerLocation().getDefaultEnter().equals("")){
+        if (world.getPlayerLocation().getDefaultEnter().equals("")) {
             System.out.println("You're not in a place with a clear exit.");
             return;
         }
@@ -358,32 +432,34 @@ public class Commands {
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
 
-        String target = world.matchLocalName(command[1]);
+        String targetName = world.matchLocalName(command[1]);
 
-        String destination = world.matchName(command[3]);
+        String destinationName = world.matchName(command[3]);
+
+        GenericObject target = world.getLocalGenericObject(targetName);
+        Location destination = world.getLocation(destinationName);
+
+        if (target != null && destination != null) {
 
 
-        if (!target.equals("") && !destination.equals("")) {
-
-
-            if (world.getGenericObject(target) == world.getPlayer())           //Are you instructing the game to teleport Trixie herself?
+            if (target == world.getPlayer())           //Are you instructing the game to teleport Trixie herself?
             {
                 Commands.teleportSelf(command, world);
 
-            } else if (world.getGenericObject(target) instanceof Location) {
+            } else if (target instanceof Location) {
                 System.out.println("You'd rather not teleport " + target + " anywhere. That will just end badly.");
 
 
-            } else if (world.getGenericObject(target) instanceof Creature) {
-                world.transferCreatureToLocation(target, world.getPlayerLocation().getName(), destination);
+            } else if (target instanceof Creature) {
+                world.transferCreatureToLocation((Creature)target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target + " vanishes in a burst of smoke!");
 
-            } else if (world.getGenericObject(target) instanceof Item) {
-                world.transferItemToNewOwner(target, world.getPlayerLocation().getName(), destination);
+            } else if (target instanceof Item) {
+                world.transferItemToNewOwner((Item)target, world.getPlayerLocation(), destination);
                 System.out.println(target + " vanishes in a burst of smoke!");
 
-            } else if (world.getGenericObject(target) instanceof StationaryObject) {
-                world.transferObjectToLocation(target, world.getPlayerLocation().getName(), destination);
+            } else if (target instanceof StationaryObject) {
+                world.transferObjectToLocation((StationaryObject)target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target + " vanishes in a burst of smoke!");
 
 
@@ -400,10 +476,12 @@ public class Commands {
 
         String destinationFullName = world.matchName(command[1]);
 
-        if (!destinationFullName.equals("")) {
+        Location destination = world.getLocation(destinationFullName);
+
+        if (destination != null) {
 
 
-            world.transferCreatureToLocation(world.getPlayer().getName(), world.getPlayerLocation().getName(), destinationFullName);
+            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), destination);
 
 
             System.out.println("You vanish in a burst of smoke, and reappear at " + destinationFullName + ".");
@@ -411,6 +489,8 @@ public class Commands {
             System.out.flush();
             lookAround(world);
 
+        } else {
+            System.out.println("Your spell fizzles. You need a legitimate destination.");
         }
     }
 
@@ -456,8 +536,8 @@ public class Commands {
 
     }
 
-    public static void cast(String[] command, World world){
-        System.out.println("You cast " + command[1] +  " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
+    public static void cast(String[] command, World world) {
+        System.out.println("You cast " + command[1] + " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
     }
 
 
@@ -513,7 +593,6 @@ public class Commands {
             System.out.println(turnListIntoString(tempCreatureList, "and") + isOrAre(tempCreatureList.size()) + "here.");
         }
     }
-
 
 
 }

@@ -45,25 +45,25 @@ public class WorldTest {
     }
 
 
-    @Test
-    public void transferCreatureToLocationTest() {
-
-        Location acres = world.getLocation("Sweet Apple Acres");
-        Location castle = world.getLocation("Castle of Friendship");
-        Creature applejack = world.getCreature("Applejack");
-
-        assertTrue(acres.creatureIsAtLocation(applejack));      //Applejack is currently at Sweet Apple Acres
-        assertFalse(castle.creatureIsAtLocation(applejack));    //And not at the castle
-
-        world.transferCreatureToLocation("applejack", "sweet apple acres", "castle of friendship");
-
-        assertTrue(castle.creatureIsAtLocation(applejack)); //Applejack is now at the castle
-        assertFalse(acres.creatureIsAtLocation(applejack)); //And not at the Acres
-
-        //world.transferCreatureToLocation("donut steel", "the scrapyard", "castle on the hill" );
-
-
-    }
+//    @Test
+//    public void transferCreatureToLocationTest() {
+//
+//        Location acres = world.getLocation("Sweet Apple Acres");
+//        Location castle = world.getLocation("Castle of Friendship");
+//        Creature applejack = world.getCreature("Applejack");
+//
+//        assertTrue(acres.creatureIsAtLocation(applejack));      //Applejack is currently at Sweet Apple Acres
+//        assertFalse(castle.creatureIsAtLocation(applejack));    //And not at the castle
+//
+//        world.transferCreatureToLocation("applejack", "sweet apple acres", "castle of friendship");
+//
+//        assertTrue(castle.creatureIsAtLocation(applejack)); //Applejack is now at the castle
+//        assertFalse(acres.creatureIsAtLocation(applejack)); //And not at the Acres
+//
+//        //world.transferCreatureToLocation("donut steel", "the scrapyard", "castle on the hill" );
+//
+//
+//    }
 
 //    @Test
 //    public void transferItemToLocationTest() {
@@ -83,21 +83,21 @@ public class WorldTest {
 //
 //    }
 
-    @Test
-    public void transferObjectToLocationTest() {
-
-        Location acres = world.getLocation("Sweet Apple Acres");
-        Location castle = world.getLocation("Castle of Friendship");
-        StationaryObject tree = world.getStationaryObject(world.matchLocalName("tree"));
-
-        assertTrue(acres.stationaryObjectIsAtLocation(tree));
-        assertFalse(castle.stationaryObjectIsAtLocation(tree));
-
-        world.transferObjectToLocation(world.matchLocalName("tree"), "sweet apple acres", "castle of friendship");
-
-        assertTrue(castle.stationaryObjectIsAtLocation(tree));
-        assertFalse(acres.stationaryObjectIsAtLocation(tree));
-    }
+//    @Test
+//    public void transferObjectToLocationTest() {
+//
+//        Location acres = world.getLocation("Sweet Apple Acres");
+//        Location castle = world.getLocation("Castle of Friendship");
+//        StationaryObject tree = world.getStationaryObject(world.matchLocalName("tree"));
+//
+//        assertTrue(acres.stationaryObjectIsAtLocation(tree));
+//        assertFalse(castle.stationaryObjectIsAtLocation(tree));
+//
+//        world.transferObjectToLocation(world.matchLocalName("tree"), "sweet apple acres", "castle of friendship");
+//
+//        assertTrue(castle.stationaryObjectIsAtLocation(tree));
+//        assertFalse(acres.stationaryObjectIsAtLocation(tree));
+//    }
 
 
 
