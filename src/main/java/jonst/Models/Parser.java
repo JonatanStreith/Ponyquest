@@ -221,6 +221,10 @@ public class Parser {
                 break;
 
 
+            case "hug":
+                Commands.hug(commandArray, world);
+                break;
+
         }
     }
 

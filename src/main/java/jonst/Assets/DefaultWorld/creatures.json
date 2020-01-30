@@ -75,7 +75,9 @@
       "status": "normal"
     },
     "ResponseScripts": {
-      "scare": "moveto bedroom"
+      "scare": "moveto Castle_Main_Hall",
+      "hug": "setmood happy",
+      "pick up": "setmood annoyed"
     },
     "ComplexUse": {
     }
@@ -379,7 +381,7 @@
       "earth pony"
     ],
     "Attributes": [
-      ""
+      "huggable"
     ],
     "BehaviorCore": {
       "mood": "neutral",
@@ -388,6 +390,7 @@
       "status": "normal"
     },
     "ResponseScripts": {
+      "hug": "setmood happy"
     },
     "ComplexUse": {
     }

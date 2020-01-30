@@ -495,6 +495,19 @@ public class Commands {
     }
 
 
+    public static void hug(String[] command, World world){
+        String fullName = world.matchLocalName(command[1]);
+        GenericObject gen = world.getLocalGenericObject(fullName);
+
+        if(gen.hasAttribute("huggable")){
+            System.out.println("You hug " + gen.getName() + " affectionately.");
+            gen.runResponseScript("hug");
+        } else
+            System.out.println("They don't look very huggable.");
+
+    }
+
+
     public static void ask(String[] command, World world) {
 
         //Todo: Not checked for functionality yet!

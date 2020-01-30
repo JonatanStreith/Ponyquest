@@ -91,6 +91,8 @@ public class SystemData {
             add("put");
             add("place");
 
+            add("hug");
+
         }};
     }
 
