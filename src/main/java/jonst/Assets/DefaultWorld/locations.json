@@ -15,7 +15,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },{
   "Exits": {
   },
@@ -30,7 +34,11 @@
   ],
   "Attributes": [
     ""
-  ]
+  ],
+  "ResponseScripts": {
+  },
+  "ComplexUse": {
+  }
 },
   {
     "Exits": {
@@ -52,7 +60,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -74,7 +86,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -97,7 +113,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -114,7 +134,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -133,7 +157,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -152,7 +180,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -177,7 +209,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -198,7 +234,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -220,7 +260,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -239,7 +283,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -261,7 +309,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -279,7 +331,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -297,7 +353,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -314,7 +374,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Exits": {
@@ -331,6 +395,10 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]

@@ -34,9 +34,6 @@ public abstract class GenericObject {
 
         itemList = new ArrayList<>();
 
-
-        responseScripts.put("pick up", "setmood " + name + " annoyed");
-
     }
 
     protected void setName(String name) {
@@ -168,10 +165,10 @@ public abstract class GenericObject {
             return false;
     }
 
-    public Item getOwnedItemByName(String name){
+    public Item getOwnedItemByName(String name) {
 
         for (Item item : itemList) {
-            if(item.getName().equalsIgnoreCase(name)){
+            if (item.getName().equalsIgnoreCase(name)) {
                 return item;
             }
         }
@@ -198,13 +195,23 @@ public abstract class GenericObject {
         return true;
     }
 
-    public String getComplexUseCommand(String key){
+    public String getComplexUseCommand(String key) {
         return complexUse.get(key.toLowerCase());
     }
 
-    public void runResponseScript(String command){
+    public void runResponseScript(String command) {
 
         String responseCommand = responseScripts.get(command);
-        App.getWorld().getParser().runScriptCommand(responseCommand, App.getWorld());
+
+        if (responseCommand != null)
+            App.getWorld().getParser().runScriptCommand(this, responseCommand, App.getWorld());
+    }
+
+    public Map<String, String> getResponseScripts() {
+        return responseScripts;
+    }
+
+    public void setResponseScripts(Map<String, String> responseScripts) {
+        this.responseScripts = responseScripts;
     }
 }

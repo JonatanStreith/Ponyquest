@@ -159,6 +159,22 @@ public class JsonBuilder {
                         put(key, crea.getComplexUse().get(key));
                     }
                 }});
+                put("BehaviorCore", new JSONObject(){{
+                    put("mood", crea.getMood());
+                    put("activity", crea.getActivity());
+                    put("allegiance", crea.getAllegiance());
+                    put("status", crea.getStatus());
+
+
+                }});
+
+                put("ResponseScripts", new JSONObject() {{
+                    for (String key : crea.getResponseScripts().keySet()) {
+                        put(key, crea.getResponseScripts().get(key));
+                    }
+                }});
+
+
             }});
         }
 
@@ -214,6 +230,11 @@ public class JsonBuilder {
                         put(key, loc.getComplexUse().get(key));
                     }
                 }});
+                put("ResponseScripts", new JSONObject() {{
+                    for (String key : loc.getResponseScripts().keySet()) {
+                        put(key, loc.getResponseScripts().get(key));
+                    }
+                }});
 
             }});
         }
@@ -260,6 +281,12 @@ public class JsonBuilder {
                         put(key, ite.getComplexUse().get(key));
                     }
                 }});
+                put("ResponseScripts", new JSONObject() {{
+                    for (String key : ite.getResponseScripts().keySet()) {
+                        put(key, ite.getResponseScripts().get(key));
+                    }
+                }});
+
             }});
         }
 
@@ -304,6 +331,12 @@ public class JsonBuilder {
                         put(key, sta.getComplexUse().get(key));
                     }
                 }});
+                put("ResponseScripts", new JSONObject() {{
+                    for (String key : sta.getResponseScripts().keySet()) {
+                        put(key, sta.getResponseScripts().get(key));
+                    }
+                }});
+
             }});
         }
 
@@ -344,6 +377,7 @@ public class JsonBuilder {
                 List<String> casualDialog = new ArrayList<>();
                 Map<String, String> askTopics = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
+                Map<String, String> responseScripts = new HashMap<>();
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
 
@@ -367,6 +401,12 @@ public class JsonBuilder {
                         complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
                     }
 
+                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+                if (jsRS != null)
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                    }
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -382,12 +422,27 @@ public class JsonBuilder {
                         attributes.add(newAttribute.toLowerCase());
                     }
 
+                JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
+                    BehaviorCore bc;
+                    if(jsBehaviorCore != null){
+                        String mood = (String) jsBehaviorCore.get("mood");
+                        String activity = (String) jsBehaviorCore.get("activity");
+                        String allegiance = (String) jsBehaviorCore.get("allegiance");
+                        String status = (String) jsBehaviorCore.get("status");
+                        bc = new BehaviorCore(mood, activity, allegiance, status);
+                    } else {
+                        bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
+                    }
+
 
                 Creature creature = new Creature(fullName, id, description, location.toLowerCase(), alias, attributes, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
                 creature.setText(text);
                 creature.setDefaultUse(defaultUse);
 
                 creature.setComplexUse(complexUse);
+                creature.setResponseScripts(responseScripts);
+
+                creature.setBehaviorCore(bc);
 
                 creatureList.add(creature);
             }
@@ -428,6 +483,7 @@ public class JsonBuilder {
                 String defaultUse = (String) jObj.get("DefaultUse");
 
                 Map<String, String> complexUse = new HashMap<>();
+                Map<String, String> responseScripts = new HashMap<>();
 
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
@@ -454,6 +510,13 @@ public class JsonBuilder {
                         complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
                     }
 
+                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+                if (jsRS != null)
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                    }
+
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
                 if (jsExits != null)
@@ -466,6 +529,7 @@ public class JsonBuilder {
                 location.setDefaultUse(defaultUse);
 
                 location.setComplexUse(complexUse);
+                location.setResponseScripts(responseScripts);
 
 
                 locationList.add(location);
@@ -507,6 +571,7 @@ public class JsonBuilder {
                 String defaultUse = (String) jObj.get("DefaultUse");
 
                 Map<String, String> complexUse = new HashMap<>();
+                Map<String, String> responseScripts = new HashMap<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -529,11 +594,19 @@ public class JsonBuilder {
                         complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
                     }
 
+                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+                if (jsRS != null)
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                    }
+
                 StationaryObject object = new StationaryObject(fullName, id, description, location, alias, attributes);
                 object.setText(text);
                 object.setDefaultUse(defaultUse);
 
                 object.setComplexUse(complexUse);
+                object.setResponseScripts(responseScripts);
 
 
                 stationaryObjectList.add(object);
@@ -574,6 +647,7 @@ public class JsonBuilder {
                 String defaultUse = (String) jObj.get("DefaultUse");
 
                 Map<String, String> complexUse = new HashMap<>();
+                Map<String, String> responseScripts = new HashMap<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -596,13 +670,20 @@ public class JsonBuilder {
                         complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
                     }
 
+                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+                if (jsRS != null)
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                    }
+
 
                 Item item = new Item(fullName, id, description, location, alias, attributes);
                 item.setText(text);
                 item.setDefaultUse(defaultUse);
 
                 item.setComplexUse(complexUse);
-
+                item.setResponseScripts(responseScripts);
 
                 itemList.add(item);
             }

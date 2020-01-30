@@ -15,7 +15,11 @@
     ],
     "Attributes": [
       "Wearable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too.",
@@ -33,7 +37,11 @@
     ],
     "Attributes": [
       "Wearable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A wooden crate for putting things in.",
@@ -52,7 +60,11 @@
     ],
     "Attributes": [
       "Container"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "It's a rock. You saw enough of them during your time on the rock farm.",
@@ -69,7 +81,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -88,7 +104,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -107,7 +127,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -126,7 +150,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -145,7 +173,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -164,7 +196,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A pile of freshly-harvested turnips. Bland and boring.",
@@ -182,7 +218,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already.",
@@ -199,7 +239,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A spool of blue thread. Rarity probably won't miss it.",
@@ -217,7 +261,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week.",
@@ -235,7 +283,11 @@
     ],
     "Attributes": [
       "Wearable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today.",
@@ -253,7 +305,11 @@
     ],
     "Attributes": [
       "Edible"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!",
@@ -271,7 +327,11 @@
     ],
     "Attributes": [
       "Usable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill.",
@@ -290,7 +350,11 @@
     ],
     "Attributes": [
       "Gemstone"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "An error test object.",
@@ -306,7 +370,11 @@
     ],
     "Attributes": [
       "Error"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "\"Daring Do and the Sapphire Chalice\", hardcover, by A.K. Yearling. One of your favorites. It's dogeared and worn.",
@@ -325,7 +393,11 @@
     ],
     "Attributes": [
       "readable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "It's your spellbook! Well, it's a notebook you started using after Starlight convinced you to take magic seriously again, but you're allowed to pretend. It's full of notes on spells, although you don't know how to do all of them... yet.",
@@ -343,6 +415,10 @@
     ],
     "Attributes": [
       "readable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]

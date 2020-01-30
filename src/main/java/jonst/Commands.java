@@ -333,7 +333,7 @@ public class Commands {
 
                     if(gen instanceof Creature){
                         Creature cre = (Creature) gen;
-                    System.out.println(heOrShe(cre.getGender()) + " looks " + cre.getMood() + ".");
+                    System.out.println(capitalize(heOrShe(cre.getGender())) + " looks " + cre.getMood() + ".");
                     }
                     System.out.println();
                     listOwnedItems(world, gen);

@@ -11,7 +11,11 @@
     ],
     "Attributes": [
       "Usable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable.",
@@ -25,7 +29,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is.",
@@ -39,7 +47,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Rarity's throne. She probably brings cushions.",
@@ -53,7 +65,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Applejack's throne. You can tell by the dried apple juice stains.",
@@ -67,7 +83,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?",
@@ -81,7 +101,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Fluttershy's throne. She sits on it like she's afraid it'll break.",
@@ -95,7 +119,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Rainbow Dash's throne. It's just another napping spot to her.",
@@ -110,7 +138,11 @@
     ],
     "Attributes": [
       "Sittable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Spike's throne. A diminuitive seat for a diminuitive guy.",
@@ -123,7 +155,11 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "The tree has no apples right now... somepony must've harvested them already.",
@@ -136,7 +172,11 @@
     ],
     "Attributes": [
       "Container"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
@@ -148,7 +188,11 @@
     ],
     "Attributes": [
       "Usable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you.",
@@ -160,6 +204,10 @@
     ],
     "Attributes": [
       "Usable"
-    ]
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]

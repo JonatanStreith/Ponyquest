@@ -24,7 +24,17 @@
     ],
     "Attributes": [
       "Playable"
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "haughty",
+      "activity": "questing",
+      "allegiance": "self",
+      "status": "powerful"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
@@ -56,8 +66,19 @@
       "alicorn"
     ],
     "Attributes": [
-      "Blank"
-    ]
+      "Princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+      "scare": "moveto bedroom"
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
@@ -86,7 +107,17 @@
     ],
     "Attributes": [
       "Blank"
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
@@ -117,7 +148,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
@@ -145,7 +186,18 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+      "pick up": "setmood annoyed"
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
@@ -174,7 +226,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
@@ -202,7 +264,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
@@ -229,7 +301,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
@@ -248,7 +330,7 @@
     ],
     "AskTopics": {
       "default": "\"Sorry, Trixie. I don't really know.\"",
-      "alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts, you hear?\""
+      "alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts again, you hear?\""
     },
     "Alias": [
       "Starlight",
@@ -256,11 +338,22 @@
       "Glim-Glam",
       "friend",
       "best friend",
-      "unicorn"
+      "unicorn",
+      "other best pony"
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
@@ -287,7 +380,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
@@ -315,8 +418,18 @@
       "alicorn"
     ],
     "Attributes": [
-      ""
-    ]
+      "princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
@@ -345,8 +458,18 @@
       "alicorn"
     ],
     "Attributes": [
-      ""
-    ]
+      "princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   },
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
@@ -374,7 +497,17 @@
     ],
     "Attributes": [
       ""
-    ]
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]
 

@@ -1,14 +1,15 @@
 package jonst;
 
 import jonst.Models.Creature;
+import jonst.Models.GenericObject;
 
 public class Scripts {
 
-    public static void setMood(String[] script, World world){
+    public static void setMood(GenericObject subject, String[] script, World world){
 
-        Creature subject = world.getCreature(script[1]);
-
-        subject.setMood(script[2]);
+        if(subject instanceof Creature) {
+            ((Creature) subject).setMood(script[1]);
+        }
     }
 
 }

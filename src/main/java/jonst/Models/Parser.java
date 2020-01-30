@@ -300,19 +300,19 @@ public class Parser {
 
     //-------- Scriptparser stuff ------------------------
 
-    public void runScriptCommand(String script, World world) {
+    public void runScriptCommand(GenericObject subject, String script, World world) {
 
         String[] scriptCommandArray = script.split(" ");
 
-        runScriptCommandArray(scriptCommandArray, world);
+        runScriptCommandArray(subject, scriptCommandArray, world);
     }
 
 
-    public void runScriptCommandArray(String[] scriptCommandArray, World world){
+    public void runScriptCommandArray(GenericObject subject, String[] scriptCommandArray, World world){
         switch (scriptCommandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
             case "setmood":
-                Scripts.setMood(scriptCommandArray, world);
+                Scripts.setMood(subject, scriptCommandArray, world);
                 break;
 
 

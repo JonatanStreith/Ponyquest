@@ -25,7 +25,11 @@ public class Creature extends GenericObject {
         setCasualDialog(casualDialog);
         setAskTopics(askTopics);
 
-        behavior = new BehaviorCore();
+
+    }
+
+    public void setBehaviorCore(BehaviorCore behavior) {
+        this.behavior = behavior;
     }
 
     public void setRace(String race) {
