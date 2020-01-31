@@ -562,6 +562,48 @@ public class Commands {
     }
 
 
+
+    public static void create(String[] commandArray, World world) {
+        Item newItem = JsonBuilder.generateDefaultItem(commandArray[1]);
+
+        if(newItem != null) {
+            Creature player = world.getPlayer();
+            player.addItem(newItem);
+            newItem.setOwner(player);
+            newItem.setLocationName(player.getName());
+
+            System.out.println("You create a " + commandArray[1] + " from nothing, and put it in your pocket.");
+        } else {
+            System.out.println("You try to create something, but it fails somehow.");
+        }
+    }
+
+
+    public static void transform(String[] commandArray, World world) {
+
+        String startItemName = commandArray[1];
+
+        String fullName = world.matchLocalName(startItemName);
+
+        GenericObject startItem = world.getLocalGenericObject(fullName);
+
+        if(!(startItem instanceof Item)){
+            System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
+        } else {
+
+            Item newItem = JsonBuilder.generateDefaultItem(commandArray[3]);
+
+            ((Item) startItem).transformInto(newItem);
+
+            System.out.println("You magically transform the " + fullName + " into a " + startItem.getName() + ". Excellent!");
+
+        }
+
+
+
+
+    }
+
     //--------------- Not for direct use -----------------------
     public static void listItems(World world) {
         List<Item> tempItemList = new ArrayList<>();

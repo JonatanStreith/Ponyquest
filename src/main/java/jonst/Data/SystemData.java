@@ -93,6 +93,8 @@ public class SystemData {
 
             add("hug");
 
+            add("create");
+            add("transform");
         }};
     }
 
@@ -119,6 +121,7 @@ public class SystemData {
             add("for");
             add("from");
             add("inside");
+            add("into");
         }};
     }
 

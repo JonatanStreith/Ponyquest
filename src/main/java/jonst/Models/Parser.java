@@ -1,11 +1,8 @@
 package jonst.Models;
 
-import jonst.Commands;
+import jonst.*;
 import jonst.Data.SystemData;
-import jonst.HelpfulMethods;
 import jonst.Models.Objects.GenericObject;
-import jonst.Scripts;
-import jonst.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +25,12 @@ public class Parser {
             legitimateNouns.add(gen.getName());
             legitimateNouns.addAll(gen.getAlias());
 
-            legitimateNouns = HelpfulMethods.removeDuplicates((ArrayList<String>) legitimateNouns);
+
         }
+
+        legitimateNouns.addAll(JsonBuilder.getDefaultItemNames());
+
+        legitimateNouns = HelpfulMethods.removeDuplicates((ArrayList<String>) legitimateNouns);
 
         HelpfulMethods.reverseSortStringList(legitimateCommands);
         HelpfulMethods.reverseSortStringList(legitimateConjunctions);
@@ -222,6 +223,14 @@ public class Parser {
 
             case "hug":
                 Commands.hug(commandArray, world);
+                break;
+
+            case "create":
+                Commands.create(commandArray, world);
+                break;
+
+            case "transform":
+                Commands.transform(commandArray, world);
                 break;
 
         }

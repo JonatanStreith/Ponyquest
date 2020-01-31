@@ -1,5 +1,5 @@
 {
-  "Red_Apple": {
+  "red apple": {
     "FullName": "red apple",
     "Id": "Item_Food_Apple",
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
@@ -12,6 +12,23 @@
     ],
     "Attributes": [
       "edible"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  "teacup": {
+    "FullName": "teacup",
+    "Id": "Item_Teacup",
+    "Description": "A delicate pink porcelain teacup.",
+    "DefaultUse": "look at",
+    "ComplexUse": "",
+    "Alias": [
+      "cup"
+    ],
+    "Attributes": [
+
     ],
     "ResponseScripts": {
     },

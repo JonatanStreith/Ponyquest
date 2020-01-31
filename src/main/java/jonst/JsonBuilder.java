@@ -708,6 +708,27 @@ public class JsonBuilder {
 
     //--------------------------------------------
 
+    public static List<String> getDefaultItemNames(){
+
+        List<String> defaultItemNames = new ArrayList<>();
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/DefaultItems.json")) {
+
+            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+            defaultItemNames.addAll(allItemsJSON.keySet());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("DefaultItems file not found.");
+        } catch (IOException e) {
+            System.out.println("There was an error reading the DefaultItems file.");
+        } catch (ParseException e) {
+            System.out.println("DefaultItems file corrupt, or there was an error during the reading.");
+        }
+
+        return defaultItemNames;
+    }
+
+
     public static Item generateDefaultItem(String itemName){
 
         Item item = null;
@@ -718,54 +739,54 @@ public class JsonBuilder {
 
             JSONObject jsonItem = (JSONObject) allItemsJSON.get(itemName);  //Retrieve the jsonObject corresponding to that name.
 
-            String fullName = (String) jsonItem.get("FullName");
-            String id = (String) jsonItem.get("Id");
-            String description = (String) jsonItem.get("Description");
-            String locationName = "blank";
+            //Only build the item if it exists. It should, since we can't get here if it doesn't, but just in case.
+            //So if we get a null back, we can't build anything.
+            if(jsonItem != null) {
+                String fullName = itemName;
+                String id = (String) jsonItem.get("Id");
+                String description = (String) jsonItem.get("Description");
+                String locationName = "blank";
 
-            JSONArray jsAlias = (JSONArray) jsonItem.get("Alias");
-            JSONArray jsAttributes = (JSONArray) jsonItem.get("Attributes");
+                JSONArray jsAlias = (JSONArray) jsonItem.get("Alias");
+                JSONArray jsAttributes = (JSONArray) jsonItem.get("Attributes");
 
-            List<String> alias = new ArrayList<>();
-            for (Object ali: jsAlias) {
-                alias.add((String) ali);
+                List<String> alias = new ArrayList<>();
+                for (Object ali : jsAlias) {
+                    alias.add((String) ali);
+                }
+
+                List<String> attributes = new ArrayList<>();
+                for (Object attr : jsAttributes) {
+                    attributes.add((String) attr);
+                }
+
+                String text = (String) jsonItem.get("Text");
+                String defaultUse = (String) jsonItem.get("DefaultUse");
+
+                JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
+                JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
+
+                Map<String, String> responseScripts = new HashMap<>();
+                for (Object keyObj : jsResponseScripts.keySet()) {
+                    String key = (String) keyObj;
+                    responseScripts.put(key.toLowerCase(), (String) jsResponseScripts.get(key));
+                }
+
+                Map<String, String> complexUse = new HashMap<>();
+                for (Object keyObj : jsComplexUse.keySet()) {
+                    String key = (String) keyObj;
+                    complexUse.put(key.toLowerCase(), (String) jsComplexUse.get(key));
+                }
+
+                //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
+
+                item = new Item(fullName, id, description, locationName, alias, attributes);
+                item.setText(text);
+                item.setDefaultUse(defaultUse);
+                item.setResponseScripts(responseScripts);
+                item.setComplexUse(complexUse);
+
             }
-
-            List<String> attributes = new ArrayList<>();
-            for (Object attr: jsAttributes) {
-                attributes.add((String) attr);
-            }
-
-            String text = (String) jsonItem.get("Text");
-            String defaultUse = (String) jsonItem.get("DefaultUse");
-
-            JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
-            JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
-
-            Map<String, String> responseScripts = new HashMap<>();
-            for (Object keyObj: jsResponseScripts.keySet() ) {
-                String key = (String) keyObj;
-                responseScripts.put(key.toLowerCase(), (String) jsResponseScripts.get(key));
-            }
-
-            Map<String, String> complexUse = new HashMap<>();
-            for (Object keyObj: jsComplexUse.keySet() ) {
-                String key = (String) keyObj;
-                complexUse.put(key.toLowerCase(), (String) jsComplexUse.get(key));
-            }
-
-
-
-
-            //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
-
-            item = new Item(fullName, id, description, locationName, alias, attributes);
-            item.setText(text);
-            item.setDefaultUse(defaultUse);
-            item.setResponseScripts(responseScripts);
-            item.setComplexUse(complexUse);
-
-
         } catch (FileNotFoundException e) {
             System.out.println("Stationaryobjects file not found.");
             e.printStackTrace();

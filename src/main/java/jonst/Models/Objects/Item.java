@@ -22,5 +22,20 @@ public class Item extends GenericObject {
         return owner;
     }
 
+    public void transformInto(Item template){
+        setName(template.getName());
+        setId(template.getId());
+        setDescription(template.getDescription());
+
+        setAlias(template.getAlias());
+        setAttributes(template.getAttributes());
+
+        setDefaultUse(template.getDefaultUse());
+        setResponseScripts(template.getResponseScripts());
+        setComplexUse(template.getComplexUse());
+
+
+    }
+
 
 }

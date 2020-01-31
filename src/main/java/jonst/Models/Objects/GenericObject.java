@@ -48,7 +48,7 @@ public abstract class GenericObject {
         this.description = description;
     }
 
-    protected void setLocationName(String locationName) {
+    public void setLocationName(String locationName) {
         this.locationName = locationName;
     }
 
@@ -144,6 +144,7 @@ public abstract class GenericObject {
     public boolean addItem(Item item) {
         if (!itemList.contains(item)) {
             itemList.add(item);
+            item.setOwner(this);
             return true;
         } else
             return false;
@@ -152,6 +153,7 @@ public abstract class GenericObject {
     public boolean removeItem(Item item) {
         if (itemList.contains(item)) {
             itemList.remove(item);
+            item.setOwner(null);
             return true;
         } else
             return false;

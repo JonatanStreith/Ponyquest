@@ -127,9 +127,8 @@ public class JsonBuilderTest {
     @Test
     public void generateDefaultItemTest(){
 
-        Item testItem = JsonBuilder.generateDefaultItem("Red_Apple");
-
-        System.out.println(testItem.getName());
+        Item testItem = JsonBuilder.generateDefaultItem("red Apple");
+        assertNull(testItem);
 
     }
 
