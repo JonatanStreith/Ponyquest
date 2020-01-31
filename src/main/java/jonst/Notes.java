@@ -115,6 +115,8 @@ with that key, they will run that script!
 Hugging!
  */
 
+//  Set ResponseScript so it stores an arraylist of strings with each key - that way, we can have multiple scripts with each key!
+
 //  TODO: Convert to ID for choosing where to go with "go to"! Probably a good idea to do so for all things.
 
 }

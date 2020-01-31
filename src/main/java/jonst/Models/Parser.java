@@ -313,19 +313,31 @@ public class Parser {
 
 
     public void runScriptCommandArray(GenericObject subject, String[] scriptCommandArray, World world){
-        switch (scriptCommandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
+        switch (scriptCommandArray[0].toLowerCase())
         {
             case "setmood":
                 Scripts.setMood(subject, scriptCommandArray, world);
                 break;
 
+            case "goto":
 
+                break;
 
+            case "createexit":
 
+                break;
 
+            case "changerace":
 
+                break;
 
+            case "deleteitem":
 
+                break;
+
+            case "createitem":
+
+                break;
         }
     }
 
