@@ -123,4 +123,14 @@ public class JsonBuilderTest {
         JsonBuilder.addToSavesMenu("Lars");
 
     }
+
+    @Test
+    public void generateDefaultItemTest(){
+
+        Item testItem = JsonBuilder.generateDefaultItem("Red_Apple");
+
+        System.out.println(testItem.getName());
+
+    }
+
 }
