@@ -1,7 +1,7 @@
 package jonst;
 
-import jonst.Models.Creature;
-import jonst.Models.GenericObject;
+import jonst.Models.Objects.Creature;
+import jonst.Models.Objects.GenericObject;
 
 public class Scripts {
 

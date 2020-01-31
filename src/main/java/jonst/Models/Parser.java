@@ -3,12 +3,11 @@ package jonst.Models;
 import jonst.Commands;
 import jonst.Data.SystemData;
 import jonst.HelpfulMethods;
+import jonst.Models.Objects.GenericObject;
 import jonst.Scripts;
 import jonst.World;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 

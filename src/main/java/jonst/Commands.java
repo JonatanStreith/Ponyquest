@@ -1,14 +1,10 @@
 package jonst;
 
 import jonst.Data.SystemData;
-import jonst.Models.*;
+import jonst.Models.Objects.*;
 
 
-import java.io.Console;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static jonst.HelpfulMethods.*;
@@ -329,6 +325,18 @@ public class Commands {
                 if (gen == world.getPlayerLocation()) {
                     lookAround(world);
                 } else {
+
+                    if(gen instanceof Item){
+                        GenericObject owner = ((Item) gen).getOwner();
+
+                        if(owner instanceof Creature){
+                            System.out.print("(Carried by " + owner.getName() + ") ");
+                        }
+                        else if (owner instanceof Item || owner instanceof StationaryObject){
+                            System.out.print("(In " + owner.getName() + ") ");
+                        }
+                    }
+
                     System.out.println(gen.getDescription());
 
                     if(gen instanceof Creature){

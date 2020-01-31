@@ -1,12 +1,8 @@
 package jonst;
 
-import jonst.Models.Creature;
-import jonst.Models.Item;
-import jonst.Models.StationaryObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

@@ -1,6 +1,7 @@
-package jonst.Models;
+package jonst.Models.Objects;
 
-import java.util.ArrayList;
+import jonst.Models.BehaviorCore;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

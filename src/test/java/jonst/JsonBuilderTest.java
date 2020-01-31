@@ -1,13 +1,12 @@
 package jonst;
 
 import jonst.Data.SystemData;
-import jonst.Models.Creature;
-import jonst.Models.Item;
-import jonst.Models.Location;
-import jonst.Models.StationaryObject;
+import jonst.Models.Objects.Creature;
+import jonst.Models.Objects.Item;
+import jonst.Models.Objects.Location;
+import jonst.Models.Objects.StationaryObject;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 

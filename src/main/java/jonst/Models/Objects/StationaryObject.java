@@ -1,4 +1,4 @@
-package jonst.Models;
+package jonst.Models.Objects;
 
 
 import java.util.List;

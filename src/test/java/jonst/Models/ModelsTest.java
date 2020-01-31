@@ -1,11 +1,11 @@
 package jonst.Models;
 
 import jonst.Data.SystemData;
+import jonst.Models.Objects.Creature;
 import jonst.World;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

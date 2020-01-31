@@ -1,10 +1,7 @@
 package jonst;
 
 import jonst.Data.SortIgnoreCase;
-import jonst.Models.Creature;
-import jonst.Models.GenericObject;
-import jonst.Models.Item;
-import jonst.Models.StationaryObject;
+import jonst.Models.Objects.GenericObject;
 
 import java.util.*;
 

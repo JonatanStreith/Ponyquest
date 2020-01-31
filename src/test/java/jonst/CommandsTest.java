@@ -1,12 +1,9 @@
 package jonst;
 
 import jonst.Data.SystemData;
-import jonst.Models.Creature;
-import jonst.Models.Item;
+import jonst.Models.Objects.Creature;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static org.junit.Assert.*;
 

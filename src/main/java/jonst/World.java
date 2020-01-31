@@ -1,11 +1,11 @@
 package jonst;
 
 import jonst.Data.*;
-import jonst.Models.*;
-import sun.net.www.content.text.Generic;
+
+import jonst.Models.Objects.*;
+import jonst.Models.Parser;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 

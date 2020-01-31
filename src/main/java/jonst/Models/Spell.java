@@ -1,6 +1,6 @@
 package jonst.Models;
 
-import jonst.Models.GenericObject;
+import jonst.Models.Objects.GenericObject;
 
 import java.util.List;
 

@@ -119,4 +119,8 @@ Hugging!
 
 //  TODO: Convert to ID for choosing where to go with "go to"! Probably a good idea to do so for all things.
 
+    //May just want to have one class that handles spells. String list of available spells that dictate which you can actually cast.
+
+
+    //  If you want to create an item from scratch, you need to have info from somewhere. List of "potential items"? Load from a default list on demand?
 }

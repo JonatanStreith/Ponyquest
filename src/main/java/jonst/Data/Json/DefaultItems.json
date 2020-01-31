@@ -1,0 +1,21 @@
+{
+  "Red_Apple": {
+    "FullName": "red apple",
+    "Id": "Item_Food_Apple",
+    "Description": "Fragrant and delicious, just the thing for a quick snack.",
+    "DefaultUse": "look at",
+    "ComplexUse": "",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  }
+}
