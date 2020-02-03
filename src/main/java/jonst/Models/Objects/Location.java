@@ -120,7 +120,16 @@ public class Location extends GenericObject {
         return getCreaturesAtLocation().contains(creature);
     }
 
+    public List<GenericObject> getAllGroundOnly(){
+        List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
+        genList.addAll(creaturesAtLocation);
+        genList.addAll(getItemList());
+        genList.addAll(objectsAtLocation);
 
+        genList.add(this);
+
+        return genList;
+    }
 
 
     public List<GenericObject> getAllAtLocation(){
@@ -131,6 +140,7 @@ public class Location extends GenericObject {
 
         List<Item> containedItemsList = new ArrayList<>();  //Add every contained item to a list, and add that to the genList
         for (GenericObject gen: genList) {
+            if(!(gen.hasAttribute("closed")))       //Ignore containers that are closed
             containedItemsList.addAll(gen.getItemList());
         }
         genList.addAll(containedItemsList);

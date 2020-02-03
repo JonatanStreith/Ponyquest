@@ -50,7 +50,9 @@
       "wooden box"
     ],
     "Attributes": [
-      "Container"
+      "Container",
+      "openable",
+      "open"
     ],
     "ResponseScripts": {
     },

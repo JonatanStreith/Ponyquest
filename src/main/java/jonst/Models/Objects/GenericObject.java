@@ -137,6 +137,24 @@ public abstract class GenericObject {
         return attributes.contains(attr);
     }
 
+    public boolean addAttribute(String attr){
+
+        if(!attributes.contains(attr)) {
+            attributes.add(attr);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeAttribute(String attr){
+
+        if(attributes.contains(attr)) {
+            attributes.remove(attr);
+            return true;
+        }
+        return false;
+    }
+
     public boolean isAtLocation(Location location) {
         return getLocation() == location;
     }

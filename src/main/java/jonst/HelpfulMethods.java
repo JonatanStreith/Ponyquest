@@ -30,6 +30,18 @@ public class HelpfulMethods {
         }
     }
 
+    public static String hisOrHer(String gender) {
+        switch (gender.toLowerCase()) {
+            case "male":
+                return "his";
+            case "female":
+                return "her";
+            default:
+                return "its";
+        }
+    }
+
+
     public static String capitalize(String str) {
 
         String cap = str.substring(0, 1).toUpperCase();

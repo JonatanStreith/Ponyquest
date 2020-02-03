@@ -155,13 +155,60 @@ public class Commands {
 
     }
 
+    public static void open(String name, World world){
+        String fullName = world.matchLocalName(name);
+        GenericObject target = world.getGenericObject(fullName);
+
+        if(target != null){
+            if(target.hasAttribute("openable")){
+
+                if(!target.hasAttribute("open")){
+                    target.addAttribute("open");
+                    target.removeAttribute("closed");
+                    System.out.println("You open the " + target.getName() + ".");
+                } else {
+                    System.out.println("It's already open.");
+                }
+
+            } else {
+                System.out.println("That can't be opened.");
+            }
+        }
+    }
+
+    public static void close(String name, World world){
+        String fullName = world.matchLocalName(name);
+        GenericObject target = world.getGenericObject(fullName);
+
+        if(target != null){
+            if(target.hasAttribute("openable")){
+
+                if(!target.hasAttribute("closed")){
+                    target.addAttribute("closed");
+                    target.removeAttribute("open");
+                    System.out.println("You close the " + target.getName() + ".");
+                } else {
+                    System.out.println("It's already closed.");
+                }
+
+            } else {
+                System.out.println("That can't be closed.");
+            }
+        }
+    }
+
     public static void pickUp(String name, World world) {
 
         String fullName = world.matchLocalName(name);
 
         if (!fullName.equals("")) {
 
-            GenericObject subject = world.getGenericObject(fullName);
+            GenericObject subject = world.getLocalGenericOnGround(fullName);
+
+            if(subject == null) {
+                System.out.println("You can't pick up things hidden in containers.");
+                return;
+            }
 
 
             if (subject instanceof Creature)                                              //Subject is a creature.
@@ -344,7 +391,12 @@ public class Commands {
                     System.out.println(capitalize(heOrShe(cre.getGender())) + " looks " + cre.getMood() + ".");
                     }
                     System.out.println();
-                    listOwnedItems(world, gen);
+
+                    if(!gen.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
+                        listOwnedItems(world, gen);
+                    } else {
+                        System.out.println("It's closed.");
+                    }
                 }
             }
         }
@@ -541,7 +593,40 @@ public class Commands {
                         break;
 
                     case "for":
-                        System.out.println("You ask for a certain item. But this code isn't written yet...");
+
+                        String itemName = world.matchLocalName(topic);
+
+                        Item item = target.getOwnedItemByName(itemName);
+
+                        if(item==null) {
+                            System.out.println("I don't have that.");
+                            return;
+                        }
+
+                        String targetMood = ((Creature) target).getMood();
+                        String targetAllegiance = ((Creature) target).getAllegiance();
+
+                        if(targetAllegiance.equalsIgnoreCase("hostile")){
+                            System.out.println(target.getName() + " doesn't like you, and won't give you anything.");
+                        } else if(targetMood.equalsIgnoreCase("annoyed")){
+                            System.out.println(target.getName() + " is in a bad mood and doesn't want to give you that.");
+                        } else if(target.hasAttribute("refusetogive_" + item.getName())){
+                            System.out.println(target.getName() + " refuses to give you that for specific reasons.");
+                        } else {
+                            world.transferItemToNewOwner(item, target, world.getPlayer());
+                            System.out.println(target.getName() + " gives you the " + item.getName() + ".");
+                        }
+
+
+
+//                        if(!(targetMood.equalsIgnoreCase("annoyed") || targetAllegiance.equalsIgnoreCase("hostile"))){
+//
+//                            world.transferItemToNewOwner(item, target, world.getPlayer());
+//
+//                            System.out.println(target.getName() + " gives you the " + item.getName() + ".");
+//                        } else
+//                            System.out.println(target.getName() + " refuses.");
+
                         break;
 
                     default:
@@ -596,11 +681,84 @@ public class Commands {
             ((Item) startItem).transformInto(newItem);
 
             System.out.println("You magically transform the " + fullName + " into a " + startItem.getName() + ". Excellent!");
+        }
+    }
 
+
+
+    public static void place(String[] commandArray, World world){
+
+        String containerName = world.matchLocalName(commandArray[3]);
+        GenericObject container = world.getLocalGenericObject(containerName);
+
+        if(container == null){
+            System.out.println("You can't find the " + commandArray[3] + " here.");
+            return;
         }
 
+        if(container instanceof Creature){
+            System.out.println(containerName + " doesn't appreciate you trying to force things into "
+                    + hisOrHer(((Creature) container).getGender()) + " pockets. Try 'giving' it like a normal " + world.getPlayer().getRace() + ".");
+            return;
+        }
+
+        if(!(container.hasAttribute("container"))){
+            System.out.println("You can't put anything into the " + containerName + ".");
+            return;
+        }
+
+        String itemName = world.matchNameFromInventory(commandArray[1]);
+        GenericObject item = world.getLocalGenericObject(itemName);
+
+        if(item == null){
+            System.out.println("You're not carrying that.");
+            return;
+        }
+
+        //Assuming the container exists, the item exists, and the container is a legitimate "container", we'll get here.
+
+        world.transferItemToNewOwner((Item) item, world.getPlayer(), container);
+        System.out.println("You put the " + item.getName() + " into the " + container.getName() + ".");
+    }
+
+    public static void take(String[] commandArray, World world){
+
+        if(commandArray[3].equals("")){
+            pickUp(commandArray[1], world);
+            return;
+        }
+
+        String containerName = world.matchLocalName(commandArray[3]);
+        GenericObject container = world.getLocalGenericObject(containerName);
 
 
+
+        if(container == null){
+            System.out.println("You can't find the " + commandArray[3] + " here.");
+            return;
+        }
+
+        if(container instanceof Creature){
+            System.out.println(containerName + " doesn't appreciate you rummaging through "
+                    + hisOrHer(((Creature) container).getGender()) + " things. Try asking nicely.");
+            return;
+        }
+
+        if(!(container.hasAttribute("container"))){
+            System.out.println("That doesn't hold anything.");
+            return;
+        }
+
+        String itemName = world.matchLocalName(commandArray[1]);
+        GenericObject item = world.getLocalGenericObject(itemName);
+
+        if(item == null || !(container.hasItem((Item) item))){
+            System.out.println("That's not in there.");
+            return;
+        }
+
+        world.transferItemToNewOwner((Item) item, container, world.getPlayer());
+        System.out.println("You take the " + item.getName() + " from the " + container.getName() + ".");
 
     }
 

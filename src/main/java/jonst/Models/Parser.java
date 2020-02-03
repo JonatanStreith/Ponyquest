@@ -203,7 +203,7 @@ public class Parser {
 
             case "put":
             case "place":
-
+                Commands.place(commandArray, world);
                 break;
 
             case "give":
@@ -213,7 +213,7 @@ public class Parser {
 
             case "take":
             case "retrieve":
-
+                Commands.take(commandArray, world);
                 break;
 
             default:
@@ -231,6 +231,14 @@ public class Parser {
 
             case "transform":
                 Commands.transform(commandArray, world);
+                break;
+
+            case "open":
+                Commands.open(commandArray[1], world);
+                break;
+
+            case "close":
+                Commands.close(commandArray[1], world);
                 break;
 
         }

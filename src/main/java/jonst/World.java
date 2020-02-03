@@ -195,20 +195,20 @@ public class World {
 
 
 
-        Location junkyard = getLocation("Junkyard");
-
-        for (GenericObject gen : genericList) {     //Everything with an incorrect location gets sent to the junkyard.
-            if(gen.getLocation() == null){
-                gen.setLocation(junkyard);
-
-                if(gen instanceof Item)
-                    junkyard.addItem((Item)gen);
-                else if(gen instanceof Creature)
-                    junkyard.addCreature((Creature)gen);
-                else if(gen instanceof StationaryObject)
-                    junkyard.addObject((StationaryObject)gen);
-            }
-        }
+//        Location junkyard = getLocation("Junkyard");
+//
+//        for (GenericObject gen : genericList) {     //Everything with an incorrect location gets sent to the junkyard.
+//            if(gen.getLocation() == null){
+//                gen.setLocation(junkyard);
+//
+//                if(gen instanceof Item)
+//                    junkyard.addItem((Item)gen);
+//                else if(gen instanceof Creature)
+//                    junkyard.addCreature((Creature)gen);
+//                else if(gen instanceof StationaryObject)
+//                    junkyard.addObject((StationaryObject)gen);
+//            }
+//        }
     }
 
 
@@ -380,6 +380,17 @@ public class World {
 
     }
 
+    public GenericObject getLocalGenericOnGround(String wantedGenericObject){
+
+        List<GenericObject> localList = getPlayerLocation().getAllGroundOnly();
+
+        for (GenericObject genericObject : localList) {
+            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
+                return genericObject;
+        }
+        return null;
+
+    }
 
 
     // --------------- Match name methods ------------------------
@@ -468,6 +479,42 @@ public class World {
     public String matchLocalName(String name) {
 
         List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
+
+
+        List<String> results = new ArrayList<>();
+        //genList is now everything at the location.
+
+        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
+
+            if (generic.getName().equalsIgnoreCase(name)) {
+                results.add(generic.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : generic.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(generic.getName());
+                    }
+                }
+            }
+        }
+
+        results = HelpfulMethods.removeDuplicates(results);
+
+        if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
+            return "";
+        } else if (results.size() == 0) {
+            System.out.println("You don't see a '" + name + "' here.");
+            return "";
+        } else {
+
+            return results.get(0);
+        }
+    }
+
+
+    public String matchLocalOnGround(String name) {
+
+        List<GenericObject> genList = getPlayerLocation().getAllGroundOnly();
 
 
         List<String> results = new ArrayList<>();

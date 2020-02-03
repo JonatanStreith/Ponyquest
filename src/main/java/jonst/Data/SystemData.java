@@ -95,6 +95,9 @@ public class SystemData {
 
             add("create");
             add("transform");
+
+            add("open");
+            add("close");
         }};
     }
 
