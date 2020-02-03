@@ -123,5 +123,5 @@ Hugging!
 
 //  Have text-content stored somewhere else. Load it with some function.
 
-
+//  Rebuild enter() so it only runs to defaultEnter if it's no-args. Otherwise, it has an option to take SObjects and similar. So you can "enter magic mirror".
 }
