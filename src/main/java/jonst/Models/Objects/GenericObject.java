@@ -19,15 +19,17 @@ public abstract class GenericObject {
     private String text;
     private String defaultUse;
 
+    private Map<String, String> descriptions = new HashMap<>();
+
     private Map<String, String> complexUse = new HashMap<>();
 
     private Map<String, String> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String id, String description, String locationName, List<String> alias, List<String> attributes) {
+    public GenericObject(String name, String id, String locationName, List<String> alias, List<String> attributes) {
         setName(name);
         setId(id);
-        setDescription(description);
+
         setLocationName(locationName);
         setAlias(alias);
         setAttributes(attributes);
@@ -44,9 +46,15 @@ public abstract class GenericObject {
         this.id = id;
     }
 
+    public void setDescriptions(Map<String, String> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+/*
     protected void setDescription(String description) {
         this.description = description;
     }
+*/
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
@@ -77,7 +85,26 @@ public abstract class GenericObject {
     }
 
     public String getDescription() {
-        return description;
+
+        StringBuilder fullDescription = new StringBuilder(descriptions.get("default"));
+
+        for (String attr: getAttributes()) {
+            if(descriptions.keySet().contains(attr)){
+                fullDescription.append(" " + descriptions.get(attr));
+            }
+        }
+
+
+        return fullDescription.toString();
+    }
+
+    public String getDescription(String key) {
+        return descriptions.get(key);
+    }
+
+
+    public Map<String, String> getDescriptions() {
+        return descriptions;
     }
 
     public String getLocationName() {

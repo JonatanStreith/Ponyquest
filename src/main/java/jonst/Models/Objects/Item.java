@@ -9,8 +9,8 @@ public class Item extends GenericObject {
     private GenericObject owner;
 
 
-    public Item(String name, String id, String description, String locationName, List<String> alias, List<String> attributes) {
-        super(name, id, description, locationName, alias, attributes);
+    public Item(String name, String id, String locationName, List<String> alias, List<String> attributes) {
+        super(name, id, locationName, alias, attributes);
     }
 
     public boolean setOwner(GenericObject owner){
@@ -25,7 +25,7 @@ public class Item extends GenericObject {
     public void transformInto(Item template){
         setName(template.getName());
         setId(template.getId());
-        setDescription(template.getDescription());
+        setDescriptions(template.getDescriptions());
 
         setAlias(template.getAlias());
         setAttributes(template.getAttributes());

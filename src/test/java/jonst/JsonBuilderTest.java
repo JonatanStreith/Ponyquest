@@ -7,6 +7,7 @@ import jonst.Models.Objects.Location;
 import jonst.Models.Objects.StationaryObject;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,4 +133,14 @@ public class JsonBuilderTest {
 
     }
 
+    @Test
+    public void test() {
+        Map<String, Integer> testcase = new HashMap<>();
+
+        testcase.put("John", 20);
+        testcase.put("John", 30);
+
+        System.out.println(testcase.get("John")) ;
+
+    }
 }

@@ -18,8 +18,8 @@ public class Creature extends GenericObject {
     private BehaviorCore behavior;
 
 
-    public Creature(String name, String id, String description, String locationName, List<String> alias, List<String> attributes, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, id, description, locationName, alias, attributes);
+    public Creature(String name, String id, String locationName, List<String> alias, List<String> attributes, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, id, locationName, alias, attributes);
 
         setRace(race);
         setGender(gender);

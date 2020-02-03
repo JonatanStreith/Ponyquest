@@ -121,5 +121,7 @@ Hugging!
 
     //May just want to have one class that handles spells. String list of available spells that dictate which you can actually cast.
 
+//  Have text-content stored somewhere else. Load it with some function.
+
 
 }

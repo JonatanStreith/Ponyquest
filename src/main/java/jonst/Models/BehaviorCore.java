@@ -26,16 +26,7 @@ public class BehaviorCore {
     }
 
     public BehaviorCore() {
-        mood = "neutral";
-        activity = "idle";
-        allegiance = "friendly";
-        status = "normal";
-
-
-        personalQuotes.put("thanks", "\"Thanks!\"");
-        personalQuotes.put("yes", "\"Yes.\"");
-        personalQuotes.put("no", "\"No.\"");
-        personalQuotes.put("angryprotest", "\"Cut that out!\"");
+        this("neutral", "idle", "friendly", "normal");
     }
 
     public String getMood() {

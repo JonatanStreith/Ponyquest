@@ -5,6 +5,9 @@
     "DefaultEnter": "",
     "DefaultExit": "",
     "Description": "This is where you keep your possessions and things.",
+    "Descriptions": {
+      "Default": "This is where you keep your possessions and things."
+    },
     "Id": "Location_Debug_Inventory",
     "FullName": "Inventory",
     "Location": "Inventory",
@@ -26,6 +29,9 @@
   "DefaultEnter": "",
   "DefaultExit": "",
   "Description": "This is where objects should end up if they can't be placed elsewhere.",
+  "Descriptions": {
+    "Default": "This is where objects should end up if they can't be placed elsewhere."
+  },
   "Id": "Location_Debug_Junkyard",
   "FullName": "Junkyard",
   "Location": "Junkyard",
@@ -45,11 +51,15 @@
       "0": "Sugarcube Corner",
       "1": "Carousel Boutique",
       "2": "Sweet Apple Acres",
-      "3": "Castle main hall"
+      "3": "Castle main hall",
+      "4": "Ponyville station"
     },
     "DefaultEnter": "Castle main hall",
     "DefaultExit": "",
     "Description": "The Castle of Friendship is a majestic crystal structure that looks incredibly out of place with the rest of Ponyville. It's a nice place to hang out, though.",
+    "Descriptions": {
+      "Default": "The Castle of Friendship is a majestic crystal structure that looks incredibly out of place with the rest of Ponyville. It's a nice place to hang out, though."
+    },
     "Id": "Location_Castle_Exterior",
     "FullName": "Castle of Friendship",
     "Location": "Castle of Friendship",
@@ -71,11 +81,15 @@
       "0": "Castle of Friendship",
       "1": "Carousel Boutique",
       "2": "Sweet Apple Acres",
-      "3": "Sugarcube Corner interior"
+      "3": "Sugarcube Corner interior",
+      "4": "Ponyville station"
     },
     "DefaultEnter": "Sugarcube Corner interior",
     "DefaultExit": "",
     "Description": "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house.",
+    "Descriptions": {
+      "Default": "Sugarcube Corner is Ponyville's premier confectionery store. You don't know why it's built like a giant gingerbread house."
+    },
     "Id": "Location_Sugarcube_Exterior",
     "FullName": "Sugarcube Corner",
     "Location": "Sugarcube Corner",
@@ -102,6 +116,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Sugarcube Corner",
     "Description": "The shop is busy with ponies enjoying baked goods.",
+    "Descriptions": {
+      "Default": "The shop is busy with ponies enjoying baked goods."
+    },
     "Id": "Location_Sugarcube_Interior",
     "FullName": "Sugarcube Corner interior",
     "Location": "Sugarcube Corner interior",
@@ -126,6 +143,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Sugarcube Corner interior",
     "Description": "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?",
+    "Descriptions": {
+      "Default": "This is where the magic happens! And by magic, you mean baking and not actually magic. Why are you even here?"
+    },
     "Id": "Location_Sugarcube_Kitchen",
     "FullName": "Sugarcube Corner kitchen",
     "Location": "Sugarcube Corner kitchen",
@@ -147,6 +167,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Sugarcube Corner interior",
     "Description": "This is Pinkie Pie's room. It's a complete mess.",
+    "Descriptions": {
+      "Default": "This is Pinkie Pie's room. It's a complete mess."
+    },
     "Id": "Location_Sugercube_Pinkieroom",
     "FullName": "Pinkie Pie's room",
     "Location": "Pinkie Pie's room",
@@ -170,6 +193,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Sugarcube Corner interior",
     "Description": "This underground sanctum is where Pinkie Pie stores most of her party supplies, and also where she maintains surveillance on everypony's birthdays and other anniversaries. EVERYPONY'S. The implications are terrifying.",
+    "Descriptions": {
+      "Default": "This underground sanctum is where Pinkie Pie stores most of her party supplies, and also where she maintains surveillance on everypony's birthdays and other anniversaries. EVERYPONY'S. The implications are terrifying."
+    },
     "Id": "Location_Sugarcube_Partycave",
     "FullName": "Party Cave",
     "Location": "Party Cave",
@@ -191,11 +217,15 @@
       "0": "Castle of Friendship",
       "1": "Sugarcube Corner",
       "2": "Sweet Apple Acres",
-      "3": "Carousel Boutique interior"
+      "3": "Carousel Boutique interior",
+      "4": "Ponyville station"
     },
     "DefaultEnter": "Carousel Boutique interior",
     "DefaultExit": "",
     "Description": "The Carousel Boutique is a bright and airy shop full of outfits of all kinds, all hoof-made by its proprietor, Rarity. Of course, already being dressed to perfection, you have no need of her services.",
+    "Descriptions": {
+      "Default": "The Carousel Boutique is a bright and airy shop full of outfits of all kinds, all hoof-made by its proprietor, Rarity. Of course, already being dressed to perfection, you have no need of her services."
+    },
     "Id": "Location_Carousel_Exterior",
     "FullName": "Carousel Boutique",
     "Location": "Carousel Boutique",
@@ -222,6 +252,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Carousel Boutique",
     "Description": "The shop is full of ponyquins and displays showing Rarity's latest creations. It's surprisingly roomy.",
+    "Descriptions": {
+      "Default": "The shop is full of ponyquins and displays showing Rarity's latest creations. It's surprisingly roomy."
+    },
     "Id": "Location_Carousel_Interior",
     "FullName": "Carousel Boutique interior",
     "Location": "Carousel Boutique interior",
@@ -245,11 +278,18 @@
       "0": "Castle of Friendship",
       "1": "Carousel Boutique",
       "2": "Sugarcube Corner",
-      "3": "Farmhouse interior"
+      "3": "Farmhouse interior",
+      "4": "Ponyville station"
     },
     "DefaultEnter": "Farmhouse interior",
     "DefaultExit": "",
+    "Descriptions": {
+      "Default": ""
+    },
     "Description": "Sweet Apple Acres is a beautiful pastoral farmstead, run by the Apple family. Unsurprisingly, they grow apples.",
+    "Descriptions": {
+      "Default": "Sweet Apple Acres is a beautiful pastoral farmstead, run by the Apple family. Unsurprisingly, they grow apples."
+    },
     "Id": "Location_Acres_Exterior",
     "FullName": "Sweet Apple Acres",
     "Location": "Sweet Apple Acres",
@@ -273,6 +313,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Sweet Apple Acres",
     "Description": "This rustic home is where Applejack and her family lives. It's cozy, quaint and so stereotypical you almost gag.",
+    "Descriptions": {
+      "Default": "This rustic home is where Applejack and her family lives. It's cozy, quaint and so stereotypical you almost gag."
+    },
     "Id": "Location_Acres_Farmhouse",
     "FullName": "Farmhouse interior",
     "Location": "Farmhouse interior",
@@ -300,6 +343,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Castle of Friendship",
     "Description": "This is the main hall, which leads to every other room in the castle. Try not to get lost again.",
+    "Descriptions": {
+      "Default": "This is the main hall, which leads to every other room in the castle. Try not to get lost again."
+    },
     "Id": "Location_Castle_Mainhall",
     "FullName": "Castle main hall",
     "Location": "Castle main hall",
@@ -322,6 +368,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Castle main hall",
     "Description": "The room is dominated by the grand Cutie Map, and the six... seven thrones from which Twilight Sparkle and her friends do friendship stuff, or something.",
+    "Descriptions": {
+      "Default": "The room is dominated by the grand Cutie Map, and the six... seven thrones from which Twilight Sparkle and her friends do friendship stuff, or something."
+    },
     "Id": "Location_Castle_Maproom",
     "FullName": "Cutie Map room",
     "Location": "Cutie Map room",
@@ -344,6 +393,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Castle main hall",
     "Description": "The library holds copies of every book in Equestria that Twilight Sparkle could get her hooves on. If you need to look something up, you suppose you could come here.",
+    "Descriptions": {
+      "Default": "The library holds copies of every book in Equestria that Twilight Sparkle could get her hooves on. If you need to look something up, you suppose you could come here."
+    },
     "Id": "Location_Castle_Library",
     "FullName": "Castle library",
     "Location": "Castle library",
@@ -366,6 +418,9 @@
     "DefaultEnter": "",
     "DefaultExit": "Castle main hall",
     "Description": "The castle kitchen is a great place to stock up on snacks. As long as Spike doesn't catch you.",
+    "Descriptions": {
+      "Default": "The castle kitchen is a great place to stock up on snacks. As long as Spike doesn't catch you."
+    },
     "Id": "Location_Castle_Kitchen",
     "FullName": "Castle kitchen",
     "Location": "Castle kitchen",
@@ -387,11 +442,41 @@
     "DefaultEnter": "",
     "DefaultExit": "Castle main hall",
     "Description": "Starlight's room. You hang out here sometimes.",
+    "Descriptions": {
+      "Default": "Starlight's room. You hang out here sometimes."
+    },
     "Id": "Location_Castle_Starlightroom",
     "FullName": "Starlight's room",
     "Location": "Starlight's room",
     "Alias": [
       "Starlight room"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Exits": {
+      "0": "Sugarcube Corner",
+      "1": "Carousel Boutique",
+      "2": "Sweet Apple Acres",
+      "3": "Castle of Friendship"
+    },
+    "DefaultEnter": "",
+    "DefaultExit": "",
+    "Descriptions": {
+      "Default": "This is Ponyville's train station, where ponies come and go to and from every part of Equestria. The Friendship Express make several stops here each day."
+    },
+    "Id": "Ponyville_Station",
+    "FullName": "Ponyville station",
+    "Location": "Ponyville station",
+    "Alias": [
+      "station",
+      "train station"
     ],
     "Attributes": [
       ""

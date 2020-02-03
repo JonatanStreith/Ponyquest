@@ -1,6 +1,9 @@
 [
   {
     "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
+    "Descriptions": {
+      "Default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble."
+    },
     "Id": "Creature_Trixie",
     "FullName": "Trixie",
     "Race": "unicorn",
@@ -29,7 +32,13 @@
       "mood": "haughty",
       "activity": "questing",
       "allegiance": "self",
-      "status": "powerful"
+      "status": "powerful",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Cut that out!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -38,6 +47,9 @@
   },
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
+    "Descriptions": {
+      "Default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly."
+    },
     "Id": "Creature_Twilight_Sparkle",
     "FullName": "Twilight Sparkle",
     "Race": "alicorn",
@@ -72,7 +84,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Stop that!\""
+      }
     },
     "ResponseScripts": {
       "scare": "moveto Castle_Main_Hall",
@@ -84,6 +102,9 @@
   },
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
+    "Descriptions": {
+      "Default": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion."
+    },
     "Id": "Creature_Rarity",
     "FullName": "Rarity",
     "Race": "unicorn",
@@ -114,7 +135,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you, darling.!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No, no, no.\"",
+        "angryprotest": "\"Now stop that!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -123,6 +150,9 @@
   },
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
+    "Descriptions": {
+      "Default": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you."
+    },
     "Id": "Creature_Pinkie_Pie",
     "FullName": "Pinkie Pie",
     "Race": "earth pony",
@@ -155,7 +185,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Sure.\"",
+        "no": "\"Nope!\"",
+        "angryprotest": "\"Hey, quit it!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -164,6 +200,9 @@
   },
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
+    "Descriptions": {
+      "Default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice."
+    },
     "Id": "Creature_Applejack",
     "FullName": "Applejack",
     "Race": "earth pony",
@@ -193,7 +232,13 @@
       "mood": "annoyed",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Cut that out!\""
+      }
     },
     "ResponseScripts": {
       "pick up": "setmood annoyed"
@@ -203,6 +248,9 @@
   },
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
+    "Descriptions": {
+      "Default": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though."
+    },
     "Id": "Creature_Rainbow_Dash",
     "FullName": "Rainbow Dash",
     "Race": "pegasus",
@@ -233,7 +281,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Cool, thanks!\"",
+        "yes": "\"Yeah!\"",
+        "no": "\"Nu-uh.\"",
+        "angryprotest": "\"Cut that out!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -242,6 +296,9 @@
   },
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
+    "Descriptions": {
+      "Default": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you."
+    },
     "Id": "Creature_Fluttershy",
     "FullName": "Fluttershy",
     "Race": "pegasus",
@@ -271,7 +328,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Um... thank you.\"",
+        "yes": "\"Yes...\"",
+        "no": "\"Um... no?\"",
+        "angryprotest": "\"Please stop... if you don't mind.\""
+      }
     },
     "ResponseScripts": {
     },
@@ -280,6 +343,9 @@
   },
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
+    "Descriptions": {
+      "Default": "Twilight Sparkle's runty dragon assistant. He's kind of annoying."
+    },
     "Id": "Creature_Spike",
     "FullName": "Spike",
     "Race": "dragon",
@@ -308,7 +374,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yeah, sure.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Lay it off!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -317,6 +389,9 @@
   },
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
+    "Descriptions": {
+      "Default": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best."
+    },
     "Id": "Creature_Starlight_Glimmer",
     "FullName": "Starlight Glimmer",
     "Race": "unicorn",
@@ -350,7 +425,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks, Trixie!\"",
+        "yes": "\"Yes, of course.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Trixie... stop.\""
+      }
     },
     "ResponseScripts": {
     },
@@ -359,6 +440,9 @@
   },
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
+    "Descriptions": {
+      "Default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you."
+    },
     "Id": "Creature_Maud_Pie",
     "FullName": "Maud Pie",
     "Race": "earth pony",
@@ -387,7 +471,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks.\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Don't do that.\""
+      }
     },
     "ResponseScripts": {
       "hug": "setmood happy"
@@ -397,6 +487,9 @@
   },
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
+    "Descriptions": {
+      "Default": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."
+    },
     "Id": "Creature_Celestia",
     "FullName": "Princess Celestia",
     "Race": "alicorn",
@@ -427,7 +520,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you.\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Behave yourself, my little pony.\""
+      }
     },
     "ResponseScripts": {
     },
@@ -436,6 +535,9 @@
   },
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
+    "Descriptions": {
+      "Default": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."
+    },
     "Id": "Creature_Luna",
     "FullName": "Princess Luna",
     "Race": "alicorn",
@@ -467,7 +569,13 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
-      "status": "normal"
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"You have our gratitude.\"",
+        "yes": "\"Indeed.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"You will behave!\""
+      }
     },
     "ResponseScripts": {
     },
@@ -476,6 +584,9 @@
   },
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
+    "Descriptions": {
+      "Default": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that."
+    },
     "Id": "Creature_Discord",
     "FullName": "Discord",
     "Race": "draconequus",
@@ -505,7 +616,53 @@
       "mood": "neutral",
       "activity": "idle",
       "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Why, thank you!\"",
+        "yes": "\"Of course.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Oh, stop that!\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "Default": "An authoritative-looking pony who sells tickets and stops freeloaders. His moustache is quite impressive."
+    },
+    "Id": "All_Aboard",
+    "FullName": "All Aboard",
+    "Race": "earth pony",
+    "Gender": "male",
+    "Location": "Ponyville station",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Going somewhere today, ma'am?\"",
+      "\"Let me know if you want a ticket somewhere, ma'am.\"",
+      "\"Don't you usually have your own wagon, Miss Trixie?\"",
+      "\"Keep all hooves, wings, horns and other appendages inside the train until it's reached a full stop\"",
+      "\"The train to Klugetown has been cancelled today. Bandits. Again.\""
+    ],
+    "AskTopics": {
+      "default": "\"Sorry, ma'am, don't know. I just sell tickets and work the trains.\"",
+      "tickets": "\"Just let me know where you want to go.\""
+    },
+    "Alias": [
+      "train pony",
+      "ticket pony"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
       "status": "normal"
+
     },
     "ResponseScripts": {
     },
