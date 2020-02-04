@@ -127,17 +127,19 @@ Hugging!
 
     //Subclasses of StationaryObject: Vehicle, Producer. Vehicles can be used to travel. Producers can be used to produce an endless supply of things. (I.e. apple trees)
 
-//  RunRespnseScript now returns boolean! o you can check that anything happened.
+//  RunRespnseScript now returns boolean! So you can check that anything happened.
 
 //  Command activate: Since that seems to vary from thing to thing, just have it connected to a responsescript.
 
 /*
 
-A way to make other NPCs do actions! Like "Applejack, go to Sugarcube Corner".
+Figure out some way to have overriding descriptions and additive descriptions.
 
-If the commandline begins with a legitimate noun, parse it differently. Find who you're instructing, set them as "actor",
-then run the command as normal. Though if you command them, responses will need to be different. So send them to a whole new
-set of command methods, just to keep things orderly. This could be big!
+"Tablet of Transmigration".
+
+Figure out how to "cast" from items in your inventory. List of legit nouns needs to be updated accordingly.
+
+Set up some kind of "owned" script, so if you try to pick up an item that is owned by someone who is present, they interfere. Could work!
 
 */
 
