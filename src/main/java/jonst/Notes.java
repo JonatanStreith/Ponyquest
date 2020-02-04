@@ -14,12 +14,9 @@ public class Notes {
     //      Add "spells" as an new class, make list. Can use "cast" command. Trixie may know some spells, and learn others.
 
 
-    //https://docs.oracle.com/javase/tutorial/essential/io/pathOps.html
-    //https://www.w3schools.com/java/java_files.asp
 
     //Remember: GameFlags is a hashmap, get values through GameFlags.get("keyword");
 
-    //When "using" something, call a method that takes relevant data and runs scripts?
 
     //IMPORTANT! Have a check of all objects to ensure that their "location" is valid, otherwise dump them into a special cleanup location.
 
@@ -28,13 +25,9 @@ public class Notes {
     //First check if that thing is within range. I.e. if you type "Go to kitchen", check if any possible exits match that description; otherwise, refuse to go.
 
 
-    //Add "useeffect" to objects? Line written when you try to use something. Work out way to advance this to persistent effects.
 
     //It's possible to have creatures move around based on time parameters! Just have the location dependent on a time parameter; when asking for someone's location, just provide the time
     //and return a certain location matching that one! Could use a hashmap with time marks as keys!
-
-
-    //Should have "caster" object (class) that handles spellcasting. Stores spells, maybe.
 
     //Note: It is permissible to have secondary inputs. If a command needs more info, you can prompt for more lines. Good idea!
 
@@ -42,33 +35,10 @@ public class Notes {
     //have returnFullName return list of all things matching the shortname. If multiple returns, ask "which one?" Since it returns all names...
     //Example: (assume Celestia and Luna are in the same room) talk to princess -> "Which princess? Princess Celestia or Princess Luna?"
 
-    //Todo: MUST MAKE SURE PLAYER CAN ONLY, ONLY *ONLY* INTERACT WITH THINGS AT THE CURRENT LOCATION! Will ensure that you don't accidentally grab something that is somewhere else.
-    //Could also allow for duplicates. If there are five apples at a location and you pick up one, who cares which one it is?
-
-    //Items should have List<String> Qualities, which tracks what the item can be used for: wearable, activation, ligh source, food, etc.
-
-
-
-    //Every creature has their own inventory! This cannot go wrong.
-
-        //Move itemstorage to GenericObject so all things can hold items!
-
-    //IDEA! Make a big HashMap that can parse inputted topics against Real Topics, i.e. AJ -> Applejack, etc. That way, we don't have to
-    //give each creature five identical entries for the same, differently phrased topic.
-
-
-
 
     //Definitely make a unique ID system.
 
-    //Find a way to look at/interact with things inside containers/carried.
-
-
-    //Attributes: ClosedContainer = kan inte "se" innehållet.
-
     //Todo: Make function that checks attributes for inconsistencies and contradictions - i.e. "open" and "closed". Could be done with simple rules.
-
-    //Add "(Carried by <>)" when looking at contained things!
 
     //Oh yeah! Can probably put in limitations on what you can put into containers based on size, using Attributes! If it has "huge container" it can house "huge" items, or have a number, or something...
 
@@ -92,6 +62,8 @@ public class Notes {
 //    Magic interface! Basically a command that leads to a continued loop (until you break it) where you can do in-depth magic commands. Possibly set up a magicParser() method.
 //
 //    Add a "text" field to items. the json doesn't need entries for things that aren't "readable" (attribute), so they'll become null. If the item isn't "readable", trying to read it will just return a "There's nothing to read."
+
+//  Have text-content stored somewhere else. Load it with some function.
 //
 //    Train station! The train is a Stationary, use or "board" it will check if you have a ticket, then take you to that place. Better: boarding will list which tickets you have, and you have to choose destination! Then go there! Yeah, that's cool. (Train/ticket pony: "All Aboard").
 //
@@ -109,10 +81,6 @@ Which then retrieves a commandline from its map of scripts and runs it through a
 For instance, if Trixie goes through the mirror to the human world, we might call the script "go to human world"; "transform into human"; etc.
 
 
-Responsive actions! Have commands where a certain thing is interacted with send a respondScript(command); to the thing; If there's a script
-with that key, they will run that script!
-
-Hugging!
  */
 
 //  Set ResponseScript so it stores an arraylist of strings with each key - that way, we can have multiple scripts with each key!
@@ -120,8 +88,6 @@ Hugging!
 //  TODO: Convert to ID for choosing where to go with "go to"! Probably a good idea to do so for all things.
 
     //May just want to have one class that handles spells. String list of available spells that dictate which you can actually cast.
-
-//  Have text-content stored somewhere else. Load it with some function.
 
 //  Rebuild enter() so it only runs to defaultEnter if it's no-args. Otherwise, it has an option to take SObjects and similar. So you can "enter magic mirror".
 
