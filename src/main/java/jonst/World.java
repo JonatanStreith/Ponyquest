@@ -114,8 +114,7 @@ public class World {
 
     public void removeItemFromGeneric(Item it, GenericObject gen) {
 
-//        GenericObject gen = getGenericObject(generic);
-//        Item it = getItem(item);
+
 
         gen.removeItem(it);
         it.setOwner(null);

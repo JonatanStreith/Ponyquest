@@ -1,10 +1,13 @@
 package jonst.Models.Objects;
 
+import jonst.HelpfulMethods;
 import jonst.Models.BehaviorCore;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static jonst.HelpfulMethods.*;
 
 
 public class Creature extends GenericObject {
@@ -68,7 +71,10 @@ public class Creature extends GenericObject {
 
 
     public String getRandomCasualDialog() {
-        return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));
+        if(casualDialog != null && casualDialog.size()>0) {
+            return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));
+        } else
+            return capitalize(heOrShe(getGender())) + " doesn't have anything to say to you.";
     }
 
     public String askAbout(String topic) {

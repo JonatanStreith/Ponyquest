@@ -93,9 +93,15 @@ public abstract class GenericObject {
                 fullDescription.append(" " + descriptions.get(attr));
             }
         }
-
-
         return fullDescription.toString();
+    }
+
+    public String getGender() {
+
+        if(this instanceof Creature){
+            return ((Creature) this).getGender();
+        }
+        return "neuter";
     }
 
     public String getDescription(String key) {

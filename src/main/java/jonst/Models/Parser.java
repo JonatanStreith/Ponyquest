@@ -3,6 +3,7 @@ package jonst.Models;
 import jonst.*;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.GenericObject;
+import jonst.Models.Objects.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +71,11 @@ public class Parser {
 
         String[] commandArray = parse(command);
 
-        runCommandArray(commandArray, world);
-
+        if(commandArray[0].equalsIgnoreCase("cast")){
+            runMagicCommandArray(commandArray, world);
+        } else {
+            runCommandArray(commandArray, world);
+        }
     }
 
 
@@ -318,6 +322,24 @@ public class Parser {
     }
 
 
+    //-------- Magic stuff -------------------------------
+
+
+    public void runMagicCommandArray(String[] magicCommandArray, World world){
+
+        switch (magicCommandArray[1].toLowerCase()) {
+            case "fireball":
+                Spellcasting.fireball(magicCommandArray, world);
+                break;
+
+
+            default:
+                System.out.println("You don't know of any spell by that name.");
+                break;
+        }
+
+    }
+
     //-------- Scriptparser stuff ------------------------
 
     public void runScriptCommand(GenericObject subject, String script, World world) {
@@ -348,11 +370,28 @@ public class Parser {
                 break;
 
             case "deleteitem":
-
+                Scripts.deleteItem(subject, world);
                 break;
+
+                case "destroyitem":
+            Scripts.destroyItem(subject, world);
+            break;
 
             case "createitem":
 
+                break;
+
+            case "fleerandom":
+                Scripts.fleeToRandomLocation(subject, world);
+                break;
+
+
+            case "addattribute":
+                Scripts.addAttribute(subject, scriptCommandArray, world);
+                break;
+
+            case "removeattribute":
+                Scripts.removeAttribute(subject, scriptCommandArray, world);
                 break;
         }
     }

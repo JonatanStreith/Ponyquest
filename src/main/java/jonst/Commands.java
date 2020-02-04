@@ -437,15 +437,36 @@ public class Commands {
 
     public static void enter(String location, World world) {
 
-        if (world.getPlayerLocation().getDefaultEnter().equals("")) {
-            System.out.println("Enter where? You don't see any particular place that stands out.");
+        if (location.equals("")) {
+            //If location has no default enter, or it's incorrect
+            if (world.getPlayerLocation().getDefaultEnter() == null || world.getLocation(world.getPlayerLocation().getDefaultEnter()) == null) {
+                System.out.println("Enter where? You don't see any particular place that stands out.");
+            } else {
+                goTo(world.getPlayerLocation().getDefaultEnter(), world);
+            }
             return;
         }
 
-        if (location.equals("")) {
-            goTo(world.getPlayerLocation().getDefaultEnter(), world);
+        String targetName = world.matchLocalName(location);
+        GenericObject genTarget = world.getLocalGenericOnGround(targetName);
+
+        if(genTarget instanceof StationaryObject || genTarget instanceof Item){
+
+            if(genTarget.hasAttribute("canenter")) {
+
+                System.out.println("You try to crawl into the " + genTarget.getName() + ".");
+                genTarget.runResponseScript("enter");
+            } else {
+                System.out.println("You can't get into that!");
+            }
+
             return;
         }
+
+
+
+
+
 
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
         for (String area : possibleAreas) {
@@ -460,7 +481,7 @@ public class Commands {
 
     public static void exit(String location, World world) {
 
-        if (world.getPlayerLocation().getDefaultEnter().equals("")) {
+        if (world.getPlayerLocation().getDefaultExit() == null) {
             System.out.println("You're not in a place with a clear exit.");
             return;
         }

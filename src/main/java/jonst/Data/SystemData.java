@@ -136,12 +136,14 @@ public class SystemData {
             add("bodyswap");
             add("telekinesis");
             add("cloudwalk");
-            add("teacupify");
             add("disintegrate");
             add("fireworks");
             add("wings");
             add("want it need it");
             add("sleep");
+            add("energize");
+            add("transform");
+            add("create");
         }};
     }
 
