@@ -109,6 +109,10 @@ public class Parser {
     public void runCommandArray(String[] commandArray, World world){
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
+            case "activate":
+                Commands.activate(commandArray, world);
+                break;
+
             case "quicksave":
                 Commands.saveQuick(world);
                 break;

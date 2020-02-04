@@ -98,6 +98,7 @@ public class SystemData {
 
             add("open");
             add("close");
+            add("activate");
         }};
     }
 

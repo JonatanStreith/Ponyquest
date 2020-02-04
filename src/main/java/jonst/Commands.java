@@ -12,35 +12,17 @@ import static jonst.HelpfulMethods.*;
 
 public class Commands {
 
-    public static void give(String[] commandArray, World world) {
+    public static void activate(String[] commandArray, World world){
 
-        String subjectName = world.matchNameFromInventory(commandArray[1]);
-        String targetName = world.matchLocalName(commandArray[3]);
+        String fullName = world.matchLocalName(commandArray[1]);
+        GenericObject target = world.getGenericObject(fullName);
 
-        if(!(subjectName.equals("") || targetName.equals(""))) {
+        boolean successful = target.runResponseScript("activate");
 
-            Item subject = world.getPlayer().getOwnedItemByName(subjectName);
-            GenericObject target = world.getGenericObject(targetName);
-
-            if(!(target instanceof Creature)){
-                System.out.println("You realize you're trying to present a gift to a non-sentient object. This is stupid.");
-                return;
-            }
-
-            if(subject != null){
-                //do gift thing
-                world.transferItemToNewOwner(subject, world.getPlayer(), target);
-                System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
-
-
-            }
-
-
-
+        if(!successful){
+            System.out.println("Hmm, nothing happened...");
         }
-
     }
-
 
     public static void read(String subject, World world) {
 
@@ -706,6 +688,34 @@ public class Commands {
     }
 
 
+    public static void give(String[] commandArray, World world) {
+
+        String subjectName = world.matchNameFromInventory(commandArray[1]);
+        String targetName = world.matchLocalName(commandArray[3]);
+
+        if(!(subjectName.equals("") || targetName.equals(""))) {
+
+            Item subject = world.getPlayer().getOwnedItemByName(subjectName);
+            GenericObject target = world.getGenericObject(targetName);
+
+            if(!(target instanceof Creature)){
+                System.out.println("You realize you're trying to present a gift to a non-sentient object. This is stupid.");
+                return;
+            }
+
+            if(subject != null){
+                //do gift thing
+                world.transferItemToNewOwner(subject, world.getPlayer(), target);
+                System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
+
+
+            }
+
+
+
+        }
+
+    }
 
     public static void place(String[] commandArray, World world){
 

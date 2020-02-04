@@ -125,6 +125,11 @@ Hugging!
 
 //  Rebuild enter() so it only runs to defaultEnter if it's no-args. Otherwise, it has an option to take SObjects and similar. So you can "enter magic mirror".
 
+    //Subclasses of StationaryObject: Vehicle, Producer. Vehicles can be used to travel. Producers can be used to produce an endless supply of things. (I.e. apple trees)
+
+//  RunRespnseScript now returns boolean! o you can check that anything happened.
+
+//  Command activate: Since that seems to vary from thing to thing, just have it connected to a responsescript.
 
 /*
 

@@ -252,14 +252,17 @@ public abstract class GenericObject {
         return complexUse.get(key.toLowerCase());
     }
 
-    public void runResponseScript(String command) {
+    public boolean runResponseScript(String command) {
 
         ArrayList<String> responseCommands = responseScripts.get(command);
 
-        if (responseCommands != null)
+        if (responseCommands != null) {
             for (String script : responseCommands) {
                 App.getWorld().getParser().runScriptCommand(this, script, App.getWorld());
             }
+            return true;
+        }
+        return false;
     }
 
     public Map<String, ArrayList<String>> getResponseScripts() {
