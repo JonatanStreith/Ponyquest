@@ -93,9 +93,9 @@
       }
     },
     "ResponseScripts": {
-      "scare": "moveto Castle_Main_Hall",
-      "hug": "setmood happy",
-      "pick up": "setmood annoyed"
+      "scare": ["moveto Castle_Main_Hall"],
+      "hug": ["setmood happy"],
+      "pick up": ["setmood annoyed"]
     },
     "ComplexUse": {
     }
@@ -241,7 +241,9 @@
       }
     },
     "ResponseScripts": {
-      "pick up": "setmood annoyed"
+      "pick up": [
+        "setmood annoyed"
+      ]
     },
     "ComplexUse": {
     }
@@ -480,7 +482,9 @@
       }
     },
     "ResponseScripts": {
-      "hug": "setmood happy"
+      "hug": [
+        "setmood happy"
+        ]
     },
     "ComplexUse": {
     }
@@ -698,7 +702,10 @@
 
     },
     "ResponseScripts": {
-      "fireball": "fleerandom"
+      "fireball": [
+        "fleerandom",
+        "setmood scared"
+        ]
     },
     "ComplexUse": {
     }

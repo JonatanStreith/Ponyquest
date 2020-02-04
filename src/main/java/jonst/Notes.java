@@ -124,4 +124,18 @@ Hugging!
 //  Have text-content stored somewhere else. Load it with some function.
 
 //  Rebuild enter() so it only runs to defaultEnter if it's no-args. Otherwise, it has an option to take SObjects and similar. So you can "enter magic mirror".
+
+
+/*
+
+A way to make other NPCs do actions! Like "Applejack, go to Sugarcube Corner".
+
+If the commandline begins with a legitimate noun, parse it differently. Find who you're instructing, set them as "actor",
+then run the command as normal. Though if you command them, responses will need to be different. So send them to a whole new
+set of command methods, just to keep things orderly. This could be big!
+
+*/
+
+
+
 }

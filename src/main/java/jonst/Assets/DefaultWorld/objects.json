@@ -264,6 +264,9 @@
       "inactive"
     ],
     "ResponseScripts": {
+      "energize": [
+        "addattribute active", "removeattribute inactive", "addattribute enterable"
+      ]
     },
     "ComplexUse": {
     }

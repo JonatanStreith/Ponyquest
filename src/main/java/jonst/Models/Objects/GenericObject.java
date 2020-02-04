@@ -23,7 +23,7 @@ public abstract class GenericObject {
 
     private Map<String, String> complexUse = new HashMap<>();
 
-    private Map<String, String> responseScripts = new HashMap<>();
+    private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
     public GenericObject(String name, String id, String locationName, List<String> alias, List<String> attributes) {
@@ -254,17 +254,19 @@ public abstract class GenericObject {
 
     public void runResponseScript(String command) {
 
-        String responseCommand = responseScripts.get(command);
+        ArrayList<String> responseCommands = responseScripts.get(command);
 
-        if (responseCommand != null)
-            App.getWorld().getParser().runScriptCommand(this, responseCommand, App.getWorld());
+        if (responseCommands != null)
+            for (String script : responseCommands) {
+                App.getWorld().getParser().runScriptCommand(this, script, App.getWorld());
+            }
     }
 
-    public Map<String, String> getResponseScripts() {
+    public Map<String, ArrayList<String>> getResponseScripts() {
         return responseScripts;
     }
 
-    public void setResponseScripts(Map<String, String> responseScripts) {
+    public void setResponseScripts(Map<String, ArrayList<String>> responseScripts) {
         this.responseScripts = responseScripts;
     }
 }

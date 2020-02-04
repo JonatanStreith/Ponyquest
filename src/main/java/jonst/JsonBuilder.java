@@ -179,7 +179,12 @@ public class JsonBuilder {
 
                 put("ResponseScripts", new JSONObject() {{
                     for (String key : crea.getResponseScripts().keySet()) {
-                        put(key, crea.getResponseScripts().get(key));
+                        JSONArray scriptArray = new JSONArray(){{
+                            for (String script : crea.getResponseScripts().get(key)) {
+                                add(script);
+                            }
+                        }};
+                        put(key, scriptArray);
                     }
                 }});
 
@@ -244,11 +249,23 @@ public class JsonBuilder {
                         put(key, loc.getComplexUse().get(key));
                     }
                 }});
+//                put("ResponseScripts", new JSONObject() {{
+//                    for (String key : loc.getResponseScripts().keySet()) {
+//                        put(key, loc.getResponseScripts().get(key));
+//                    }
+//                }});
+
                 put("ResponseScripts", new JSONObject() {{
                     for (String key : loc.getResponseScripts().keySet()) {
-                        put(key, loc.getResponseScripts().get(key));
+                        JSONArray scriptArray = new JSONArray(){{
+                            for (String script : loc.getResponseScripts().get(key)) {
+                                add(script);
+                            }
+                        }};
+                        put(key, scriptArray);
                     }
                 }});
+
 
             }});
         }
@@ -301,9 +318,19 @@ public class JsonBuilder {
                         put(key, ite.getComplexUse().get(key));
                     }
                 }});
+//                put("ResponseScripts", new JSONObject() {{
+//                    for (String key : ite.getResponseScripts().keySet()) {
+//                        put(key, ite.getResponseScripts().get(key));
+//                    }
+//                }});
                 put("ResponseScripts", new JSONObject() {{
                     for (String key : ite.getResponseScripts().keySet()) {
-                        put(key, ite.getResponseScripts().get(key));
+                        JSONArray scriptArray = new JSONArray(){{
+                            for (String script : ite.getResponseScripts().get(key)) {
+                                add(script);
+                            }
+                        }};
+                        put(key, scriptArray);
                     }
                 }});
 
@@ -356,9 +383,19 @@ public class JsonBuilder {
                         put(key, sta.getComplexUse().get(key));
                     }
                 }});
+//                put("ResponseScripts", new JSONObject() {{
+//                    for (String key : sta.getResponseScripts().keySet()) {
+//                        put(key, sta.getResponseScripts().get(key));
+//                    }
+//                }});
                 put("ResponseScripts", new JSONObject() {{
                     for (String key : sta.getResponseScripts().keySet()) {
-                        put(key, sta.getResponseScripts().get(key));
+                        JSONArray scriptArray = new JSONArray(){{
+                            for (String script : sta.getResponseScripts().get(key)) {
+                                add(script);
+                            }
+                        }};
+                        put(key, scriptArray);
                     }
                 }});
 
@@ -403,7 +440,7 @@ public class JsonBuilder {
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> askTopics = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
-                Map<String, String> responseScripts = new HashMap<>();
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
                 List<String> alias = new ArrayList<>();
                 List<String> attributes = new ArrayList<>();
 
@@ -438,8 +475,23 @@ public class JsonBuilder {
                 if (jsRS != null)
                     for (Object xObj : jsRS.keySet()) {
                         String key = (String) xObj;
-                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+                        if (jsScripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : jsScripts) {
+                                tempArray.add((String) xObj2);
+                            }
+                        }
+                        responseScripts.put(key.toLowerCase(), (ArrayList<String>) jsScripts);
                     }
+
+//                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+//                if (jsRS != null)
+//                    for (Object xObj : jsRS.keySet()) {
+//                        String key = (String) xObj;
+//                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+//                    }
+
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -530,7 +582,7 @@ public class JsonBuilder {
 
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
-                Map<String, String> responseScripts = new HashMap<>();
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
                 ArrayList<String> exits = new ArrayList<>();
                 List<String> alias = new ArrayList<>();
@@ -568,9 +620,15 @@ public class JsonBuilder {
                 if (jsRS != null)
                     for (Object xObj : jsRS.keySet()) {
                         String key = (String) xObj;
-                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+                        if (jsScripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : jsScripts) {
+                                tempArray.add((String) xObj2);
+                            }
+                        }
+                        responseScripts.put(key.toLowerCase(), (ArrayList<String>) jsScripts);
                     }
-
 
                 JSONObject jsExits = (JSONObject) jObj.get("Exits");
                 if (jsExits != null)
@@ -627,7 +685,7 @@ public class JsonBuilder {
 
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
-                Map<String, String> responseScripts = new HashMap<>();
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -661,9 +719,15 @@ public class JsonBuilder {
                 if (jsRS != null)
                     for (Object xObj : jsRS.keySet()) {
                         String key = (String) xObj;
-                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+                        if (jsScripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : jsScripts) {
+                                tempArray.add((String) xObj2);
+                            }
+                        }
+                        responseScripts.put(key.toLowerCase(), (ArrayList<String>) jsScripts);
                     }
-
                 StationaryObject object = new StationaryObject(fullName, id, location, alias, attributes);
                 object.setDescriptions(descriptions);
                 object.setText(text);
@@ -712,7 +776,7 @@ public class JsonBuilder {
 
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
-                Map<String, String> responseScripts = new HashMap<>();
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
                 JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                 if (jsAlias != null)
@@ -746,9 +810,15 @@ public class JsonBuilder {
                 if (jsRS != null)
                     for (Object xObj : jsRS.keySet()) {
                         String key = (String) xObj;
-                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+                        if (jsScripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : jsScripts) {
+                                tempArray.add((String) xObj2);
+                            }
+                        }
+                        responseScripts.put(key.toLowerCase(), (ArrayList<String>) jsScripts);
                     }
-
 
                 Item item = new Item(fullName, id, location, alias, attributes);
                 item.setDescriptions(descriptions);
@@ -832,14 +902,28 @@ public class JsonBuilder {
                 String text = (String) jsonItem.get("Text");
                 String defaultUse = (String) jsonItem.get("DefaultUse");
 
-                JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
                 JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
 
-                Map<String, String> responseScripts = new HashMap<>();
-                for (Object keyObj : jsResponseScripts.keySet()) {
-                    String key = (String) keyObj;
-                    responseScripts.put(key.toLowerCase(), (String) jsResponseScripts.get(key));
+
+
+                JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
+
+                if (jsResponseScripts != null) {
+                    for (Object keyObj : jsResponseScripts.keySet()) {
+                        String key = (String) keyObj;
+                        JSONArray Scripts = (JSONArray) jsResponseScripts.get(key);
+                        if (Scripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : Scripts) {
+                                tempArray.add((String) xObj2);
+                            }
+
+                            responseScripts.put(key.toLowerCase(), (ArrayList<String>) Scripts);
+                        }
+                    }
                 }
+
 
                 Map<String, String> complexUse = new HashMap<>();
                 for (Object keyObj : jsComplexUse.keySet()) {

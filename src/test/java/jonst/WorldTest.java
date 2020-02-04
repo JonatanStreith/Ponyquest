@@ -300,7 +300,17 @@ public class WorldTest {
 
 
     @Test
-    public void saveToFileTest() {
+    public void Test() {
+
+        String command = "go to castle";
+
+        String[] parts = command.split(",");
+
+        for (String str: parts
+             ) {
+            System.out.println(str);
+        }
+
 
     }
 

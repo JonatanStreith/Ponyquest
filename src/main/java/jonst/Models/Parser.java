@@ -2,6 +2,7 @@ package jonst.Models;
 
 import jonst.*;
 import jonst.Data.SystemData;
+import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 import jonst.Models.Objects.Item;
 
@@ -68,6 +69,32 @@ public class Parser {
 
 
     public void runCommand(String command, World world) {
+
+
+
+        if(command.contains(",")){
+            String[] attemptedNameSplit = command.split(",");
+            String targetName = world.matchLocalName(attemptedNameSplit[0]);
+
+            command = attemptedNameSplit[1].trim();
+
+            GenericObject subject = world.getLocalGenericObject(targetName);
+
+            if(subject == null) {
+                System.out.println("Who are you talking to?");
+            }
+            else if (!(subject instanceof Creature)){
+                System.out.println("The " + subject.getName() + " doesn't seem to listen.");
+            }
+            else {
+                System.out.println(subject.getName() + " hears your instruction: \"" + command + "\".");
+
+                String[] commandArray = parse(command);
+
+                runInstructCommandArray((Creature) subject, commandArray, world);
+            }
+            return;
+        }
 
         String[] commandArray = parse(command);
 
@@ -248,6 +275,172 @@ public class Parser {
         }
     }
 
+    //---------------------------------------------
+
+    public void runInstructCommandArray(Creature subject, String[] commandArray, World world){
+        switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
+        {
+
+//            case "brandish":
+//                //stuff
+//                break;
+//
+//            case "cast":
+//                Commands.cast(commandArray, world);
+//                break;
+//
+//            case "buy":
+//                //"Buy" command. Structure: [buy] [item] [from] [creature]. Creature needs to have attribute "merchant", possibly a sell list(?), and a sell blurb.
+//                // Trixie has a bottomless purse for now.
+//
+//                break;
+//
+//            case "harvest":
+//
+//                break;
+//
+//
+//            case "read":
+//                Commands.read(commandArray[1], world);
+//                break;
+//
+//            case "board":
+//                //Can only board vehicles. Some vehicles need tickets.
+//                break;
+//
+//            case "use":
+//                Commands.use(commandArray, world);
+//                break;
+//
+//            case "attack":
+//                //check if target is hostile or not
+//                break;
+//
+//            case "enter":
+//                Commands.enter(commandArray[1], world);
+//                break;
+//
+//            case "exit":
+//                Commands.exit(commandArray[1], world);
+//                break;
+//
+//            case "save":
+//                Commands.saveGame(world);
+//                break;
+//
+//            case "load":
+//                Commands.loadGame(world);
+//                break;
+
+            case "pick up":
+                Instructs.pickUp(subject, commandArray[1], world);
+                break;
+
+//            case "drop":
+//                Commands.drop(commandArray[1], world);
+//                break;
+//
+//            case "inventory":
+//                Commands.showInventory(world);
+//                break;
+//
+//            case "nouns":
+//                Commands.listNouns(world);
+//                break;
+//
+//            case "help":
+//                Commands.help();
+//                break;
+//
+//            case "commands":
+//                Commands.ListCommands(world);
+//                break;
+//
+//
+//            case "quit":
+//                Commands.quit();
+//                break;
+//
+//            case "go to":
+//            case "go":
+//                Commands.goTo(commandArray[1], world);
+//                break;
+//
+//
+//            case "talk to":
+//            case "talk":
+//
+//                Commands.talkTo(commandArray[1], world);
+//                break;
+//
+//
+//            case "look":
+//            case "look around":
+//            case "look at":
+//                Commands.lookAt(commandArray[1], world);
+//                break;
+//
+//            case "exits":
+//                Commands.getExits(world);
+//                break;
+//
+//            case "teleport":
+//                Commands.teleportOther(commandArray, world);
+//                break;
+//
+//            case "teleport to":
+//                Commands.teleportSelf(commandArray, world);
+//                break;
+//
+//            case "ask":
+//                Commands.ask(commandArray, world);
+//                break;
+//
+//            case "put":
+//            case "place":
+//                Commands.place(commandArray, world);
+//                break;
+//
+//            case "give":
+//                Commands.give(commandArray, world);
+//                break;
+//
+//
+//            case "take":
+//            case "retrieve":
+//                Commands.take(commandArray, world);
+//                break;
+
+            default:
+                System.out.println(subject.getPersonalQuote("excuseme"));
+                break;
+
+
+            case "hug":
+                Commands.hug(commandArray, world);
+                break;
+
+            case "create":
+                Commands.create(commandArray, world);
+                break;
+
+            case "transform":
+                Commands.transform(commandArray, world);
+                break;
+
+            case "open":
+                Commands.open(commandArray[1], world);
+                break;
+
+            case "close":
+                Commands.close(commandArray[1], world);
+                break;
+
+        }
+    }
+
+    //---------------------------------------------
+
     public void addToNouns(String specificAlias) {
         legitimateNouns.add(specificAlias);
         HelpfulMethods.reverseSortStringList(legitimateNouns);
@@ -332,6 +525,8 @@ public class Parser {
                 Spellcasting.fireball(magicCommandArray, world);
                 break;
 
+            case "energize":
+                Spellcasting.energize(magicCommandArray, world);
 
             default:
                 System.out.println("You don't know of any spell by that name.");

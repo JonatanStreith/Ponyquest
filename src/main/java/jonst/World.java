@@ -626,9 +626,10 @@ public class World {
             successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
 
             for (boolean boo : successes) {
-                if (!boo)
+                if (!boo) {
                     System.out.println("Game failed to save correctly.");
                     return false;
+                }
             }
 
 
