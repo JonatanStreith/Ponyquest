@@ -645,9 +645,9 @@ public class Commands {
 
     }
 
-    public static void cast(String[] command, World world) {
-        System.out.println("You cast " + command[1] + " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
-    }
+//    public static void cast(String[] command, World world) {
+//        System.out.println("You cast " + command[1] + " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
+//    }
 
 
 
@@ -659,6 +659,8 @@ public class Commands {
             player.addItem(newItem);
             newItem.setOwner(player);
             newItem.setLocationName(player.getName());
+
+            world.addNewItemToItemList(newItem);
 
             System.out.println("You create a " + commandArray[1] + " from nothing, and put it in your pocket.");
         } else {

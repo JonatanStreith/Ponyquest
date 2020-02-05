@@ -268,7 +268,7 @@
       "energize": [
         "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
       ],
-      "enter": ["writeline:Entering human world...", "send:player:Canterlot High campus", "changerace:player:human"]
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:human", "send:player:Canterlot High campus", "addnewitem:player:human clothes"]
     },
     "ComplexUse": {
     }
@@ -295,7 +295,7 @@
       "energize": [
         "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
       ],
-      "enter": ["writeline:Entering pony world..."]
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:unicorn", "send:player:Castle library", "deletecarrieditem:player:human clothes"]
     },
     "ComplexUse": {
     }

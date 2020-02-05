@@ -14,7 +14,7 @@
       "edible"
     ],
     "ResponseScripts": {
-      "fireball": "destroyitem"
+      "fireball": ["destroyitem"]
     },
     "ComplexUse": {
     }
@@ -32,7 +32,24 @@
 
     ],
     "ResponseScripts": {
-      "fireball": "destroyitem"
+      "fireball": ["destroyitem"]
+    },
+    "ComplexUse": {
+    }
+  },
+  "human clothes": {
+    "FullName": "human clothes",
+    "Id": "Human_Clothes",
+    "Description": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony.",
+    "DefaultUse": "look at",
+    "ComplexUse": "",
+    "Alias": [
+      "clothes"
+    ],
+    "Attributes": [
+      "undroppable"
+    ],
+    "ResponseScripts": {
     },
     "ComplexUse": {
     }

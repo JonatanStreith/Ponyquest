@@ -13,9 +13,10 @@ public class Scripts {
         }
     }
 
-    public static void deleteItem(GenericObject subject, World world) {
+    public static void deleteThisItem(GenericObject subject, World world) {
         if(subject instanceof Item) {
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getOwner());
+            world.removeItemFromItemList((Item) subject);
         }
     }
 
@@ -23,6 +24,7 @@ public class Scripts {
         if(subject instanceof Item) {
             System.out.println("The " +subject.getName()+ " is destroyed.");
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getOwner());
+            world.removeItemFromItemList((Item) subject);
         }
     }
 
@@ -79,11 +81,49 @@ public class Scripts {
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
         }
-         String newRace = scriptCommandArray[2];
+
+        String newRace = scriptCommandArray[2];
 
         actor.setRace(newRace);
 
         System.out.println(actor.getName() + " turns into a " + newRace + "!");
+
+    }
+
+    public static void addNewItem(GenericObject subject, String[] scriptCommandArray, World world) {
+        Creature actor;
+
+        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+
+        String newItemName = scriptCommandArray[2];
+
+        Item newItem = JsonBuilder.generateDefaultItem(newItemName);
+
+        world.addItemToGeneric(newItem, actor);
+        world.addNewItemToItemList(newItem);
+
+    }
+
+    public static void deleteCarriedItem(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        Creature actor;
+
+        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+
+        String itemToBeDeletedName = scriptCommandArray[2];
+
+        Item itemToBeDeleted = actor.getOwnedItemByName(itemToBeDeletedName);
+
+        actor.removeItem(itemToBeDeleted);
+        world.removeItemFromItemList(itemToBeDeleted);
 
     }
 }

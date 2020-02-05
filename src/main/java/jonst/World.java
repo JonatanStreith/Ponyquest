@@ -138,19 +138,59 @@ public class World {
 
     public void removeObjectFromLocation(StationaryObject stationaryObject, Location location) {
 
-
         location.removeObject(stationaryObject);
         stationaryObject.setLocation(null);
     }
 
     public void addObjectToLocation(StationaryObject stationaryObject, Location location) {
-        //Adds "stationary" to "location"
-
 
         location.addObject(stationaryObject);
         stationaryObject.setLocation(location);
     }
 
+    //------------- If new objects are created, they need to be added to the world lists ----------
+
+    public void addNewItemToItemList(Item newItem){
+        itemList.add(newItem);
+        genericList.add(newItem);
+    }
+
+    public void addNewCreatureToCreatureList(Creature newCreature){
+        creatureList.add(newCreature);
+        genericList.add(newCreature);
+    }
+
+    public void addNewLocationToLocationList(Location newLocation){
+        locationList.add(newLocation);
+        genericList.add(newLocation);
+    }
+
+    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject){
+        stationaryObjectList.add(newStationaryObject);
+        genericList.add(newStationaryObject);
+    }
+
+    //------------------ If items are removed permanently, they need to be removed from the world lists
+
+    public void removeItemFromItemList(Item item){
+        itemList.remove(item);
+        genericList.remove(item);
+    }
+
+    public void removeCreatureFromCreatureList(Creature creature){
+        creatureList.remove(creature);
+        genericList.remove(creature);
+    }
+
+    public void removeLocationFromLocationList(Location location){
+        locationList.remove(location);
+        genericList.remove(location);
+    }
+
+    public void removeStationaryObjectFromStationaryObjectList(StationaryObject stationaryObject){
+        stationaryObjectList.remove(stationaryObject);
+        genericList.remove(stationaryObject);
+    }
 
     //-------- List handling -----------------------
 

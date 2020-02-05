@@ -543,8 +543,8 @@ public class Parser {
                 Scripts.changeRace(subject, scriptCommandArray, world);
                 break;
 
-            case "deleteitem":
-                Scripts.deleteItem(subject, world);
+            case "deletethisitem":
+                Scripts.deleteThisItem(subject, world);
                 break;
 
                 case "destroyitem":
@@ -566,6 +566,16 @@ public class Parser {
 
             case "removeattribute":
                 Scripts.removeAttribute(subject, scriptCommandArray, world);
+                break;
+
+            case "addnewitem":
+                //addnewitem:owner:item
+                Scripts.addNewItem(subject, scriptCommandArray, world);
+                break;
+
+            case "deletecarrieditem":
+                //deletecarrieditem:owner:item
+                Scripts.deleteCarriedItem(subject, scriptCommandArray, world);
                 break;
 
             case "writeline":
