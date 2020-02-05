@@ -692,7 +692,7 @@
       "Default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
       "onfire": "It's furiously trying to put out the fire in its foliage."
     },
-    "Id": "All_Aboard",
+    "Id": "Monster_Timberwolf",
     "FullName": "timberwolf",
     "Race": "monster",
     "Gender": "undefined",
@@ -719,7 +719,50 @@
       "fireball": [
         "fleerandom",
         "setmood:scared"
-        ]
+      ]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "Default": "An assortment of students attending Canterlot High. They come in all kinds and colors and you really can't keep track of them."
+    },
+    "Id": "Crowd_Students",
+    "FullName": "crowd of students",
+    "Race": "human",
+    "Gender": "undefined",
+    "Location": "Canterlot High campus",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"What do you want, Trixie?\"",
+      "\"I'm late, I'm late, I'm late!\"",
+      "\"Hey, Trixie.\"",
+      "\"Excuse me...\"",
+      "The student is too busy listening into a small square to notice you."
+    ],
+    "AskTopics": {
+      "default": "They yammer a bit. It seems nobody has anything useful to say."
+    },
+    "Alias": [
+      "crowd",
+      "students"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "neutral",
+      "status": "normal"
+
+    },
+    "ResponseScripts": {
+      "fireball": [
+        "fleerandom",
+        "setmood:scared"
+      ]
     },
     "ComplexUse": {
     }

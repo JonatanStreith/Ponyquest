@@ -125,10 +125,6 @@ public class Parser {
                 //stuff
                 break;
 
-            case "cast":
-                Commands.cast(commandArray, world);
-                break;
-
             case "buy":
                 //"Buy" command. Structure: [buy] [item] [from] [creature]. Creature needs to have attribute "merchant", possibly a sell list(?), and a sell blurb.
                 // Trixie has a bottomless purse for now.

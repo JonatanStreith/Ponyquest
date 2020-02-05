@@ -35,6 +35,7 @@ public class Commands {
 
             if (gen.hasAttribute("readable")) {
                 System.out.println(gen.getText());
+                gen.runResponseScript("read");
             } else {
                 System.out.println("There's nothing to read.");
             }
@@ -84,7 +85,6 @@ public class Commands {
         }
     }
 
-
     public static void quit() {
         String choice = SystemData.getReply("Are you sure you want to quit? Y/N ");
         if (choice.equalsIgnoreCase("y")) {
@@ -93,7 +93,6 @@ public class Commands {
         } else
             System.out.println("Okay, let's continue.");
     }
-
 
     public static void help() {
         System.out.println("You are the Great and Powerful Trixie, on a quest to... do something. You haven't decided yet.\n" +
@@ -128,6 +127,7 @@ public class Commands {
                 //world.addItemToGeneric(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
 
                 System.out.println("You drop the " + name + ".");
+                item.runResponseScript("drop");
             } else {
                 System.out.println("You're not carrying that.");
             }
@@ -148,6 +148,7 @@ public class Commands {
                     target.addAttribute("open");
                     target.removeAttribute("closed");
                     System.out.println("You open the " + target.getName() + ".");
+                    target.runResponseScript("open");
                 } else {
                     System.out.println("It's already open.");
                 }
@@ -169,6 +170,7 @@ public class Commands {
                     target.addAttribute("closed");
                     target.removeAttribute("open");
                     System.out.println("You close the " + target.getName() + ".");
+                    target.runResponseScript("close");
                 } else {
                     System.out.println("It's already closed.");
                 }
@@ -211,6 +213,7 @@ public class Commands {
                 if (((Item) subject).getOwner() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
                     world.transferItemToNewOwner((Item) subject, ((Item) subject).getOwner(), world.getPlayer());
                     System.out.println("You pick up the " + name + ".");
+                    subject.runResponseScript("pick up");
 
                 } else if (((Item) subject).getOwner() instanceof Creature) {
                     System.out.println("You can't just take that from " + ((Item) subject).getOwner().getName() + ". Try asking nicely.");
@@ -233,14 +236,16 @@ public class Commands {
 
         if (!fullName.equals("")) {
 
+            GenericObject gen = world.getGenericObject(fullName);
 
-            if (!(world.getGenericObject(fullName) instanceof Creature))                                                //Subject isn't a creature.
+            if (!(gen instanceof Creature))                                                //Subject isn't a creature.
             {
                 System.out.println("You don't make a habit of talking to inanimate objects.");
 
 
-            } else if ((world.getGenericObject(fullName) instanceof Creature)) {
-                System.out.println(world.getCreature(fullName).getRandomCasualDialog());         //This runs if you successfully talk to someone.
+            } else if ((gen instanceof Creature)) {
+                System.out.println(((Creature) gen).getRandomCasualDialog());         //This runs if you successfully talk to someone.
+                gen.runResponseScript("talk to");
             } else {
                 System.out.println("Debug code. If this is shown, something didn't go right.");
             }
@@ -275,7 +280,6 @@ public class Commands {
         //To do: List items and objects
 
     }
-
 
     public static void use(String[] commandArray, World world) {
 
@@ -380,6 +384,9 @@ public class Commands {
                         System.out.println("It's closed.");
                     }
                 }
+
+                gen.runResponseScript("look at");
+
             }
         }
     }
@@ -406,12 +413,17 @@ public class Commands {
 
         if (destination != "")               //Is a destination found?
         {
-            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), world.getLocation(destination));                                            //Add player to new location
-            //world.GetPlayer().SetLocation(newArea);                                                     //Change player's location variable; already included in prev command
-            System.out.println("You go to " + world.getLocation(destination).getName() + ".");
+            Location destinationLoc = world.getLocation(destination);
+
+            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), destinationLoc);                                            //Add player to new location
+
+            System.out.println("You go to " + destinationLoc.getName() + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);
+
+            destinationLoc.runResponseScript("go to");
+
         } else {
             System.out.println("You can't get there from here.");
         }
@@ -483,7 +495,6 @@ public class Commands {
         System.out.println("You can only exit your current location.");
     }
 
-
     public static void getExits(World world) {
 
         Location loc = world.getLocation(world.getPlayer().getLocationName());
@@ -491,7 +502,6 @@ public class Commands {
 
         System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
     }
-
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
 
@@ -510,20 +520,23 @@ public class Commands {
                 Commands.teleportSelf(command, world);
 
             } else if (target instanceof Location) {
-                System.out.println("You'd rather not teleport " + target + " anywhere. That will just end badly.");
+                System.out.println("You'd rather not teleport " + target.getName() + " anywhere. You made that mistake once, and it wasn't pretty.");
 
 
             } else if (target instanceof Creature) {
                 world.transferCreatureToLocation((Creature)target, world.getPlayerLocation(), destination);
-                System.out.println("The " + target + " vanishes in a burst of smoke!");
+                System.out.println(target.getName() + " vanishes in a burst of smoke!");
+                target.runResponseScript("teleport");
 
             } else if (target instanceof Item) {
                 world.transferItemToNewOwner((Item)target, world.getPlayerLocation(), destination);
-                System.out.println(target + " vanishes in a burst of smoke!");
+                System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
+                target.runResponseScript("teleport");
 
             } else if (target instanceof StationaryObject) {
                 world.transferObjectToLocation((StationaryObject)target, world.getPlayerLocation(), destination);
-                System.out.println("The " + target + " vanishes in a burst of smoke!");
+                System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
+                target.runResponseScript("teleport");
 
 
             } else {
@@ -532,7 +545,6 @@ public class Commands {
 
         }
     }
-
 
     public static void teleportSelf(String[] command, World world) { //Make sure you can teleport items and objects - different code?
 
@@ -551,12 +563,12 @@ public class Commands {
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);
+            destination.runResponseScript("go to");
 
         } else {
             System.out.println("Your spell fizzles. You need a legitimate destination.");
         }
     }
-
 
     public static void hug(String[] command, World world){
         String fullName = world.matchLocalName(command[1]);
@@ -569,7 +581,6 @@ public class Commands {
             System.out.println("They don't look very huggable.");
 
     }
-
 
     public static void ask(String[] command, World world) {
 
@@ -593,6 +604,7 @@ public class Commands {
                 switch (conjunction) {
                     case "about":
                         System.out.println(((Creature) target).askAbout(parsedTopic));
+                        target.runResponseScript("ask about " + parsedTopic);
                         break;
 
                     case "for":
@@ -618,17 +630,8 @@ public class Commands {
                         } else {
                             world.transferItemToNewOwner(item, target, world.getPlayer());
                             System.out.println(target.getName() + " gives you the " + item.getName() + ".");
+                            target.runResponseScript("ask for " + itemName);
                         }
-
-
-
-//                        if(!(targetMood.equalsIgnoreCase("annoyed") || targetAllegiance.equalsIgnoreCase("hostile"))){
-//
-//                            world.transferItemToNewOwner(item, target, world.getPlayer());
-//
-//                            System.out.println(target.getName() + " gives you the " + item.getName() + ".");
-//                        } else
-//                            System.out.println(target.getName() + " refuses.");
 
                         break;
 
@@ -645,12 +648,6 @@ public class Commands {
 
     }
 
-//    public static void cast(String[] command, World world) {
-//        System.out.println("You cast " + command[1] + " on " + command[3] + ". Unfortunately, casting hasn't been implemented yet.");
-//    }
-
-
-
     public static void create(String[] commandArray, World world) {
         Item newItem = JsonBuilder.generateDefaultItem(commandArray[1]);
 
@@ -663,11 +660,11 @@ public class Commands {
             world.addNewItemToItemList(newItem);
 
             System.out.println("You create a " + commandArray[1] + " from nothing, and put it in your pocket.");
+            newItem.runResponseScript("create");
         } else {
             System.out.println("You try to create something, but it fails somehow.");
         }
     }
-
 
     public static void transform(String[] commandArray, World world) {
 
@@ -686,9 +683,9 @@ public class Commands {
             ((Item) startItem).transformInto(newItem);
 
             System.out.println("You magically transform the " + fullName + " into a " + startItem.getName() + ". Excellent!");
+            startItem.runResponseScript("transform");
         }
     }
-
 
     public static void give(String[] commandArray, World world) {
 
@@ -710,6 +707,7 @@ public class Commands {
                 world.transferItemToNewOwner(subject, world.getPlayer(), target);
                 System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
 
+                target.runResponseScript("receive gift");
 
             }
 
@@ -752,6 +750,8 @@ public class Commands {
 
         world.transferItemToNewOwner((Item) item, world.getPlayer(), container);
         System.out.println("You put the " + item.getName() + " into the " + container.getName() + ".");
+        item.runResponseScript("get placed");
+        container.runResponseScript("get something placed into");
     }
 
     public static void take(String[] commandArray, World world){
@@ -792,10 +792,13 @@ public class Commands {
 
         world.transferItemToNewOwner((Item) item, container, world.getPlayer());
         System.out.println("You take the " + item.getName() + " from the " + container.getName() + ".");
+        item.runResponseScript("pick up");
+        container.runResponseScript("get something taken from");
 
     }
 
     //--------------- Not for direct use -----------------------
+
     public static void listItems(World world) {
         List<Item> tempItemList = new ArrayList<>();
         tempItemList.addAll(world.getPlayerLocation().getItemList());      //Create a list of items at the location.
@@ -825,7 +828,6 @@ public class Commands {
         }
 
     }
-
 
     public static void listStationaryObjects(World world) {
         List<StationaryObject> tempStationaryObjectList = new ArrayList<>();
