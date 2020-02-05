@@ -101,7 +101,7 @@ public class Scripts {
 
         String newItemName = scriptCommandArray[2];
 
-        Item newItem = JsonBuilder.generateDefaultItem(newItemName);
+        Item newItem = JsonBuilder.generateTemplateItem(newItemName);
 
         world.addItemToGeneric(newItem, actor);
         world.addNewItemToItemList(newItem);

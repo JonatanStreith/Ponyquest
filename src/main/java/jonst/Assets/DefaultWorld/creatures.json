@@ -2,7 +2,7 @@
   {
     "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
     "Descriptions": {
-      "Default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
+      "default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
       "unicorn": "You are a blue unicorn with a silvery mane.",
       "human": "You are a human teenager with blue skin, silver hair, and gangly long limbs. Your horn seems to have disappeared in the change, which is worrisome..."
     },
@@ -51,7 +51,7 @@
   {
     "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
     "Descriptions": {
-      "Default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly."
+      "default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly."
     },
     "Id": "Creature_Twilight_Sparkle",
     "FullName": "Twilight Sparkle",
@@ -107,7 +107,7 @@
   {
     "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
     "Descriptions": {
-      "Default": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion."
+      "default": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion."
     },
     "Id": "Creature_Rarity",
     "FullName": "Rarity",
@@ -156,7 +156,7 @@
   {
     "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
     "Descriptions": {
-      "Default": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you."
+      "default": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you."
     },
     "Id": "Creature_Pinkie_Pie",
     "FullName": "Pinkie Pie",
@@ -207,7 +207,7 @@
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
     "Descriptions": {
-      "Default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
+      "default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
       "sleeping": "She is sleeping peacefully.",
       "annoyed": "She scowls at you."
     },
@@ -260,7 +260,7 @@
   {
     "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
     "Descriptions": {
-      "Default": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though."
+      "default": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though."
     },
     "Id": "Creature_Rainbow_Dash",
     "FullName": "Rainbow Dash",
@@ -309,7 +309,7 @@
   {
     "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
     "Descriptions": {
-      "Default": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you."
+      "default": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you."
     },
     "Id": "Creature_Fluttershy",
     "FullName": "Fluttershy",
@@ -357,7 +357,7 @@
   {
     "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
     "Descriptions": {
-      "Default": "Twilight Sparkle's runty dragon assistant. He's kind of annoying."
+      "default": "Twilight Sparkle's runty dragon assistant. He's kind of annoying."
     },
     "Id": "Creature_Spike",
     "FullName": "Spike",
@@ -404,7 +404,7 @@
   {
     "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
     "Descriptions": {
-      "Default": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best."
+      "default": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best."
     },
     "Id": "Creature_Starlight_Glimmer",
     "FullName": "Starlight Glimmer",
@@ -456,7 +456,7 @@
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
     "Descriptions": {
-      "Default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
+      "default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
       "sleeping": "She is sleeping like a rock."
     },
     "Id": "Creature_Maud_Pie",
@@ -508,7 +508,7 @@
   {
     "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
     "Descriptions": {
-      "Default": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."
+      "default": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."
     },
     "Id": "Creature_Celestia",
     "FullName": "Princess Celestia",
@@ -557,7 +557,7 @@
   {
     "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
     "Descriptions": {
-      "Default": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."
+      "default": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."
     },
     "Id": "Creature_Luna",
     "FullName": "Princess Luna",
@@ -607,7 +607,7 @@
   {
     "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
     "Descriptions": {
-      "Default": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that."
+      "default": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that."
     },
     "Id": "Creature_Discord",
     "FullName": "Discord",
@@ -654,7 +654,7 @@
   },
   {
     "Descriptions": {
-      "Default": "An authoritative-looking pony who sells tickets and stops freeloaders. His moustache is quite impressive."
+      "default": "An authoritative-looking pony who sells tickets and stops freeloaders. His moustache is quite impressive."
     },
     "Id": "All_Aboard",
     "FullName": "All Aboard",
@@ -693,7 +693,7 @@
   },
   {
     "Descriptions": {
-      "Default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
+      "default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
       "onfire": "It's furiously trying to put out the fire in its foliage."
     },
     "Id": "Monster_Timberwolf",
@@ -730,7 +730,7 @@
   },
   {
     "Descriptions": {
-      "Default": "An assortment of students attending Canterlot High. They come in all kinds and colors and you really can't keep track of them."
+      "default": "An assortment of students attending Canterlot High. They come in all kinds and colors and you really can't keep track of them."
     },
     "Id": "Crowd_Students",
     "FullName": "crowd of students",

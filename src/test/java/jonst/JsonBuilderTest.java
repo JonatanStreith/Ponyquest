@@ -128,7 +128,7 @@ public class JsonBuilderTest {
     @Test
     public void generateDefaultItemTest(){
 
-        Item testItem = JsonBuilder.generateDefaultItem("red Apple");
+        Item testItem = JsonBuilder.generateTemplateItem("red Apple");
         assertNull(testItem);
 
     }

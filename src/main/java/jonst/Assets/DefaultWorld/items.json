@@ -1,8 +1,7 @@
 [
   {
-    "Description": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too.",
     "Descriptions": {
-      "Default": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too."
+      "default": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too."
     },
     "Id": "Item_Trixie_Hat",
     "FullName": "Trixie's hat",
@@ -14,7 +13,8 @@
       "magician's hat"
     ],
     "Attributes": [
-      "Wearable"
+      "Wearable",
+      "undroppable"
     ],
     "ResponseScripts": {
     },
@@ -22,9 +22,8 @@
     }
   },
   {
-    "Description": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too.",
     "Descriptions": {
-      "Default": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too."
+      "default": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too."
     },
     "Id": "Item_Trixie_Cape",
     "FullName": "Trixie's cape",
@@ -36,7 +35,8 @@
       "magician's cape"
     ],
     "Attributes": [
-      "Wearable"
+      "Wearable",
+      "undroppable"
     ],
     "ResponseScripts": {
     },
@@ -44,9 +44,8 @@
     }
   },
   {
-    "Description": "A wooden crate for putting things in.",
     "Descriptions": {
-      "Default": "A wooden crate for putting things in.",
+      "default": "A wooden crate for putting things in.",
       "open": "The lid is off.",
       "closed": "The lid is nailed shut."
     },
@@ -71,8 +70,7 @@
     }
   },
   {
-    "Description": "It's a rock. You saw enough of them during your time on the rock farm.",
-    "Descriptions": {
+    "descriptions": {
       "Default": "It's a rock. You saw enough of them during your time on the rock farm."
     },
     "Id": "Item_Generic_Rock",
@@ -93,9 +91,8 @@
     }
   },
   {
-    "Description": "Fragrant and delicious, just the thing for a quick snack.",
     "Descriptions": {
-      "Default": "Fragrant and delicious, just the thing for a quick snack."
+      "default": "Fragrant and delicious, just the thing for a quick snack."
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
@@ -119,7 +116,7 @@
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
     "Descriptions": {
-      "Default": "Fragrant and delicious, just the thing for a quick snack."
+      "default": "Fragrant and delicious, just the thing for a quick snack."
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
@@ -143,7 +140,7 @@
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
     "Descriptions": {
-      "Default": "Fragrant and delicious, just the thing for a quick snack."
+      "default": "Fragrant and delicious, just the thing for a quick snack."
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
@@ -167,7 +164,7 @@
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
     "Descriptions": {
-      "Default": "Fragrant and delicious, just the thing for a quick snack."
+      "default": "Fragrant and delicious, just the thing for a quick snack."
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
@@ -191,7 +188,7 @@
   {
     "Description": "Fragrant and delicious, just the thing for a quick snack.",
     "Descriptions": {
-      "Default": "Fragrant and delicious, just the thing for a quick snack."
+      "default": "Fragrant and delicious, just the thing for a quick snack."
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
@@ -215,7 +212,7 @@
   {
     "Description": "A pile of freshly-harvested turnips. Bland and boring.",
     "Descriptions": {
-      "Default": "A pile of freshly-harvested turnips. Bland and boring."
+      "default": "A pile of freshly-harvested turnips. Bland and boring."
     },
     "Id": "Item_Food_Turnips",
     "FullName": "pile of turnips",
@@ -237,7 +234,7 @@
   {
     "Description": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already.",
     "Descriptions": {
-      "Default": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already."
+      "default": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already."
     },
     "Id": "Item_Acres_Plow",
     "FullName": "heavy plow",
@@ -259,7 +256,7 @@
   {
     "Description": "A spool of blue thread. Rarity probably won't miss it.",
     "Descriptions": {
-      "Default": "A spool of blue thread. Rarity probably won't miss it."
+      "default": "A spool of blue thread. Rarity probably won't miss it."
     },
     "Id": "Item_Carousel_Spool",
     "FullName": "spool of blue thread",
@@ -281,7 +278,7 @@
   {
     "Description": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week.",
     "Descriptions": {
-      "Default": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week."
+      "default": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week."
     },
     "Id": "Item_Carousel_Unfinisheddress",
     "FullName": "unfinished dress",
@@ -303,7 +300,7 @@
   {
     "Description": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today.",
     "Descriptions": {
-      "Default": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today."
+      "default": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today."
     },
     "Id": "Item_Food_Icecream",
     "FullName": "bucket of ice cream",
@@ -325,7 +322,7 @@
   {
     "Description": "A bunch of magical fireworks, crafted by yours truly. Handle with care!",
     "Descriptions": {
-      "Default": "A bunch of magical fireworks, crafted by yours truly. Handle with care!"
+      "default": "A bunch of magical fireworks, crafted by yours truly. Handle with care!"
     },
     "Id": "Item_Generic_Fireworks",
     "FullName": "bundle of fireworks",
@@ -347,7 +344,7 @@
   {
     "Description": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill.",
     "Descriptions": {
-      "Default": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill."
+      "default": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill."
     },
     "Id": "Item_Generic_Diamond",
     "FullName": "diamond",
@@ -370,7 +367,7 @@
   {
     "Description": "An error test object.",
     "Descriptions": {
-      "Default": "An error test object."
+      "default": "An error test object."
     },
     "Id": "Item_Generic_Error",
     "FullName": "Error item",
@@ -390,7 +387,7 @@
   {
     "Description": "\"Daring Do and the Sapphire Chalice\", hardcover, by A.K. Yearling. One of your favorites. It's dogeared and worn.",
     "Descriptions": {
-      "Default": "\"Daring Do and the Sapphire Chalice\", hardcover, by A.K. Yearling. One of your favorites. It's dogeared and worn."
+      "default": "\"Daring Do and the Sapphire Chalice\", hardcover, by A.K. Yearling. One of your favorites. It's dogeared and worn."
     },
     "Id": "Book_DaringDo",
     "FullName": "\"Daring Do and the Sapphire Chalice\"",
@@ -413,7 +410,7 @@
   {
     "Description": "It's your spellbook! Well, it's a notebook you started using after Starlight convinced you to take magic seriously again, but you're allowed to pretend. It's full of notes on spells, although you don't know how to do all of them... yet.",
     "Descriptions": {
-      "Default": "It's your spellbook! Well, it's a notebook you started using after Starlight convinced you to take magic seriously again, but you're allowed to pretend. It's full of notes on spells, although you don't know how to do all of them... yet."
+      "default": "It's your spellbook! Well, it's a notebook you started using after Starlight convinced you to take magic seriously again, but you're allowed to pretend. It's full of notes on spells, although you don't know how to do all of them... yet."
     },
     "Id": "Trixie_spellbook",
     "FullName": "spellbook",

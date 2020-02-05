@@ -120,14 +120,13 @@ public class Commands {
             if (item != null) {
                 //drop
 
-                world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
-
-
-                //world.removeFromInventory(item);
-                //world.addItemToGeneric(fullName, world.getPlayerLocation().getLocationName());              //Remove from loc
-
-                System.out.println("You drop the " + name + ".");
-                item.runResponseScript("drop");
+                if(item.hasAttribute("undroppable")){
+                    System.out.println("You can't drop that.");
+                } else {
+                    world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
+                    System.out.println("You drop the " + name + ".");
+                    item.runResponseScript("drop");
+                }
             } else {
                 System.out.println("You're not carrying that.");
             }
@@ -658,7 +657,7 @@ public class Commands {
     }
 
     public static void create(String[] commandArray, World world) {
-        Item newItem = JsonBuilder.generateDefaultItem(commandArray[1]);
+        Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
 
         if(newItem != null) {
             Creature player = world.getPlayer();
@@ -687,7 +686,7 @@ public class Commands {
             System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
         } else {
 
-            Item newItem = JsonBuilder.generateDefaultItem(commandArray[3]);
+            Item newItem = JsonBuilder.generateTemplateItem(commandArray[3]);
 
             ((Item) startItem).transformInto(newItem);
 

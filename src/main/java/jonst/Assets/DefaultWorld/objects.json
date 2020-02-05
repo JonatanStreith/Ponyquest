@@ -2,7 +2,7 @@
   {
     "Description": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident.",
     "Descriptions": {
-      "Default": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident."
+      "default": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident."
     },
     "Id": "Object_Cutiemap",
     "FullName": "Cutie Map",
@@ -23,7 +23,7 @@
   {
     "Description": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable.",
     "Descriptions": {
-      "Default": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable."
+      "default": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable."
     },
     "Id": "Object_Throne_Group",
     "FullName": "Friendship thrones",
@@ -44,7 +44,7 @@
   {
     "Description": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is.",
     "Descriptions": {
-      "Default": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is."
+      "default": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is."
     },
     "Id": "Object_Throne_Twilight",
     "FullName": "Twilight's throne",
@@ -65,7 +65,7 @@
   {
     "Description": "Rarity's throne. She probably brings cushions.",
     "Descriptions": {
-      "Default": "Rarity's throne. She probably brings cushions."
+      "default": "Rarity's throne. She probably brings cushions."
     },
     "Id": "Object_Throne_Rarity",
     "FullName": "Rarity's throne",
@@ -86,7 +86,7 @@
   {
     "Description": "Applejack's throne. You can tell by the dried apple juice stains.",
     "Descriptions": {
-      "Default": "Applejack's throne. You can tell by the dried apple juice stains."
+      "default": "Applejack's throne. You can tell by the dried apple juice stains."
     },
     "Id": "Object_Throne_Applejack",
     "FullName": "Applejack's throne",
@@ -107,7 +107,7 @@
   {
     "Description": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?",
     "Descriptions": {
-      "Default": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?"
+      "default": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?"
     },
     "Id": "Object_Throne_Pinkie",
     "FullName": "Pinkie Pie's throne",
@@ -128,7 +128,7 @@
   {
     "Description": "Fluttershy's throne. She sits on it like she's afraid it'll break.",
     "Descriptions": {
-      "Default": "Fluttershy's throne. She sits on it like she's afraid it'll break."
+      "default": "Fluttershy's throne. She sits on it like she's afraid it'll break."
     },
     "Id": "Object_Throne_Fluttershy",
     "FullName": "Fluttershy's throne",
@@ -149,7 +149,7 @@
   {
     "Description": "Rainbow Dash's throne. It's just another napping spot to her.",
     "Descriptions": {
-      "Default": "Rainbow Dash's throne. It's just another napping spot to her."
+      "default": "Rainbow Dash's throne. It's just another napping spot to her."
     },
     "Id": "Object_Throne_Rainbow",
     "FullName": "Rainbow Dash's throne",
@@ -171,7 +171,7 @@
   {
     "Description": "Spike's throne. A diminuitive seat for a diminuitive guy.",
     "Descriptions": {
-      "Default": "Spike's throne. A diminuitive seat for a diminuitive guy."
+      "default": "Spike's throne. A diminuitive seat for a diminuitive guy."
     },
     "Id": "Object_Throne_Spike",
     "FullName": "Spike's throne",
@@ -191,7 +191,7 @@
   {
     "Description": "The tree has no apples right now... somepony must've harvested them already.",
     "Descriptions": {
-      "Default": "The tree has no apples right now... somepony must've harvested them already."
+      "default": "The tree has no apples right now... somepony must've harvested them already."
     },
     "Id": "Object_Acres_Tree",
     "FullName": "apple tree",
@@ -212,7 +212,7 @@
   {
     "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
     "Descriptions": {
-      "Default": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours."
+      "default": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours."
     },
     "Id": "Object_Boutique_Sewingmachine",
     "FullName": "sewing machine",
@@ -231,7 +231,7 @@
   {
     "Description": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you.",
     "Descriptions": {
-      "Default": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you."
+      "default": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you."
     },
     "Id": "Object_Sugarcube_Oven",
     "FullName": "baking oven",
@@ -249,7 +249,7 @@
   },
   {
     "Descriptions": {
-      "Default": "A beautiful full-length mirror, set in an oval frame and decorated with sciencey knickknacks. According to Starlight, it leads to strange alternate world.",
+      "default": "A beautiful full-length mirror, set in an oval frame and decorated with sciencey knickknacks. According to Starlight, it leads to strange alternate world.",
       "inactive": "Right now, it only shows your reflection.",
       "active": "The surface swirls with mesmerizing colors. You think you could step inside..."
     },
@@ -275,7 +275,7 @@
   },
   {
     "Descriptions": {
-      "Default": "A large marble foundation for a statue, which appears to be smashed to pieces. You think you can see a faint glow coming from the top. You sense considerable magic in it.",
+      "default": "A large marble foundation for a statue, which appears to be smashed to pieces. You think you can see a faint glow coming from the top. You sense considerable magic in it.",
       "inactive": "The sides of the base appears to be completely solid.",
       "active": "While seemingly solid and rock-like, the statue offers no resistance to entry. You can pass through with ease."
     },

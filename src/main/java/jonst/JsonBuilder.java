@@ -861,28 +861,28 @@ public class JsonBuilder {
 
         List<String> defaultItemNames = new ArrayList<>();
 
-        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/DefaultItems.json")) {
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
 
             JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
             defaultItemNames.addAll(allItemsJSON.keySet());
 
         } catch (FileNotFoundException e) {
-            System.out.println("DefaultItems file not found.");
+            System.out.println("TemplateItems file not found.");
         } catch (IOException e) {
-            System.out.println("There was an error reading the DefaultItems file.");
+            System.out.println("There was an error reading the TemplateItems file.");
         } catch (ParseException e) {
-            System.out.println("DefaultItems file corrupt, or there was an error during the reading.");
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
         }
 
         return defaultItemNames;
     }
 
 
-    public static Item generateDefaultItem(String itemName) {
+    public static Item generateTemplateItem(String itemName) {
 
         Item item = null;
 
-        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/DefaultItems.json")) {
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
 
             JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
 
@@ -913,8 +913,7 @@ public class JsonBuilder {
                 String defaultUse = (String) jsonItem.get("DefaultUse");
 
                 JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
-
-
+                JSONObject jsDescriptions = (JSONObject) jsonItem.get("Descriptions");
 
                 JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
                 Map<String, ArrayList<String>> responseScripts = new HashMap<>();
@@ -941,6 +940,13 @@ public class JsonBuilder {
                     complexUse.put(key.toLowerCase(), (String) jsComplexUse.get(key));
                 }
 
+                Map<String, String> descriptions = new HashMap<>();
+                for (Object keyObj : jsDescriptions.keySet()) {
+                    String key = (String) keyObj;
+                    descriptions.put(key.toLowerCase(), (String) jsDescriptions.get(key));
+                }
+
+
                 //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
 
                 item = new Item(fullName, id, locationName, alias, attributes);
@@ -948,6 +954,7 @@ public class JsonBuilder {
                 item.setDefaultUse(defaultUse);
                 item.setResponseScripts(responseScripts);
                 item.setComplexUse(complexUse);
+                item.setDescriptions(descriptions);
 
             }
         } catch (FileNotFoundException e) {

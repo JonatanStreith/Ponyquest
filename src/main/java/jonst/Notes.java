@@ -109,6 +109,7 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
 
 */
 
+//Set up nullchecks in jsonbuilder!
 
-
+    //IMPORTANT! When creating new items, have them add their name and aliases to the legitimatenouns list!
 }

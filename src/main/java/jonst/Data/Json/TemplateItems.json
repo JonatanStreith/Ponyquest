@@ -2,7 +2,7 @@
   "red apple": {
     "FullName": "red apple",
     "Id": "Item_Food_Apple",
-    "Description": "Fragrant and delicious, just the thing for a quick snack.",
+    "Descriptions": {"default": "Fragrant and delicious, just the thing for a quick snack."},
     "DefaultUse": "look at",
     "ComplexUse": "",
     "Alias": [
@@ -22,7 +22,7 @@
   "teacup": {
     "FullName": "teacup",
     "Id": "Item_Teacup",
-    "Description": "A delicate pink porcelain teacup.",
+    "Descriptions": {"default": "A delicate pink porcelain teacup."},
     "DefaultUse": "look at",
     "ComplexUse": "",
     "Alias": [
@@ -40,7 +40,7 @@
   "human clothes": {
     "FullName": "human clothes",
     "Id": "Human_Clothes",
-    "Description": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony.",
+    "Descriptions": {"default": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony."},
     "DefaultUse": "look at",
     "ComplexUse": "",
     "Alias": [
