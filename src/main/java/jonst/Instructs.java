@@ -27,7 +27,7 @@ public class Instructs {
                 creature.runResponseScript("pick up");
             } else if (target instanceof StationaryObject)                               //Subject is a stationary object.
             {
-                System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getName()) + " head. That's a bit too heavy for them to humour you with.");
+                System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. That's a bit too heavy for them to humour you with.");
 
             } else if (target instanceof Location)                                       //Subject is a location.
             {
@@ -40,9 +40,9 @@ public class Instructs {
                     System.out.println(subject.getName() + " picks up the " + name + ".");
 
                 } else if (((Item) target).getOwner() instanceof Creature) {
-                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getName()) + " head. Stealing is wrong.");
+                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. Stealing is wrong.");
                 } else if (((Item) target).getOwner() instanceof StationaryObject || ((Item) target).getOwner() instanceof Item) {
-                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getName()) + " head. " + capitalize(heOrShe(subject.getName()) + " doesn't quite get what you're saying."));
+                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. " + capitalize(heOrShe(subject.getName()) + " doesn't quite get what you're saying."));
                 } else {
                     System.out.println("That doesn't work.");
                 }

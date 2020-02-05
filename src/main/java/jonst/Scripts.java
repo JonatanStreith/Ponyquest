@@ -45,4 +45,45 @@ public class Scripts {
     public static void removeAttribute(GenericObject subject, String[] scriptCommandArray, World world) {
         subject.removeAttribute(scriptCommandArray[1]);
     }
+
+
+    public static void writeLine(GenericObject subject, String[] scriptCommandArray, World world) {
+        System.out.println(scriptCommandArray[1]);
+    }
+
+
+    public static void send(GenericObject subject, String[] scriptCommandArray, World world) {
+        Creature actor;
+
+        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+
+        Location destination = world.getLocation(scriptCommandArray[2]);
+
+        if(actor!=null && destination!=null){
+            world.transferCreatureToLocation(actor, actor.getLocation(), destination);
+
+            Commands.lookAround(world);
+        }
+    }
+
+    public static void changeRace(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        Creature actor;
+
+        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+         String newRace = scriptCommandArray[2];
+
+        actor.setRace(newRace);
+
+        System.out.println(actor.getName() + " turns into a " + newRace + "!");
+
+    }
 }

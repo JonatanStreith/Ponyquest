@@ -124,7 +124,11 @@ public class Creature extends GenericObject {
 
     public String getPersonalQuote(String key){
 
-        return behavior.getPersonalQuotes().get(key);
+        String response = behavior.getPersonalQuotes().get(key);
+        if(response != null){
+            return response;
+        }
+        return "...";
     }
 
 

@@ -303,11 +303,7 @@ public class Parser {
 //
 //                break;
 //
-//
-//            case "read":
-//                Commands.read(commandArray[1], world);
-//                break;
-//
+
 //            case "board":
 //                //Can only board vehicles. Some vehicles need tickets.
 //                break;
@@ -328,13 +324,7 @@ public class Parser {
 //                Commands.exit(commandArray[1], world);
 //                break;
 //
-//            case "save":
-//                Commands.saveGame(world);
-//                break;
-//
-//            case "load":
-//                Commands.loadGame(world);
-//                break;
+
 
             case "pick up":
                 Instructs.pickUp(subject, commandArray[1], world);
@@ -344,27 +334,8 @@ public class Parser {
 //                Commands.drop(commandArray[1], world);
 //                break;
 //
-//            case "inventory":
-//                Commands.showInventory(world);
-//                break;
-//
-//            case "nouns":
-//                Commands.listNouns(world);
-//                break;
-//
-//            case "help":
-//                Commands.help();
-//                break;
-//
-//            case "commands":
-//                Commands.ListCommands(world);
-//                break;
-//
-//
-//            case "quit":
-//                Commands.quit();
-//                break;
-//
+
+
 //            case "go to":
 //            case "go":
 //                Commands.goTo(commandArray[1], world);
@@ -416,7 +387,8 @@ public class Parser {
 //                break;
 
             default:
-                System.out.println(subject.getPersonalQuote("excuseme"));
+                System.out.print(subject.getName() + " doesn't seem to understand your request. ");
+                System.out.println(subject.getPersonalQuote("excuseme?"));
                 break;
 
 
@@ -531,6 +503,7 @@ public class Parser {
 
             case "energize":
                 Spellcasting.energize(magicCommandArray, world);
+                break;
 
             default:
                 System.out.println("You don't know of any spell by that name.");
@@ -543,7 +516,7 @@ public class Parser {
 
     public void runScriptCommand(GenericObject subject, String script, World world) {
 
-        String[] scriptCommandArray = script.split(" ");
+        String[] scriptCommandArray = script.split(":");
 
         runScriptCommandArray(subject, scriptCommandArray, world);
     }
@@ -556,8 +529,9 @@ public class Parser {
                 Scripts.setMood(subject, scriptCommandArray, world);
                 break;
 
-            case "goto":
-
+            case "send":
+                //Syntax is send:subject:location
+                Scripts.send(subject, scriptCommandArray, world);
                 break;
 
             case "createexit":
@@ -565,7 +539,8 @@ public class Parser {
                 break;
 
             case "changerace":
-
+                //Syntax is changerace:subject:newrace
+                Scripts.changeRace(subject, scriptCommandArray, world);
                 break;
 
             case "deleteitem":
@@ -592,6 +567,9 @@ public class Parser {
             case "removeattribute":
                 Scripts.removeAttribute(subject, scriptCommandArray, world);
                 break;
+
+            case "writeline":
+                Scripts.writeLine(subject, scriptCommandArray, world);
         }
     }
 

@@ -88,6 +88,13 @@ public abstract class GenericObject {
 
         StringBuilder fullDescription = new StringBuilder(descriptions.get("default"));
 
+        if(this instanceof Creature){
+            if(descriptions.keySet().contains( ((Creature) this).getRace() )){
+                fullDescription.append(" " + descriptions.get( ((Creature) this).getRace() ));
+            }
+        }
+
+
         for (String attr: getAttributes()) {
             if(descriptions.keySet().contains(attr)){
                 fullDescription.append(" " + descriptions.get(attr));

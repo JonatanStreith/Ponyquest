@@ -2,7 +2,9 @@
   {
     "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
     "Descriptions": {
-      "Default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble."
+      "Default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
+      "unicorn": "You are a blue unicorn with a silvery mane.",
+      "human": "You are a human teenager with blue skin, silver hair, and gangly long limbs. Your horn seems to have disappeared in the change, which is worrisome..."
     },
     "Id": "Creature_Trixie",
     "FullName": "Trixie",
@@ -37,7 +39,8 @@
         "thanks": "\"Thanks!\"",
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Cut that out!\""
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"Excuse me?\""
       }
     },
     "ResponseScripts": {
@@ -89,13 +92,14 @@
         "thanks": "\"Thank you!\"",
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Stop that!\""
+        "angryprotest": "\"Stop that!\"",
+        "excuseme?": "\"Excuse me?\""
       }
     },
     "ResponseScripts": {
-      "scare": ["moveto Castle_Main_Hall"],
-      "hug": ["setmood happy"],
-      "pick up": ["setmood annoyed"]
+      "scare": ["moveto:Castle_Main_Hall"],
+      "hug": ["setmood:happy"],
+      "pick up": ["setmood:annoyed"]
     },
     "ComplexUse": {
     }
@@ -140,7 +144,8 @@
         "thanks": "\"Thank you, darling.!\"",
         "yes": "\"Yes.\"",
         "no": "\"No, no, no.\"",
-        "angryprotest": "\"Now stop that!\""
+        "angryprotest": "\"Now stop that!\"",
+        "excuseme?": "\"I beg your pardon?\""
       }
     },
     "ResponseScripts": {
@@ -190,7 +195,8 @@
         "thanks": "\"Thanks!\"",
         "yes": "\"Sure.\"",
         "no": "\"Nope!\"",
-        "angryprotest": "\"Hey, quit it!\""
+        "angryprotest": "\"Hey, quit it!\"",
+        "excuseme?": "\"Excuse me, what?\""
       }
     },
     "ResponseScripts": {
@@ -237,12 +243,13 @@
         "thanks": "\"Thanks!\"",
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Cut that out!\""
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"Beg yer pardon?\""
       }
     },
     "ResponseScripts": {
       "pick up": [
-        "setmood annoyed"
+        "setmood:annoyed"
       ]
     },
     "ComplexUse": {
@@ -288,7 +295,8 @@
         "thanks": "\"Cool, thanks!\"",
         "yes": "\"Yeah!\"",
         "no": "\"Nu-uh.\"",
-        "angryprotest": "\"Cut that out!\""
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"What?\""
       }
     },
     "ResponseScripts": {
@@ -335,7 +343,8 @@
         "thanks": "\"Um... thank you.\"",
         "yes": "\"Yes...\"",
         "no": "\"Um... no?\"",
-        "angryprotest": "\"Please stop... if you don't mind.\""
+        "angryprotest": "\"Please stop... if you don't mind.\"",
+        "excuseme?": "\"I-I'm sorry?\""
       }
     },
     "ResponseScripts": {
@@ -381,7 +390,8 @@
         "thanks": "\"Thanks!\"",
         "yes": "\"Yeah, sure.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Lay it off!\""
+        "angryprotest": "\"Lay it off!\"",
+        "excuseme?": "\"Excuse me?\""
       }
     },
     "ResponseScripts": {
@@ -432,7 +442,8 @@
         "thanks": "\"Thanks, Trixie!\"",
         "yes": "\"Yes, of course.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Trixie... stop.\""
+        "angryprotest": "\"Trixie... stop.\"",
+        "excuseme?": "\"What are you talking about?\""
       }
     },
     "ResponseScripts": {
@@ -478,12 +489,13 @@
         "thanks": "\"Thanks.\"",
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Don't do that.\""
+        "angryprotest": "\"Don't do that.\"",
+        "excuseme?": "\"I don't know what you're talking about.\""
       }
     },
     "ResponseScripts": {
       "hug": [
-        "setmood happy"
+        "setmood:happy"
         ]
     },
     "ComplexUse": {
@@ -529,7 +541,8 @@
         "thanks": "\"Thank you.\"",
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Behave yourself, my little pony.\""
+        "angryprotest": "\"Behave yourself, my little pony.\"",
+        "excuseme?": "\"I beg your pardon?\""
       }
     },
     "ResponseScripts": {
@@ -578,7 +591,8 @@
         "thanks": "\"You have our gratitude.\"",
         "yes": "\"Indeed.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"You will behave!\""
+        "angryprotest": "\"You will behave!\"",
+        "excuseme?": "\"What gives?\""
       }
     },
     "ResponseScripts": {
@@ -625,7 +639,8 @@
         "thanks": "\"Why, thank you!\"",
         "yes": "\"Of course.\"",
         "no": "\"No.\"",
-        "angryprotest": "\"Oh, stop that!\""
+        "angryprotest": "\"Oh, stop that!\"",
+        "excuseme?": "\"Oh, excuse me?\""
       }
     },
     "ResponseScripts": {
@@ -666,7 +681,6 @@
       "activity": "idle",
       "allegiance": "friendly",
       "status": "normal"
-
     },
     "ResponseScripts": {
     },
@@ -704,7 +718,7 @@
     "ResponseScripts": {
       "fireball": [
         "fleerandom",
-        "setmood scared"
+        "setmood:scared"
         ]
     },
     "ComplexUse": {

@@ -485,5 +485,28 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Exits": {
+    },
+    "DefaultEnter": "",
+    "DefaultExit": "",
+    "Descriptions": {
+      "Default": "This is the campus of Canterlot High, a school in the other world. Throngs of pon-- HUMANS pass through here all day to learn things."
+    },
+    "Id": "Canterlot_High_Campus",
+    "FullName": "Canterlot High campus",
+    "Location": "Canterlot High campus",
+    "Alias": [
+      "campus",
+      "school campus"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]

@@ -256,6 +256,7 @@
     "Id": "Magic_Mirror",
     "FullName": "magic mirror",
     "Location": "Castle library",
+    "DefaultUse": "enter",
     "Alias": [
       "mirror",
       "gateway"
@@ -265,8 +266,36 @@
     ],
     "ResponseScripts": {
       "energize": [
-        "addattribute active", "removeattribute inactive", "addattribute enterable"
-      ]
+        "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
+      ],
+      "enter": ["writeline:Entering human world...", "send:player:Canterlot High campus", "changerace:player:human"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "Default": "A large marble foundation for a statue, which appears to be smashed to pieces. You think you can see a faint glow coming from the top. You sense considerable magic in it.",
+      "inactive": "The sides of the base appears to be completely solid.",
+      "active": "While seemingly solid and rock-like, the statue offers no resistance to entry. You can pass through with ease."
+    },
+    "Id": "Human_Statue_Base",
+    "FullName": "broken statue base",
+    "Location": "Canterlot High campus",
+    "DefaultUse": "enter",
+    "Alias": [
+      "statue base",
+      "statue"
+    ],
+    "Attributes": [
+      "active",
+      "canenter"
+    ],
+    "ResponseScripts": {
+      "energize": [
+        "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
+      ],
+      "enter": ["writeline:Entering pony world..."]
     },
     "ComplexUse": {
     }

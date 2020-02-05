@@ -436,10 +436,10 @@ public class Commands {
 
             if(genTarget.hasAttribute("canenter")) {
 
-                System.out.println("You try to crawl into the " + genTarget.getName() + ".");
+                System.out.println("You step into the " + genTarget.getName() + ".");
                 genTarget.runResponseScript("enter");
             } else {
-                System.out.println("You can't get into that!");
+                System.out.println("You can't enter that.");
             }
 
             return;
