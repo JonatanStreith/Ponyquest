@@ -207,7 +207,9 @@
   {
     "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
     "Descriptions": {
-      "Default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice."
+      "Default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
+      "sleeping": "She is sleeping peacefully.",
+      "annoyed": "She scowls at you."
     },
     "Id": "Creature_Applejack",
     "FullName": "Applejack",
@@ -454,7 +456,8 @@
   {
     "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
     "Descriptions": {
-      "Default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you."
+      "Default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
+      "sleeping": "She is sleeping like a rock."
     },
     "Id": "Creature_Maud_Pie",
     "FullName": "Maud Pie",
@@ -478,7 +481,8 @@
       "earth pony"
     ],
     "Attributes": [
-      "huggable"
+      "huggable",
+      "sleep immunity"
     ],
     "BehaviorCore": {
       "mood": "neutral",

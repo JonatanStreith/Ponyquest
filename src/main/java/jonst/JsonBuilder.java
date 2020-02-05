@@ -296,6 +296,7 @@ public class JsonBuilder {
                 put("Text", ite.getText());
                 put("DefaultUse", ite.getDefaultUse());
 
+                put("Owner", ite.getOwner().getName());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : ite.getAlias()) {
@@ -362,6 +363,8 @@ public class JsonBuilder {
                 put("Location", sta.getLocationName());
                 put("Text", sta.getText());
                 put("DefaultUse", sta.getDefaultUse());
+
+                put("Owner", sta.getOwner().getName());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : sta.getAlias()) {
@@ -683,6 +686,8 @@ public class JsonBuilder {
                 String text = (String) jObj.get("Text");
                 String defaultUse = (String) jObj.get("DefaultUse");
 
+                String ownerName = (String) jObj.get("Owner");
+
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
                 Map<String, ArrayList<String>> responseScripts = new HashMap<>();
@@ -735,6 +740,7 @@ public class JsonBuilder {
 
                 object.setComplexUse(complexUse);
                 object.setResponseScripts(responseScripts);
+                object.setOwnerName(ownerName);
 
 
                 stationaryObjectList.add(object);
@@ -773,6 +779,8 @@ public class JsonBuilder {
                 List<String> attributes = new ArrayList<>();
                 String text = (String) jObj.get("Text");
                 String defaultUse = (String) jObj.get("DefaultUse");
+
+                String ownerName = (String) jObj.get("Owner");
 
                 Map<String, String> descriptions = new HashMap<>();
                 Map<String, String> complexUse = new HashMap<>();
@@ -827,6 +835,8 @@ public class JsonBuilder {
 
                 item.setComplexUse(complexUse);
                 item.setResponseScripts(responseScripts);
+
+                item.setOwnerName(ownerName);
 
                 itemList.add(item);
             }

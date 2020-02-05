@@ -15,7 +15,7 @@ public class Scripts {
 
     public static void deleteThisItem(GenericObject subject, World world) {
         if(subject instanceof Item) {
-            world.removeItemFromGeneric((Item) subject, ((Item) subject).getOwner());
+            world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
             world.removeItemFromItemList((Item) subject);
         }
     }
@@ -23,7 +23,7 @@ public class Scripts {
     public static void destroyItem(GenericObject subject, World world) {
         if(subject instanceof Item) {
             System.out.println("The " +subject.getName()+ " is destroyed.");
-            world.removeItemFromGeneric((Item) subject, ((Item) subject).getOwner());
+            world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
             world.removeItemFromItemList((Item) subject);
         }
     }

@@ -87,7 +87,7 @@ public class Parser {
                 System.out.println("The " + subject.getName() + " doesn't seem to listen.");
             }
             else {
-                System.out.println(subject.getName() + " hears your instruction: \"" + command + "\".");
+                //System.out.println(subject.getName() + " hears your instruction: \"" + command + "\".");
 
                 String[] commandArray = parse(command);
 
@@ -500,6 +500,11 @@ public class Parser {
             case "energize":
                 Spellcasting.energize(magicCommandArray, world);
                 break;
+
+            case "sleep":
+                Spellcasting.sleep(magicCommandArray, world);
+                break;
+
 
             default:
                 System.out.println("You don't know of any spell by that name.");

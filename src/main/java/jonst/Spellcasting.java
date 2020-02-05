@@ -57,10 +57,32 @@ public class Spellcasting {
                 genTarget.addAttribute("energized");
                 genTarget.runResponseScript("energize");
             }
-
-
-
         }
+    }
+
+    public static void sleep(String[] magicCommandArray, World world){
+        String fullName = world.matchLocalName(magicCommandArray[3]);
+        GenericObject genTarget = world.getLocalGenericObject(fullName);
+
+        if(genTarget != null) {
+            if(genTarget instanceof Creature) {
+
+                if(genTarget.hasAttribute("sleep immunity")){
+                    System.out.println("You sprinkle " + genTarget.getName() + " with magic sand, but it doesn't seem to have any effect.");
+                    genTarget.runResponseScript("failed sleep");
+                } else {
+
+                    System.out.println("You sprinkle " + genTarget.getName() + " with magic sand. They immediately turn drowsy, and fall asleep.");
+                    ((Creature) genTarget).setStatus("sleeping");
+                    genTarget.runResponseScript("sleep");
+                }
+            } else {
+                System.out.println("The sleep spell only works on living creatures.");
+            }
+        }
+
+
+
     }
 
 }

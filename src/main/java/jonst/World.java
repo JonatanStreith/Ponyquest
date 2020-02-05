@@ -78,11 +78,11 @@ public class World {
             System.out.println("Illegal operation: transferCreatureToLocation, " + creature + " from " + oldLocation + " to " + newLocation + ".");
     }
 
-    public void transferItemToNewOwner(Item item, GenericObject oldOwner, GenericObject newOwner) {
+    public void transferItemToNewHolder(Item item, GenericObject oldHolder, GenericObject newHolder) {
 
-        if (item!=null && oldOwner!=null && newOwner!=null) {
-            removeItemFromGeneric(item, oldOwner);
-            addItemToGeneric(item, newOwner);
+        if (item!=null && oldHolder!=null && newHolder!=null) {
+            removeItemFromGeneric(item, oldHolder);
+            addItemToGeneric(item, newHolder);
         } else
             System.out.println("Illegal operation: transferItemToNewOwner.");
 
@@ -117,7 +117,7 @@ public class World {
 
 
         gen.removeItem(it);
-        it.setOwner(null);
+        it.setHolder(null);
     }
 
     public void addItemToGeneric(Item it, GenericObject gen) {
@@ -126,7 +126,7 @@ public class World {
 //        Item it = getItem(item);
 
         gen.addItem(it);
-        it.setOwner(gen);
+        it.setHolder(gen);
 
         if(gen instanceof Location){        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
             it.setLocation((Location) gen);
@@ -217,9 +217,9 @@ public class World {
             for (GenericObject gen: genericList) {
 
                 if(item.getLocationName().equalsIgnoreCase(gen.getName())){
-                    System.out.println(gen.getName() + ", " + item.getName());
+
                     gen.addItem(item);
-                    item.setOwner(gen);
+                    item.setHolder(gen);
 
                     if(gen instanceof Location){
                         item.setLocation((Location) gen);
@@ -232,6 +232,25 @@ public class World {
             }
         }
 
+        for (Item item: itemList){
+            if(item.getOwnerName() != null) {
+                for(Creature creature : creatureList){
+                    if(item.getOwnerName().equalsIgnoreCase(creature.getName())){
+                        item.setOwner(creature);
+                    }
+                }
+            }
+        }
+
+        for (StationaryObject obj: stationaryObjectList){
+            if(obj.getOwnerName() != null) {
+                for(Creature creature : creatureList){
+                    if(obj.getOwnerName().equalsIgnoreCase(creature.getName())){
+                        obj.setOwner(creature);
+                    }
+                }
+            }
+        }
 
 
 //        Location junkyard = getLocation("Junkyard");

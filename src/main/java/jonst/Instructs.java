@@ -35,13 +35,13 @@ public class Instructs {
 
             } else if ((target instanceof Item)) {
 
-                if (((Item) target).getOwner() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
-                    world.transferItemToNewOwner((Item) target, ((Item) target).getOwner(), subject);
+                if (((Item) target).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
+                    world.transferItemToNewHolder((Item) target, ((Item) target).getHolder(), subject);
                     System.out.println(subject.getName() + " picks up the " + name + ".");
 
-                } else if (((Item) target).getOwner() instanceof Creature) {
+                } else if (((Item) target).getHolder() instanceof Creature) {
                     System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. Stealing is wrong.");
-                } else if (((Item) target).getOwner() instanceof StationaryObject || ((Item) target).getOwner() instanceof Item) {
+                } else if (((Item) target).getHolder() instanceof StationaryObject || ((Item) target).getHolder() instanceof Item) {
                     System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. " + capitalize(heOrShe(subject.getName()) + " doesn't quite get what you're saying."));
                 } else {
                     System.out.println("That doesn't work.");

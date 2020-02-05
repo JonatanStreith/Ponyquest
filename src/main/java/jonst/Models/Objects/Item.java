@@ -6,20 +6,20 @@ import java.util.List;
 public class Item extends GenericObject {
 
 
-    private GenericObject owner;
+    private GenericObject holder;
 
 
     public Item(String name, String id, String locationName, List<String> alias, List<String> attributes) {
         super(name, id, locationName, alias, attributes);
     }
 
-    public boolean setOwner(GenericObject owner){
-        this.owner = owner;
+    public boolean setHolder(GenericObject holder){
+        this.holder = holder;
         return true;
     }
 
-    public GenericObject getOwner() {
-        return owner;
+    public GenericObject getHolder() {
+        return holder;
     }
 
     public void transformInto(Item template){

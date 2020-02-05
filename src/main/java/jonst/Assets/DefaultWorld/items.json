@@ -78,6 +78,7 @@
     "Id": "Item_Generic_Rock",
     "FullName": "rock",
     "Location": "Sweet Apple Acres",
+    "Owner": "Maud Pie",
     "DefaultUse": "look at",
     "Alias": [
       "rock",
@@ -242,6 +243,7 @@
     "FullName": "heavy plow",
     "Location": "Sweet Apple Acres",
     "DefaultUse": "look at",
+    "Owner": "Applejack",
     "Alias": [
       "plow",
       "farming tool"

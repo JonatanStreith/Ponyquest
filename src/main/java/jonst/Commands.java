@@ -120,7 +120,7 @@ public class Commands {
             if (item != null) {
                 //drop
 
-                world.transferItemToNewOwner(item, world.getPlayer(), world.getPlayerLocation());
+                world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
 
 
                 //world.removeFromInventory(item);
@@ -210,14 +210,23 @@ public class Commands {
 
             } else if ((subject instanceof Item)) {
 
-                if (((Item) subject).getOwner() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
-                    world.transferItemToNewOwner((Item) subject, ((Item) subject).getOwner(), world.getPlayer());
-                    System.out.println("You pick up the " + name + ".");
-                    subject.runResponseScript("pick up");
+                if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
 
-                } else if (((Item) subject).getOwner() instanceof Creature) {
-                    System.out.println("You can't just take that from " + ((Item) subject).getOwner().getName() + ". Try asking nicely.");
-                } else if (((Item) subject).getOwner() instanceof StationaryObject || ((Item) subject).getOwner() instanceof Item) {
+                    if(!subject.isOwnerPayingAttention()) {
+
+                        world.transferItemToNewHolder((Item) subject, ((Item) subject).getHolder(), world.getPlayer());
+                        System.out.println("You pick up the " + name + ".");
+                        subject.runResponseScript("pick up");
+                    } else{
+                        System.out.println("You can't take that. " + subject.getOwner().getName() + " is giving you a disapproving look.");
+                    }
+
+
+
+
+                } else if (((Item) subject).getHolder() instanceof Creature) {
+                    System.out.println("You can't just take that from " + ((Item) subject).getHolder().getName() + ". Try asking nicely.");
+                } else if (((Item) subject).getHolder() instanceof StationaryObject || ((Item) subject).getHolder() instanceof Item) {
                     System.out.println("Currently, items in containers need to be TAKEn specifically from the container.");
                 } else {
                     System.out.println("That doesn't work.");
@@ -360,7 +369,7 @@ public class Commands {
                 } else {
 
                     if(gen instanceof Item){
-                        GenericObject owner = ((Item) gen).getOwner();
+                        GenericObject owner = ((Item) gen).getHolder();
 
                         if(owner instanceof Creature){
                             System.out.print("(Carried by " + owner.getName() + ") ");
@@ -529,7 +538,7 @@ public class Commands {
                 target.runResponseScript("teleport");
 
             } else if (target instanceof Item) {
-                world.transferItemToNewOwner((Item)target, world.getPlayerLocation(), destination);
+                world.transferItemToNewHolder((Item)target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
@@ -628,7 +637,7 @@ public class Commands {
                         } else if(target.hasAttribute("refusetogive_" + item.getName())){
                             System.out.println(target.getName() + " refuses to give you that for specific reasons.");
                         } else {
-                            world.transferItemToNewOwner(item, target, world.getPlayer());
+                            world.transferItemToNewHolder(item, target, world.getPlayer());
                             System.out.println(target.getName() + " gives you the " + item.getName() + ".");
                             target.runResponseScript("ask for " + itemName);
                         }
@@ -654,7 +663,7 @@ public class Commands {
         if(newItem != null) {
             Creature player = world.getPlayer();
             player.addItem(newItem);
-            newItem.setOwner(player);
+            newItem.setHolder(player);
             newItem.setLocationName(player.getName());
 
             world.addNewItemToItemList(newItem);
@@ -704,7 +713,7 @@ public class Commands {
 
             if(subject != null){
                 //do gift thing
-                world.transferItemToNewOwner(subject, world.getPlayer(), target);
+                world.transferItemToNewHolder(subject, world.getPlayer(), target);
                 System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
 
                 target.runResponseScript("receive gift");
@@ -748,7 +757,7 @@ public class Commands {
 
         //Assuming the container exists, the item exists, and the container is a legitimate "container", we'll get here.
 
-        world.transferItemToNewOwner((Item) item, world.getPlayer(), container);
+        world.transferItemToNewHolder((Item) item, world.getPlayer(), container);
         System.out.println("You put the " + item.getName() + " into the " + container.getName() + ".");
         item.runResponseScript("get placed");
         container.runResponseScript("get something placed into");
@@ -790,7 +799,7 @@ public class Commands {
             return;
         }
 
-        world.transferItemToNewOwner((Item) item, container, world.getPlayer());
+        world.transferItemToNewHolder((Item) item, container, world.getPlayer());
         System.out.println("You take the " + item.getName() + " from the " + container.getName() + ".");
         item.runResponseScript("pick up");
         container.runResponseScript("get something taken from");

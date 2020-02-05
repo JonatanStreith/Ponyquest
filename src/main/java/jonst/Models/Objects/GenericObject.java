@@ -19,6 +19,10 @@ public abstract class GenericObject {
     private String text;
     private String defaultUse;
 
+    private String ownerName;
+
+    private Creature Owner;
+
     private Map<String, String> descriptions = new HashMap<>();
 
     private Map<String, String> complexUse = new HashMap<>();
@@ -36,6 +40,23 @@ public abstract class GenericObject {
 
         itemList = new ArrayList<>();
 
+    }
+
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public Creature getOwner() {
+        return Owner;
+    }
+
+    public void setOwner(Creature owner) {
+        Owner = owner;
     }
 
     protected void setName(String name) {
@@ -91,6 +112,12 @@ public abstract class GenericObject {
         if(this instanceof Creature){
             if(descriptions.keySet().contains( ((Creature) this).getRace() )){
                 fullDescription.append(" " + descriptions.get( ((Creature) this).getRace() ));
+            }
+            if(descriptions.keySet().contains( ((Creature) this).getMood() )){
+                fullDescription.append(" " + descriptions.get( ((Creature) this).getMood() ));
+            }
+            if(descriptions.keySet().contains( ((Creature) this).getStatus() )){
+                fullDescription.append(" " + descriptions.get( ((Creature) this).getStatus() ));
             }
         }
 
@@ -202,7 +229,7 @@ public abstract class GenericObject {
     public boolean addItem(Item item) {
         if (!itemList.contains(item)) {
             itemList.add(item);
-            item.setOwner(this);
+            item.setHolder(this);
             return true;
         } else
             return false;
@@ -211,7 +238,7 @@ public abstract class GenericObject {
     public boolean removeItem(Item item) {
         if (itemList.contains(item)) {
             itemList.remove(item);
-            item.setOwner(null);
+            item.setHolder(null);
             return true;
         } else
             return false;
@@ -278,5 +305,17 @@ public abstract class GenericObject {
 
     public void setResponseScripts(Map<String, ArrayList<String>> responseScripts) {
         this.responseScripts = responseScripts;
+    }
+
+    public boolean isOwnerPayingAttention(){
+
+        if(getOwner() == null){     //No owner is set
+            return false;
+        } else if(getOwner().getLocation() != location){
+            return false;
+        } else if(getOwner().getStatus().equalsIgnoreCase("sleeping")){
+            return false;
+        }
+        return true;
     }
 }
