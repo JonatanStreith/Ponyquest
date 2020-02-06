@@ -326,7 +326,8 @@
     ],
     "AskTopics": {
       "default": "\"Um... sorry, I don't know anything about that.\"",
-      "alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject."
+      "alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject.",
+      "animals": "Fluttershy immediately gets excited. \"Oh, I love animals! Fluffy bunnies and singing birds and big cuddly bears, and did you know...\" She soon loses herself in a lengthy elaboration that you have no interest in."
     },
     "Alias": [
       "Flutters",
@@ -350,6 +351,7 @@
       }
     },
     "ResponseScripts": {
+      "ask about animals": ["setmood:happy"]
     },
     "ComplexUse": {
     }

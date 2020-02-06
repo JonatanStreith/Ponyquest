@@ -42,6 +42,9 @@ public abstract class GenericObject {
 
     }
 
+    public String toString(){
+        return this.getName();
+    }
 
     public String getOwnerName() {
         return ownerName;
@@ -103,6 +106,10 @@ public abstract class GenericObject {
 
     public String getId() {
         return id;
+    }
+
+    public String getSpecficDescription(String key){
+        return descriptions.get(key);
     }
 
     public String getDescription() {
@@ -315,7 +322,12 @@ public abstract class GenericObject {
             return false;
         } else if(getOwner().getStatus().equalsIgnoreCase("sleeping")){
             return false;
+        } else if(getOwner().getAllegiance().equalsIgnoreCase("allied")) {
+            return false;
+        } else if(getOwner().hasAttribute("charmed")){
+            return false;
         }
+
         return true;
     }
 }

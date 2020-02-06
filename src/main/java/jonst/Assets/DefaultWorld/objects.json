@@ -189,9 +189,8 @@
     }
   },
   {
-    "Description": "The tree has no apples right now... somepony must've harvested them already.",
     "Descriptions": {
-      "default": "The tree has no apples right now... somepony must've harvested them already."
+      "default": "An apple tree, full of ripe fruit."
     },
     "Id": "Object_Acres_Tree",
     "FullName": "apple tree",
@@ -201,10 +200,11 @@
       "apple tree"
     ],
     "Attributes": [
-      "Container",
-      "huggable"
+
+      "huggable", "harvestable"
     ],
     "ResponseScripts": {
+      "harvest": ["writeline:You pick a juicy red apple from the tree.", "addnewitem:player:red apple"]
     },
     "ComplexUse": {
     }
@@ -257,6 +257,7 @@
     "FullName": "magic mirror",
     "Location": "Castle library",
     "DefaultUse": "enter",
+    "Owner": "Twilight Sparkle",
     "Alias": [
       "mirror",
       "gateway"
@@ -266,7 +267,7 @@
     ],
     "ResponseScripts": {
       "energize": [
-        "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
+        "addattribute:active", "removeattribute:inactive", "addattribute:canenter", "showdescription:active"
       ],
       "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:human", "send:player:Canterlot High campus", "addnewitem:player:human clothes"]
     },

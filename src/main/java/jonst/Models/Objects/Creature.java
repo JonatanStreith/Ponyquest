@@ -131,5 +131,13 @@ public class Creature extends GenericObject {
         return "...";
     }
 
+    public boolean isAgreeable(){       //Returns whether the creature is in a mood to follow instructions.
+        if(getAllegiance().equalsIgnoreCase("hostile") || getMood().equalsIgnoreCase("annoyed"))
+            return false;
+        else
+            return true;
+
+    }
+
 
 }

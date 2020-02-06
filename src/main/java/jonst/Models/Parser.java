@@ -30,7 +30,7 @@ public class Parser {
 
         }
 
-        legitimateNouns.addAll(JsonBuilder.getDefaultItemNames());
+        legitimateNouns.addAll(JsonBuilder.getTemplateItemNames());     //Load from template items
 
         legitimateNouns = HelpfulMethods.removeDuplicates((ArrayList<String>) legitimateNouns);
 
@@ -43,7 +43,6 @@ public class Parser {
     }
 
 
-
     public String[] parse(String commandInput) {
         //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
 
@@ -53,7 +52,7 @@ public class Parser {
 
         cleanCommand[0] = extractCommand(commandLine);
 
-        if(cleanCommand[0].equalsIgnoreCase("cast")) {
+        if (cleanCommand[0].equalsIgnoreCase("cast")) {
             cleanCommand[1] = extractSpellNoun(commandLine);
         } else {
             cleanCommand[1] = extractNoun(commandLine);
@@ -65,14 +64,10 @@ public class Parser {
     }
 
 
-
-
-
     public void runCommand(String command, World world) {
 
 
-
-        if(command.contains(",")){
+        if (command.contains(",")) {
             String[] attemptedNameSplit = command.split(",");
             String targetName = world.matchLocalName(attemptedNameSplit[0]);
 
@@ -80,13 +75,13 @@ public class Parser {
 
             GenericObject subject = world.getLocalGenericObject(targetName);
 
-            if(subject == null) {
+            if (subject == null) {
                 System.out.println("Who are you talking to?");
-            }
-            else if (!(subject instanceof Creature)){
+            } else if (!(subject instanceof Creature)) {
                 System.out.println("The " + subject.getName() + " doesn't seem to listen.");
-            }
-            else {
+            } else if (!((Creature) subject).isAgreeable()) {
+                System.out.println(subject.getName() + " refuses to take orders from you.");
+            } else {
                 //System.out.println(subject.getName() + " hears your instruction: \"" + command + "\".");
 
                 String[] commandArray = parse(command);
@@ -96,9 +91,11 @@ public class Parser {
             return;
         }
 
+
+        //This is if you don't try instructing anyone.
         String[] commandArray = parse(command);
 
-        if(commandArray[0].equalsIgnoreCase("cast")){
+        if (commandArray[0].equalsIgnoreCase("cast")) {
             runMagicCommandArray(commandArray, world);
         } else {
             runCommandArray(commandArray, world);
@@ -106,7 +103,7 @@ public class Parser {
     }
 
 
-    public void runCommandArray(String[] commandArray, World world){
+    public void runCommandArray(String[] commandArray, World world) {
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
             case "activate":
@@ -132,7 +129,7 @@ public class Parser {
                 break;
 
             case "harvest":
-
+                Commands.harvest(commandArray, world);
                 break;
 
 
@@ -277,7 +274,7 @@ public class Parser {
 
     //---------------------------------------------
 
-    public void runInstructCommandArray(Creature subject, String[] commandArray, World world){
+    public void runInstructCommandArray(Creature subject, String[] commandArray, World world) {
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
         {
 
@@ -322,51 +319,31 @@ public class Parser {
 //
 
 
+            case "follow":
+            case "follow me":
+                Instructs.follow(subject, world);
+                break;
+
+            case "stop follow":
+            case "stop following me":
+                Instructs.stopFollow(subject, world);
+                break;
+
             case "pick up":
                 Instructs.pickUp(subject, commandArray[1], world);
                 break;
 
-//            case "drop":
-//                Commands.drop(commandArray[1], world);
-//                break;
-//
+            case "drop":
+                Instructs.drop(subject, commandArray[1], world);
+                break;
 
 
 //            case "go to":
 //            case "go":
-//                Commands.goTo(commandArray[1], world);
+//                Instructs.goTo(subject, commandArray[1], world);
 //                break;
-//
-//
-//            case "talk to":
-//            case "talk":
-//
-//                Commands.talkTo(commandArray[1], world);
-//                break;
-//
-//
-//            case "look":
-//            case "look around":
-//            case "look at":
-//                Commands.lookAt(commandArray[1], world);
-//                break;
-//
-//            case "exits":
-//                Commands.getExits(world);
-//                break;
-//
-//            case "teleport":
-//                Commands.teleportOther(commandArray, world);
-//                break;
-//
-//            case "teleport to":
-//                Commands.teleportSelf(commandArray, world);
-//                break;
-//
-//            case "ask":
-//                Commands.ask(commandArray, world);
-//                break;
-//
+
+
 //            case "put":
 //            case "place":
 //                Commands.place(commandArray, world);
@@ -389,23 +366,16 @@ public class Parser {
 
 
             case "hug":
-                Commands.hug(commandArray, world);
+                Instructs.hug(subject, commandArray, world);
                 break;
 
-            case "create":
-                Commands.create(commandArray, world);
-                break;
-
-            case "transform":
-                Commands.transform(commandArray, world);
-                break;
 
             case "open":
-                Commands.open(commandArray[1], world);
+                Instructs.open(subject, commandArray[1], world);
                 break;
 
             case "close":
-                Commands.close(commandArray[1], world);
+                Instructs.close(subject, commandArray[1], world);
                 break;
 
         }
@@ -490,7 +460,7 @@ public class Parser {
     //-------- Magic stuff -------------------------------
 
 
-    public void runMagicCommandArray(String[] magicCommandArray, World world){
+    public void runMagicCommandArray(String[] magicCommandArray, World world) {
 
         switch (magicCommandArray[1].toLowerCase()) {
             case "fireball":
@@ -523,9 +493,8 @@ public class Parser {
     }
 
 
-    public void runScriptCommandArray(GenericObject subject, String[] scriptCommandArray, World world){
-        switch (scriptCommandArray[0].toLowerCase())
-        {
+    public void runScriptCommandArray(GenericObject subject, String[] scriptCommandArray, World world) {
+        switch (scriptCommandArray[0].toLowerCase()) {
             case "setmood":
                 Scripts.setMood(subject, scriptCommandArray, world);
                 break;
@@ -548,9 +517,9 @@ public class Parser {
                 Scripts.deleteThisItem(subject, world);
                 break;
 
-                case "destroyitem":
-            Scripts.destroyItem(subject, world);
-            break;
+            case "destroyitem":
+                Scripts.destroyItem(subject, world);
+                break;
 
             case "createitem":
 
@@ -581,6 +550,12 @@ public class Parser {
 
             case "writeline":
                 Scripts.writeLine(subject, scriptCommandArray, world);
+                break;
+
+            case "showdescription":
+                //showdescription:descriptionkey
+                Scripts.showDescription(subject, scriptCommandArray, world);
+                break;
         }
     }
 

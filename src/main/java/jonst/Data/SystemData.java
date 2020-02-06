@@ -99,6 +99,11 @@ public class SystemData {
             add("open");
             add("close");
             add("activate");
+
+            add("follow");
+            add("follow me");
+            add("stop follow");
+            add("stop following me");
         }};
     }
 

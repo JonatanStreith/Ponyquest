@@ -12,20 +12,54 @@ import static jonst.HelpfulMethods.*;
 
 public class Commands {
 
-    public static void activate(String[] commandArray, World world){
+    public static void activate(String[] commandArray, World world) {
 
         String fullName = world.matchLocalName(commandArray[1]);
         GenericObject target = world.getGenericObject(fullName);
 
+        if (target == null) {
+            System.out.println("Activate what?");
+            return;
+        }
+
+        if (target.isOwnerPayingAttention()) {
+            System.out.println("You can't tamper with that. " + target.getOwner().getName() + " won't let you.");
+        }
+
         boolean successful = target.runResponseScript("activate");
 
-        if(!successful){
+        if (!successful) {
+            System.out.println("Hmm, nothing happened...");
+        }
+    }
+
+    public static void harvest(String[] commandArray, World world) {
+
+        String fullName = world.matchLocalName(commandArray[1]);
+        GenericObject target = world.getGenericObject(fullName);
+
+        if (target == null) {
+            System.out.println("Harvest what?");
+            return;
+        }
+
+        if (!target.hasAttribute("harvestable")) {
+            System.out.println("You can't harvest that.");
+        }
+
+        if (target.isOwnerPayingAttention()) {
+            System.out.println("You can't harvest that. " + target.getOwner().getName() + " doesn't appreciate thieves.");
+        }
+
+
+        boolean successful = target.runResponseScript("harvest");
+
+        if (!successful) {
             System.out.println("Hmm, nothing happened...");
         }
     }
 
     public static void read(String subject, World world) {
-
 
         String fullName = world.matchLocalName(subject);
 
@@ -33,12 +67,23 @@ public class Commands {
 
             GenericObject gen = world.getGenericObject(fullName);
 
-            if (gen.hasAttribute("readable")) {
-                System.out.println(gen.getText());
-                gen.runResponseScript("read");
-            } else {
-                System.out.println("There's nothing to read.");
+            if (gen == null) {
+                System.out.println("Read what?");
+                return;
             }
+
+            if (!gen.hasAttribute("readable")) {
+                System.out.println("There's nothing to read.");
+                return;
+            }
+
+            if (gen.isOwnerPayingAttention()) {
+                System.out.println(gen.getOwner().getName() + " won't let you read that.");
+            }
+
+            System.out.println(gen.getText());
+            gen.runResponseScript("read");
+
         }
 
     }
@@ -110,73 +155,77 @@ public class Commands {
     }
 
     public static void drop(String name, World world) {
-
         String fullName = world.matchLocalName(name);
-
         if (!fullName.equals("")) {
-
             Item item = world.getPlayer().getOwnedItemByName(fullName);
-
-            if (item != null) {
-                //drop
-
-                if(item.hasAttribute("undroppable")){
-                    System.out.println("You can't drop that.");
-                } else {
-                    world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
-                    System.out.println("You drop the " + name + ".");
-                    item.runResponseScript("drop");
-                }
-            } else {
+            if (item == null) {
                 System.out.println("You're not carrying that.");
             }
 
+            if (item.hasAttribute("undroppable")) {
+                System.out.println("You can't drop that.");
+                return;
+            }
+
+            world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
+            System.out.println("You drop the " + name + ".");
+            item.runResponseScript("drop");
         }
-
-
     }
 
-    public static void open(String name, World world){
+    public static void open(String name, World world) {
         String fullName = world.matchLocalName(name);
         GenericObject target = world.getGenericObject(fullName);
 
-        if(target != null){
-            if(target.hasAttribute("openable")){
-
-                if(!target.hasAttribute("open")){
-                    target.addAttribute("open");
-                    target.removeAttribute("closed");
-                    System.out.println("You open the " + target.getName() + ".");
-                    target.runResponseScript("open");
-                } else {
-                    System.out.println("It's already open.");
-                }
-
-            } else {
+        if (target != null) {
+            if (!target.hasAttribute("openable")) {
                 System.out.println("That can't be opened.");
+                return;
             }
+
+            if (target.hasAttribute("open")) {
+                System.out.println("It's already open.");
+                return;
+            }
+
+            if (target.isOwnerPayingAttention()) {
+                System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+                return;
+            }
+
+            target.addAttribute("open");
+            target.removeAttribute("closed");
+            System.out.println("You open the " + target.getName() + ".");
+            target.runResponseScript("open");
         }
     }
 
-    public static void close(String name, World world){
+    public static void close(String name, World world) {
         String fullName = world.matchLocalName(name);
         GenericObject target = world.getGenericObject(fullName);
 
-        if(target != null){
-            if(target.hasAttribute("openable")){
-
-                if(!target.hasAttribute("closed")){
-                    target.addAttribute("closed");
-                    target.removeAttribute("open");
-                    System.out.println("You close the " + target.getName() + ".");
-                    target.runResponseScript("close");
-                } else {
-                    System.out.println("It's already closed.");
-                }
-
-            } else {
+        if (target != null) {
+            if (!target.hasAttribute("openable")) {
                 System.out.println("That can't be closed.");
+                return;
             }
+
+            if (target.hasAttribute("closed")) {
+                System.out.println("It's already closed.");
+                return;
+            }
+
+            if (target.isOwnerPayingAttention()) {
+                System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+                return;
+            }
+
+            target.addAttribute("closed");
+            target.removeAttribute("open");
+            System.out.println("You close the " + target.getName() + ".");
+            target.runResponseScript("close");
+
+
         }
     }
 
@@ -188,7 +237,7 @@ public class Commands {
 
             GenericObject subject = world.getLocalGenericOnGround(fullName);
 
-            if(subject == null) {
+            if (subject == null) {
                 System.out.println("You can't pick up things hidden in containers.");
                 return;
             }
@@ -211,16 +260,14 @@ public class Commands {
 
                 if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
 
-                    if(!subject.isOwnerPayingAttention()) {
+                    if (!subject.isOwnerPayingAttention()) {
 
                         world.transferItemToNewHolder((Item) subject, ((Item) subject).getHolder(), world.getPlayer());
                         System.out.println("You pick up the " + name + ".");
                         subject.runResponseScript("pick up");
-                    } else{
-                        System.out.println("You can't take that. " + subject.getOwner().getName() + " is giving you a disapproving look.");
+                    } else {
+                        System.out.println("You can't take that while " + subject.getOwner().getName() + " is looking.");
                     }
-
-
 
 
                 } else if (((Item) subject).getHolder() instanceof Creature) {
@@ -367,26 +414,25 @@ public class Commands {
                     lookAround(world);
                 } else {
 
-                    if(gen instanceof Item){
+                    if (gen instanceof Item) {
                         GenericObject owner = ((Item) gen).getHolder();
 
-                        if(owner instanceof Creature){
+                        if (owner instanceof Creature) {
                             System.out.print("(Carried by " + owner.getName() + ") ");
-                        }
-                        else if (owner instanceof Item || owner instanceof StationaryObject){
+                        } else if (owner instanceof Item || owner instanceof StationaryObject) {
                             System.out.print("(In " + owner.getName() + ") ");
                         }
                     }
 
                     System.out.println(gen.getDescription());
 
-                    if(gen instanceof Creature){
+                    if (gen instanceof Creature) {
                         Creature cre = (Creature) gen;
-                    System.out.println(capitalize(heOrShe(cre.getGender())) + " looks " + cre.getMood() + ".");
+                        System.out.println(capitalize(heOrShe(cre.getGender())) + " looks " + cre.getMood() + ".");
                     }
                     System.out.println();
 
-                    if(!gen.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
+                    if (!gen.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
                         listOwnedItems(world, gen);
                     } else {
                         System.out.println("It's closed.");
@@ -401,12 +447,14 @@ public class Commands {
 
     public static void goTo(String newArea, World world) {
 
+        Location currentLoc = world.getPlayerLocation();
+
         List<String> newAreasFullName = world.matchNameMultiple(newArea); //A list of all places matching the alias provided
 
         String destination = "";
 
         outerLoop:
-        for (String exit : world.getPlayerLocation().getExits())     //Check if any of the legitimate exits is the place we want to go to
+        for (String exit : currentLoc.getExits())     //Check if any of the legitimate exits is the place we want to go to
         {
             for (String area : newAreasFullName) {
 
@@ -423,13 +471,14 @@ public class Commands {
         {
             Location destinationLoc = world.getLocation(destination);
 
-            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), destinationLoc);                                            //Add player to new location
+            world.transferCreatureToLocation(world.getPlayer(), currentLoc, destinationLoc);                                            //Add player to new location
 
             System.out.println("You go to " + destinationLoc.getName() + ".");
+            moveFollowers(currentLoc, destinationLoc, world);
+
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);
-
             destinationLoc.runResponseScript("go to");
 
         } else {
@@ -452,9 +501,9 @@ public class Commands {
         String targetName = world.matchLocalName(location);
         GenericObject genTarget = world.getLocalGenericOnGround(targetName);
 
-        if(genTarget instanceof StationaryObject || genTarget instanceof Item){
+        if (genTarget instanceof StationaryObject || genTarget instanceof Item) {
 
-            if(genTarget.hasAttribute("canenter")) {
+            if (genTarget.hasAttribute("canenter")) {
 
                 System.out.println("You step into the " + genTarget.getName() + ".");
                 genTarget.runResponseScript("enter");
@@ -464,10 +513,6 @@ public class Commands {
 
             return;
         }
-
-
-
-
 
 
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
@@ -532,17 +577,17 @@ public class Commands {
 
 
             } else if (target instanceof Creature) {
-                world.transferCreatureToLocation((Creature)target, world.getPlayerLocation(), destination);
+                world.transferCreatureToLocation((Creature) target, world.getPlayerLocation(), destination);
                 System.out.println(target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
             } else if (target instanceof Item) {
-                world.transferItemToNewHolder((Item)target, world.getPlayerLocation(), destination);
+                world.transferItemToNewHolder((Item) target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
             } else if (target instanceof StationaryObject) {
-                world.transferObjectToLocation((StationaryObject)target, world.getPlayerLocation(), destination);
+                world.transferObjectToLocation((StationaryObject) target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
@@ -578,11 +623,11 @@ public class Commands {
         }
     }
 
-    public static void hug(String[] command, World world){
+    public static void hug(String[] command, World world) {
         String fullName = world.matchLocalName(command[1]);
         GenericObject gen = world.getLocalGenericObject(fullName);
 
-        if(gen.hasAttribute("huggable")){
+        if (gen.hasAttribute("huggable")) {
             System.out.println("You hug " + gen.getName() + " affectionately.");
             gen.runResponseScript("hug");
         } else
@@ -621,7 +666,7 @@ public class Commands {
 
                         Item item = target.getOwnedItemByName(itemName);
 
-                        if(item==null) {
+                        if (item == null) {
                             System.out.println("I don't have that.");
                             return;
                         }
@@ -629,11 +674,12 @@ public class Commands {
                         String targetMood = ((Creature) target).getMood();
                         String targetAllegiance = ((Creature) target).getAllegiance();
 
-                        if(targetAllegiance.equalsIgnoreCase("hostile")){
+
+                        if (targetAllegiance.equalsIgnoreCase("hostile")) {
                             System.out.println(target.getName() + " doesn't like you, and won't give you anything.");
-                        } else if(targetMood.equalsIgnoreCase("annoyed")){
+                        } else if (targetMood.equalsIgnoreCase("annoyed")) {
                             System.out.println(target.getName() + " is in a bad mood and doesn't want to give you that.");
-                        } else if(target.hasAttribute("refusetogive_" + item.getName())){
+                        } else if (target.hasAttribute("refusetogive_" + item.getName())) {
                             System.out.println(target.getName() + " refuses to give you that for specific reasons.");
                         } else {
                             world.transferItemToNewHolder(item, target, world.getPlayer());
@@ -659,7 +705,7 @@ public class Commands {
     public static void create(String[] commandArray, World world) {
         Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
 
-        if(newItem != null) {
+        if (newItem != null) {
             Creature player = world.getPlayer();
             player.addItem(newItem);
             newItem.setHolder(player);
@@ -682,7 +728,7 @@ public class Commands {
 
         GenericObject startItem = world.getLocalGenericObject(fullName);
 
-        if(!(startItem instanceof Item)){
+        if (!(startItem instanceof Item)) {
             System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
         } else {
 
@@ -700,56 +746,60 @@ public class Commands {
         String subjectName = world.matchNameFromInventory(commandArray[1]);
         String targetName = world.matchLocalName(commandArray[3]);
 
-        if(!(subjectName.equals("") || targetName.equals(""))) {
+        if (!(subjectName.equals("") || targetName.equals(""))) {
 
             Item subject = world.getPlayer().getOwnedItemByName(subjectName);
             GenericObject target = world.getGenericObject(targetName);
 
-            if(!(target instanceof Creature)){
+            if (!(target instanceof Creature)) {
                 System.out.println("You realize you're trying to present a gift to a non-sentient object. This is stupid.");
                 return;
             }
 
-            if(subject != null){
+            if (subject != null) {
                 //do gift thing
                 world.transferItemToNewHolder(subject, world.getPlayer(), target);
-                System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks") );
+                System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks"));
 
                 target.runResponseScript("receive gift");
 
             }
 
 
-
         }
 
     }
 
-    public static void place(String[] commandArray, World world){
+    public static void place(String[] commandArray, World world) {
 
         String containerName = world.matchLocalName(commandArray[3]);
         GenericObject container = world.getLocalGenericObject(containerName);
 
-        if(container == null){
+        if (container == null) {
             System.out.println("You can't find the " + commandArray[3] + " here.");
             return;
         }
 
-        if(container instanceof Creature){
+        if (container instanceof Creature) {
             System.out.println(containerName + " doesn't appreciate you trying to force things into "
                     + hisOrHer(((Creature) container).getGender()) + " pockets. Try 'giving' it like a normal " + world.getPlayer().getRace() + ".");
             return;
         }
 
-        if(!(container.hasAttribute("container"))){
+        if (!(container.hasAttribute("container"))) {
             System.out.println("You can't put anything into the " + containerName + ".");
+            return;
+        }
+
+        if (container.isOwnerPayingAttention()) {
+            System.out.println(container.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
         String itemName = world.matchNameFromInventory(commandArray[1]);
         GenericObject item = world.getLocalGenericObject(itemName);
 
-        if(item == null){
+        if (item == null) {
             System.out.println("You're not carrying that.");
             return;
         }
@@ -762,9 +812,9 @@ public class Commands {
         container.runResponseScript("get something placed into");
     }
 
-    public static void take(String[] commandArray, World world){
+    public static void take(String[] commandArray, World world) {
 
-        if(commandArray[3].equals("")){
+        if (commandArray[3].equals("")) {
             pickUp(commandArray[1], world);
             return;
         }
@@ -773,28 +823,37 @@ public class Commands {
         GenericObject container = world.getLocalGenericObject(containerName);
 
 
-
-        if(container == null){
+        if (container == null) {
             System.out.println("You can't find the " + commandArray[3] + " here.");
             return;
         }
 
-        if(container instanceof Creature){
+        if (container instanceof Creature) {
             System.out.println(containerName + " doesn't appreciate you rummaging through "
                     + hisOrHer(((Creature) container).getGender()) + " things. Try asking nicely.");
             return;
         }
 
-        if(!(container.hasAttribute("container"))){
+        if (!(container.hasAttribute("container"))) {
             System.out.println("That doesn't hold anything.");
+            return;
+        }
+
+        if (container.isOwnerPayingAttention()) {
+            System.out.println(container.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
         String itemName = world.matchLocalName(commandArray[1]);
         GenericObject item = world.getLocalGenericObject(itemName);
 
-        if(item == null || !(container.hasItem((Item) item))){
+        if (item == null || !(container.hasItem((Item) item))) {
             System.out.println("That's not in there.");
+            return;
+        }
+
+        if (item.isOwnerPayingAttention()) {
+            System.out.println("You can't take that while " + item.getOwner().getName() + " is looking.");
             return;
         }
 
@@ -858,5 +917,26 @@ public class Commands {
         }
     }
 
+    public static ArrayList<Creature> getFollowers(Location currentLocation, World world) {
+
+        ArrayList<Creature> followers = new ArrayList<>();
+
+        for (GenericObject gen : currentLocation.getAllAtLocation()) {
+
+            if (gen instanceof Creature && gen.hasAttribute("following")) {
+                followers.add((Creature) gen);
+            }
+        }
+        return followers;
+    }
+
+    public static void moveFollowers(Location currentLoc, Location destination, World world) {
+        ArrayList<Creature> followers = getFollowers(currentLoc, world);
+
+        for (Creature follower : followers) {
+            world.transferCreatureToLocation(follower, currentLoc, destination);
+            System.out.println(follower.getName() + " follows you.");
+        }
+    }
 
 }

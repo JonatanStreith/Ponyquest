@@ -6,6 +6,26 @@ import static jonst.HelpfulMethods.*;
 
 public class Instructs {
 
+
+    public static void drop(Creature subject, String name, World world) {
+        String fullName = world.matchLocalName(name);
+        if (!fullName.equals("")) {
+            Item item = subject.getOwnedItemByName(fullName);
+            if (item != null) {
+                //drop
+                if(item.hasAttribute("undroppable")){
+                    System.out.println(subject.getName() + " won't drop that.");
+                } else {
+                    world.transferItemToNewHolder(item, subject, subject.getLocation());
+                    System.out.println(subject.getName() + " drops the " + name + ".");
+                    item.runResponseScript("drop");
+                }
+            } else {
+                System.out.println(subject.getName() + " isn't carrying that.");
+            }
+        }
+    }
+
     public static void pickUp(Creature subject, String name, World world) {
 
         String fullName = world.matchLocalName(name);
@@ -54,4 +74,72 @@ public class Instructs {
         }
     }
 
+    public static void open(Creature subject, String name, World world){
+
+        String fullName = world.matchLocalName(name);
+        GenericObject target = world.getGenericObject(fullName);
+
+        if(target != null){
+            if(target.hasAttribute("openable")){
+
+                if(!target.hasAttribute("open")){
+                    target.addAttribute("open");
+                    target.removeAttribute("closed");
+                    System.out.println(subject.getName() + " opens the " + target.getName() + ".");
+                    target.runResponseScript("open");
+                } else {
+                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. It's already open.");
+                }
+
+            } else {
+                System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. That can't be opened.");
+            }
+        }
+    }
+
+    public static void close(Creature subject, String name, World world){
+        String fullName = world.matchLocalName(name);
+        GenericObject target = world.getGenericObject(fullName);
+
+        if(target != null){
+            if(target.hasAttribute("openable")){
+
+                if(!target.hasAttribute("closed")){
+                    target.addAttribute("closed");
+                    target.removeAttribute("open");
+                    System.out.println(subject.getName() + " closes the " + target.getName() + ".");
+                    target.runResponseScript("close");
+                } else {
+                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. It's already closed.");
+                }
+
+            } else {
+                System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. That can't be closed.");
+            }
+        }
+    }
+
+    public static void hug(Creature subject, String[] command, World world){
+        String fullName = world.matchLocalName(command[1]);
+        GenericObject gen = world.getLocalGenericObject(fullName);
+
+        if(gen.hasAttribute("huggable")){
+            System.out.println(subject.getName() + "nods, and hugs " + gen.getName() + " affectionately.");
+            gen.runResponseScript("hug");
+        } else
+            System.out.println(subject.getName() + " gives " + gen.getName() + " a wary look and shakes " +hisOrHer(subject.getGender()) + " head. They don't look very huggable.");
+
+    }
+
+    public static void follow(Creature subject, World world) {
+        subject.addAttribute("following");
+        System.out.println(subject.getPersonalQuote("yes"));
+    }
+
+
+    public static void stopFollow(Creature subject, World world) {
+        subject.removeAttribute("following");
+        System.out.println(subject.getPersonalQuote("yes"));
+
+    }
 }

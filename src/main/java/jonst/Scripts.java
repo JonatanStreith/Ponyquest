@@ -126,4 +126,9 @@ public class Scripts {
         world.removeItemFromItemList(itemToBeDeleted);
 
     }
+
+    public static void showDescription(GenericObject subject, String[] scriptCommandArray, World world) {
+        String desc = subject.getSpecficDescription(scriptCommandArray[1]);
+        System.out.println(desc);
+    }
 }

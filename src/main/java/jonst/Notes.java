@@ -111,5 +111,12 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
 
 //Set up nullchecks in jsonbuilder!
 
-    //IMPORTANT! When creating new items, have them add their name and aliases to the legitimatenouns list!
+//Make a script that lets you move all followers. And one that lets you change their races.
+
+    //May need "DefaultRace" and "DefaultLocation" and similar, if the game needs to restore things to normal. I.e. if a follower moves back through the mirror.
+
+    //Spell: "Summon friends".
+    //Creatures could have a "friend list" tracking which ones are their true friends. Because FiM.
+
+    //Fill command: "fill bucket with apples".
 }
