@@ -18,6 +18,14 @@
   ["Location_Sugarcube_Interior", "Location_Sugercube_Pinkieroom", "open"],
   ["Location_Sugarcube_Interior", "Location_Sugarcube_Partycave", "open"],
 
+
+  ["Location_Sugarcube_Exterior", "Location_Sugarcube_Interior", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugarcube_Kitchen", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugercube_Pinkieroom", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugarcube_Partycave", "open"],
+
+
+
   ["Location_Carousel_Exterior", "Location_Carousel_Interior", "open"],
 
   ["Location_Acres_Exterior", "Location_Acres_Farmhouse", "open"],

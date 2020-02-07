@@ -234,12 +234,6 @@ public class JsonBuilder {
                 put("DefaultExit", loc.getDefaultExit());
 
 
-//                put("Exits", new JSONObject() {{
-//
-//                    for (int i = 0; i < loc.getExits().size(); i++) {   //Puts all exits into an array
-//                        put(i, loc.getExits().get(i));
-//                    }
-//                }});
                 put("Descriptions", new JSONObject() {{
                     for (String key : loc.getDescriptions().keySet()) {
                         put(key, loc.getDescriptions().get(key));
@@ -649,13 +643,8 @@ public class JsonBuilder {
                         }
                     }
 
-                    JSONObject jsExits = (JSONObject) jObj.get("Exits");
-                    if (jsExits != null)
-                        for (Object xObj : jsExits.values()) {
-                            exits.add((String) xObj);
-                        }
 
-                    Location location = new Location(fullName, id, fullName, alias, attributes, exits, defaultEnter, defaultExit);
+                    Location location = new Location(fullName, id, fullName, alias, attributes, defaultEnter, defaultExit);
                     location.setDescriptions(descriptions);
                     location.setText(text);
                     location.setDefaultUse(defaultUse);

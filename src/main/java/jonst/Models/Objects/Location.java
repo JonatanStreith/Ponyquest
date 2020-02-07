@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Location extends GenericObject {
 
-
-    private List<String> legitimateExits = new ArrayList<>();
+//
+//    private List<String> legitimateExits = new ArrayList<>();
 
     private String defaultEnterId;
     private String defaultExitId;
@@ -21,10 +21,10 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
 
 
-    public Location(String name, String id, String locationName, List<String> alias, List<String> attributes, ArrayList<String> legitimateExits, String defaultEnterId, String defaultExitId) {
+    public Location(String name, String id, String locationName, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId) {
         super(name, id, locationName, alias, attributes);
 
-        this.legitimateExits = legitimateExits;
+//        this.legitimateExits = legitimateExits;
 
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);

@@ -456,16 +456,17 @@ public class Commands {
 
         Location destination = null;
 
-        outerloop:
-        for (Location dest: potentialDestinations) {
-            for (Exit exit : world.getExitList()){
-                if(exit.connectionExists(currentLoc, dest)) { //If there's a connection between these two places
-                    destination = dest;
-                    break outerloop;
+        if(potentialDestinations.size()>0) {
+            outerloop:
+            for (Location dest : potentialDestinations) {
+                for (Exit exit : world.getExitList()) {
+                    if (exit.connectionExists(currentLoc, dest)) { //If there's a connection between these two places
+                        destination = dest;
+                        break outerloop;
+                    }
                 }
             }
         }
-
 
 
 
@@ -499,6 +500,32 @@ public class Commands {
             }
             return;
         }
+
+
+        {
+            List<Location> potentialDestinations = world.matchLocationsMultiple(location);
+
+            Location destination = null;
+
+            if(potentialDestinations.size()>0) {
+                outerloop:
+                for (Location dest : potentialDestinations) {
+                    for (Exit exit : world.getExitList()) {
+                        if (exit.connectionExists(world.getPlayerLocation(), dest)) { //If there's a connection between these two places
+                            destination = dest;
+                            break outerloop;
+                        }
+                    }
+                }
+            }
+
+            if(destination != null){
+                goTo(destination.getName(), world);
+                return;
+            }
+        }
+
+
 
         String targetName = world.matchLocalName(location);
         GenericObject genTarget = world.getLocalGenericOnGround(targetName);
