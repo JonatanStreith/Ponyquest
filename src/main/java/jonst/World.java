@@ -311,6 +311,10 @@ public class World {
         return itemList;
     }
 
+    public List<Exit> getExitList() {
+        return exitList;
+    }
+
     public List<GenericObject> getGenericList() {
         return genericList;
     }
@@ -467,6 +471,26 @@ public class World {
 
     // --------------- Match name methods ------------------------
 
+    public List<Location> matchLocationsMultiple(String name){
+
+        List<Location> results = new ArrayList<>();
+
+        for (Location loc: locationList) {
+            if (loc.getName().equalsIgnoreCase(name)) {
+                results.add(loc);     //If the name we're looking for is its full name
+                } else {
+                for (String alias : loc.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(loc);
+                        break;
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
+
     public List<String> matchNameMultiple(String name) {
 
         List<String> results = new ArrayList<>();
@@ -479,6 +503,7 @@ public class World {
                 for (String alias : generic.getAlias()) {
                     if (alias.equalsIgnoreCase(name)) {
                         results.add(generic.getName());
+                        break;
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package jonst;
 
 import jonst.Data.SystemData;
+import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 
 
@@ -449,37 +450,38 @@ public class Commands {
 
         Location currentLoc = world.getPlayerLocation();
 
-        List<String> newAreasFullName = world.matchNameMultiple(newArea); //A list of all places matching the alias provided
+        //List<String> newAreasFullName = world.matchNameMultiple(newArea); //A list of all places matching the alias provided
 
-        String destination = "";
+        List<Location> potentialDestinations = world.matchLocationsMultiple(newArea);
 
-        outerLoop:
-        for (String exit : currentLoc.getExits())     //Check if any of the legitimate exits is the place we want to go to
-        {
-            for (String area : newAreasFullName) {
+        Location destination = null;
 
-                if (area.equalsIgnoreCase(exit)) {
-                    destination = area;
-
-                    break outerLoop;
+        outerloop:
+        for (Location dest: potentialDestinations) {
+            for (Exit exit : world.getExitList()){
+                if(exit.connectionExists(currentLoc, dest)) { //If there's a connection between these two places
+                    destination = dest;
+                    break outerloop;
                 }
             }
-
         }
 
-        if (destination != "")               //Is a destination found?
+
+
+
+        if (destination != null)               //Is a destination found?
         {
-            Location destinationLoc = world.getLocation(destination);
 
-            world.transferCreatureToLocation(world.getPlayer(), currentLoc, destinationLoc);                                            //Add player to new location
 
-            System.out.println("You go to " + destinationLoc.getName() + ".");
-            moveFollowers(currentLoc, destinationLoc, world);
+            world.transferCreatureToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
+
+            System.out.println("You go to " + destination.getName() + ".");
+            moveFollowers(currentLoc, destination, world);
 
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);
-            destinationLoc.runResponseScript("go to");
+            destination.runResponseScript("go to");
 
         } else {
             System.out.println("You can't get there from here.");
@@ -550,10 +552,10 @@ public class Commands {
 
     public static void getExits(World world) {
 
-        Location loc = world.getLocation(world.getPlayer().getLocationName());
-        List<String> exits = loc.getExits();
-
-        System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
+//        Location loc = world.getLocation(world.getPlayer().getLocationName());
+//        List<String> exits = loc.getExits();
+//
+//        System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
     }
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?

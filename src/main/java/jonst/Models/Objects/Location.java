@@ -64,9 +64,9 @@ public class Location extends GenericObject {
         }
     }
 
-    public List<String> getExits() {
-        return legitimateExits;
-    }
+//    public List<String> getExits() {
+//        return legitimateExits;
+//    }
 
     public String getDefaultEnter() {
         return defaultEnter;

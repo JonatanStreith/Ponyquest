@@ -42,4 +42,12 @@ public class Exit {
             return null;
     }
 
+    public boolean connectionExists(Location loc0, Location loc1){
+        //does this exit connect these two locations? (potential for reverse)
+        if((locations[0] == loc0 && locations[1] == loc1) || (locations[0] == loc1 && locations[1] == loc0)){
+            return true;
+        }
+        return false;
+    }
+
 }
