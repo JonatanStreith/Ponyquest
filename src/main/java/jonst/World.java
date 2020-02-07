@@ -35,7 +35,7 @@ public class World {
         buildWorld(loadFilePath);
     }
 
-    public void buildWorld(String loadFilePath){
+    public void buildWorld(String loadFilePath) {
 
         loadListsFromFile(loadFilePath);        //Build lists
 
@@ -55,7 +55,6 @@ public class World {
     }
 
 
-
     public void runGame() {
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
@@ -65,7 +64,7 @@ public class World {
         while (true)                //Continuously running play loop that parses instructions
 
         {
-                parser.runCommand(SystemData.getReply("Please input command: "), this);
+            parser.runCommand(SystemData.getReply("Please input command: "), this);
         }
     }
 
@@ -83,7 +82,7 @@ public class World {
 
     public void transferItemToNewHolder(Item item, GenericObject oldHolder, GenericObject newHolder) {
 
-        if (item!=null && oldHolder!=null && newHolder!=null) {
+        if (item != null && oldHolder != null && newHolder != null) {
             removeItemFromGeneric(item, oldHolder);
             addItemToGeneric(item, newHolder);
         } else
@@ -118,7 +117,6 @@ public class World {
     public void removeItemFromGeneric(Item it, GenericObject gen) {
 
 
-
         gen.removeItem(it);
         it.setHolder(null);
     }
@@ -131,10 +129,9 @@ public class World {
         gen.addItem(it);
         it.setHolder(gen);
 
-        if(gen instanceof Location){        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
+        if (gen instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
             it.setLocation((Location) gen);
-        }
-        else {
+        } else {
             it.setLocation(null);
         }
     }
@@ -153,44 +150,44 @@ public class World {
 
     //------------- If new objects are created, they need to be added to the world lists ----------
 
-    public void addNewItemToItemList(Item newItem){
+    public void addNewItemToItemList(Item newItem) {
         itemList.add(newItem);
         genericList.add(newItem);
     }
 
-    public void addNewCreatureToCreatureList(Creature newCreature){
+    public void addNewCreatureToCreatureList(Creature newCreature) {
         creatureList.add(newCreature);
         genericList.add(newCreature);
     }
 
-    public void addNewLocationToLocationList(Location newLocation){
+    public void addNewLocationToLocationList(Location newLocation) {
         locationList.add(newLocation);
         genericList.add(newLocation);
     }
 
-    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject){
+    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject) {
         stationaryObjectList.add(newStationaryObject);
         genericList.add(newStationaryObject);
     }
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
-    public void removeItemFromItemList(Item item){
+    public void removeItemFromItemList(Item item) {
         itemList.remove(item);
         genericList.remove(item);
     }
 
-    public void removeCreatureFromCreatureList(Creature creature){
+    public void removeCreatureFromCreatureList(Creature creature) {
         creatureList.remove(creature);
         genericList.remove(creature);
     }
 
-    public void removeLocationFromLocationList(Location location){
+    public void removeLocationFromLocationList(Location location) {
         locationList.remove(location);
         genericList.remove(location);
     }
 
-    public void removeStationaryObjectFromStationaryObjectList(StationaryObject stationaryObject){
+    public void removeStationaryObjectFromStationaryObjectList(StationaryObject stationaryObject) {
         stationaryObjectList.remove(stationaryObject);
         genericList.remove(stationaryObject);
     }
@@ -214,20 +211,33 @@ public class World {
                     object.setLocation(location);   //Sets object's location reference
                 }
             }
+
+
+            for (Location loc : locationList) {
+                if (location.getDefaultEnterId().equals(loc.getId())) {
+                    location.setDefaultEnter(loc);
+                } else if (location.getDefaultExitId().equals(loc.getId())) {
+                    location.setDefaultExit(loc);
+                }
+                if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
+                    break;
+                }
+
+            }
+
         }
 
         for (Item item : itemList) {
-            for (GenericObject gen: genericList) {
+            for (GenericObject gen : genericList) {
 
-                if(item.getLocationName().equalsIgnoreCase(gen.getName())){
+                if (item.getLocationName().equalsIgnoreCase(gen.getName())) {
 
                     gen.addItem(item);
                     item.setHolder(gen);
 
-                    if(gen instanceof Location){
+                    if (gen instanceof Location) {
                         item.setLocation((Location) gen);
-                    }
-                    else {
+                    } else {
                         item.setLocation(null);
                     }
 
@@ -235,20 +245,22 @@ public class World {
             }
         }
 
-        for (Item item: itemList){
-            if(item.getOwnerName() != null) {
-                for(Creature creature : creatureList){
-                    if(item.getOwnerName().equalsIgnoreCase(creature.getName())){
+        for (
+                Item item : itemList) {
+            if (item.getOwnerName() != null) {
+                for (Creature creature : creatureList) {
+                    if (item.getOwnerName().equalsIgnoreCase(creature.getName())) {
                         item.setOwner(creature);
                     }
                 }
             }
         }
 
-        for (StationaryObject obj: stationaryObjectList){
-            if(obj.getOwnerName() != null) {
-                for(Creature creature : creatureList){
-                    if(obj.getOwnerName().equalsIgnoreCase(creature.getName())){
+        for (
+                StationaryObject obj : stationaryObjectList) {
+            if (obj.getOwnerName() != null) {
+                for (Creature creature : creatureList) {
+                    if (obj.getOwnerName().equalsIgnoreCase(creature.getName())) {
                         obj.setOwner(creature);
                     }
                 }
@@ -256,20 +268,6 @@ public class World {
         }
 
 
-//        Location junkyard = getLocation("Junkyard");
-//
-//        for (GenericObject gen : genericList) {     //Everything with an incorrect location gets sent to the junkyard.
-//            if(gen.getLocation() == null){
-//                gen.setLocation(junkyard);
-//
-//                if(gen instanceof Item)
-//                    junkyard.addItem((Item)gen);
-//                else if(gen instanceof Creature)
-//                    junkyard.addCreature((Creature)gen);
-//                else if(gen instanceof StationaryObject)
-//                    junkyard.addObject((StationaryObject)gen);
-//            }
-//        }
     }
 
 
@@ -385,7 +383,6 @@ public class World {
     }*/
 
 
-
     public Location getLocation(String wantedLocation) {
 
         for (Location location : locationList) {
@@ -444,7 +441,7 @@ public class World {
         return null;
     }
 
-    public GenericObject getLocalGenericObject(String wantedGenericObject){
+    public GenericObject getLocalGenericObject(String wantedGenericObject) {
 
         List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
 
@@ -456,7 +453,7 @@ public class World {
 
     }
 
-    public GenericObject getLocalGenericOnGround(String wantedGenericObject){
+    public GenericObject getLocalGenericOnGround(String wantedGenericObject) {
 
         List<GenericObject> localList = getPlayerLocation().getAllGroundOnly();
 
@@ -471,14 +468,14 @@ public class World {
 
     // --------------- Match name methods ------------------------
 
-    public List<Location> matchLocationsMultiple(String name){
+    public List<Location> matchLocationsMultiple(String name) {
 
         List<Location> results = new ArrayList<>();
 
-        for (Location loc: locationList) {
+        for (Location loc : locationList) {
             if (loc.getName().equalsIgnoreCase(name)) {
                 results.add(loc);     //If the name we're looking for is its full name
-                } else {
+            } else {
                 for (String alias : loc.getAlias()) {
                     if (alias.equalsIgnoreCase(name)) {
                         results.add(loc);
@@ -542,7 +539,7 @@ public class World {
 
     }
 
-    public String matchNameFromInventory(String name){
+    public String matchNameFromInventory(String name) {
 
         List<Item> itemList = getPlayerInventory();
 
@@ -570,7 +567,8 @@ public class World {
         } else {
 
             return results.get(0);
-        }    }
+        }
+    }
 
 
     public String matchLocalName(String name) {
@@ -648,7 +646,7 @@ public class World {
 
     public boolean doesObjectExist(String selected) {
 
-        return getGenericObject(selected)!= null;
+        return getGenericObject(selected) != null;
     }
 
     // ------------------ The load function! --------------------------
@@ -659,7 +657,8 @@ public class World {
 
         int counter = 0;
 
-        do {        //Checks to see if the lists are populated properly. Yes, this means they need to have one entry minimum by default.
+        do
+        {        //Checks to see if the lists are populated properly. Yes, this means they need to have one entry minimum by default.
             counter++;
             loadingSuccess = true;
             locationList = JsonBuilder.loadLocationList(loadFilePath);
@@ -669,13 +668,13 @@ public class World {
 
             exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
 
-            if(locationList.size()==0 || creatureList.size()==0 || itemList.size()==0 || stationaryObjectList.size()==0){
+            if (locationList.size() == 0 || creatureList.size() == 0 || itemList.size() == 0 || stationaryObjectList.size() == 0) {
                 loadingSuccess = false;
             }
 
-        } while(!loadingSuccess && counter<10);     //Keep repeating loading tries ten times or until it succeeds, in case it's something temporary
+        } while (!loadingSuccess && counter < 10);     //Keep repeating loading tries ten times or until it succeeds, in case it's something temporary
 
-        if(!loadingSuccess){
+        if (!loadingSuccess) {
             System.out.println("World lists may not be populated properly due to errors. You may experience problems.");
         }
 
@@ -694,12 +693,10 @@ public class World {
 
         String choice = SystemData.getReply("Name your save. Type 'Q' to abort. ");
 
-        if(choice.equalsIgnoreCase("q")){
+        if (choice.equalsIgnoreCase("q")) {
             System.out.println("Game not saved.");
             return false;
-        }
-
-        else {
+        } else {
 
             Long savekey = JsonBuilder.addToSavesMenu(choice);  //if savekey is -1, this failed.
 
@@ -758,7 +755,7 @@ public class World {
         for (boolean boo : successes) {
             if (!boo)
                 System.out.println("Game failed to quicksave correctly.");
-                return false;
+            return false;
         }
 
         System.out.println("Game quicksaved successfully.");

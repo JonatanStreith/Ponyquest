@@ -50,4 +50,12 @@ public class Exit {
         return false;
     }
 
+    public boolean containsLocation(Location loc){
+        //does this exit connect to this one location?
+        if(locations[0] == loc ||  locations[1] == loc){
+            return true;
+        }
+        return false;
+    }
+
 }

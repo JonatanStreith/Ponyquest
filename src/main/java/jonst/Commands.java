@@ -492,10 +492,10 @@ public class Commands {
 
         if (location.equals("")) {
             //If location has no default enter, or it's incorrect
-            if (world.getPlayerLocation().getDefaultEnter() == null || world.getLocation(world.getPlayerLocation().getDefaultEnter()) == null) {
+            if (world.getPlayerLocation().getDefaultEnter() == null) {
                 System.out.println("Enter where? You don't see any particular place that stands out.");
             } else {
-                goTo(world.getPlayerLocation().getDefaultEnter(), world);
+                goTo(world.getPlayerLocation().getDefaultEnter().getName(), world);
             }
             return;
         }
@@ -520,7 +520,7 @@ public class Commands {
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
         for (String area : possibleAreas) {
             if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
-                goTo(world.getPlayerLocation().getDefaultEnter(), world);
+                goTo(world.getPlayerLocation().getDefaultEnter().getName(), world);
                 return;
             }
         }
@@ -536,14 +536,14 @@ public class Commands {
         }
 
         if (location.equals("")) {
-            goTo(world.getPlayerLocation().getDefaultExit(), world);
+            goTo(world.getPlayerLocation().getDefaultExit().getName(), world);
             return;
         }
 
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
         for (String area : possibleAreas) {
             if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
-                goTo(world.getPlayerLocation().getDefaultExit(), world);
+                goTo(world.getPlayerLocation().getDefaultExit().getName(), world);
                 return;
             }
         }
@@ -552,10 +552,10 @@ public class Commands {
 
     public static void getExits(World world) {
 
-//        Location loc = world.getLocation(world.getPlayer().getLocationName());
-//        List<String> exits = loc.getExits();
-//
-//        System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
+        Location loc = world.getPlayerLocation();
+        List<String> exits = loc.getExitNames();
+
+        System.out.println("Exits are: " + turnStringListIntoString(exits, "and") + ".");
     }
 
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?

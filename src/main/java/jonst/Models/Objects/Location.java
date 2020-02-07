@@ -1,5 +1,8 @@
 package jonst.Models.Objects;
 
+import jonst.App;
+import jonst.Models.Exit;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,24 +11,43 @@ public class Location extends GenericObject {
 
     private List<String> legitimateExits = new ArrayList<>();
 
-    private String defaultEnter;
-    private String defaultExit;
+    private String defaultEnterId;
+    private String defaultExitId;
+
+    private Location defaultEnter;
+    private Location defaultExit;
 
     private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
 
 
-    public Location(String name, String id, String locationName, List<String> alias, List<String> attributes, ArrayList<String> legitimateExits, String defaultEnter, String defaultExit) {
+    public Location(String name, String id, String locationName, List<String> alias, List<String> attributes, ArrayList<String> legitimateExits, String defaultEnterId, String defaultExitId) {
         super(name, id, locationName, alias, attributes);
 
         this.legitimateExits = legitimateExits;
 
-        setDefaultEnter(defaultEnter);
-        setDefaultExit(defaultExit);
+        setDefaultEnterId(defaultEnterId);
+        setDefaultExitId(defaultExitId);
 
         setLocation(this);
     }
 
+
+    public void setDefaultEnterId(String defaultEnterId) {
+        this.defaultEnterId = defaultEnterId;
+    }
+
+    public void setDefaultExitId(String defaultExitId) {
+        this.defaultExitId = defaultExitId;
+    }
+
+    public String getDefaultEnterId() {
+        return defaultEnterId;
+    }
+
+    public String getDefaultExitId() {
+        return defaultExitId;
+    }
 
     public List<Creature> getCreaturesAtLocation() {
         return creaturesAtLocation;
@@ -68,26 +90,20 @@ public class Location extends GenericObject {
 //        return legitimateExits;
 //    }
 
-    public String getDefaultEnter() {
+    public Location getDefaultEnter() {
         return defaultEnter;
     }
 
-    public void setDefaultEnter(String defaultEnter) {
-        if(legitimateExits.contains(defaultEnter)){        //Only set a defaultEnter if it's on the list!
-        this.defaultEnter = defaultEnter;                  //Otherwise it'll be null. This method should only be called during worldbuilding.
-        }
-
-
+    public void setDefaultEnter(Location defaultEnter) {
+        this.defaultEnter = defaultEnter;
     }
 
-    public String getDefaultExit() {
+    public Location getDefaultExit() {
         return defaultExit;
     }
 
-    public void setDefaultExit(String defaultExit) {
-        if(legitimateExits.contains(defaultExit)){        //Only set a defaultExit if it's on the list!
-            this.defaultExit = defaultExit;               //Otherwise it'll be null. This method should only be called during worldbuilding.
-        }
+    public void setDefaultExit(Location defaultExit) {
+            this.defaultExit = defaultExit;
     }
 
     public Creature getCreatureByName(String name) {
@@ -148,6 +164,30 @@ public class Location extends GenericObject {
         genList.add(this);   
 
         return genList;
+    }
+
+    public List<Exit> getExits(){
+        List<Exit> exits = new ArrayList<>();
+
+        List<Exit> allExits = App.getWorld().getExitList();
+
+        for (Exit ex : allExits) {
+            if(ex.containsLocation(this)){
+                exits.add(ex);
+            }
+        }
+        return exits;
+    }
+
+    public List<String> getExitNames(){
+        List<String> exitNames = new ArrayList<>();
+
+        List<Exit> allExits = getExits();
+
+        for (Exit ex: allExits) {
+            exitNames.add(ex.getConnectingLocation(this).getName());
+        }
+        return exitNames;
     }
 
 
