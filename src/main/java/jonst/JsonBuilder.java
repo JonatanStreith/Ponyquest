@@ -889,6 +889,65 @@ public class JsonBuilder {
         return itemList;
     }
 
+
+    public static List<Exit> loadExitList(String filepath, List<Location> locationList) {
+
+        List<Exit> exitList = new ArrayList<>();
+
+
+        try (FileReader reader = new FileReader(filepath + "/exits.json")) {
+
+            JSONArray exitJSON = (JSONArray) new JSONParser().parse(reader);
+
+            for (Object obj : exitJSON) {
+                List<String> jObj = (List<String>) obj;
+                Location[] locations = new Location[2];
+
+
+
+                if (jObj.size() >= 2) {
+                    for (Location loc : locationList) {
+                        if (loc.getId().equalsIgnoreCase(jObj.get(0))) {
+                            locations[0] = loc;
+                        } else if (loc.getId().equalsIgnoreCase(jObj.get(1))) {
+                            locations[1] = loc;
+                        }
+                        if (locations[0] != null && locations[1] != null) {
+                            break;
+                        }
+                    }
+                }
+
+                boolean open = true;
+
+                if (jObj.size() > 2)
+                    if (jObj.get(2).equalsIgnoreCase("closed")) {
+                        open = false;
+                    }
+
+                if(locations[0]!=null && locations[1]!=null) {
+                    Exit exit = new Exit(locations, open);
+                    exitList.add(exit);
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Exits file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the exits file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("Exits file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+        //System.out.println("Item list loaded from file.");
+
+        return exitList;
+    }
+
+
     //--------------------------------------------
 
     public static List<String> getTemplateItemNames() {

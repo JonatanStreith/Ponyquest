@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class JsonTest {
 
+/*
+
     @Test
     public void BuildCheck() {
 
@@ -172,6 +174,7 @@ public class JsonTest {
 
        }
 
+*/
 
 
 }

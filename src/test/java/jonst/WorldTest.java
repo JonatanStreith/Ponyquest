@@ -314,6 +314,12 @@ public class WorldTest {
 
     }
 
+    @Test
+    public void getLocationByIdTest() {
 
+        Location location = world.getLocationByID("Canterlot_High_Campus");
 
+        System.out.println(location);
+
+    }
 }

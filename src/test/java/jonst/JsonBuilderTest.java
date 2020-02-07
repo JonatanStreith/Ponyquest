@@ -1,6 +1,7 @@
 package jonst;
 
 import jonst.Data.SystemData;
+import jonst.Models.Exit;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.Item;
 import jonst.Models.Objects.Location;
@@ -39,6 +40,13 @@ public class JsonBuilderTest {
         }
 
     }
+
+
+/*    @Test
+    public void buildExitListTest() {
+        List<Exit> test = JsonBuilder.loadExitList(SystemData.getDefaultWorld());
+        System.out.println("Stop here.");
+    }*/
 
     @Test
     public void buildLocationListTest() {

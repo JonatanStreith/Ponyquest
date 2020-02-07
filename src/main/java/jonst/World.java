@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.*;
 
+import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 import jonst.Models.Parser;
 
@@ -18,6 +19,8 @@ public class World {
     private List<StationaryObject> stationaryObjectList;
     private List<Item> itemList;
     private List<GenericObject> genericList;
+
+    private List<Exit> exitList;
 
     private Creature playerCharacter = null;
 
@@ -390,6 +393,17 @@ public class World {
         return null;
     }
 
+    public Location getLocationByID(String id) {
+
+        for (Location location : locationList) {
+
+            //Instead of using equals, could use contains?
+            if (location.getId().equalsIgnoreCase(id))
+                return location;
+        }
+        return null;
+    }
+
     public Creature getCreature(String wantedCreature) {
 
         for (Creature creature : creatureList) {
@@ -627,6 +641,8 @@ public class World {
             creatureList = JsonBuilder.loadCreatureList(loadFilePath);
             itemList = JsonBuilder.loadItemList(loadFilePath);
             stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
+
+            exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
 
             if(locationList.size()==0 || creatureList.size()==0 || itemList.size()==0 || stationaryObjectList.size()==0){
                 loadingSuccess = false;
