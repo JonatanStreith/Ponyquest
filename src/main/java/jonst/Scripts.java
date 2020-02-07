@@ -131,4 +131,18 @@ public class Scripts {
         String desc = subject.getSpecficDescription(scriptCommandArray[1]);
         System.out.println(desc);
     }
+
+    public static void resetRace(String[] scriptCommandArray, World world){
+        Creature actor;
+
+        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+
+        actor.setRace(actor.getDefaultRace());
+
+    }
+
 }

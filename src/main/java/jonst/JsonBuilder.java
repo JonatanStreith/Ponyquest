@@ -147,6 +147,7 @@ public class JsonBuilder {
                 }});
 
                 put("Race", crea.getRace());
+                put("DefaultRace", crea.getDefaultRace());
                 put("Gender", crea.getGender());
                 put("CasualDialog", new JSONArray() {{
                     for (String dialog : crea.getCasualDialog()) {
@@ -441,6 +442,7 @@ public class JsonBuilder {
                     String id = (String) jObj.get("Id");
                     //String description = (String) jObj.get("Description");
                     String race = (String) jObj.get("Race");
+                    String defaultRace = (String) jObj.get("DefaultRace");
                     String gender = (String) jObj.get("Gender");
                     String location = (String) jObj.get("Location");
                     String text = (String) jObj.get("Text");
@@ -542,7 +544,7 @@ public class JsonBuilder {
                     }
 
 
-                    Creature creature = new Creature(fullName, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
+                    Creature creature = new Creature(fullName, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
                     creature.setDescriptions(descriptions);
                     creature.setText(text);
                     creature.setDefaultUse(defaultUse);

@@ -471,7 +471,7 @@
     "Descriptions": {
       "default": "This is Ponyville's train station, where ponies come and go to and from every part of Equestria. The Friendship Express make several stops here each day."
     },
-    "Id": "Ponyville_Station",
+    "Id": "Location_Ponyville_Station",
     "FullName": "Ponyville station",
     "Location": "Ponyville station",
     "Alias": [

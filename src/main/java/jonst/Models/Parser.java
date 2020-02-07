@@ -513,6 +513,10 @@ public class Parser {
                 Scripts.changeRace(subject, scriptCommandArray, world);
                 break;
 
+            case "resetrace":
+                Scripts.resetRace(scriptCommandArray, world);
+                break;
+
             case "deletethisitem":
                 Scripts.deleteThisItem(subject, world);
                 break;

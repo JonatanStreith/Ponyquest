@@ -296,7 +296,7 @@
       "energize": [
         "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
       ],
-      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:unicorn", "send:player:Castle library", "deletecarrieditem:player:human clothes"]
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "resetrace:player", "send:player:Castle library", "deletecarrieditem:player:human clothes"]
     },
     "ComplexUse": {
     }

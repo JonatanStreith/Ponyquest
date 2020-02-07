@@ -20,11 +20,13 @@ public class Creature extends GenericObject {
 
     private BehaviorCore behavior;
 
+    private final String defaultRace;
 
-    public Creature(String name, String id, String locationName, List<String> alias, List<String> attributes, String race, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+    public Creature(String name, String id, String locationName, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics) {
         super(name, id, locationName, alias, attributes);
 
         setRace(race);
+        this.defaultRace = defaultRace;
         setGender(gender);
         setCasualDialog(casualDialog);
         setAskTopics(askTopics);
@@ -39,6 +41,12 @@ public class Creature extends GenericObject {
     public void setRace(String race) {
         this.race = race;
     }
+
+    public String getDefaultRace() {
+        return defaultRace;
+    }
+
+
 
     public void setGender(String gender) {
         this.gender = gender;
