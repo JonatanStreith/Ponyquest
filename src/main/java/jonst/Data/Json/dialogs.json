@@ -1,0 +1,28 @@
+{
+  "Twi_0": {
+    "Line": "Hello, Trixie. What brings you here today?",
+    "Responses": {
+      "Twi_Greetings_1": "Greetings, Sparkle. Trixie is just idling today.",
+      "Twi_Challenge_1": "Trixie has come to challenge you, Sparkle!",
+      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
+      "Twi_About_Discord_1": "What do you know about Discord?",
+      "Twi_Leave_1": "Trixie must be leaving."
+    }
+  },
+  "Twi_Greetings_1": {
+    "Line": "Oh, okay. Just let me know if you need something.",
+    "Responses": {
+      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
+      "Twi_About_Discord_1": "What do you know about Discord?",
+      "Twi_Leave_1": "Trixie must be leaving."
+    }
+  },
+  "Twi_Challenge_1": {
+    "Line": "What? Why do you have to do this all the time, Trixie?",
+    "Responses": {
+      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
+      "Twi_About_Discord_1": "Oh, never mind. What do you know about Discord?",
+      "Twi_Leave_1": "Sorry, Trixie must be leaving."
+    }
+  }
+}

@@ -119,4 +119,18 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
     //Creatures could have a "friend list" tracking which ones are their true friends. Because FiM.
 
     //Fill command: "fill bucket with apples".
+
+
+    //Dialog trees!
+
+    /*
+
+    Basically, have a list of Dialog entries that lead into each other. (Could have scripts attached.) May need its own class.
+    When a conversation is initiated, look for the Creature's initDialog ref: this is what will load when you talk to them.
+    Display the line, then list response choices. When player makes choice, load that dialog. Repeat until you hit something that looks like an end.
+    (Possibly have an End Conversation option, just in case. And make null checks just in case a line doesn't load.)
+
+    You could also have certain lines change their initDialog ref, so when you come back they talk differently. Like if you insulted them, they'll be mad.
+
+    */
 }
