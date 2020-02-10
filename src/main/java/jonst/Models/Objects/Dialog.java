@@ -8,9 +8,9 @@ public class Dialog {
 
     private String text;
 
-    private Map<String, String> responses;
+    private String[][] responses;
 
-    public Dialog(final String key, final String text, final Map<String, String> responses) {
+    public Dialog(final String key, final String text, final String[][] responses) {
         this.key = key;
         this.text = text;
         this.responses = responses;
@@ -32,11 +32,11 @@ public class Dialog {
         this.text = text;
     }
 
-    public Map<String, String> getResponses() {
+    public String[][] getResponses() {
         return this.responses;
     }
 
-    public void setResponses(final Map<String, String> responses) {
+    public void setResponses(final String[][] responses) {
         this.responses = responses;
     }
 }

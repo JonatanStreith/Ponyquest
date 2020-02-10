@@ -1102,7 +1102,7 @@ public class JsonBuilder {
 
                     String key = (String) obj;
                     String text;
-                    Map<String, String> responses = new HashMap<>();
+
 
                     tryName = key;
 
@@ -1112,9 +1112,20 @@ public class JsonBuilder {
 
                     JSONObject jsResponses = (JSONObject) dialog.get("Responses");
 
-                    for (Object resKey: jsResponses.keySet() ) {
-                        responses.put((String) resKey, (String) jsResponses.get(resKey));
+                    String[][] responses = new String[jsResponses.size()][2];
+
+                    for (int i = 0; i < jsResponses.size(); i++) {
+                        JSONArray responseArray = (JSONArray) jsResponses.get(""+i);
+
+                        responses[i][0] = (String) responseArray.get(0);
+                        responses[i][1] = (String) responseArray.get(1);
                     }
+
+
+                    //(String) responseArray.get(0), (String) responseArray.get(1)
+//                    for (Object resKey: jsResponses.keySet() ) {
+//                        responses.put((String) resKey, (String) jsResponses.get(resKey));
+//                    }
 
                     Dialog dialogEntry = new Dialog(key, text, responses);
 

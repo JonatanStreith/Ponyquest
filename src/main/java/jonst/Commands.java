@@ -1002,7 +1002,7 @@ public class Commands {
             Dialog currentDialog = world.getDialogEntry(dialogKey);     //Get dialog entry
 
             if(currentDialog == null){                                  //Check so the entry exists; otherwise, restart. Should not happen.
-                System.out.println("[Dialog missing, returning to root.]");
+                System.out.println("[Dialog missing, returning to root.]\n");
                 dialogKey = speaker.getInitialDialog();
                 continue;
             }
@@ -1011,26 +1011,28 @@ public class Commands {
 
 
             if(dialogKey.substring(dialogKey.length()-3).equalsIgnoreCase("END")){  //If this was an ending choice, this is where it stops.
-                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker.getGender() + " was doing."));
+                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker.getGender()) + " was doing.\n");
                 break;
             }
 
-            Map<String, String> responses = currentDialog.getResponses();
+            String[][] responses = currentDialog.getResponses();
 
-            for (int i = 0; i < responses.size(); i++) {                //Print each potential response
-                System.out.println();
-                System.out.println(i+1 + ": " + responses.values().toArray()[i]);
+            System.out.println();
+            for (int i = 0; i < responses.length; i++) {                //Print each potential response
+
+                System.out.println(i+1 + ": " + responses[i][1]);
             }
-            System.out.println("\n0: End conversation.\n");                 //Default "stop talking", just in case
+            System.out.println("0: End conversation.");                 //Default "stop talking", just in case
+            System.out.println();
 
-            int choice = SystemData.getNumericalReply("Your choice? ", responses.size());
+            int choice = SystemData.getNumericalReply("Your choice? ", responses.length);
 
             if(choice == 0){
-                System.out.println("You suddenly end the conversation.");
+                System.out.println("You suddenly end the conversation.\n");
                 break;
             }
             else {
-                 dialogKey = (String) responses.keySet().toArray()[choice-1];
+                 dialogKey = (String) responses[choice-1][0];
             }
 
         }
