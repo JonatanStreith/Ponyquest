@@ -133,4 +133,8 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
     You could also have certain lines change their initDialog ref, so when you come back they talk differently. Like if you insulted them, they'll be mad.
 
     */
+
+
+    //Figure out a way to prevent wearing multiple identicals (i.e. capes, for instance). Wearing a cape could give you the attribute "wears cape",
+    //but it needs to check what kind of item it is, so... tricky. Should work fairly flexibly, with a try.
 }

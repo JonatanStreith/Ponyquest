@@ -6,7 +6,7 @@
     "Id": "Item_Trixie_Hat",
     "FullName": "Trixie's hat",
     "Location": "Trixie",
-    "DefaultUse": "look at",
+    "DefaultUse": "wear",
     "Alias": [
       "hat",
       "wizard hat",
@@ -29,7 +29,7 @@
     "Id": "Item_Trixie_Cape",
     "FullName": "Trixie's cape",
     "Location": "Trixie",
-    "DefaultUse": "look at",
+    "DefaultUse": "wear",
     "Alias": [
       "cape",
       "wizard cape",
@@ -427,6 +427,28 @@
       "readable"
     ],
     "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "It's a cape imbued with an invisibility spell. Some colt with a lightning-bolt cutie mark left it behind during a visit.",
+      "active": "It's almost completely invisible. Only the faintest ripple - and the fact that you know it's there - belies its presence."
+    },
+    "Id": "Invisible_Cape",
+    "FullName": "invisibility cape",
+    "Location": "Castle library",
+    "DefaultUse": "wear",
+    "Alias": [
+      "cape",
+      "cloak"
+    ],
+    "Attributes": [
+      "wearable"
+    ],
+    "ResponseScripts": {
+      "wear": ["player add attribute:wears cape"]
     },
     "ComplexUse": {
     }

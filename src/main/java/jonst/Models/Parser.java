@@ -548,6 +548,7 @@ public class Parser {
                 break;
 
 
+
             case "addattribute":
                 Scripts.addAttribute(subject, scriptCommandArray, world);
                 break;
