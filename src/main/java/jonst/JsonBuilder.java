@@ -2,10 +2,7 @@ package jonst;
 
 import jonst.Data.SystemData;
 import jonst.Models.*;
-import jonst.Models.Objects.Creature;
-import jonst.Models.Objects.Item;
-import jonst.Models.Objects.Location;
-import jonst.Models.Objects.StationaryObject;
+import jonst.Models.Objects.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -134,6 +131,8 @@ public class JsonBuilder {
                 put("Location", crea.getLocationName());
                 put("Text", crea.getText());
                 put("DefaultUse", crea.getDefaultUse());
+
+                put("InitialDialog", crea.getInitialDialog());
 
                 put("Alias", new JSONArray() {{
                     for (String alias : crea.getAlias()) {
@@ -442,6 +441,8 @@ public class JsonBuilder {
                     String text = (String) jObj.get("Text");
                     String defaultUse = (String) jObj.get("DefaultUse");
 
+                    String initialDialog = (String) jObj.get("InitialDialog");
+
                     List<String> casualDialog = new ArrayList<>();
                     Map<String, String> descriptions = new HashMap<>();
                     Map<String, String> askTopics = new HashMap<>();
@@ -547,6 +548,8 @@ public class JsonBuilder {
                     creature.setResponseScripts(responseScripts);
 
                     creature.setBehaviorCore(bc);
+
+                    creature.setInitialDialog(initialDialog);
 
                     creatureList.add(creature);
                 } catch (Exception e) {
@@ -1076,6 +1079,67 @@ public class JsonBuilder {
 
         return item;
     }
+
+
+
+
+
+
+    public static List<Dialog> generateDialogList() {
+
+
+        List<Dialog> dialogList = new ArrayList<>();
+
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/dialogs.json")) {
+
+            JSONObject dialogJSON = (JSONObject) new JSONParser().parse(reader);
+
+            for (Object obj : dialogJSON.keySet()) {
+
+                String tryName = "";
+                try {
+
+                    String key = (String) obj;
+                    String text;
+                    Map<String, String> responses = new HashMap<>();
+
+                    tryName = key;
+
+                    JSONObject dialog = (JSONObject) dialogJSON.get(key);
+
+                    text = (String) dialog.get("Line");
+
+                    JSONObject jsResponses = (JSONObject) dialog.get("Responses");
+
+                    for (Object resKey: jsResponses.keySet() ) {
+                        responses.put((String) resKey, (String) jsResponses.get(resKey));
+                    }
+
+                    Dialog dialogEntry = new Dialog(key, text, responses);
+
+                    dialogList.add(dialogEntry);
+
+                } catch (Exception e) {
+                    System.out.println("There was an error generating Creature: " + tryName);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Creatures file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the creatures file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("Creatures file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+        //System.out.println("Creature list loaded from file.");
+
+        return dialogList;
+    }
+
 
 
 }

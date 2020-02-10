@@ -7,6 +7,7 @@ import jonst.Models.Objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static jonst.HelpfulMethods.*;
 
@@ -286,7 +287,31 @@ public class Commands {
         }
     }
 
+
     public static void talkTo(String name, World world) {
+        String fullName = world.matchLocalName(name);
+
+        if (!fullName.equals("")) {
+
+            GenericObject gen = world.getGenericObject(fullName);
+
+            if (!(gen instanceof Creature))                                                //Subject isn't a creature.
+            {
+                System.out.println("You don't make a habit of talking to inanimate objects.");
+
+
+            } else if ((gen instanceof Creature)) {
+
+                Commands.initiateDialog((Creature) gen, world);
+
+                gen.runResponseScript("talk to");
+            }
+        }
+
+
+    }
+
+    public static void chatWith(String name, World world) {
 
         String fullName = world.matchLocalName(name);
 
@@ -301,9 +326,7 @@ public class Commands {
 
             } else if ((gen instanceof Creature)) {
                 System.out.println(((Creature) gen).getRandomCasualDialog());         //This runs if you successfully talk to someone.
-                gen.runResponseScript("talk to");
-            } else {
-                System.out.println("Debug code. If this is shown, something didn't go right.");
+                gen.runResponseScript("chat with");
             }
         }
     }
@@ -456,7 +479,7 @@ public class Commands {
 
         Location destination = null;
 
-        if(potentialDestinations.size()>0) {
+        if (potentialDestinations.size() > 0) {
             outerloop:
             for (Location dest : potentialDestinations) {
                 for (Exit exit : world.getExitList()) {
@@ -467,7 +490,6 @@ public class Commands {
                 }
             }
         }
-
 
 
         if (destination != null)               //Is a destination found?
@@ -507,7 +529,7 @@ public class Commands {
 
             Location destination = null;
 
-            if(potentialDestinations.size()>0) {
+            if (potentialDestinations.size() > 0) {
                 outerloop:
                 for (Location dest : potentialDestinations) {
                     for (Exit exit : world.getExitList()) {
@@ -519,12 +541,11 @@ public class Commands {
                 }
             }
 
-            if(destination != null){
+            if (destination != null) {
                 goTo(destination.getName(), world);
                 return;
             }
         }
-
 
 
         String targetName = world.matchLocalName(location);
@@ -966,6 +987,55 @@ public class Commands {
             world.transferCreatureToLocation(follower, currentLoc, destination);
             System.out.println(follower.getName() + " follows you.");
         }
+    }
+
+    public static void initiateDialog(Creature speaker, World world) {
+
+        String dialogKey = speaker.getInitialDialog();
+
+        if(dialogKey == null){
+            System.out.println(speaker.getName() + " has little to speak about.");
+            return;
+        }
+
+        while (true) {
+            Dialog currentDialog = world.getDialogEntry(dialogKey);     //Get dialog entry
+
+            if(currentDialog == null){                                  //Check so the entry exists; otherwise, restart. Should not happen.
+                System.out.println("[Dialog missing, returning to root.]");
+                dialogKey = speaker.getInitialDialog();
+                continue;
+            }
+
+            System.out.println(currentDialog.getText());                //Print the speaker's line.
+
+
+            if(dialogKey.substring(dialogKey.length()-3).equalsIgnoreCase("END")){  //If this was an ending choice, this is where it stops.
+                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker.getGender() + " was doing."));
+                break;
+            }
+
+            Map<String, String> responses = currentDialog.getResponses();
+
+            for (int i = 0; i < responses.size(); i++) {                //Print each potential response
+                System.out.println();
+                System.out.println(i+1 + ": " + responses.values().toArray()[i]);
+            }
+            System.out.println("\n0: End conversation.\n");                 //Default "stop talking", just in case
+
+            int choice = SystemData.getNumericalReply("Your choice? ", responses.size());
+
+            if(choice == 0){
+                System.out.println("You suddenly end the conversation.");
+                break;
+            }
+            else {
+                 dialogKey = (String) responses.keySet().toArray()[choice-1];
+            }
+
+        }
+
+
     }
 
 }

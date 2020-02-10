@@ -1,28 +1,56 @@
 {
   "Twi_0": {
-    "Line": "Hello, Trixie. What brings you here today?",
+    "Line": "\"Hello, Trixie. What brings you here today?\"",
     "Responses": {
-      "Twi_Greetings_1": "Greetings, Sparkle. Trixie is just idling today.",
-      "Twi_Challenge_1": "Trixie has come to challenge you, Sparkle!",
-      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
-      "Twi_About_Discord_1": "What do you know about Discord?",
-      "Twi_Leave_1": "Trixie must be leaving."
+      "Twi_Greetings_1": "\"Greetings, Sparkle. Trixie is just idling today.\"",
+      "Twi_Challenge_1": "\"Trixie has come to challenge you, Sparkle!\"",
+      "Twi_Attack_1": "\"Have at thee, Sparkle! [attack]\"",
+      "Twi_About_Discord_1": "\"What do you know about Discord?\"",
+      "Twi_END": "\"Trixie must be leaving.\""
     }
   },
   "Twi_Greetings_1": {
-    "Line": "Oh, okay. Just let me know if you need something.",
+    "Line": "\"Oh, okay. Just let me know if you need something.\"",
     "Responses": {
-      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
-      "Twi_About_Discord_1": "What do you know about Discord?",
-      "Twi_Leave_1": "Trixie must be leaving."
+      "Twi_Attack_1": "\"Have at thee, Sparkle!\" [attack]",
+      "Twi_About_Discord_1": "\"What do you know about Discord?\"",
+      "Twi_END": "\"Trixie must be leaving.\""
     }
   },
   "Twi_Challenge_1": {
-    "Line": "What? Why do you have to do this all the time, Trixie?",
+    "Line": "\"What? Why do you have to do this all the time, Trixie?\"",
     "Responses": {
-      "Twi_Attack_1": "Have at thee, Sparkle! [attack]",
-      "Twi_About_Discord_1": "Oh, never mind. What do you know about Discord?",
-      "Twi_Leave_1": "Sorry, Trixie must be leaving."
+      "Twi_Attack_1": "\"Have at thee, Sparkle! [attack]\"",
+      "Twi_Joke_1": "\"Relax, Sparkle. Trixie is merely playing a joke on you.\"",
+      "Twi_About_Discord_1": "\"Oh, never mind. What do you know about Discord?\"",
+      "Twi_END": "\"Sorry, Trixie must be leaving.\""
+    }
+  },
+  "Twi_Attack_1": {
+    "Line": "\"What!? No!\"",
+    "Responses": {
+      "Twi_Joke_1": "\"Haha, you fell for it! Fear not, Sparkle. Trixie will not fight you today.\""
+    }
+  },
+  "Twi_Joke_1": {
+    "Line": "\"That wasn't very funny, Trixie!\"",
+    "Responses": {
+      "Twi_About_Discord_1": "\"Oh, never mind. What do you know about Discord?\"",
+      "Twi_END": "\"Sorry, Trixie must be leaving.\""
+    }
+  },
+  "Twi_About_Discord_1": {
+    "Line": "\"Discord? He's the spirit of chaos and disharmony, he's a huge jerk, and he's friends with Fluttershy. If you want to know more, ask her.\"",
+    "Responses": {
+      "Twi_Challenge_1": "\"Never mind. Trixie has come to challenge you, Sparkle!\"",
+      "Twi_Attack_1": "\"Now, then... Have at thee, Sparkle!\" [attack]",
+      "Twi_END": "\"Trixie must be leaving.\""
+    }
+  },
+  "Twi_END": {
+    "Line": "\"Goodbye.\"",
+    "Responses": {
+
     }
   }
 }

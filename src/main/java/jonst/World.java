@@ -21,6 +21,7 @@ public class World {
     private List<GenericObject> genericList;
 
     private List<Exit> exitList;
+    private List<Dialog> dialogList;
 
     private Creature playerCharacter = null;
 
@@ -313,6 +314,10 @@ public class World {
         return exitList;
     }
 
+    public List<Dialog> getDialogList() {
+        return dialogList;
+    }
+
     public List<GenericObject> getGenericList() {
         return genericList;
     }
@@ -428,6 +433,15 @@ public class World {
         for (StationaryObject stationaryObject : stationaryObjectList) {
             if (stationaryObject.getName().equalsIgnoreCase(wantedStationaryObject))
                 return stationaryObject;
+        }
+        return null;
+    }
+
+    public Dialog getDialogEntry(String dialogKey) {
+
+        for (Dialog dialog : dialogList) {
+            if (dialog.getKey().equalsIgnoreCase(dialogKey))
+                return dialog;
         }
         return null;
     }
@@ -667,6 +681,8 @@ public class World {
             stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
 
             exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
+
+            dialogList = JsonBuilder.generateDialogList();
 
             if (locationList.size() == 0 || creatureList.size() == 0 || itemList.size() == 0 || stationaryObjectList.size() == 0) {
                 loadingSuccess = false;

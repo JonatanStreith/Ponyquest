@@ -2,10 +2,7 @@ package jonst;
 
 import jonst.Data.SystemData;
 import jonst.Models.Exit;
-import jonst.Models.Objects.Creature;
-import jonst.Models.Objects.Item;
-import jonst.Models.Objects.Location;
-import jonst.Models.Objects.StationaryObject;
+import jonst.Models.Objects.*;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -150,5 +147,13 @@ public class JsonBuilderTest {
 
         System.out.println(testcase.get("John")) ;
 
+    }
+
+    @Test
+    public void dialogBuilderTest() {
+
+        List<Dialog> testList = JsonBuilder.generateDialogList();
+
+        System.out.println("Stop here.");
     }
 }

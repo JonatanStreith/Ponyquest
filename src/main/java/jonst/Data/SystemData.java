@@ -83,6 +83,7 @@ public class SystemData {
             add("harvest");
             add("read");
 
+            add("chat with");
 
             add("give");
             add("take");
@@ -131,6 +132,7 @@ public class SystemData {
             add("from");
             add("inside");
             add("into");
+            add("with");
         }};
     }
 
@@ -156,6 +158,27 @@ public class SystemData {
     public static String getReply(String line) {
         System.out.print(line);
         return inputReader.nextLine();
+    }
+
+    public static int getNumericalReply(String line, int maxNum){
+
+        while(true){
+            System.out.print(line);
+            String response = inputReader.nextLine();
+            int output;
+            try{
+                output = Integer.parseInt(response);
+            } catch (Exception e) {
+                System.out.println("That's not a legitimate choice.");
+                continue;
+            }
+
+            if(output <= maxNum && output >= 0){
+                return output;
+            } else {
+                System.out.println("That's not a legitimate choice.");
+            }
+        }
     }
 
 

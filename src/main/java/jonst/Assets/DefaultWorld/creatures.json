@@ -11,7 +11,7 @@
     "Race": "unicorn",
     "DefaultRace": "unicorn",
     "Gender": "female",
-    "Location": "Sweet Apple Acres",
+    "Location": "Castle library",
     "DefaultUse": "look at",
     "CasualDialog": [
       "Talking to yourself is usually pointless.",
@@ -61,6 +61,7 @@
     "Gender": "female",
     "Location": "Castle library",
     "DefaultUse": "look at",
+    "InitialDialog": "Twi_0",
     "CasualDialog": [
       "She looks at you with a frown. \"Oh... hello, Trixie.\"",
       "\"Do you want something?\"",

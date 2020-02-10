@@ -22,6 +22,8 @@ public class Creature extends GenericObject {
 
     private final String defaultRace;
 
+    private String initialDialog;
+
     public Creature(String name, String id, String locationName, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics) {
         super(name, id, locationName, alias, attributes);
 
@@ -32,6 +34,14 @@ public class Creature extends GenericObject {
         setAskTopics(askTopics);
 
 
+    }
+
+    public String getInitialDialog() {
+        return initialDialog;
+    }
+
+    public void setInitialDialog(String initialDialog) {
+        this.initialDialog = initialDialog;
     }
 
     public void setBehaviorCore(BehaviorCore behavior) {

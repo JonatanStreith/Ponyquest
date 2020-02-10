@@ -200,6 +200,10 @@ public class Parser {
                 break;
 
 
+            case "chat with":
+                Commands.chatWith(commandArray[1], world);
+                break;
+
             case "talk to":
             case "talk":
 
