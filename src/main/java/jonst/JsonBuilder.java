@@ -1101,14 +1101,28 @@ public class JsonBuilder {
                 try {
 
                     String key = (String) obj;
-                    String text;
-
-
                     tryName = key;
+                    String text;
+                    List<String> scripts = new ArrayList<>();
+
+
 
                     JSONObject dialog = (JSONObject) dialogJSON.get(key);
 
                     text = (String) dialog.get("Line");
+
+                    JSONArray jsScripts = (JSONArray) dialog.get("Scripts");
+
+
+                    if(jsScripts!=null) {
+                        for (Object script: jsScripts) {
+                            scripts.add((String) script);
+                        }
+
+                    }
+                    else {
+                        scripts = null;
+                    }
 
                     JSONObject jsResponses = (JSONObject) dialog.get("Responses");
 
@@ -1119,15 +1133,15 @@ public class JsonBuilder {
 
                         responses[i][0] = (String) responseArray.get(0);
                         responses[i][1] = (String) responseArray.get(1);
+
+
                     }
 
 
-                    //(String) responseArray.get(0), (String) responseArray.get(1)
-//                    for (Object resKey: jsResponses.keySet() ) {
-//                        responses.put((String) resKey, (String) jsResponses.get(resKey));
-//                    }
+
 
                     Dialog dialogEntry = new Dialog(key, text, responses);
+                    dialogEntry.setScripts((ArrayList<String>) scripts);
 
                     dialogList.add(dialogEntry);
 

@@ -18,6 +18,13 @@ public class Item extends GenericObject {
         return true;
     }
 
+    public String getName() {
+        if(hasAttribute("worn")) {
+            return name + " (worn)";
+        }
+        return name;
+    }
+
     public GenericObject getHolder() {
         return holder;
     }

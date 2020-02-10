@@ -92,7 +92,7 @@ public class Creature extends GenericObject {
         if(casualDialog != null && casualDialog.size()>0) {
             return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));
         } else
-            return capitalize(heOrShe(getGender())) + " doesn't have anything to say to you.";
+            return capitalize(heOrShe(this)) + " doesn't have anything to say to you.";
     }
 
     public String askAbout(String topic) {

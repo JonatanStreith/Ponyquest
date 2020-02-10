@@ -47,6 +47,8 @@
       "clothes"
     ],
     "Attributes": [
+      "Wearable",
+      "worn",
       "undroppable"
     ],
     "ResponseScripts": {

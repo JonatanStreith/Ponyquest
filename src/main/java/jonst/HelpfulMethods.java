@@ -1,6 +1,7 @@
 package jonst;
 
 import jonst.Data.SortIgnoreCase;
+import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 
 import java.util.*;
@@ -8,8 +9,11 @@ import java.util.*;
 public class HelpfulMethods {
 
 
-    public static String heOrShe(String gender) {
-        switch (gender.toLowerCase()) {
+    public static String heOrShe(Creature subject) {
+        if(subject==App.getWorld().getPlayer()){
+            return "you";
+        }
+        switch (subject.getGender().toLowerCase()) {
             case "male":
                 return "he";
             case "female":

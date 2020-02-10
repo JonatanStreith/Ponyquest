@@ -162,6 +162,7 @@ public class Commands {
             Item item = world.getPlayer().getOwnedItemByName(fullName);
             if (item == null) {
                 System.out.println("You're not carrying that.");
+                return;
             }
 
             if (item.hasAttribute("undroppable")) {
@@ -174,6 +175,54 @@ public class Commands {
             item.runResponseScript("drop");
         }
     }
+
+    public static void wear(String name, World world) {
+        String fullName = world.matchLocalName(name);
+        if (!fullName.equals("")) {
+            Item item = world.getPlayer().getOwnedItemByName(fullName);
+            if (item == null) {
+                System.out.println("You're not carrying that.");
+                return;
+            }
+
+            if (!item.hasAttribute("wearable")) {
+                System.out.println("You can't wear that.");
+                return;
+            }
+
+            if (item.hasAttribute("worn")){
+                System.out.println("You're already wearing that.");
+                return;
+            }
+
+            item.addAttribute("worn");
+            System.out.println("You put on the " + name + ".");
+            item.runResponseScript("wear");
+        }
+    }
+
+    public static void remove(String name, World world) {
+        String fullName = world.matchLocalName(name);
+        if (!fullName.equals("")) {
+            Item item = world.getPlayer().getOwnedItemByName(fullName);
+            if (item == null) {
+                System.out.println("You're not carrying that.");
+                return;
+            }
+
+
+
+            if (!item.hasAttribute("worn")){
+                System.out.println("You're not wearing that.");
+                return;
+            }
+
+            item.removeAttribute("worn");
+            System.out.println("You take off the " + name + ".");
+            item.runResponseScript("remove");
+        }
+    }
+
 
     public static void open(String name, World world) {
         String fullName = world.matchLocalName(name);
@@ -452,7 +501,7 @@ public class Commands {
 
                     if (gen instanceof Creature) {
                         Creature cre = (Creature) gen;
-                        System.out.println(capitalize(heOrShe(cre.getGender())) + " looks " + cre.getMood() + ".");
+                        System.out.println(capitalize(heOrShe(cre)) + " looks " + cre.getMood() + ".");
                     }
                     System.out.println();
 
@@ -934,7 +983,7 @@ public class Commands {
             }
         } else if (owner instanceof Creature) {
             if (itemList.size() > 0) {
-                System.out.println(capitalize(heOrShe(((Creature) owner).getGender())) + " carries " + turnListIntoString(itemList, "and") + ".");
+                System.out.println(capitalize(heOrShe(((Creature) owner))) + " carries " + turnListIntoString(itemList, "and") + ".");
             }
         } else if (owner instanceof StationaryObject || owner instanceof Item) {
             if (itemList.size() > 0) {
@@ -1009,9 +1058,18 @@ public class Commands {
 
             System.out.println(currentDialog.getText());                //Print the speaker's line.
 
+            List<String> scripts = currentDialog.getScripts();
+
+            if(scripts != null) {
+                for (String script: scripts) {
+                    world.getParser().runScriptCommand(speaker, script, world);
+                }
+
+
+            }
 
             if(dialogKey.substring(dialogKey.length()-3).equalsIgnoreCase("END")){  //If this was an ending choice, this is where it stops.
-                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker.getGender()) + " was doing.\n");
+                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker) + " was doing.\n");
                 break;
             }
 

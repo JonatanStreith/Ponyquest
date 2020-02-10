@@ -273,6 +273,16 @@ public class Parser {
                 Commands.close(commandArray[1], world);
                 break;
 
+            case "wear":
+            case "put on":
+                Commands.wear(commandArray[1], world);
+                break;
+
+            case "remove":
+            case "take off":
+                Commands.remove(commandArray[1], world);
+                break;
+
         }
     }
 
@@ -544,6 +554,11 @@ public class Parser {
 
             case "removeattribute":
                 Scripts.removeAttribute(subject, scriptCommandArray, world);
+                break;
+
+            case "changeInitDialog":
+                //changeInitDialog:key
+
                 break;
 
             case "addnewitem":

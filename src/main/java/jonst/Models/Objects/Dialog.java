@@ -1,19 +1,32 @@
 package jonst.Models.Objects;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Dialog {
 
-    private String key;
+    private String key;                 //A key representing this dialog entry
 
-    private String text;
+    private String text;                //The actual text displayed
 
-    private String[][] responses;
+    private ArrayList<String> scripts;           //Scripts that will run when this dialog plays
+
+    private String[][] responses;       //Player's choice of responses
+
+
 
     public Dialog(final String key, final String text, final String[][] responses) {
         this.key = key;
         this.text = text;
         this.responses = responses;
+    }
+
+    public ArrayList<String> getScripts() {
+        return this.scripts;
+    }
+
+    public void setScripts(final ArrayList<String> scripts) {
+        this.scripts = scripts;
     }
 
     public String getKey() {

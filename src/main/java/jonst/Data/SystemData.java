@@ -94,6 +94,12 @@ public class SystemData {
 
             add("hug");
 
+            add("wear");
+            add("remove");
+
+            add("put on");
+            add("take off");
+
             add("create");
             add("transform");
 

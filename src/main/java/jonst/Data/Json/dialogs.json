@@ -4,7 +4,7 @@
     "Responses": {
       "0": ["Twi_Greetings_1", "\"Greetings, Sparkle. Trixie is just idling today.\""],
       "1": ["Twi_Challenge_1", "\"Trixie has come to challenge you, Sparkle!\""],
-      "2": ["Twi_Attack_1", "\"Have at thee, Sparkle! [attack]\""],
+      "2": ["Twi_Attack_1", "\"Have at thee, Sparkle! [attack]\"","setmood:angry"],
       "3": ["Twi_About_Discord_1", "\"What do you know about Discord?\""],
       "4": ["Twi_END", "\"Trixie must be leaving.\""]
               }
@@ -19,6 +19,7 @@
   },
   "Twi_Challenge_1": {
     "Line": "\"What? Why do you have to do this all the time, Trixie?\"",
+    "Scripts": ["setmood:annoyed"],
     "Responses": {
       "0": ["Twi_Attack_1", "\"Have at thee, Sparkle! [attack]\""],
       "1": ["Twi_Joke_1", "\"Relax, Sparkle. Trixie is merely playing a joke on you.\""],
@@ -28,6 +29,7 @@
   },
   "Twi_Attack_1": {
     "Line": "\"What!? No!\"",
+    "Scripts": ["setmood:annoyed"],
     "Responses": {
       "0": ["Twi_Joke_1", "\"Haha, you fell for it! Fear not, Sparkle. Trixie will not fight you today.\""]
     }

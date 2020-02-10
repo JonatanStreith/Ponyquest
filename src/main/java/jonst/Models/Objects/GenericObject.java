@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GenericObject {
-    private String name;
+    protected String name;
     private String id;
     private String description;
     private String locationName;
