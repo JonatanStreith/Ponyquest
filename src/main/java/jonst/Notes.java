@@ -125,10 +125,10 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
 
     /*
 
-    Basically, have a list of Dialog entries that lead into each other. (Could have scripts attached.) May need its own class.
-    When a conversation is initiated, look for the Creature's initDialog ref: this is what will load when you talk to them.
-    Display the line, then list response choices. When player makes choice, load that dialog. Repeat until you hit something that looks like an end.
-    (Possibly have an End Conversation option, just in case. And make null checks just in case a line doesn't load.)
+Have one startdialog line when you first speak to someone, then set it to a default one.
+
+"Hello there! We've never met before..."
+"Oh, it's you again!"
 
     You could also have certain lines change their initDialog ref, so when you come back they talk differently. Like if you insulted them, they'll be mad.
 

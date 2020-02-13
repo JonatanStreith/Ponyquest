@@ -35,7 +35,7 @@ public class ModelsTest {
         System.out.println(world.getCreature("Applejack").isAtLocation(world.getLocation("Sweet Apple Acres")));
         System.out.println(world.getCreature("appleJack").isAtLocation(world.getLocation("sweEt ApplE acRes")));
         System.out.println(world.getCreature("Twilight Sparkle").isAtLocation(world.getLocation("Sweet Apple Acres")));
-        System.out.println(world.getLocation("Sweet Apple Acres").creatureIsAtLocation(world.getCreature("Applejack")));
+        System.out.println(world.getLocation("Sweet Apple Acres").isAtLocation(world.getCreature("Applejack")));
 
         List<String> aliases = world.getPlayer().getAlias();
 

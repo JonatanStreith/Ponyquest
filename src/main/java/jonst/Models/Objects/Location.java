@@ -21,8 +21,8 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
 
 
-    public Location(String name, String id, String locationName, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId) {
-        super(name, id, locationName, alias, attributes);
+    public Location(String name, String id, String locationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId) {
+        super(name, id, locationId, alias, attributes);
 
 //        this.legitimateExits = legitimateExits;
 
@@ -57,38 +57,40 @@ public class Location extends GenericObject {
         return objectsAtLocation;
     }
 
-//    public List<Item> getItemsAtLocation() {
-//        return itemsAtLocation;
+    public void add(GenericObject obj) {
+        if (!isAtLocation(obj)) {
+            if (obj instanceof Creature) {
+                creaturesAtLocation.add((Creature) obj);
+            } else if (obj instanceof StationaryObject) {
+                objectsAtLocation.add((StationaryObject) obj);
+            }
+        }
+    }
+
+    public void remove(GenericObject obj) {
+        if (isAtLocation(obj)) {
+            if (obj instanceof Creature) {
+                creaturesAtLocation.remove((Creature) obj);
+            } else if (obj instanceof StationaryObject) {
+                objectsAtLocation.remove((StationaryObject) obj);
+            }
+        }
+    }
+
+
+
+//    public void removeCreature(Creature name) {
+//        if (isAtLocation(name)) {
+//            creaturesAtLocation.remove(name);
+//        }
+//    }
+//
+//    public void removeObject(StationaryObject name) {
+//        if (isAtLocation(name)) {
+//            objectsAtLocation.remove(name);
+//        }
 //    }
 
-
-    public void addCreature(Creature name) {
-        if (!creatureIsAtLocation(name)) {
-            creaturesAtLocation.add(name);
-        }
-    }
-
-    public void removeCreature(Creature name) {
-        if (creatureIsAtLocation(name)) {
-            creaturesAtLocation.remove(name);
-        }
-    }
-
-    public void addObject(StationaryObject name) {
-        if (!stationaryObjectIsAtLocation(name)) {
-            objectsAtLocation.add(name);
-        }
-    }
-
-    public void removeObject(StationaryObject name) {
-        if (stationaryObjectIsAtLocation(name)) {
-            objectsAtLocation.remove(name);
-        }
-    }
-
-//    public List<String> getExits() {
-//        return legitimateExits;
-//    }
 
     public Location getDefaultEnter() {
         return defaultEnter;
@@ -103,7 +105,7 @@ public class Location extends GenericObject {
     }
 
     public void setDefaultExit(Location defaultExit) {
-            this.defaultExit = defaultExit;
+        this.defaultExit = defaultExit;
     }
 
     public Creature getCreatureByName(String name) {
@@ -124,19 +126,18 @@ public class Location extends GenericObject {
         return null;
     }
 
-//    public boolean itemIsAtLocation(Item item) {
-//        return getItemsAtLocation().contains(item);
-//    }
+    public boolean isAtLocation(GenericObject object) {
+        if (object instanceof StationaryObject) {
+            return getObjectsAtLocation().contains(object);
+        } else if (object instanceof Creature) {
+            return getCreaturesAtLocation().contains(object);
+        } else
+            return false;
 
-    public boolean stationaryObjectIsAtLocation(StationaryObject object) {
-        return getObjectsAtLocation().contains(object);
     }
 
-    public boolean creatureIsAtLocation(Creature creature) {
-        return getCreaturesAtLocation().contains(creature);
-    }
 
-    public List<GenericObject> getAllGroundOnly(){
+    public List<GenericObject> getAllGroundOnly() {
         List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
         genList.addAll(creaturesAtLocation);
         genList.addAll(getItemList());
@@ -148,43 +149,43 @@ public class Location extends GenericObject {
     }
 
 
-    public List<GenericObject> getAllAtLocation(){
+    public List<GenericObject> getAllAtLocation() {
         List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
         genList.addAll(creaturesAtLocation);
         genList.addAll(getItemList());
         genList.addAll(objectsAtLocation);
 
         List<Item> containedItemsList = new ArrayList<>();  //Add every contained item to a list, and add that to the genList
-        for (GenericObject gen: genList) {
-            if(!(gen.hasAttribute("closed")))       //Ignore containers that are closed
-            containedItemsList.addAll(gen.getItemList());
+        for (GenericObject gen : genList) {
+            if (!(gen.hasAttribute("closed")))       //Ignore containers that are closed
+                containedItemsList.addAll(gen.getItemList());
         }
         genList.addAll(containedItemsList);
 
-        genList.add(this);   
+        genList.add(this);
 
         return genList;
     }
 
-    public List<Exit> getExits(){
+    public List<Exit> getExits() {
         List<Exit> exits = new ArrayList<>();
 
         List<Exit> allExits = App.getWorld().getExitList();
 
         for (Exit ex : allExits) {
-            if(ex.containsLocation(this)){
+            if (ex.containsLocation(this)) {
                 exits.add(ex);
             }
         }
         return exits;
     }
 
-    public List<String> getExitNames(){
+    public List<String> getExitNames() {
         List<String> exitNames = new ArrayList<>();
 
         List<Exit> allExits = getExits();
 
-        for (Exit ex: allExits) {
+        for (Exit ex : allExits) {
             exitNames.add(ex.getConnectingLocation(this).getName());
         }
         return exitNames;

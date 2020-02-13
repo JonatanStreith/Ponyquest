@@ -103,7 +103,7 @@ public class World {
     public void removeCreatureFromLocation(Creature creature, Location location) {
 
 
-        location.removeCreature(creature);
+        location.remove(creature);
         creature.setLocation(null);
     }
 
@@ -111,7 +111,7 @@ public class World {
         //Adds "creature" to "location"
 
 
-        location.addCreature(creature);
+        location.add(creature);
         creature.setLocation(location);
     }
 
@@ -139,13 +139,13 @@ public class World {
 
     public void removeObjectFromLocation(StationaryObject stationaryObject, Location location) {
 
-        location.removeObject(stationaryObject);
+        location.remove(stationaryObject);
         stationaryObject.setLocation(null);
     }
 
     public void addObjectToLocation(StationaryObject stationaryObject, Location location) {
 
-        location.addObject(stationaryObject);
+        location.add(stationaryObject);
         stationaryObject.setLocation(location);
     }
 
@@ -216,14 +216,14 @@ public class World {
 
             for (Creature creature : creatureList) {
                 if (creature.getLocationName().equalsIgnoreCase(location.getLocationName())) {
-                    location.addCreature(creature); //Adds creature to the location's list of creatures
+                    location.add(creature); //Adds creature to the location's list of creatures
                     creature.setLocation(location); //Sets creature's location reference
                 }
             }
 
             for (StationaryObject object : stationaryObjectList) {
                 if (object.getLocationName().equalsIgnoreCase(location.getLocationName())) {
-                    location.addObject(object);     //Adds object to the location's list of objects
+                    location.add(object);     //Adds object to the location's list of objects
                     object.setLocation(location);   //Sets object's location reference
                 }
             }
