@@ -229,8 +229,10 @@ public class JsonBuilder {
                     }
                 }});
 
-                put("DefaultEnter", loc.getDefaultEnter());
-                put("DefaultExit", loc.getDefaultExit());
+                if (loc.getDefaultEnter() != null)
+                    put("DefaultEnter", loc.getDefaultEnter().getId());
+                if (loc.getDefaultExit() != null)
+                    put("DefaultExit", loc.getDefaultExit().getId());
 
 
                 put("Descriptions", new JSONObject() {{
@@ -290,7 +292,10 @@ public class JsonBuilder {
                 put("Text", ite.getText());
                 put("DefaultUse", ite.getDefaultUse());
 
-                put("Owner", ite.getOwner().getName());
+
+                if (ite.getOwner() != null) {
+                    put("Owner", ite.getOwner().getName());
+                }
 
                 put("Alias", new JSONArray() {{
                     for (String alias : ite.getAlias()) {
@@ -358,7 +363,9 @@ public class JsonBuilder {
                 put("Text", sta.getText());
                 put("DefaultUse", sta.getDefaultUse());
 
-                put("Owner", sta.getOwner().getName());
+                if (sta.getOwner() != null) {
+                    put("Owner", sta.getOwner().getName());
+                }
 
                 put("Alias", new JSONArray() {{
                     for (String alias : sta.getAlias()) {
@@ -410,6 +417,40 @@ public class JsonBuilder {
         }
         return success;
     }
+
+
+    public static boolean saveExitList(String filepath, List<Exit> exitList) {
+
+        boolean success = true;
+        JSONArray objectArray = new JSONArray();
+
+        for (Exit exit : exitList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
+            objectArray.add(new JSONArray() {{
+
+                add(exit.getLocations()[0].getId());
+                add(exit.getLocations()[1].getId());
+
+                if (exit.isOpen()) {
+                    add("open");
+                } else {
+                    add("closed");
+                }
+
+            }});
+        }
+
+        try (FileWriter file = new FileWriter(filepath + "/exits.json")) {
+
+            file.write(objectArray.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            success = false;
+        }
+        return success;
+    }
+
 
     //---------- load methods
     public static List<Creature> loadCreatureList(String filepath) {
@@ -896,7 +937,6 @@ public class JsonBuilder {
                 Location[] locations = new Location[2];
 
 
-
                 if (jObj.size() >= 2) {
                     for (Location loc : locationList) {
                         if (loc.getId().equalsIgnoreCase(jObj.get(0))) {
@@ -917,7 +957,7 @@ public class JsonBuilder {
                         open = false;
                     }
 
-                if(locations[0]!=null && locations[1]!=null) {
+                if (locations[0] != null && locations[1] != null) {
                     Exit exit = new Exit(locations, open);
                     exitList.add(exit);
                 }
@@ -1081,10 +1121,6 @@ public class JsonBuilder {
     }
 
 
-
-
-
-
     public static List<Dialog> generateDialogList() {
 
 
@@ -1106,7 +1142,6 @@ public class JsonBuilder {
                     List<String> scripts = new ArrayList<>();
 
 
-
                     JSONObject dialog = (JSONObject) dialogJSON.get(key);
 
                     text = (String) dialog.get("Line");
@@ -1114,13 +1149,12 @@ public class JsonBuilder {
                     JSONArray jsScripts = (JSONArray) dialog.get("Scripts");
 
 
-                    if(jsScripts!=null) {
-                        for (Object script: jsScripts) {
+                    if (jsScripts != null) {
+                        for (Object script : jsScripts) {
                             scripts.add((String) script);
                         }
 
-                    }
-                    else {
+                    } else {
                         scripts = null;
                     }
 
@@ -1129,15 +1163,13 @@ public class JsonBuilder {
                     String[][] responses = new String[jsResponses.size()][2];
 
                     for (int i = 0; i < jsResponses.size(); i++) {
-                        JSONArray responseArray = (JSONArray) jsResponses.get(""+i);
+                        JSONArray responseArray = (JSONArray) jsResponses.get("" + i);
 
                         responses[i][0] = (String) responseArray.get(0);
                         responses[i][1] = (String) responseArray.get(1);
 
 
                     }
-
-
 
 
                     Dialog dialogEntry = new Dialog(key, text, responses);
@@ -1164,7 +1196,6 @@ public class JsonBuilder {
 
         return dialogList;
     }
-
 
 
 }

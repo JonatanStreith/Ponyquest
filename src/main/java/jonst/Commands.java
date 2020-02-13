@@ -120,8 +120,6 @@ public class Commands {
                 if (savePath != "") {
                     System.out.println("Loading game...");
 
-                    System.out.println(savePath);
-
                     world.updateWorld(savePath);
                     lookAround(world);
                 }
@@ -297,17 +295,23 @@ public class Commands {
             if (subject instanceof Creature)                                              //Subject is a creature.
             {
                 Creature creature = (Creature) subject;
-                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature.getGender()) + " for a moment before putting " + himOrHer(creature.getGender()) + " down again.");
+                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
                 creature.runResponseScript("pick up");
-            } else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
+            }
+
+            else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
             {
                 System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
 
-            } else if (subject instanceof Location)                                       //Subject is a location.
+            }
+
+            else if (subject instanceof Location)                                       //Subject is a location.
             {
                 System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
 
-            } else if ((subject instanceof Item)) {
+            }
+
+            else if ((subject instanceof Item)) {
 
                 if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
 
@@ -498,12 +502,6 @@ public class Commands {
                     }
 
                     System.out.println(gen.getDescription());
-
-                    if (gen instanceof Creature) {
-                        Creature cre = (Creature) gen;
-                        System.out.println(capitalize(heOrShe(cre)) + " looks " + cre.getMood() + ".");
-                    }
-                    System.out.println();
 
                     if (!gen.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
                         listOwnedItems(world, gen);
@@ -810,7 +808,7 @@ public class Commands {
             newItem.setHolder(player);
             newItem.setLocationName(player.getName());
 
-            world.addNewItemToItemList(newItem);
+            world.addNewToList(newItem);
 
             System.out.println("You create a " + commandArray[1] + " from nothing, and put it in your pocket.");
             newItem.runResponseScript("create");
@@ -881,7 +879,7 @@ public class Commands {
 
         if (container instanceof Creature) {
             System.out.println(containerName + " doesn't appreciate you trying to force things into "
-                    + hisOrHer(((Creature) container).getGender()) + " pockets. Try 'giving' it like a normal " + world.getPlayer().getRace() + ".");
+                    + hisOrHer((Creature) container) + " pockets. Try 'giving' it like a normal " + world.getPlayer().getRace() + ".");
             return;
         }
 
@@ -929,7 +927,7 @@ public class Commands {
 
         if (container instanceof Creature) {
             System.out.println(containerName + " doesn't appreciate you rummaging through "
-                    + hisOrHer(((Creature) container).getGender()) + " things. Try asking nicely.");
+                    + hisOrHer((Creature) container) + " things. Try asking nicely.");
             return;
         }
 
@@ -965,19 +963,23 @@ public class Commands {
 
     //--------------- Not for direct use -----------------------
 
-    public static void listItems(World world) {
-        List<Item> tempItemList = new ArrayList<>();
-        tempItemList.addAll(world.getPlayerLocation().getItemList());      //Create a list of items at the location.
-
-        if (tempItemList.size() > 0) {
-            System.out.println("There" + isOrAre(tempItemList.size()) + turnListIntoString(tempItemList, "and") + " here.");
-        }
-    }
+//    public static void listItems(World world) {
+//        List<Item> tempItemList = new ArrayList<>();
+//        tempItemList.addAll(world.getPlayerLocation().getItemList());      //Create a list of items at the location.
+//
+//        if (tempItemList.size() > 0) {
+//            System.out.println("There" + isOrAre(tempItemList.size()) + turnListIntoString(tempItemList, "and") + " here.");
+//        }
+//    }
 
     public static void listOwnedItems(World world, GenericObject owner) {
         List<Item> itemList = owner.getItemList();
 
-        if (owner instanceof Location) {
+        if(owner == world.getPlayer()){
+            if (itemList.size() > 0) {
+                System.out.println("You carry " + turnListIntoString(itemList, "and") + ".");
+            }
+        } else if (owner instanceof Location) {
             if (itemList.size() > 0) {
                 System.out.println("There is " + turnListIntoString(itemList, "and") + " here.");
             }

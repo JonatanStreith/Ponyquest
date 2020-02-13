@@ -36,7 +36,7 @@ public class Spellcasting {
             return;
         }
 
-        System.out.println("You throw a big fireball from your horn at the " + gen.getName() + ", setting " + HelpfulMethods.himOrHer(gen.getGender()) + " aflame!");
+        System.out.println("You throw a big fireball from your horn at the " + gen.getName() + ", setting " + HelpfulMethods.himOrHer(gen) + " aflame!");
         gen.addAttribute("onfire");
         gen.runResponseScript("fireball");
 

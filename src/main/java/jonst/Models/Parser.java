@@ -32,7 +32,7 @@ public class Parser {
 
         legitimateNouns.addAll(JsonBuilder.getTemplateItemNames());     //Load from template items
 
-        legitimateNouns = HelpfulMethods.removeDuplicates((ArrayList<String>) legitimateNouns);
+        legitimateNouns = HelpfulMethods.removeDuplicatesT((ArrayList<String>) legitimateNouns);
 
         HelpfulMethods.reverseSortStringList(legitimateCommands);
         HelpfulMethods.reverseSortStringList(legitimateConjunctions);

@@ -153,11 +153,6 @@ Commands.talkTo("earth pony", world);
     }
 
 
-    @Test
-    public void listItemsTest() {
-
-        Commands.listItems(world);
-    }
 
 
     @Test

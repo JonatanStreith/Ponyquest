@@ -104,7 +104,7 @@ public class Scripts {
         Item newItem = JsonBuilder.generateTemplateItem(newItemName);
 
         world.addItemToGeneric(newItem, actor);
-        world.addNewItemToItemList(newItem);
+        world.addNewToList(newItem);
 
     }
 

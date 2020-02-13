@@ -65,7 +65,7 @@ public class World {
         while (true)                //Continuously running play loop that parses instructions
 
         {
-            parser.runCommand(SystemData.getReply("Please input command: "), this);
+            parser.runCommand(SystemData.getReply("\nPlease input command: "), this);
         }
     }
 
@@ -151,25 +151,40 @@ public class World {
 
     //------------- If new objects are created, they need to be added to the world lists ----------
 
-    public void addNewItemToItemList(Item newItem) {
-        itemList.add(newItem);
-        genericList.add(newItem);
+
+    public void addNewToList(GenericObject newGen) {
+        if (newGen instanceof Item) {
+            itemList.add((Item) newGen);
+        } else if (newGen instanceof Creature) {
+            creatureList.add((Creature) newGen);
+        } else if (newGen instanceof Location) {
+            locationList.add((Location) newGen);
+        } else if (newGen instanceof StationaryObject) {
+            stationaryObjectList.add((StationaryObject) newGen);
+        }
+        genericList.add(newGen);
+
     }
 
-    public void addNewCreatureToCreatureList(Creature newCreature) {
-        creatureList.add(newCreature);
-        genericList.add(newCreature);
-    }
-
-    public void addNewLocationToLocationList(Location newLocation) {
-        locationList.add(newLocation);
-        genericList.add(newLocation);
-    }
-
-    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject) {
-        stationaryObjectList.add(newStationaryObject);
-        genericList.add(newStationaryObject);
-    }
+//    public void addNewItemToItemList(Item newItem) {
+//        itemList.add(newItem);
+//        genericList.add(newItem);
+//    }
+//
+//    public void addNewCreatureToCreatureList(Creature newCreature) {
+//        creatureList.add(newCreature);
+//        genericList.add(newCreature);
+//    }
+//
+//    public void addNewLocationToLocationList(Location newLocation) {
+//        locationList.add(newLocation);
+//        genericList.add(newLocation);
+//    }
+//
+//    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject) {
+//        stationaryObjectList.add(newStationaryObject);
+//        genericList.add(newStationaryObject);
+//    }
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
@@ -215,9 +230,9 @@ public class World {
 
 
             for (Location loc : locationList) {
-                if (location.getDefaultEnterId().equals(loc.getId())) {
+                if (location.getDefaultEnterId() != null || location.getDefaultEnterId().equals(loc.getId())) {
                     location.setDefaultEnter(loc);
-                } else if (location.getDefaultExitId().equals(loc.getId())) {
+                } else if (location.getDefaultExitId() != null || location.getDefaultExitId().equals(loc.getId())) {
                     location.setDefaultExit(loc);
                 }
                 if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
@@ -606,7 +621,7 @@ public class World {
             }
         }
 
-        results = HelpfulMethods.removeDuplicates(results);
+        results = HelpfulMethods.removeDuplicatesT(results);
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -642,7 +657,7 @@ public class World {
             }
         }
 
-        results = HelpfulMethods.removeDuplicates(results);
+        results = HelpfulMethods.removeDuplicatesT(results);
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -705,7 +720,6 @@ public class World {
 
     public boolean saveToFile() {
 
-        Boolean[] successes = new Boolean[4];
 
         String choice = SystemData.getReply("Name your save. Type 'Q' to abort. ");
 
@@ -727,55 +741,47 @@ public class World {
             }
 
             String saveFilePath = SystemData.getSavepath() + savekey + choice;
-            File saveFile = new File(saveFilePath + "/");
-
-            if (!saveFile.exists())
-                saveFile.mkdir();
 
 
-            successes[0] = JsonBuilder.saveLocationList(saveFilePath, locationList);
-            successes[1] = JsonBuilder.saveCreatureList(saveFilePath, creatureList);
-            successes[2] = JsonBuilder.saveItemList(saveFilePath, itemList);
-            successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
-
-            for (boolean boo : successes) {
-                if (!boo) {
-                    System.out.println("Game failed to save correctly.");
-                    return false;
-                }
-            }
-
-
-            System.out.println("Game saved successfully.");
-            return true;        //If it successfully saves all files, return true
+            return save(saveFilePath);
 
         }
     }
 
     public boolean quickSave() {
 
-        Boolean[] successes = new Boolean[4];
 
         String saveFilePath = SystemData.getQuickSave();
+
+        return save(saveFilePath);
+
+    }
+
+    public boolean save(String saveFilePath) {
+
         File saveFile = new File(saveFilePath + "/");
 
         if (!saveFile.exists())
             saveFile.mkdir();
 
-
+        Boolean[] successes = new Boolean[5];
         successes[0] = JsonBuilder.saveLocationList(saveFilePath, locationList);
         successes[1] = JsonBuilder.saveCreatureList(saveFilePath, creatureList);
         successes[2] = JsonBuilder.saveItemList(saveFilePath, itemList);
         successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
+        successes[4] = JsonBuilder.saveExitList(saveFilePath, exitList);
 
         for (boolean boo : successes) {
-            if (!boo)
-                System.out.println("Game failed to quicksave correctly.");
-            return false;
+            if (!boo) {
+                System.out.println("Game failed to save correctly.");
+                return false;
+            }
         }
 
-        System.out.println("Game quicksaved successfully.");
+        System.out.println("Game saved successfully.");
         return true;        //If it successfully saves all files, return true
+
     }
+
 
 }

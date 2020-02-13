@@ -43,11 +43,11 @@ public class Instructs {
             if (target instanceof Creature)                                              //Subject is a creature.
             {
                 Creature creature = (Creature) target;
-                System.out.println(subject.getName() + " grabs " + creature.getName() + " and holds " + himOrHer(creature.getGender()) + " for a moment before putting " + himOrHer(creature.getGender()) + " down again.");
+                System.out.println(subject.getName() + " grabs " + creature.getName() + " and holds " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
                 creature.runResponseScript("pick up");
             } else if (target instanceof StationaryObject)                               //Subject is a stationary object.
             {
-                System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. That's a bit too heavy for them to humour you with.");
+                System.out.println(subject.getName() + " shakes " + hisOrHer(subject) + " head. That's a bit too heavy for them to humour you with.");
 
             } else if (target instanceof Location)                                       //Subject is a location.
             {
@@ -60,9 +60,9 @@ public class Instructs {
                     System.out.println(subject.getName() + " picks up the " + name + ".");
 
                 } else if (((Item) target).getHolder() instanceof Creature) {
-                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. Stealing is wrong.");
+                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject) + " head. Stealing is wrong.");
                 } else if (((Item) target).getHolder() instanceof StationaryObject || ((Item) target).getHolder() instanceof Item) {
-                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject.getGender()) + " head. " + capitalize(heOrShe(subject) + " doesn't quite get what you're saying."));
+                    System.out.println(subject.getName() + " shakes " + hisOrHer(subject) + " head. " + capitalize(heOrShe(subject) + " doesn't quite get what you're saying."));
                 } else {
                     System.out.println("That doesn't work.");
                 }
@@ -88,11 +88,11 @@ public class Instructs {
                     System.out.println(subject.getName() + " opens the " + target.getName() + ".");
                     target.runResponseScript("open");
                 } else {
-                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. It's already open.");
+                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject) + " head. It's already open.");
                 }
 
             } else {
-                System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. That can't be opened.");
+                System.out.println(subject.getName() + " shakes " +hisOrHer(subject) + " head. That can't be opened.");
             }
         }
     }
@@ -110,11 +110,11 @@ public class Instructs {
                     System.out.println(subject.getName() + " closes the " + target.getName() + ".");
                     target.runResponseScript("close");
                 } else {
-                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. It's already closed.");
+                    System.out.println(subject.getName() + " shakes " +hisOrHer(subject) + " head. It's already closed.");
                 }
 
             } else {
-                System.out.println(subject.getName() + " shakes " +hisOrHer(subject.getGender()) + " head. That can't be closed.");
+                System.out.println(subject.getName() + " shakes " +hisOrHer(subject) + " head. That can't be closed.");
             }
         }
     }
@@ -127,7 +127,7 @@ public class Instructs {
             System.out.println(subject.getName() + "nods, and hugs " + gen.getName() + " affectionately.");
             gen.runResponseScript("hug");
         } else
-            System.out.println(subject.getName() + " gives " + gen.getName() + " a wary look and shakes " +hisOrHer(subject.getGender()) + " head. They don't look very huggable.");
+            System.out.println(subject.getName() + " gives " + gen.getName() + " a wary look and shakes " +hisOrHer(subject) + " head. They don't look very huggable.");
 
     }
 

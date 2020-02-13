@@ -9,39 +9,56 @@ import java.util.*;
 public class HelpfulMethods {
 
 
-    public static String heOrShe(Creature subject) {
-        if(subject==App.getWorld().getPlayer()){
+    public static String heOrShe(GenericObject subject) {
+
+        if (subject == App.getWorld().getPlayer()) {
             return "you";
         }
-        switch (subject.getGender().toLowerCase()) {
-            case "male":
-                return "he";
-            case "female":
-                return "she";
-            default:
-                return "it";
+
+        if (!(subject instanceof Creature)) {
+            return "it";
+        } else {
+
+            switch (subject.getGender().toLowerCase()) {
+                case "male":
+                    return "he";
+                case "female":
+                    return "she";
+                default:
+                    return "it";
+            }
         }
     }
 
-    public static String himOrHer(String gender) {
-        switch (gender.toLowerCase()) {
-            case "male":
-                return "him";
-            case "female":
-                return "her";
-            default:
-                return "it";
+    public static String himOrHer(GenericObject subject) {
+
+        if (!(subject instanceof Creature)) {
+            return "it";
+        } else {
+            switch (subject.getGender().toLowerCase()) {
+                case "male":
+                    return "him";
+                case "female":
+                    return "her";
+                default:
+                    return "it";
+            }
         }
     }
 
-    public static String hisOrHer(String gender) {
-        switch (gender.toLowerCase()) {
-            case "male":
-                return "his";
-            case "female":
-                return "her";
-            default:
-                return "its";
+    public static String hisOrHer(GenericObject subject) {
+
+        if (!(subject instanceof Creature)) {
+            return "its";
+        } else {
+            switch (subject.getGender().toLowerCase()) {
+                case "male":
+                    return "his";
+                case "female":
+                    return "her";
+                default:
+                    return "its";
+            }
         }
     }
 
@@ -67,7 +84,7 @@ public class HelpfulMethods {
     public static String turnStringListIntoString(List<String> longList, String separator)     //Takes a list of strings, pieces them together into one string
     {
 
-        List<String> shortList = removeDuplicates(longList);    //Shortlist with only single entries
+        List<String> shortList = removeDuplicatesT(longList);    //Shortlist with only single entries
 
         List<String> enumeratedList = new ArrayList<>();
 
@@ -91,7 +108,7 @@ public class HelpfulMethods {
                     enumeratedList.add("a " + shortList.get(i));
                 }
             } else {
-                enumeratedList.add(counter + " " + shortList.get(i) + "s");
+                enumeratedList.add(counter + " " + shortList.get(i) + "s");                     //Amend the multiples with the counter
             }
 
         }
@@ -113,34 +130,6 @@ public class HelpfulMethods {
 
         return fullString;
     }
-
-
-//    public static <T> String turnListIntoString(ArrayList<T> list) {
-//        List<String> nameList = new ArrayList<String>();
-//
-//        if(list.size()>0) {
-//            if (list.get(0) instanceof Item) {
-//                for (int i = 0; i < list.size(); i++) {
-//                    Item it = (Item) list.get(i);
-//                    nameList.add(it.getName());
-//                }
-//
-//            } else if (list.get(0) instanceof Creature) {
-//                for (int i = 0; i < list.size(); i++) {
-//                    Creature cr = (Creature) list.get(i);
-//                    nameList.add(cr.getName());
-//                }
-//
-//            } else if (list.get(0) instanceof StationaryObject) {
-//                for (int i = 0; i < list.size(); i++) {
-//                    StationaryObject st = (StationaryObject) list.get(i);
-//                    nameList.add(st.getName());
-//                }
-//            }
-//        }
-//        return turnStringListIntoString(nameList, "and");
-//    }
-
 
     public static <T> String turnListIntoString(List<T> list, String separator) {
         List<String> nameList = new ArrayList<String>();
@@ -167,7 +156,7 @@ public class HelpfulMethods {
     }
 
 
-    public static <T> ArrayList<T> removeDuplicatesT(ArrayList<T> list) {
+    public static <T> List<T> removeDuplicatesT(List<T> list) {
 
         // Create a new ArrayList
         ArrayList<T> newList = new ArrayList<T>();
@@ -188,24 +177,24 @@ public class HelpfulMethods {
     }
 
 
-    public static List<String> removeDuplicates(List<String> list) {
-
-        // Create a new ArrayList
-        List<String> newList = new ArrayList<>();
-
-        // Traverse through the first list
-        for (String element : list) {
-
-            // If this element is not present in newList
-            // then add it
-            if (!newList.contains(element)) {
-
-                newList.add(element);
-            }
-        }
-
-        // return the new list
-        return newList;
-    }
+//    public static List<String> removeDuplicates(List<String> list) {
+//
+//        // Create a new ArrayList
+//        List<String> newList = new ArrayList<>();
+//
+//        // Traverse through the first list
+//        for (String element : list) {
+//
+//            // If this element is not present in newList
+//            // then add it
+//            if (!newList.contains(element)) {
+//
+//                newList.add(element);
+//            }
+//        }
+//
+//        // return the new list
+//        return newList;
+//    }
 
 }
