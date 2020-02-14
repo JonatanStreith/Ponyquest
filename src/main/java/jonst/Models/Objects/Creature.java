@@ -3,6 +3,7 @@ package jonst.Models.Objects;
 import jonst.HelpfulMethods;
 import jonst.Models.BehaviorCore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +25,18 @@ public class Creature extends GenericObject {
 
     private String initialDialog;
 
-    public Creature(String name, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, id, locationId, alias, attributes);
+    public Creature(String name, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
+        super(name, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+
+
 
         setRace(race);
         this.defaultRace = defaultRace;
         setGender(gender);
         setCasualDialog(casualDialog);
         setAskTopics(askTopics);
-
+        setBehaviorCore(bc);
+        setInitialDialog(initialDialog);
 
     }
 

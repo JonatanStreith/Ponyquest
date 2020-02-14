@@ -572,17 +572,9 @@ public class JsonBuilder {
                     }
 
 
-                    Creature creature = new Creature(fullName, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
-                    creature.setDescriptions(descriptions);
-                    creature.setText(text);
-                    creature.setDefaultUse(defaultUse);
+                    Creature creature = new Creature(fullName, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
 
-                    creature.setComplexUse(complexUse);
-                    creature.setResponseScripts(responseScripts);
 
-                    creature.setBehaviorCore(bc);
-
-                    creature.setInitialDialog(initialDialog);
 
                     creatureList.add(creature);
                 } catch (Exception e) {
@@ -680,13 +672,8 @@ public class JsonBuilder {
                     }
 
 
-                    Location location = new Location(fullName, id, fullName, alias, attributes, defaultEnter, defaultExit);
-                    location.setDescriptions(descriptions);
-                    location.setText(text);
-                    location.setDefaultUse(defaultUse);
+                    Location location = new Location(fullName, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions, text, defaultUse, complexUse, responseScripts, null);
 
-                    location.setComplexUse(complexUse);
-                    location.setResponseScripts(responseScripts);
 
 
                     locationList.add(location);
@@ -781,14 +768,7 @@ public class JsonBuilder {
                         }
                     }
 
-                    StationaryObject object = new StationaryObject(fullName, id, location, alias, attributes);
-                    object.setDescriptions(descriptions);
-                    object.setText(text);
-                    object.setDefaultUse(defaultUse);
-
-                    object.setComplexUse(complexUse);
-                    object.setResponseScripts(responseScripts);
-                    object.setOwnerName(ownerName);
+                    StationaryObject object = new StationaryObject(fullName, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
                     stationaryObjectList.add(object);
@@ -882,15 +862,8 @@ public class JsonBuilder {
                         }
                     }
 
-                    Item item = new Item(fullName, id, location, alias, attributes);
-                    item.setDescriptions(descriptions);
-                    item.setText(text);
-                    item.setDefaultUse(defaultUse);
+                    Item item = new Item(fullName, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
-                    item.setComplexUse(complexUse);
-                    item.setResponseScripts(responseScripts);
-
-                    item.setOwnerName(ownerName);
 
                     itemList.add(item);
                 }
@@ -1136,6 +1109,7 @@ public class JsonBuilder {
                     attributes.add((String) attr);
                 }
 
+                String ownerName = (String) jsonItem.get("Owner");
                 String text = (String) jsonItem.get("Text");
                 String defaultUse = (String) jsonItem.get("DefaultUse");
 
@@ -1176,12 +1150,8 @@ public class JsonBuilder {
 
                 //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
 
-                item = new Item(fullName, id, locationId, alias, attributes);
-                item.setText(text);
-                item.setDefaultUse(defaultUse);
-                item.setResponseScripts(responseScripts);
-                item.setComplexUse(complexUse);
-                item.setDescriptions(descriptions);
+                item = new Item(fullName, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+
             }
 
         } catch (FileNotFoundException e) {
@@ -1217,6 +1187,8 @@ public class JsonBuilder {
                 String race = (String) jsonCreature.get("Race");
                 String gender = (String) jsonCreature.get("Gender");
                 String text = (String) jsonCreature.get("Text");
+
+                String ownerName = (String) jsonCreature.get("Owner");
 
                 String defaultRace = (String) jsonCreature.get("DefaultRace");
                 String defaultUse = (String) jsonCreature.get("DefaultUse");
@@ -1306,27 +1278,20 @@ public class JsonBuilder {
                 }
 
 
-                creature = new Creature(fullName, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
-                creature.setDescriptions(descriptions);
-                creature.setText(text);
-                creature.setDefaultUse(defaultUse);
+                creature = new Creature(fullName, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
 
-                creature.setComplexUse(complexUse);
-                creature.setResponseScripts(responseScripts);
 
-                creature.setBehaviorCore(bc);
 
-                creature.setInitialDialog(initialDialog);
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("TemplateItems file not found.");
+            System.out.println("TemplateCreatures file not found.");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("There was an error reading the TemplateItems file.");
+            System.out.println("There was an error reading the TemplateCreatures file.");
             e.printStackTrace();
         } catch (ParseException e) {
-            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            System.out.println("TemplateCreatures file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
 
@@ -1404,25 +1369,20 @@ public class JsonBuilder {
 
 
 
-                object = new StationaryObject(fullName, id, locationId, alias, attributes);
-                object.setDescriptions(descriptions);
-                object.setText(text);
-                object.setDefaultUse(defaultUse);
+                object = new StationaryObject(fullName, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
-                object.setComplexUse(complexUse);
-                object.setResponseScripts(responseScripts);
-                object.setOwnerName(ownerName);
+
 
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("TemplateItems file not found.");
+            System.out.println("TemplateObjects file not found.");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("There was an error reading the TemplateItems file.");
+            System.out.println("There was an error reading the TemplateObjects file.");
             e.printStackTrace();
         } catch (ParseException e) {
-            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            System.out.println("TemplateObjects file corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
 

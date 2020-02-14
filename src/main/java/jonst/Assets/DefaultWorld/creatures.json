@@ -59,7 +59,7 @@
     "Gender": "female",
     "Location": "Location_Castle_Library",
     "DefaultUse": "look at",
-    "InitialDialog": "Twi_0",
+    "InitialDialog": "Twi_Init_0",
     "CasualDialog": [
       "She looks at you with a frown. \"Oh... hello, Trixie.\"",
       "\"Do you want something?\"",

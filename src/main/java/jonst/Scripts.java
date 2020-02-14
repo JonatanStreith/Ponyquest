@@ -188,4 +188,11 @@ public class Scripts {
         world.addNewToList(newObject);
 
     }
+
+    public static void changeInitDialog(GenericObject subject, String[] scriptCommandArray, World world) {
+        if(subject instanceof Creature) {
+            ((Creature) subject).setInitialDialog(scriptCommandArray[1]);
+        }
+    }
+
 }

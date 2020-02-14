@@ -590,6 +590,11 @@ public class Parser {
                 //spawnobject:location:Id
                 Scripts.spawnObject(subject, scriptCommandArray, world);
                 break;
+
+            case "changeinitdialog":
+                //changeinitdialog:dialogId
+                Scripts.changeInitDialog(subject, scriptCommandArray, world);
+                break;
         }
     }
 

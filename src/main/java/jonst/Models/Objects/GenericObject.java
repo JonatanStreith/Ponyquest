@@ -10,7 +10,6 @@ import java.util.Map;
 public abstract class GenericObject {
     protected String name;
     private String id;
-    private String description;
     private String locationId;
     private Location location;
     private List<String> alias;
@@ -19,8 +18,9 @@ public abstract class GenericObject {
     private String text;
     private String defaultUse;
 
-    private String ownerName;
 
+
+    private String ownerName;
     private Creature Owner;
 
     private Map<String, String> descriptions = new HashMap<>();
@@ -30,13 +30,22 @@ public abstract class GenericObject {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String id, String locationId, List<String> alias, List<String> attributes) {
+    public GenericObject(String name, String id, String locationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
         setName(name);
         setId(id);
 
         setLocationId(locationId);
         setAlias(alias);
         setAttributes(attributes);
+
+        setText(text);
+        setDefaultUse(defaultUse);
+        setDescriptions(descriptions);
+
+        setComplexUse(complexUse);
+        setResponseScripts(responseScripts);
+
+        setOwnerName(ownerName);
 
         itemList = new ArrayList<>();
 
@@ -73,12 +82,6 @@ public abstract class GenericObject {
     public void setDescriptions(Map<String, String> descriptions) {
         this.descriptions = descriptions;
     }
-
-/*
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-*/
 
     public void setLocationId(String locationId) {
         this.locationId = locationId;
@@ -270,10 +273,7 @@ public abstract class GenericObject {
     }
 
 
-    public void getFeedback() {
-        String feedback = name + ": " + description;
-        System.out.println(feedback);
-    }
+
 
     public boolean addAlias(String specificAlias) {
         alias.add(specificAlias);

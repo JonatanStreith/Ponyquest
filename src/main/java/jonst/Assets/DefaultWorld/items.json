@@ -435,8 +435,8 @@
     "Attributes": [
     ],
     "ResponseScripts": {
-      "activate": ["spawncreature:playerlocation:Monster_Timberwolf",
-      "writeline:You plant the seed in the ground. A plant sprouts, and turns into an angry timberwolf!",
+      "activate": ["spawnobject:playerlocation:Object_Tree",
+      "writeline:You plant the seed in the ground. Within seconds, an entire tree sprouts!",
       "deletecarrieditem:player:this"]
     },
     "ComplexUse": {

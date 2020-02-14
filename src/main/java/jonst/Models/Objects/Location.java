@@ -5,6 +5,7 @@ import jonst.Models.Exit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Location extends GenericObject {
 
@@ -21,8 +22,11 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
 
 
-    public Location(String name, String id, String locationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId) {
-        super(name, id, locationId, alias, attributes);
+    public Location(String name, String id, String locationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
+        super(name, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+
+
+
 
 //        this.legitimateExits = legitimateExits;
 
