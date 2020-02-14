@@ -11,7 +11,7 @@ public abstract class GenericObject {
     protected String name;
     private String id;
     private String description;
-    private String locationName;
+    private String locationId;
     private Location location;
     private List<String> alias;
     private List<Item> itemList;
@@ -30,11 +30,11 @@ public abstract class GenericObject {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String id, String locationName, List<String> alias, List<String> attributes) {
+    public GenericObject(String name, String id, String locationId, List<String> alias, List<String> attributes) {
         setName(name);
         setId(id);
 
-        setLocationName(locationName);
+        setLocationId(locationId);
         setAlias(alias);
         setAttributes(attributes);
 
@@ -80,8 +80,8 @@ public abstract class GenericObject {
     }
 */
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 
     protected void setAlias(List<String> alias) {
@@ -95,9 +95,9 @@ public abstract class GenericObject {
     public void setLocation(Location location) {
         this.location = location;
         if (location != null)
-            locationName = location.getLocationName();
+            locationId = location.getId();
         else
-            locationName = "Carried, not at a location";
+            locationId = "Carried, not at a location";
     }
 
     public String getName() {
@@ -154,8 +154,8 @@ public abstract class GenericObject {
         return descriptions;
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getLocationId() {
+        return locationId;
     }
 
     public List<Item> getItemList() {

@@ -9,8 +9,8 @@ public class Item extends GenericObject {
     private GenericObject holder;
 
 
-    public Item(String name, String id, String locationName, List<String> alias, List<String> attributes) {
-        super(name, id, locationName, alias, attributes);
+    public Item(String name, String id, String locationId, List<String> alias, List<String> attributes) {
+        super(name, id, locationId, alias, attributes);
     }
 
     public boolean setHolder(GenericObject holder){

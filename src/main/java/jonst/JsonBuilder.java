@@ -128,7 +128,7 @@ public class JsonBuilder {
                 put("FullName", crea.getName());
                 put("Id", crea.getId());
                 //put("Description", crea.getDescription());
-                put("Location", crea.getLocationName());
+                put("Location", crea.getLocationId());
                 put("Text", crea.getText());
                 put("DefaultUse", crea.getDefaultUse());
 
@@ -214,7 +214,7 @@ public class JsonBuilder {
                 put("FullName", loc.getName());
                 put("Id", loc.getId());
                 //put("Description", loc.getDescription());
-                put("Location", loc.getLocationName());
+                put("Location", loc.getLocationId());
                 put("Text", loc.getText());
                 put("DefaultUse", loc.getDefaultUse());
 
@@ -288,7 +288,7 @@ public class JsonBuilder {
                 put("FullName", ite.getName());
                 put("Id", ite.getId());
                 //put("Description", ite.getDescription());
-                put("Location", ite.getLocationName());
+                put("Location", ite.getLocationId());
                 put("Text", ite.getText());
                 put("DefaultUse", ite.getDefaultUse());
 
@@ -359,7 +359,7 @@ public class JsonBuilder {
                 put("FullName", sta.getName());
                 put("Id", sta.getId());
                 //put("Description", sta.getDescription());
-                put("Location", sta.getLocationName());
+                put("Location", sta.getLocationId());
                 put("Text", sta.getText());
                 put("DefaultUse", sta.getDefaultUse());
 

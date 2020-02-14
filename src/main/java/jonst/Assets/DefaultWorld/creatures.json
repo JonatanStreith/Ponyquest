@@ -1,6 +1,5 @@
 [
   {
-    "Description": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
     "Descriptions": {
       "default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
       "unicorn": "You are a blue unicorn with a silvery mane.",
@@ -11,7 +10,7 @@
     "Race": "unicorn",
     "DefaultRace": "unicorn",
     "Gender": "female",
-    "Location": "Castle library",
+    "Location": "Location_Castle_Library",
     "DefaultUse": "look at",
     "CasualDialog": [
       "Talking to yourself is usually pointless.",
@@ -50,7 +49,6 @@
     }
   },
   {
-    "Description": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
     "Descriptions": {
       "default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly."
     },
@@ -59,7 +57,7 @@
     "Race": "alicorn",
     "DefaultRace": "alicorn",
     "Gender": "female",
-    "Location": "Castle library",
+    "Location": "Location_Castle_Library",
     "DefaultUse": "look at",
     "InitialDialog": "Twi_0",
     "CasualDialog": [
@@ -108,7 +106,6 @@
     }
   },
   {
-    "Description": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion.",
     "Descriptions": {
       "default": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion."
     },
@@ -117,7 +114,7 @@
     "Race": "unicorn",
     "DefaultRace": "unicorn",
     "Gender": "female",
-    "Location": "Carousel Boutique interior",
+    "Location": "Location_Carousel_Interior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hello, Trixie.\"",
@@ -158,7 +155,6 @@
     }
   },
   {
-    "Description": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you.",
     "Descriptions": {
       "default": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you."
     },
@@ -167,7 +163,7 @@
     "Race": "earth pony",
     "DefaultRace": "earth pony",
     "Gender": "female",
-    "Location": "Sugarcube Corner interior",
+    "Location": "Location_Sugarcube_Interior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hi Trixie!\"",
@@ -210,7 +206,6 @@
     }
   },
   {
-    "Description": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
     "Descriptions": {
       "default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
       "sleeping": "She is sleeping peacefully.",
@@ -221,7 +216,7 @@
     "Race": "earth pony",
     "DefaultRace": "earth pony",
     "Gender": "female",
-    "Location": "Sweet Apple Acres",
+    "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hey there, Trixie.\"",
@@ -264,7 +259,6 @@
     }
   },
   {
-    "Description": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though.",
     "Descriptions": {
       "default": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though."
     },
@@ -273,7 +267,7 @@
     "Race": "pegasus",
     "DefaultRace": "pegasus",
     "Gender": "female",
-    "Location": "Sugarcube Corner",
+    "Location": "Location_Sugarcube_Interior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Oh, hey.\"",
@@ -314,7 +308,6 @@
     }
   },
   {
-    "Description": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you.",
     "Descriptions": {
       "default": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you."
     },
@@ -323,7 +316,7 @@
     "Race": "pegasus",
     "DefaultRace": "pegasus",
     "Gender": "female",
-    "Location": "Carousel Boutique interior",
+    "Location": "Location_Carousel_Interior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Umm...\"",
@@ -365,7 +358,6 @@
     }
   },
   {
-    "Description": "Twilight Sparkle's runty dragon assistant. He's kind of annoying.",
     "Descriptions": {
       "default": "Twilight Sparkle's runty dragon assistant. He's kind of annoying."
     },
@@ -374,7 +366,7 @@
     "Race": "dragon",
     "DefaultRace": "dragon",
     "Gender": "male",
-    "Location": "Castle library",
+    "Location": "Location_Castle_Library",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"What do you want?\"",
@@ -413,7 +405,6 @@
     }
   },
   {
-    "Description": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best.",
     "Descriptions": {
       "default": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best."
     },
@@ -422,7 +413,7 @@
     "Race": "unicorn",
     "DefaultRace": "unicorn",
     "Gender": "female",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Oh, hi, Trixie!\"",
@@ -466,7 +457,6 @@
     }
   },
   {
-    "Description": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
     "Descriptions": {
       "default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
       "sleeping": "She is sleeping like a rock."
@@ -476,7 +466,7 @@
     "Race": "earth pony",
     "DefaultRace": "earth pony",
     "Gender": "female",
-    "Location": "Sweet Apple Acres",
+    "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Trixie. Hello.\"",
@@ -519,7 +509,6 @@
     }
   },
   {
-    "Description": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court.",
     "Descriptions": {
       "default": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."
     },
@@ -528,7 +517,7 @@
     "Race": "alicorn",
     "DefaultRace": "alicorn",
     "Gender": "female",
-    "Location": "Castle kitchen",
+    "Location": "Location_Castle_Kitchen",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Hello, my little pony.\"",
@@ -569,7 +558,6 @@
     }
   },
   {
-    "Description": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe.",
     "Descriptions": {
       "default": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."
     },
@@ -578,7 +566,7 @@
     "Race": "alicorn",
     "DefaultRace": "alicorn",
     "Gender": "female",
-    "Location": "Castle main hall",
+    "Location": "Location_Castle_Mainhall",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"GREET... *ahem* greetings, faithful subject.\"",
@@ -620,7 +608,6 @@
     }
   },
   {
-    "Description": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that.",
     "Descriptions": {
       "default": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that."
     },
@@ -629,7 +616,7 @@
     "Race": "draconequus",
     "DefaultRace": "draconequus",
     "Gender": "male",
-    "Location": "Party cave",
+    "Location": "Location_Sugarcube_Partycave",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Well, if it isn't Trixie!\"",
@@ -677,7 +664,7 @@
     "Race": "earth pony",
     "DefaultRace": "earth pony",
     "Gender": "male",
-    "Location": "Ponyville station",
+    "Location": "Location_Ponyville_Station",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"Going somewhere today, ma'am?\"",
@@ -718,7 +705,7 @@
     "Race": "monster",
     "DefaultRace": "monster",
     "Gender": "undefined",
-    "Location": "Sweet Apple Acres",
+    "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
     "AskTopics": {
       "default": "It growls angrily."
@@ -755,7 +742,7 @@
     "Race": "human",
     "DefaultRace": "human",
     "Gender": "undefined",
-    "Location": "Canterlot High campus",
+    "Location": "Canterlot_High_Campus",
     "DefaultUse": "look at",
     "CasualDialog": [
       "\"What do you want, Trixie?\"",

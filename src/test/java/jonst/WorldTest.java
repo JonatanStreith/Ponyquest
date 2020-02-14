@@ -39,7 +39,7 @@ public class WorldTest {
 
         assertNotNull(world.getParser());
 
-        assertEquals("Junkyard", world.getItem("Error item").getLocationName());    //Check that the error item gets sent to the junkyard.
+        assertEquals("Junkyard", world.getItem("Error item").getLocationId());    //Check that the error item gets sent to the junkyard.
 
 
     }

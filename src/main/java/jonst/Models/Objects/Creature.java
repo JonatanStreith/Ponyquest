@@ -24,8 +24,8 @@ public class Creature extends GenericObject {
 
     private String initialDialog;
 
-    public Creature(String name, String id, String locationName, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics) {
-        super(name, id, locationName, alias, attributes);
+    public Creature(String name, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics) {
+        super(name, id, locationId, alias, attributes);
 
         setRace(race);
         this.defaultRace = defaultRace;

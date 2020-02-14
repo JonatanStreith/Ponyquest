@@ -806,7 +806,7 @@ public class Commands {
             Creature player = world.getPlayer();
             player.addItem(newItem);
             newItem.setHolder(player);
-            newItem.setLocationName(player.getName());
+            newItem.setLocationId(player.getName());
 
             world.addNewToList(newItem);
 

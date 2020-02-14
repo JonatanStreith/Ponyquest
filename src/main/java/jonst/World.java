@@ -124,8 +124,7 @@ public class World {
 
     public void addItemToGeneric(Item it, GenericObject gen) {
         //Adds "item" to "location"
-//        GenericObject gen = getGenericObject(generic);
-//        Item it = getItem(item);
+
 
         gen.addItem(it);
         it.setHolder(gen);
@@ -166,25 +165,7 @@ public class World {
 
     }
 
-//    public void addNewItemToItemList(Item newItem) {
-//        itemList.add(newItem);
-//        genericList.add(newItem);
-//    }
-//
-//    public void addNewCreatureToCreatureList(Creature newCreature) {
-//        creatureList.add(newCreature);
-//        genericList.add(newCreature);
-//    }
-//
-//    public void addNewLocationToLocationList(Location newLocation) {
-//        locationList.add(newLocation);
-//        genericList.add(newLocation);
-//    }
-//
-//    public void addNewStationaryObjectToStationaryObjectList(StationaryObject newStationaryObject) {
-//        stationaryObjectList.add(newStationaryObject);
-//        genericList.add(newStationaryObject);
-//    }
+
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
@@ -215,14 +196,14 @@ public class World {
         for (Location location : locationList) {
 
             for (Creature creature : creatureList) {
-                if (creature.getLocationName().equalsIgnoreCase(location.getLocationName())) {
+                if (creature.getLocationId().equalsIgnoreCase(location.getId())) {
                     location.add(creature); //Adds creature to the location's list of creatures
                     creature.setLocation(location); //Sets creature's location reference
                 }
             }
 
             for (StationaryObject object : stationaryObjectList) {
-                if (object.getLocationName().equalsIgnoreCase(location.getLocationName())) {
+                if (object.getLocationId().equalsIgnoreCase(location.getId())) {
                     location.add(object);     //Adds object to the location's list of objects
                     object.setLocation(location);   //Sets object's location reference
                 }
@@ -246,7 +227,7 @@ public class World {
         for (Item item : itemList) {
             for (GenericObject gen : genericList) {
 
-                if (item.getLocationName().equalsIgnoreCase(gen.getName())) {
+                if (item.getLocationId().equalsIgnoreCase(gen.getName())) {
 
                     gen.addItem(item);
                     item.setHolder(gen);
@@ -302,7 +283,7 @@ public class World {
     }
 
     public Location getPlayerLocation() {
-        return getLocation(getPlayer().getLocationName());
+        return getLocation(getPlayer().getLocationId());
     }
 
     public List<Item> getPlayerInventory() {
@@ -408,7 +389,7 @@ public class World {
         for (Location location : locationList) {
 
             //Instead of using equals, could use contains?
-            if (location.getName().equalsIgnoreCase(wantedLocation))
+            if (location.getId().equalsIgnoreCase(wantedLocation))
                 return location;
         }
         return null;
