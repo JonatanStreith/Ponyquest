@@ -1,12 +1,11 @@
 [
   {
-    "Description": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident.",
     "Descriptions": {
       "default": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident."
     },
     "Id": "Object_Cutiemap",
     "FullName": "Cutie Map",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "map",
       "map table",
@@ -21,13 +20,12 @@
     }
   },
   {
-    "Description": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable.",
     "Descriptions": {
       "default": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable."
     },
     "Id": "Object_Throne_Group",
     "FullName": "Friendship thrones",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "thrones",
       "seats",
@@ -42,13 +40,12 @@
     }
   },
   {
-    "Description": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is.",
     "Descriptions": {
       "default": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is."
     },
     "Id": "Object_Throne_Twilight",
     "FullName": "Twilight's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Magic",
       "Twilight's throne",
@@ -63,13 +60,12 @@
     }
   },
   {
-    "Description": "Rarity's throne. She probably brings cushions.",
     "Descriptions": {
       "default": "Rarity's throne. She probably brings cushions."
     },
     "Id": "Object_Throne_Rarity",
     "FullName": "Rarity's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Generosity",
       "Rarity's throne",
@@ -84,13 +80,12 @@
     }
   },
   {
-    "Description": "Applejack's throne. You can tell by the dried apple juice stains.",
     "Descriptions": {
       "default": "Applejack's throne. You can tell by the dried apple juice stains."
     },
     "Id": "Object_Throne_Applejack",
     "FullName": "Applejack's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Honesty",
       "Applejack's throne",
@@ -105,13 +100,12 @@
     }
   },
   {
-    "Description": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?",
     "Descriptions": {
       "default": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?"
     },
     "Id": "Object_Throne_Pinkie",
     "FullName": "Pinkie Pie's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Laughter",
       "Pinkie's throne",
@@ -126,13 +120,12 @@
     }
   },
   {
-    "Description": "Fluttershy's throne. She sits on it like she's afraid it'll break.",
     "Descriptions": {
       "default": "Fluttershy's throne. She sits on it like she's afraid it'll break."
     },
     "Id": "Object_Throne_Fluttershy",
     "FullName": "Fluttershy's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Kindness",
       "Fluttershy's throne",
@@ -147,13 +140,12 @@
     }
   },
   {
-    "Description": "Rainbow Dash's throne. It's just another napping spot to her.",
     "Descriptions": {
       "default": "Rainbow Dash's throne. It's just another napping spot to her."
     },
     "Id": "Object_Throne_Rainbow",
     "FullName": "Rainbow Dash's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Loyalty",
       "Rainbow Dash's throne",
@@ -169,13 +161,12 @@
     }
   },
   {
-    "Description": "Spike's throne. A diminuitive seat for a diminuitive guy.",
     "Descriptions": {
       "default": "Spike's throne. A diminuitive seat for a diminuitive guy."
     },
     "Id": "Object_Throne_Spike",
     "FullName": "Spike's throne",
-    "Location": "Cutie Map room",
+    "Location": "Location_Castle_Maproom",
     "Alias": [
       "tiny throne",
       "throne"
@@ -194,7 +185,7 @@
     },
     "Id": "Object_Acres_Tree",
     "FullName": "apple tree",
-    "Location": "Sweet Apple Acres",
+    "Location": "Location_Acres_Exterior",
     "Alias": [
       "tree",
       "apple tree"
@@ -210,13 +201,12 @@
     }
   },
   {
-    "Description": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours.",
     "Descriptions": {
       "default": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours."
     },
     "Id": "Object_Boutique_Sewingmachine",
     "FullName": "sewing machine",
-    "Location": "Carousel Boutique interior",
+    "Location": "Location_Carousel_Interior",
     "Alias": [
       "Rarity's sewing machine"
     ],
@@ -229,13 +219,12 @@
     }
   },
   {
-    "Description": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you.",
     "Descriptions": {
       "default": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you."
     },
     "Id": "Object_Sugarcube_Oven",
     "FullName": "baking oven",
-    "Location": "Sugarcube Corner kitchen",
+    "Location": "Location_Sugarcube_Kitchen",
     "Alias": [
       "oven"
     ],
@@ -255,7 +244,7 @@
     },
     "Id": "Magic_Mirror",
     "FullName": "magic mirror",
-    "Location": "Castle library",
+    "Location": "Location_Castle_Library",
     "DefaultUse": "enter",
     "Owner": "Twilight Sparkle",
     "Alias": [
@@ -282,7 +271,7 @@
     },
     "Id": "Human_Statue_Base",
     "FullName": "broken statue base",
-    "Location": "Canterlot High campus",
+    "Location": "Canterlot_High_Campus",
     "DefaultUse": "enter",
     "Alias": [
       "statue base",

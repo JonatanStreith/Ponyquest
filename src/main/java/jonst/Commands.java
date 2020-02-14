@@ -660,7 +660,7 @@ public class Commands {
         String destinationName = world.matchName(command[3]);
 
         GenericObject target = world.getLocalGenericObject(targetName);
-        Location destination = world.getLocation(destinationName);
+        Location destination = world.getLocationByName(destinationName);
 
         if (target != null && destination != null) {
 
@@ -699,7 +699,7 @@ public class Commands {
     public static void teleportSelf(String[] command, World world) { //Make sure you can teleport items and objects - different code?
 
 
-        String destinationFullName = world.matchName(command[1]);
+        String destinationFullName = world.matchId(command[1]);
 
         Location destination = world.getLocation(destinationFullName);
 
@@ -709,7 +709,7 @@ public class Commands {
             world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), destination);
 
 
-            System.out.println("You vanish in a burst of smoke, and reappear at " + destinationFullName + ".");
+            System.out.println("You vanish in a burst of smoke, and reappear at " + destination.getName() + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);

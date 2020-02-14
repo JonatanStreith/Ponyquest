@@ -227,7 +227,7 @@ public class World {
         for (Item item : itemList) {
             for (GenericObject gen : genericList) {
 
-                if (item.getLocationId().equalsIgnoreCase(gen.getName())) {
+                if (item.getLocationId().equalsIgnoreCase(gen.getId())) {
 
                     gen.addItem(item);
                     item.setHolder(gen);
@@ -383,6 +383,16 @@ public class World {
         return localGenericsList;
     }*/
 
+    public Location getLocationByName(String wantedLocation) {
+
+        for (Location location : locationList) {
+
+            //Instead of using equals, could use contains?
+            if (location.getName().equalsIgnoreCase(wantedLocation))
+                return location;
+        }
+        return null;
+    }
 
     public Location getLocation(String wantedLocation) {
 
@@ -519,6 +529,37 @@ public class World {
         return results;
     }
 
+    public String matchId(String name) {
+
+        List<String> results = new ArrayList<>();
+
+        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+
+            if (generic.getName().equalsIgnoreCase(name)) {
+                results.add(generic.getName());     //If the name we're looking for is its full name
+            } else {
+                for (String alias : generic.getAlias()) {
+                    if (alias.equalsIgnoreCase(name)) {
+                        results.add(generic.getName());
+                    }
+                }
+            }
+        }
+
+        if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
+            return "";
+        } else if (results.size() == 0) {
+            System.out.println("'" + name + "' doesn't exist.");
+            return "";
+        } else {
+
+
+
+            return getLocationByName(results.get(0)).getId();
+        }
+
+    }
     public String matchName(String name) {
 
         List<String> results = new ArrayList<>();
