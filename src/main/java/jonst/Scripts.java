@@ -111,6 +111,7 @@ public class Scripts {
     public static void deleteCarriedItem(GenericObject subject, String[] scriptCommandArray, World world) {
 
         Creature actor;
+        Item itemToBeDeleted;
 
         if(scriptCommandArray[1].equalsIgnoreCase("player")){
             actor = world.getPlayer();
@@ -118,9 +119,14 @@ public class Scripts {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        String itemToBeDeletedName = scriptCommandArray[2];
+        if(scriptCommandArray[2].equalsIgnoreCase("this")){
+            itemToBeDeleted = (Item) subject;
+        } else {
+            itemToBeDeleted = actor.getOwnedItemByName(scriptCommandArray[2]);
+        }
 
-        Item itemToBeDeleted = actor.getOwnedItemByName(itemToBeDeletedName);
+
+
 
         actor.removeItem(itemToBeDeleted);
         world.removeItemFromItemList(itemToBeDeleted);
@@ -145,4 +151,41 @@ public class Scripts {
 
     }
 
+    public static void spawnCreature(GenericObject subject, String[] scriptCommandArray, World world) {
+        Location location;
+        if(scriptCommandArray[1].equalsIgnoreCase("playerlocation")){
+           location = world.getPlayerLocation();
+        } else {
+            location = world.getLocationByID(scriptCommandArray[1]);
+        }
+
+
+        Creature newCreature = JsonBuilder.generateTemplateCreature(scriptCommandArray[2]);
+
+
+
+
+        world.addCreatureToLocation(newCreature, location);
+        world.addNewToList(newCreature);
+    }
+
+    public static void spawnObject(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        Location location;
+        if(scriptCommandArray[1].equalsIgnoreCase("playerlocation")){
+            location = world.getPlayerLocation();
+        } else {
+            location = world.getLocationByID(scriptCommandArray[1]);
+        }
+
+
+        StationaryObject newObject = JsonBuilder.generateTemplateObject(scriptCommandArray[2]);
+
+
+
+
+        world.addObjectToLocation(newObject, location);
+        world.addNewToList(newObject);
+
+    }
 }

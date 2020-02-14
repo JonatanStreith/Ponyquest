@@ -1,0 +1,25 @@
+{
+  "Object_Tree": {
+    "Descriptions": {
+      "default": "An apple tree, full of ripe fruit."
+    },
+    "Id": "Object_Tree",
+    "FullName": "apple tree",
+    "Alias": [
+      "tree",
+      "apple tree"
+    ],
+    "Attributes": [
+      "huggable",
+      "harvestable"
+    ],
+    "ResponseScripts": {
+      "harvest": [
+        "writeline:You pick a juicy red apple from the tree.",
+        "addnewitem:player:red apple"
+      ]
+    },
+    "ComplexUse": {
+    }
+  }
+}

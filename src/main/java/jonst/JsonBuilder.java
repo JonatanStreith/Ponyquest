@@ -520,14 +520,6 @@ public class JsonBuilder {
                         }
 
 
-//                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-//                if (jsRS != null)
-//                    for (Object xObj : jsRS.keySet()) {
-//                        String key = (String) xObj;
-//                        responseScripts.put(key.toLowerCase(), (String) jsRS.get(key));
-//                    }
-
-
                     JSONArray jsAlias = (JSONArray) jObj.get("Alias");
                     if (jsAlias != null)
                         for (Object xObj : jsAlias) {
@@ -979,162 +971,6 @@ public class JsonBuilder {
         return exitList;
     }
 
-
-    //--------------------------------------------
-
-    public static List<String> getTemplateItemNames() {
-
-        List<String> templateItemNames = new ArrayList<>();
-
-        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
-
-
-            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
-
-
-            String tryName = "";
-            try {
-                for (Object key : ((JSONObject) allItemsJSON).keySet()) {
-
-                    tryName = (String) key;
-                    JSONObject jsObj = (JSONObject) allItemsJSON.get(key);
-
-                    String name = (String) jsObj.get("FullName");
-                    JSONArray jsAliases = (JSONArray) jsObj.get("Alias");
-
-                    templateItemNames.add(name);
-                    templateItemNames.addAll(jsAliases);
-                }
-            } catch (Exception e) {
-                System.out.println("There was an error reading TemplateItem: " + tryName);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("TemplateItems file not found.");
-        } catch (IOException e) {
-            System.out.println("There was an error reading the TemplateItems file.");
-        } catch (ParseException e) {
-            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
-        }
-
-        return templateItemNames;
-    }
-
-
-
-
-    public static Item generateTemplateItem(String itemName) {
-
-        Item item = null;
-
-        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
-
-            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
-
-            String testId = null;
-
-            for (Object tmpObj : allItemsJSON.values()) {       //Check each object
-
-                if (((String) ((JSONObject) tmpObj).get("FullName")).equalsIgnoreCase(itemName)){
-                    testId = (String) ((JSONObject) tmpObj).get("Id");
-                    break;
-                } else {
-                    JSONArray aliases = (JSONArray) ((JSONObject) tmpObj).get("Alias");
-
-                    for (Object alias: aliases) {
-                        if(((String) alias).equalsIgnoreCase(itemName)){
-                            testId = (String) ((JSONObject) tmpObj).get("Id");
-                            break;
-                        }
-                    }
-                }
-            }
-
-            JSONObject jsonItem = (JSONObject) allItemsJSON.get(testId);  //Retrieve the jsonObject corresponding to that name.
-
-            if (jsonItem != null) {
-                String fullName = (String) jsonItem.get("FullName");
-                String id = (String) jsonItem.get("Id");
-                String locationName = "blank";
-
-                JSONArray jsAlias = (JSONArray) jsonItem.get("Alias");
-                JSONArray jsAttributes = (JSONArray) jsonItem.get("Attributes");
-
-                List<String> alias = new ArrayList<>();
-                for (Object ali : jsAlias) {
-                    alias.add((String) ali);
-                }
-
-                List<String> attributes = new ArrayList<>();
-                for (Object attr : jsAttributes) {
-                    attributes.add((String) attr);
-                }
-
-                String text = (String) jsonItem.get("Text");
-                String defaultUse = (String) jsonItem.get("DefaultUse");
-
-                JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
-                JSONObject jsDescriptions = (JSONObject) jsonItem.get("Descriptions");
-
-                JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
-                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-
-                if (jsResponseScripts != null) {
-                    for (Object keyObj : jsResponseScripts.keySet()) {
-                        String key = (String) keyObj;
-                        JSONArray Scripts = (JSONArray) jsResponseScripts.get(key);
-                        if (Scripts != null) {
-                            List<String> tempArray = new ArrayList<>();
-                            for (Object xObj2 : Scripts) {
-                                tempArray.add((String) xObj2);
-                            }
-
-                            responseScripts.put(key.toLowerCase(), (ArrayList<String>) Scripts);
-                        }
-                    }
-                }
-
-
-                Map<String, String> complexUse = new HashMap<>();
-                for (Object keyObj : jsComplexUse.keySet()) {
-                    String key = (String) keyObj;
-                    complexUse.put(key.toLowerCase(), (String) jsComplexUse.get(key));
-                }
-
-                Map<String, String> descriptions = new HashMap<>();
-                for (Object keyObj : jsDescriptions.keySet()) {
-                    String key = (String) keyObj;
-                    descriptions.put(key.toLowerCase(), (String) jsDescriptions.get(key));
-                }
-
-
-                //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
-
-                item = new Item(fullName, id, locationName, alias, attributes);
-                item.setText(text);
-                item.setDefaultUse(defaultUse);
-                item.setResponseScripts(responseScripts);
-                item.setComplexUse(complexUse);
-                item.setDescriptions(descriptions);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("TemplateItems file not found.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("There was an error reading the TemplateItems file.");
-            e.printStackTrace();
-        } catch (ParseException e) {
-            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
-            e.printStackTrace();
-        }
-
-
-        return item;
-    }
-
-
-
     //-------------------------------------------------
 
     public static List<Dialog> generateDialogList() {
@@ -1213,5 +1049,386 @@ public class JsonBuilder {
         return dialogList;
     }
 
+    //--------------------------------------------
+
+    public static List<String> getTemplateItemNames() {
+
+        List<String> templateItemNames = new ArrayList<>();
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
+
+
+            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+
+
+            String tryName = "";
+            try {
+                for (Object key : ((JSONObject) allItemsJSON).keySet()) {
+
+                    tryName = (String) key;
+                    JSONObject jsObj = (JSONObject) allItemsJSON.get(key);
+
+                    String name = (String) jsObj.get("FullName");
+                    JSONArray jsAliases = (JSONArray) jsObj.get("Alias");
+
+                    templateItemNames.add(name);
+                    templateItemNames.addAll(jsAliases);
+                }
+            } catch (Exception e) {
+                System.out.println("There was an error reading TemplateItem: " + tryName);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("TemplateItems file not found.");
+        } catch (IOException e) {
+            System.out.println("There was an error reading the TemplateItems file.");
+        } catch (ParseException e) {
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+        }
+
+        return templateItemNames;
+    }
+
+    public static Item generateTemplateItem(String itemName) {
+
+        Item item = null;
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
+
+            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+
+            String testId = null;
+
+            for (Object tmpObj : allItemsJSON.values()) {       //Check each object
+
+                if (((String) ((JSONObject) tmpObj).get("FullName")).equalsIgnoreCase(itemName)) {
+                    testId = (String) ((JSONObject) tmpObj).get("Id");
+                    break;
+                } else {
+                    JSONArray aliases = (JSONArray) ((JSONObject) tmpObj).get("Alias");
+
+                    for (Object alias : aliases) {
+                        if (((String) alias).equalsIgnoreCase(itemName)) {
+                            testId = (String) ((JSONObject) tmpObj).get("Id");
+                            break;
+                        }
+                    }
+                }
+            }
+
+            JSONObject jsonItem = (JSONObject) allItemsJSON.get(testId);  //Retrieve the jsonObject corresponding to that name.
+
+            if (jsonItem != null) {
+                String fullName = (String) jsonItem.get("FullName");
+                String id = (String) jsonItem.get("Id");
+                String locationId = "blank";
+
+                JSONArray jsAlias = (JSONArray) jsonItem.get("Alias");
+                JSONArray jsAttributes = (JSONArray) jsonItem.get("Attributes");
+
+                List<String> alias = new ArrayList<>();
+                for (Object ali : jsAlias) {
+                    alias.add((String) ali);
+                }
+
+                List<String> attributes = new ArrayList<>();
+                for (Object attr : jsAttributes) {
+                    attributes.add((String) attr);
+                }
+
+                String text = (String) jsonItem.get("Text");
+                String defaultUse = (String) jsonItem.get("DefaultUse");
+
+                JSONObject jsComplexUse = (JSONObject) jsonItem.get("ComplexUse");
+                JSONObject jsDescriptions = (JSONObject) jsonItem.get("Descriptions");
+
+                JSONObject jsResponseScripts = (JSONObject) jsonItem.get("ResponseScripts");
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
+
+                if (jsResponseScripts != null) {
+                    for (Object keyObj : jsResponseScripts.keySet()) {
+                        String key = (String) keyObj;
+                        JSONArray Scripts = (JSONArray) jsResponseScripts.get(key);
+                        if (Scripts != null) {
+                            List<String> tempArray = new ArrayList<>();
+                            for (Object xObj2 : Scripts) {
+                                tempArray.add((String) xObj2);
+                            }
+
+                            responseScripts.put(key.toLowerCase(), (ArrayList<String>) Scripts);
+                        }
+                    }
+                }
+
+
+                Map<String, String> complexUse = new HashMap<>();
+                for (Object keyObj : jsComplexUse.keySet()) {
+                    String key = (String) keyObj;
+                    complexUse.put(key.toLowerCase(), (String) jsComplexUse.get(key));
+                }
+
+                Map<String, String> descriptions = new HashMap<>();
+                for (Object keyObj : jsDescriptions.keySet()) {
+                    String key = (String) keyObj;
+                    descriptions.put(key.toLowerCase(), (String) jsDescriptions.get(key));
+                }
+
+
+                //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
+
+                item = new Item(fullName, id, locationId, alias, attributes);
+                item.setText(text);
+                item.setDefaultUse(defaultUse);
+                item.setResponseScripts(responseScripts);
+                item.setComplexUse(complexUse);
+                item.setDescriptions(descriptions);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("TemplateItems file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the TemplateItems file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+
+        return item;
+    }
+
+    public static Creature generateTemplateCreature(String creatureId) {
+
+        Creature creature = null;
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateCreatures.json")) {
+
+            JSONObject allCreaturesJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+
+
+            JSONObject jsonCreature = (JSONObject) allCreaturesJSON.get(creatureId);  //Retrieve the jsonObject corresponding to that Id.
+
+            if (jsonCreature != null) {
+                String fullName = (String) jsonCreature.get("FullName");
+                String id = (String) jsonCreature.get("Id");
+                String locationId = "blank";
+                String race = (String) jsonCreature.get("Race");
+                String gender = (String) jsonCreature.get("Gender");
+                String text = (String) jsonCreature.get("Text");
+
+                String defaultRace = (String) jsonCreature.get("DefaultRace");
+                String defaultUse = (String) jsonCreature.get("DefaultUse");
+
+                String initialDialog = (String) jsonCreature.get("InitialDialog");
+
+
+                JSONArray jsAlias = (JSONArray) jsonCreature.get("Alias");
+                List<String> alias = new ArrayList<>();
+                for (Object ali : jsAlias) {
+                    alias.add((String) ali);
+                }
+
+                JSONArray jsAttributes = (JSONArray) jsonCreature.get("Attributes");
+                List<String> attributes = new ArrayList<>();
+                for (Object attr : jsAttributes) {
+                    attributes.add((String) attr);
+                }
+
+                JSONObject jsd = (JSONObject) jsonCreature.get("Descriptions");
+                Map<String, String> descriptions = new HashMap<>();
+                if (jsd != null)
+                    for (Object xObj : jsd.keySet()) {
+                        String key = (String) xObj;
+                        descriptions.put(key.toLowerCase(), (String) jsd.get(key));
+                    }
+
+                JSONObject jsAT = (JSONObject) jsonCreature.get("AskTopics");
+                Map<String, String> askTopics = new HashMap<>();
+                if (jsAT != null)
+                    for (Object xObj : jsAT.keySet()) {
+                        String key = (String) xObj;
+                        askTopics.put(key.toLowerCase(), (String) jsAT.get(key));
+                    }
+
+                JSONObject jsCU = (JSONObject) jsonCreature.get("ComplexUse");
+                Map<String, String> complexUse = new HashMap<>();
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+
+                JSONObject jsRS = (JSONObject) jsonCreature.get("ResponseScripts");
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
+                if (jsRS != null) {
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+
+                        ArrayList<String> scripts = new ArrayList<>();
+                        scripts.addAll(jsScripts);
+                        responseScripts.put(key.toLowerCase(), scripts);
+                    }
+                }
+
+                JSONArray jsCD = (JSONArray) jsonCreature.get("CasualDialog");
+                List<String> casualDialog = new ArrayList<>();
+                if (jsCD != null)
+                    for (Object xObj : jsCD) {
+                        casualDialog.add((String) xObj);
+                    }
+
+
+                JSONObject jsBehaviorCore = (JSONObject) jsonCreature.get("BehaviorCore");
+                BehaviorCore bc;
+                if (jsBehaviorCore != null) {
+                    String mood = (String) jsBehaviorCore.get("mood");
+                    String activity = (String) jsBehaviorCore.get("activity");
+                    String allegiance = (String) jsBehaviorCore.get("allegiance");
+                    String status = (String) jsBehaviorCore.get("status");
+
+                    Map<String, String> personalQuotes = new HashMap<>();
+                    JSONObject jsPersonalQuotes = (JSONObject) jsBehaviorCore.get("PersonalQuotes");
+                    if (jsPersonalQuotes != null) {
+                        for (Object xObj : jsPersonalQuotes.keySet()) {
+                            String key = (String) xObj;
+                            personalQuotes.put(key.toLowerCase(), (String) jsPersonalQuotes.get(key));
+                        }
+                    }
+
+
+                    bc = new BehaviorCore(mood, activity, allegiance, status);
+                    bc.setPersonalQuotes(personalQuotes);
+                } else {
+                    bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
+                }
+
+
+                creature = new Creature(fullName, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics);
+                creature.setDescriptions(descriptions);
+                creature.setText(text);
+                creature.setDefaultUse(defaultUse);
+
+                creature.setComplexUse(complexUse);
+                creature.setResponseScripts(responseScripts);
+
+                creature.setBehaviorCore(bc);
+
+                creature.setInitialDialog(initialDialog);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("TemplateItems file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the TemplateItems file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+
+        return creature;
+    }
+
+    public static StationaryObject generateTemplateObject(String objectId) {
+
+        StationaryObject object = null;
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateObjects.json")) {
+
+            JSONObject allObjectsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+
+
+            JSONObject jsonObject = (JSONObject) allObjectsJSON.get(objectId);  //Retrieve the jsonObject corresponding to that Id.
+
+            if (jsonObject != null) {
+                String fullName = (String) jsonObject.get("FullName");
+                String id = (String) jsonObject.get("Id");
+                String locationId = "blank";
+
+                String text = (String) jsonObject.get("Text");
+
+                String defaultUse = (String) jsonObject.get("DefaultUse");
+
+                String ownerName = (String) jsonObject.get("Owner");
+
+
+                JSONArray jsAlias = (JSONArray) jsonObject.get("Alias");
+                List<String> alias = new ArrayList<>();
+                for (Object ali : jsAlias) {
+                    alias.add((String) ali);
+                }
+
+                JSONArray jsAttributes = (JSONArray) jsonObject.get("Attributes");
+                List<String> attributes = new ArrayList<>();
+                for (Object attr : jsAttributes) {
+                    attributes.add((String) attr);
+                }
+
+                JSONObject jsd = (JSONObject) jsonObject.get("Descriptions");
+                Map<String, String> descriptions = new HashMap<>();
+                if (jsd != null)
+                    for (Object xObj : jsd.keySet()) {
+                        String key = (String) xObj;
+                        descriptions.put(key.toLowerCase(), (String) jsd.get(key));
+                    }
+
+
+                JSONObject jsCU = (JSONObject) jsonObject.get("ComplexUse");
+                Map<String, String> complexUse = new HashMap<>();
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+
+                JSONObject jsRS = (JSONObject) jsonObject.get("ResponseScripts");
+                Map<String, ArrayList<String>> responseScripts = new HashMap<>();
+                if (jsRS != null) {
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+
+                        ArrayList<String> scripts = new ArrayList<>();
+                        scripts.addAll(jsScripts);
+                        responseScripts.put(key.toLowerCase(), scripts);
+                    }
+                }
+
+
+
+
+
+
+                object = new StationaryObject(fullName, id, locationId, alias, attributes);
+                object.setDescriptions(descriptions);
+                object.setText(text);
+                object.setDefaultUse(defaultUse);
+
+                object.setComplexUse(complexUse);
+                object.setResponseScripts(responseScripts);
+                object.setOwnerName(ownerName);
+
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("TemplateItems file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the TemplateItems file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+
+        return object;
+    }
 
 }
+

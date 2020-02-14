@@ -563,12 +563,12 @@ public class Parser {
                 break;
 
             case "addnewitem":
-                //addnewitem:owner:item
+                //addnewitem:owner:itemId
                 Scripts.addNewItem(subject, scriptCommandArray, world);
                 break;
 
             case "deletecarrieditem":
-                //deletecarrieditem:owner:item
+                //deletecarrieditem:owner:itemId
                 Scripts.deleteCarriedItem(subject, scriptCommandArray, world);
                 break;
 
@@ -579,6 +579,16 @@ public class Parser {
             case "showdescription":
                 //showdescription:descriptionkey
                 Scripts.showDescription(subject, scriptCommandArray, world);
+                break;
+
+            case "spawncreature":
+                //spawncreature:location:Id
+                Scripts.spawnCreature(subject, scriptCommandArray, world);
+                break;
+
+            case "spawnobject":
+                //spawnobject:location:Id
+                Scripts.spawnObject(subject, scriptCommandArray, world);
                 break;
         }
     }

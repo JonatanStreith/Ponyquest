@@ -1,0 +1,38 @@
+{
+  "Monster_Timberwolf": {
+    "Descriptions": {
+      "default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
+      "onfire": "It's furiously trying to put out the fire in its foliage."
+    },
+    "Id": "Monster_Timberwolf",
+    "FullName": "timberwolf",
+    "Race": "monster",
+    "DefaultRace": "monster",
+    "Gender": "undefined",
+    "DefaultUse": "look at",
+    "AskTopics": {
+      "default": "It growls angrily."
+    },
+    "Alias": [
+      "monster",
+      "wolf"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "angry",
+      "activity": "idle",
+      "allegiance": "hostile",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+      "fireball": [
+        "fleerandom",
+        "setmood:scared"
+      ]
+    },
+    "ComplexUse": {
+    }
+  }
+}

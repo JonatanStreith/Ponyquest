@@ -419,5 +419,27 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Descriptions": {
+      "default": "A small apple seed imbued with concentrated earth magic. Can be used to create a whole tree!",
+      "active": ""
+    },
+    "Id": "Magic_Seed",
+    "FullName": "magic seed",
+    "Location": "Creature_Trixie",
+    "DefaultUse": "activate",
+    "Alias": [
+      "seed"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+      "activate": ["spawncreature:playerlocation:Monster_Timberwolf",
+      "writeline:You plant the seed in the ground. A plant sprouts, and turns into an angry timberwolf!",
+      "deletecarrieditem:player:this"]
+    },
+    "ComplexUse": {
+    }
   }
 ]
