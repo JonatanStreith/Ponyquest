@@ -990,17 +990,19 @@ public class JsonBuilder {
 
 
             JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
-            templateItemNames.addAll(allItemsJSON.keySet());
+
 
             String tryName = "";
             try {
                 for (Object key : ((JSONObject) allItemsJSON).keySet()) {
 
                     tryName = (String) key;
-
                     JSONObject jsObj = (JSONObject) allItemsJSON.get(key);
+
+                    String name = (String) jsObj.get("FullName");
                     JSONArray jsAliases = (JSONArray) jsObj.get("Alias");
 
+                    templateItemNames.add(name);
                     templateItemNames.addAll(jsAliases);
                 }
             } catch (Exception e) {
@@ -1019,7 +1021,7 @@ public class JsonBuilder {
     }
 
 
-    public static Item generateTemplateItem(String itemName) {
+    public static Item buildTemplateItem(String itemName) {
 
         Item item = null;
 
@@ -1035,7 +1037,7 @@ public class JsonBuilder {
                 //Only build the item if it exists. It should, since we can't get here if it doesn't, but just in case.
                 //So if we get a null back, we can't build anything.
                 if (jsonItem != null) {
-                    String fullName = itemName;
+                    String fullName = (String) jsonItem.get("FullName");
                     String id = (String) jsonItem.get("Id");
                     //String description = (String) jsonItem.get("Description");
                     String locationName = "blank";
@@ -1120,6 +1122,55 @@ public class JsonBuilder {
         return item;
     }
 
+
+
+
+
+
+
+
+    public static Item generateTemplateItem(String itemName) {
+
+        Item item = null;
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
+
+            JSONObject allItemsJSON = (JSONObject) new JSONParser().parse(reader);  //Get all data as a jsonObject
+
+            for (Object tmpObj : allItemsJSON.values()) {       //Check each object
+                String testName = (String) ((JSONObject) tmpObj).get("FullName");
+                String testId = (String) ((JSONObject) tmpObj).get("Id");
+                if (testName.equalsIgnoreCase(itemName)){
+
+                    return buildTemplateItem(testId);
+                } else {
+                    JSONArray aliases = (JSONArray) ((JSONObject) tmpObj).get("Alias");
+
+                    for (Object alias: aliases) {
+                        if(((String) alias).equalsIgnoreCase(itemName)){
+                            return buildTemplateItem(testId);
+                        }
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("TemplateItems file not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the TemplateItems file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("TemplateItems file corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+
+        return item;
+    }
+
+
+
+    //-------------------------------------------------
 
     public static List<Dialog> generateDialogList() {
 

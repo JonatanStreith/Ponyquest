@@ -258,7 +258,7 @@
       "energize": [
         "addattribute:active", "removeattribute:inactive", "addattribute:canenter", "showdescription:active"
       ],
-      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:human", "send:player:Canterlot High campus", "addnewitem:player:human clothes"]
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:human", "send:player:Canterlot_High_Campus", "addnewitem:player:human clothes"]
     },
     "ComplexUse": {
     }
@@ -285,7 +285,7 @@
       "energize": [
         "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
       ],
-      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "resetrace:player", "send:player:Castle library", "deletecarrieditem:player:human clothes"]
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "resetrace:player", "send:player:Location_Castle_Library", "deletecarrieditem:player:human clothes"]
     },
     "ComplexUse": {
     }
