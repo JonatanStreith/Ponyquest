@@ -63,10 +63,10 @@ public class Scripts {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        Location destination = world.getLocationByName(scriptCommandArray[2]);
+        Location destination = world.getLocationByID(scriptCommandArray[2]);
 
         if(actor!=null && destination!=null){
-            world.transferCreatureToLocation(actor, actor.getLocation(), destination);
+            world.moveToLocation(actor, actor.getLocation(), destination);
 
             Commands.lookAround(world);
         }
@@ -103,7 +103,7 @@ public class Scripts {
 
         Item newItem = JsonBuilder.generateTemplateItem(newItemName);
 
-        world.addItemToGeneric(newItem, actor);
+        world.addItemToHolder(newItem, actor);
         world.addNewToList(newItem);
 
     }
@@ -165,7 +165,7 @@ public class Scripts {
 
 
 
-        world.addCreatureToLocation(newCreature, location);
+        world.addToLocation(newCreature, location);
         world.addNewToList(newCreature);
     }
 
@@ -184,7 +184,7 @@ public class Scripts {
 
 
 
-        world.addObjectToLocation(newObject, location);
+        world.addToLocation(newObject, location);
         world.addNewToList(newObject);
 
     }

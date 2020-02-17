@@ -46,13 +46,6 @@ public class World {
 
         setMainCharacter(getCreature(SystemData.getProtagonist()));             //Establish protagonist
 
-/*
-        System.out.println("Number of errored items in junkyard: " + getLocation("Junkyard").getItemList().size());
-        System.out.println("Number of errored creatures in junkyard: " + getLocation("Junkyard").getCreaturesAtLocation().size());
-        System.out.println("Number of errored objects in junkyard: " + getLocation("Junkyard").getObjectsAtLocation().size());
-*/
-
-
     }
 
 
@@ -72,47 +65,28 @@ public class World {
 
 //-------- Add/Remove stuff -----------------------------------
 
-    public void transferCreatureToLocation(Creature creature, Location oldLocation, Location newLocation) {
+    public void moveToLocation(GenericObject object, Location oldLocation, Location newLocation) {
 
-        if (creature != null && oldLocation != null && newLocation != null) {
-            removeCreatureFromLocation(creature, oldLocation);
-            addCreatureToLocation(creature, newLocation);
+        if (object != null && oldLocation != null && newLocation != null) {
+            removeFromLocation(object, oldLocation);
+            addToLocation(object, newLocation);
         } else
-            System.out.println("Illegal operation: transferCreatureToLocation, " + creature + " from " + oldLocation + " to " + newLocation + ".");
+            System.out.println("Illegal operation: transferToLocation.");
     }
 
     public void transferItemToNewHolder(Item item, GenericObject oldHolder, GenericObject newHolder) {
 
         if (item != null && oldHolder != null && newHolder != null) {
             removeItemFromGeneric(item, oldHolder);
-            addItemToGeneric(item, newHolder);
+            addItemToHolder(item, newHolder);
         } else
             System.out.println("Illegal operation: transferItemToNewOwner.");
-
     }
 
-    public void transferObjectToLocation(StationaryObject object, Location oldLocation, Location newLocation) {
 
-        if (object != null && oldLocation != null && newLocation != null) {
-            removeObjectFromLocation(object, oldLocation);
-            addObjectToLocation(object, newLocation);
-        } else
-            System.out.println("Illegal operation: transferObjectToLocation.");
-    }
-
-    public void removeCreatureFromLocation(Creature creature, Location location) {
-
-
-        location.remove(creature);
-        creature.setLocation(null);
-    }
-
-    public void addCreatureToLocation(Creature creature, Location location) {
-        //Adds "creature" to "location"
-
-
-        location.add(creature);
-        creature.setLocation(location);
+    public void removeFromLocation(GenericObject object, Location location) {
+        location.remove(object);
+        object.setLocation(null);
     }
 
     public void removeItemFromGeneric(Item it, GenericObject gen) {
@@ -120,32 +94,25 @@ public class World {
         it.setHolder(null);
     }
 
-    public void addItemToGeneric(Item it, GenericObject gen) {
-        //Adds "item" to "location"
-        gen.addItem(it);
-        it.setHolder(gen);
+    public void addToLocation(GenericObject object, Location location) {
 
-        if (gen instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
-            it.setLocation((Location) gen);
+        location.add(object);
+        object.setLocation(location);
+    }
+
+    public void addItemToHolder(Item thing, GenericObject holder) {
+        //Adds "item" to "location"
+        holder.addItem(thing);
+        thing.setHolder(holder);
+
+        if (holder instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
+            thing.setLocation((Location) holder);
         } else {
-            it.setLocation(null);
+            thing.setLocation(null);
         }
     }
 
-    public void removeObjectFromLocation(StationaryObject stationaryObject, Location location) {
-
-        location.remove(stationaryObject);
-        stationaryObject.setLocation(null);
-    }
-
-    public void addObjectToLocation(StationaryObject stationaryObject, Location location) {
-
-        location.add(stationaryObject);
-        stationaryObject.setLocation(location);
-    }
-
     //------------- If new objects are created, they need to be added to the world lists ----------
-
 
     public void addNewToList(GenericObject newGen) {
         if (newGen instanceof Item) {
@@ -158,13 +125,9 @@ public class World {
             stationaryObjectList.add((StationaryObject) newGen);
         }
         genericList.add(newGen);
-
     }
 
-
-
     //------------------ If items are removed permanently, they need to be removed from the world lists
-
 
     public void removeFromList(GenericObject gen){
         if (gen instanceof Item) {
@@ -219,7 +182,6 @@ public class World {
                 }
             }
 
-
             for (Location loc : locationList) {
                 if (location.getDefaultEnterId() != null || location.getDefaultEnterId().equals(loc.getId())) {
                     location.setDefaultEnter(loc);
@@ -229,9 +191,7 @@ public class World {
                 if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
                     break;
                 }
-
             }
-
         }
 
         for (Item item : itemList) {
@@ -247,7 +207,6 @@ public class World {
                     } else {
                         item.setLocation(null);
                     }
-
                 }
             }
         }
@@ -273,8 +232,6 @@ public class World {
                 }
             }
         }
-
-
     }
 
 
@@ -283,9 +240,7 @@ public class World {
     public boolean setMainCharacter(Creature cre) {
 
         playerCharacter = cre;
-
         return !(playerCharacter == null);
-
     }
 
     public Creature getPlayer() {
@@ -293,7 +248,7 @@ public class World {
     }
 
     public Location getPlayerLocation() {
-        return getLocationByName(getPlayer().getLocationId());
+        return getLocationByID(getPlayer().getLocationId());
     }
 
     public List<Item> getPlayerInventory() {
@@ -404,17 +359,6 @@ public class World {
         return null;
     }
 
-/*    public Location getLocation(String wantedLocation) {
-
-        for (Location location : locationList) {
-
-            //Instead of using equals, could use contains?
-            if (location.getId().equalsIgnoreCase(wantedLocation))
-                return location;
-        }
-        return null;
-    }*/
-
     public Location getLocationByID(String id) {
 
         for (Location location : locationList) {
@@ -492,7 +436,6 @@ public class World {
                 return genericObject;
         }
         return null;
-
     }
 
 
@@ -535,7 +478,6 @@ public class World {
                 }
             }
         }
-
         return results;
     }
 
@@ -563,10 +505,7 @@ public class World {
             System.out.println("'" + name + "' doesn't exist.");
             return "";
         } else {
-
-
-
-            return getLocationByName(results.get(0)).getId();
+            return getLocationByID(results.get(0)).getId();
         }
 
     }
@@ -706,7 +645,6 @@ public class World {
     // ------------- Boolean checks ---------------------
 
     public boolean doesObjectExist(String selected) {
-
         return getGenericObject(selected) != null;
     }
 

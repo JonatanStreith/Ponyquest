@@ -543,7 +543,7 @@ public class Commands {
         {
 
 
-            world.transferCreatureToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
+            world.moveToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
 
             System.out.println("You go to " + destination.getName() + ".");
             moveFollowers(currentLoc, destination, world);
@@ -674,7 +674,7 @@ public class Commands {
 
 
             } else if (target instanceof Creature) {
-                world.transferCreatureToLocation((Creature) target, world.getPlayerLocation(), destination);
+                world.moveToLocation((Creature) target, world.getPlayerLocation(), destination);
                 System.out.println(target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
@@ -684,7 +684,7 @@ public class Commands {
                 target.runResponseScript("teleport");
 
             } else if (target instanceof StationaryObject) {
-                world.transferObjectToLocation((StationaryObject) target, world.getPlayerLocation(), destination);
+                world.moveToLocation((StationaryObject) target, world.getPlayerLocation(), destination);
                 System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
@@ -706,7 +706,7 @@ public class Commands {
         if (destination != null) {
 
 
-            world.transferCreatureToLocation(world.getPlayer(), world.getPlayerLocation(), destination);
+            world.moveToLocation(world.getPlayer(), world.getPlayerLocation(), destination);
 
 
             System.out.println("You vanish in a burst of smoke, and reappear at " + destination.getName() + ".");
@@ -1035,7 +1035,7 @@ public class Commands {
         ArrayList<Creature> followers = getFollowers(currentLoc, world);
 
         for (Creature follower : followers) {
-            world.transferCreatureToLocation(follower, currentLoc, destination);
+            world.moveToLocation(follower, currentLoc, destination);
             System.out.println(follower.getName() + " follows you.");
         }
     }

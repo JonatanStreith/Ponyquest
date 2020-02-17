@@ -35,20 +35,18 @@ public abstract class GenericObject {
         setId(id);
 
         setLocationId(locationId);
-        setAlias(alias);
-        setAttributes(attributes);
-
+        setOwnerName(ownerName);
         setText(text);
         setDefaultUse(defaultUse);
+
+        setAlias(alias);
+        setAttributes(attributes);
         setDescriptions(descriptions);
 
         setComplexUse(complexUse);
         setResponseScripts(responseScripts);
 
-        setOwnerName(ownerName);
-
         itemList = new ArrayList<>();
-
     }
 
     public String toString(){
