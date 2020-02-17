@@ -701,7 +701,7 @@ public class Commands {
 
         String destinationFullName = world.matchId(command[1]);
 
-        Location destination = world.getLocation(destinationFullName);
+        Location destination = world.getLocationByName(destinationFullName);
 
         if (destination != null) {
 

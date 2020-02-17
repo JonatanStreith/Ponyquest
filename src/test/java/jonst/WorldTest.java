@@ -187,9 +187,9 @@ public class WorldTest {
     @Test
     public void getLocationTest() {
 
-        Location castle = world.getLocation("Castle of Friendship");
+        Location castle = world.getLocationByName("Castle of Friendship");
 
-        Location fail = world.getLocation("Nonexistent place");
+        Location fail = world.getLocationByName("Nonexistent place");
 
         assertNotNull(castle);
         assertNull(fail);

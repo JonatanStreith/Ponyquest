@@ -16,7 +16,7 @@ public class Scripts {
     public static void deleteThisItem(GenericObject subject, World world) {
         if(subject instanceof Item) {
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
-            world.removeItemFromItemList((Item) subject);
+            world.removeFromList(subject);
         }
     }
 
@@ -24,7 +24,7 @@ public class Scripts {
         if(subject instanceof Item) {
             System.out.println("The " +subject.getName()+ " is destroyed.");
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
-            world.removeItemFromItemList((Item) subject);
+            world.removeFromList(subject);
         }
     }
 
@@ -63,7 +63,7 @@ public class Scripts {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        Location destination = world.getLocation(scriptCommandArray[2]);
+        Location destination = world.getLocationByName(scriptCommandArray[2]);
 
         if(actor!=null && destination!=null){
             world.transferCreatureToLocation(actor, actor.getLocation(), destination);
@@ -129,7 +129,7 @@ public class Scripts {
 
 
         actor.removeItem(itemToBeDeleted);
-        world.removeItemFromItemList(itemToBeDeleted);
+        world.removeFromList(itemToBeDeleted);
 
     }
 

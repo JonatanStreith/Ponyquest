@@ -104,7 +104,7 @@ public class CommandsTest {
 
         Commands.goTo("castle", world);
 
-        assertEquals(world.getLocation("Castle of Friendship"), world.getPlayerLocation());
+        assertEquals(world.getLocationByName("Castle of Friendship"), world.getPlayerLocation());
 
     }
 

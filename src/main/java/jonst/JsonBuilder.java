@@ -125,6 +125,7 @@ public class JsonBuilder {
 
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
             creatureArray.add(new JSONObject() {{
+
                 put("FullName", crea.getName());
                 put("Id", crea.getId());
                 //put("Description", crea.getDescription());
@@ -187,10 +188,9 @@ public class JsonBuilder {
                         put(key, scriptArray);
                     }
                 }});
-
-
             }});
         }
+
 
         try (FileWriter file = new FileWriter(filepath + "/creatures.json")) {
 

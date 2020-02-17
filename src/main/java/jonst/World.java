@@ -116,16 +116,12 @@ public class World {
     }
 
     public void removeItemFromGeneric(Item it, GenericObject gen) {
-
-
         gen.removeItem(it);
         it.setHolder(null);
     }
 
     public void addItemToGeneric(Item it, GenericObject gen) {
         //Adds "item" to "location"
-
-
         gen.addItem(it);
         it.setHolder(gen);
 
@@ -169,7 +165,21 @@ public class World {
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
-    public void removeItemFromItemList(Item item) {
+
+    public void removeFromList(GenericObject gen){
+        if (gen instanceof Item) {
+            itemList.remove((Item) gen);
+        } else if (gen instanceof Creature) {
+            creatureList.remove((Creature) gen);
+        } else if (gen instanceof Location) {
+            locationList.remove((Location) gen);
+        } else if (gen instanceof StationaryObject) {
+            stationaryObjectList.remove((StationaryObject) gen);
+        }
+        genericList.remove(gen);
+    }
+
+/*    public void removeItemFromItemList(Item item) {
         itemList.remove(item);
         genericList.remove(item);
     }
@@ -187,7 +197,7 @@ public class World {
     public void removeStationaryObjectFromStationaryObjectList(StationaryObject stationaryObject) {
         stationaryObjectList.remove(stationaryObject);
         genericList.remove(stationaryObject);
-    }
+    }*/
 
     //-------- List handling -----------------------
 
@@ -283,7 +293,7 @@ public class World {
     }
 
     public Location getPlayerLocation() {
-        return getLocation(getPlayer().getLocationId());
+        return getLocationByName(getPlayer().getLocationId());
     }
 
     public List<Item> getPlayerInventory() {
@@ -394,7 +404,7 @@ public class World {
         return null;
     }
 
-    public Location getLocation(String wantedLocation) {
+/*    public Location getLocation(String wantedLocation) {
 
         for (Location location : locationList) {
 
@@ -403,7 +413,7 @@ public class World {
                 return location;
         }
         return null;
-    }
+    }*/
 
     public Location getLocationByID(String id) {
 

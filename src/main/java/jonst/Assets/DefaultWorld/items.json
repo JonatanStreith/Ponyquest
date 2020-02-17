@@ -98,7 +98,7 @@
     },
     "Id": "Item_Food_Apple",
     "FullName": "red apple",
-    "Location": "Sweet Apple ALocation_Acres_Exteriorcres",
+    "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
     "Alias": [
       "apple",
