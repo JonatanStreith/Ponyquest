@@ -136,7 +136,13 @@ public class HelpfulMethods {
 
         for (int i = 0; i < list.size(); i++) {
             GenericObject obj = (GenericObject) list.get(i);
-            nameList.add(obj.getName());
+            if(obj.hasAttribute("worn")) {
+
+                nameList.add(obj.getName() + " (worn)");
+            } else {
+                nameList.add(obj.getName());
+            }
+
         }
 
         return turnStringListIntoString(nameList, "and");

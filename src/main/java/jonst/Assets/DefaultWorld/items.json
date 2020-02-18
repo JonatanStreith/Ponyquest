@@ -441,5 +441,26 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Descriptions": {
+      "default": "A drab, slate-blue dress. Featureless and boring, it's definitely Maud's... 'style'."
+    },
+    "Id": "Maud_Dress",
+    "FullName": "drab dress",
+    "Location": "Creature_Maud_Pie",
+    "DefaultUse": "wear",
+    "Alias": [
+      "dress",
+      "maud's dress"
+    ],
+    "Owner": "Creature_Maud_Pie",
+    "Attributes": [
+      "wearable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
   }
 ]

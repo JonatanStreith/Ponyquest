@@ -1,6 +1,7 @@
 package jonst.Models.Objects;
 
 import jonst.App;
+import jonst.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -324,4 +325,24 @@ public abstract class GenericObject {
 
         return true;
     }
+
+    public void destroy(){
+
+        World world = App.getWorld();
+
+        GenericObject subject = this;
+
+        if(subject instanceof Item) {
+            world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
+            world.removeFromList(subject);
+        }
+
+        else {
+            world.removeFromLocation(subject, subject.getLocation());
+            world.removeFromList(subject);
+        }
+
+
+    }
+
 }

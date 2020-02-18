@@ -1261,7 +1261,15 @@ public class JsonBuilder {
                     String allegiance = (String) jsBehaviorCore.get("allegiance");
                     String status = (String) jsBehaviorCore.get("status");
 
-                    Map<String, String> personalQuotes = new HashMap<>();
+                    Map<String, String> personalQuotes = new HashMap(){{
+                        put("thanks", "\"Thanks!\"");
+                        put("yes", "\"Yes.\"");
+                        put("no", "\"No.\"");
+                        put("angryprotest", "\"Cut that out!\"");
+                        put("okay", "\"Okay.\"");
+                    }};
+
+
                     JSONObject jsPersonalQuotes = (JSONObject) jsBehaviorCore.get("PersonalQuotes");
                     if (jsPersonalQuotes != null) {
                         for (Object xObj : jsPersonalQuotes.keySet()) {

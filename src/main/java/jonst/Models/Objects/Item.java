@@ -25,9 +25,6 @@ public class Item extends GenericObject {
     }
 
     public String getName() {
-        if(hasAttribute("worn")) {
-            return name + " (worn)";
-        }
         return name;
     }
 

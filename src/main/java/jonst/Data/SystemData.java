@@ -107,6 +107,9 @@ public class SystemData {
             add("close");
             add("activate");
 
+            add("eat");
+
+
             add("follow");
             add("follow me");
             add("stop follow");

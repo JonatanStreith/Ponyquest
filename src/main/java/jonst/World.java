@@ -184,9 +184,9 @@ public class World {
             }
 
             for (Location loc : locationList) {
-                if (location.getDefaultEnterId() != null || location.getDefaultEnterId().equals(loc.getId())) {
+                if (location.getDefaultEnterId() != null && location.getDefaultEnterId().equals(loc.getId())) {
                     location.setDefaultEnter(loc);
-                } else if (location.getDefaultExitId() != null || location.getDefaultExitId().equals(loc.getId())) {
+                } else if (location.getDefaultExitId() != null && location.getDefaultExitId().equals(loc.getId())) {
                     location.setDefaultExit(loc);
                 }
                 if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
@@ -540,9 +540,9 @@ public class World {
 
     }
 
-    public String matchNameFromInventory(String name) {
+    public String matchNameFromInventory(GenericObject holder, String name) {
 
-        List<Item> itemList = getPlayerInventory();
+        List<Item> itemList = holder.getItemList();
 
         List<String> results = new ArrayList<>();
 

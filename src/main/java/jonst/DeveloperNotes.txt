@@ -1,5 +1,9 @@
 package jonst;
 
+import com.sun.xml.internal.bind.util.Which;
+
+import java.util.Set;
+
 public class Notes {
 
 
@@ -70,7 +74,6 @@ public class Notes {
 //    "Discard" command. ASK IF PLAYER WANTS TO DO IT. Yeah, hardcore oldschool.
 //
 
-/*
 On the subject of 'use'. This is where scripts come into play.
 Every object has a hashmap of scripts - a key and a string. When a more complex matter needs to be done, we can call:
 
@@ -81,7 +84,8 @@ Which then retrieves a commandline from its map of scripts and runs it through a
 For instance, if Trixie goes through the mirror to the human world, we might call the script "go to human world"; "transform into human"; etc.
 
 
- */
+
+
 
 //  Set ResponseScript so it stores an arraylist of strings with each key - that way, we can have multiple scripts with each key!
 
@@ -89,7 +93,6 @@ For instance, if Trixie goes through the mirror to the human world, we might cal
 
     //May just want to have one class that handles spells. String list of available spells that dictate which you can actually cast.
 
-//  Rebuild enter() so it only runs to defaultEnter if it's no-args. Otherwise, it has an option to take SObjects and similar. So you can "enter magic mirror".
 
     //Subclasses of StationaryObject: Vehicle, Producer. Vehicles can be used to travel. Producers can be used to produce an endless supply of things. (I.e. apple trees)
 
@@ -97,7 +100,6 @@ For instance, if Trixie goes through the mirror to the human world, we might cal
 
 //  Command activate: Since that seems to vary from thing to thing, just have it connected to a responsescript.
 
-/*
 
 Figure out some way to have overriding descriptions and additive descriptions.
 
@@ -107,7 +109,8 @@ Figure out how to "cast" from items in your inventory. List of legit nouns needs
 
 Set up some kind of "owned" script, so if you try to pick up an item that is owned by someone who is present, they interfere. Could work!
 
-*/
+
+
 
 //Set up nullchecks in jsonbuilder!
 
@@ -121,20 +124,21 @@ Set up some kind of "owned" script, so if you try to pick up an item that is own
     //Fill command: "fill bucket with apples".
 
 
-    //Dialog trees!
 
-    /*
 
-Have one startdialog line when you first speak to someone, then set it to a default one.
 
-"Hello there! We've never met before..."
-"Oh, it's you again!"
+
 
     You could also have certain lines change their initDialog ref, so when you come back they talk differently. Like if you insulted them, they'll be mad.
 
-    */
+
+Bring back "short name". Use for places where we need an abbreviated name. I'm tired of "You drop the Trixie's cape"...
 
 
-    //Figure out a way to prevent wearing multiple identicals (i.e. capes, for instance). Wearing a cape could give you the attribute "wears cape",
-    //but it needs to check what kind of item it is, so... tricky. Should work fairly flexibly, with a try.
+    Figure out a way to prevent wearing multiple identicals (i.e. capes, for instance). Wearing a cape could give you the attribute "wears cape",
+    but it needs to check what kind of item it is, so... tricky. Should work fairly flexibly, with a try.
+
+
+    TODO: Add "type" to GenericObject. Like "cape", "food", "book", etc. Can be used for more strict typing.
+    Like, you can't wear another cape if you're already wearing a cape. May be complicated, but interesting.
 }

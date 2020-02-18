@@ -283,6 +283,10 @@ public class Parser {
                 Commands.remove(commandArray[1], world);
                 break;
 
+            case "eat":
+                Commands.eat(commandArray[1], world);
+                break;
+
         }
     }
 
@@ -351,6 +355,13 @@ public class Parser {
                 Instructs.drop(subject, commandArray[1], world);
                 break;
 
+            case "wear":
+                Instructs.wear(subject, commandArray[1], world);
+                break;
+
+            case "remove":
+                Instructs.remove(subject, commandArray[1], world);
+                break;
 
 //            case "go to":
 //            case "go":
@@ -360,17 +371,17 @@ public class Parser {
 
 //            case "put":
 //            case "place":
-//                Commands.place(commandArray, world);
+//                Instructs.place(commandArray, world);
 //                break;
 //
-//            case "give":
-//                Commands.give(commandArray, world);
-//                break;
+            case "give":
+                Instructs.give(subject, commandArray, world);
+                break;
 //
 //
 //            case "take":
 //            case "retrieve":
-//                Commands.take(commandArray, world);
+//                Instructs.take(commandArray, world);
 //                break;
 
             default:

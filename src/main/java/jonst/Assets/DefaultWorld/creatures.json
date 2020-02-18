@@ -253,7 +253,8 @@
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
         "angryprotest": "\"Cut that out!\"",
-        "excuseme?": "\"Beg yer pardon?\""
+        "excuseme?": "\"Beg yer pardon?\"",
+        "okay": "\"Well, all right then.\""
       }
     },
     "ResponseScripts": {
@@ -503,7 +504,8 @@
         "yes": "\"Yes.\"",
         "no": "\"No.\"",
         "angryprotest": "\"Don't do that.\"",
-        "excuseme?": "\"I don't know what you're talking about.\""
+        "excuseme?": "\"I don't know what you're talking about.\"",
+        "okay": "\"Okay...\""
       }
     },
     "ResponseScripts": {
