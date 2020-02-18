@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Models.Exit;
+import jonst.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +19,24 @@ public class Location extends GenericObject {
     private Location defaultEnter;
     private Location defaultExit;
 
-    private List<Creature> creaturesAtLocation = new ArrayList<Creature>();
-    private List<StationaryObject> objectsAtLocation = new ArrayList<StationaryObject>();
+    private List<Creature> creaturesAtLocation;
+    private List<StationaryObject> objectsAtLocation;
 
 
     public Location(String name, String id, String locationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
         super(name, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
 
 
-
-
-//        this.legitimateExits = legitimateExits;
-
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);
 
         setLocation(this);
+
+        creaturesAtLocation = new ArrayList<Creature>();
+        objectsAtLocation = new ArrayList<StationaryObject>();
     }
 
-
-    public void setDefaultEnterId(String defaultEnterId) {
-        this.defaultEnterId = defaultEnterId;
-    }
-
-    public void setDefaultExitId(String defaultExitId) {
-        this.defaultExitId = defaultExitId;
-    }
+    //--------- Getters ------------
 
     public String getDefaultEnterId() {
         return defaultEnterId;
@@ -60,6 +53,33 @@ public class Location extends GenericObject {
     public List<StationaryObject> getObjectsAtLocation() {
         return objectsAtLocation;
     }
+
+    public Location getDefaultEnter() {
+        return defaultEnter;
+    }
+
+    public Location getDefaultExit() {
+        return defaultExit;
+    }
+    //--------- Setters ------------
+
+    private void setDefaultEnterId(String defaultEnterId) {
+        this.defaultEnterId = defaultEnterId;
+    }
+
+    private void setDefaultExitId(String defaultExitId) {
+        this.defaultExitId = defaultExitId;
+    }
+
+    public void setDefaultEnter(Location defaultEnter) {
+        this.defaultEnter = defaultEnter;
+    }
+
+    public void setDefaultExit(Location defaultExit) {
+        this.defaultExit = defaultExit;
+    }
+
+    //--------- Other ------------
 
     public void add(GenericObject obj) {
         if (!isAtLocation(obj)) {
@@ -79,37 +99,6 @@ public class Location extends GenericObject {
                 objectsAtLocation.remove((StationaryObject) obj);
             }
         }
-    }
-
-
-
-//    public void removeCreature(Creature name) {
-//        if (isAtLocation(name)) {
-//            creaturesAtLocation.remove(name);
-//        }
-//    }
-//
-//    public void removeObject(StationaryObject name) {
-//        if (isAtLocation(name)) {
-//            objectsAtLocation.remove(name);
-//        }
-//    }
-
-
-    public Location getDefaultEnter() {
-        return defaultEnter;
-    }
-
-    public void setDefaultEnter(Location defaultEnter) {
-        this.defaultEnter = defaultEnter;
-    }
-
-    public Location getDefaultExit() {
-        return defaultExit;
-    }
-
-    public void setDefaultExit(Location defaultExit) {
-        this.defaultExit = defaultExit;
     }
 
     public Creature getCreatureByName(String name) {
@@ -137,9 +126,7 @@ public class Location extends GenericObject {
             return getCreaturesAtLocation().contains(object);
         } else
             return false;
-
     }
-
 
     public List<GenericObject> getAllGroundOnly() {
         List<GenericObject> genList = new ArrayList<>();    //Contains all things at the location, including itself
@@ -194,6 +181,18 @@ public class Location extends GenericObject {
         }
         return exitNames;
     }
+
+    public boolean connectsTo(Location otherLocation, World world){
+        List<Exit> exits = world.getExitList();
+
+        for (Exit exit : exits) {
+            if(exit.connectionExists(this, otherLocation)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }

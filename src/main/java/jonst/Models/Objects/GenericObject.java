@@ -49,20 +49,69 @@ public abstract class GenericObject {
         itemList = new ArrayList<>();
     }
 
-    public String toString(){
-        return this.getName();
-    }
+    //--------- Getters ------------
 
     public String getOwnerName() {
         return ownerName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
     public Creature getOwner() {
         return Owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Map<String, String> getDescriptions() {
+        return descriptions;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public List<String> getAlias() {
+        return alias;
+    }
+
+    public List<String> getAttributes() {
+        return attributes;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public String getDefaultUse() {
+        return defaultUse;
+    }
+
+    public Map<String, String> getComplexUse() {
+        return complexUse;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Map<String, ArrayList<String>> getResponseScripts() {
+        return responseScripts;
+    }
+
+
+    //--------- Setters ------------
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public void setOwner(Creature owner) {
@@ -101,16 +150,41 @@ public abstract class GenericObject {
             locationId = "Carried, not at a location";
     }
 
-    public String getName() {
-        return name;
+    public void setDefaultUse(String defaultUse) {
+        this.defaultUse = defaultUse;
     }
 
-    public String getId() {
-        return id;
+    public void setComplexUse(Map<String, String> complexUse) {
+        this.complexUse = complexUse;
     }
 
-    public String getSpecficDescription(String key){
-        return descriptions.get(key);
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setResponseScripts(Map<String, ArrayList<String>> responseScripts) {
+        this.responseScripts = responseScripts;
+    }
+
+    //--------- Other ------------
+
+    public String toString(){
+        return this.getName();
+    }
+
+    public boolean equals(GenericObject other) {
+        if (other.getName().equals(this.getName()) && other.getAlias().equals(this.getAlias()))
+            return true;
+        else
+            return false;
+    }
+
+    public String getGender() {
+
+        if(this instanceof Creature){
+            return ((Creature) this).getGender();
+        }
+        return "neuter";
     }
 
     public String getDescription() {
@@ -129,7 +203,6 @@ public abstract class GenericObject {
             }
         }
 
-
         for (String attr: getAttributes()) {
             if(descriptions.keySet().contains(attr)){
                 fullDescription.append(" " + descriptions.get(attr));
@@ -138,74 +211,8 @@ public abstract class GenericObject {
         return fullDescription.toString();
     }
 
-    public String getGender() {
-
-        if(this instanceof Creature){
-            return ((Creature) this).getGender();
-        }
-        return "neuter";
-    }
-
-    public String getDescription(String key) {
+    public String getSpecficDescription(String key){
         return descriptions.get(key);
-    }
-
-
-    public Map<String, String> getDescriptions() {
-        return descriptions;
-    }
-
-    public String getLocationId() {
-        return locationId;
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public List<String> getAlias() {
-        return alias;
-    }
-
-    public List<String> getAttributes() {
-        return attributes;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public String getDefaultUse() {
-        return defaultUse;
-    }
-
-    public void setDefaultUse(String defaultUse) {
-        this.defaultUse = defaultUse;
-    }
-
-    public Map<String, String> getComplexUse() {
-        return complexUse;
-    }
-
-    public void setComplexUse(Map<String, String> complexUse) {
-        this.complexUse = complexUse;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    //----------------------------------------
-
-    public boolean equals(GenericObject other) {
-        if (other.getName().equals(this.getName()) && other.getAlias().equals(this.getAlias()))
-            return true;
-        else
-            return false;
     }
 
     public boolean hasAttribute(String attr) {
@@ -270,9 +277,6 @@ public abstract class GenericObject {
         return null;
     }
 
-
-
-
     public boolean addAlias(String specificAlias) {
         alias.add(specificAlias);
         App.getWorld().getParser().addToNouns(specificAlias);
@@ -304,25 +308,17 @@ public abstract class GenericObject {
         return false;
     }
 
-    public Map<String, ArrayList<String>> getResponseScripts() {
-        return responseScripts;
-    }
-
-    public void setResponseScripts(Map<String, ArrayList<String>> responseScripts) {
-        this.responseScripts = responseScripts;
-    }
-
     public boolean isOwnerPayingAttention(){
 
         if(getOwner() == null){     //No owner is set
             return false;
-        } else if(getOwner().getLocation() != location){
+        } else if(getOwner().getLocation() != location){        //Owner is not present
             return false;
-        } else if(getOwner().getStatus().equalsIgnoreCase("sleeping")){
+        } else if(getOwner().getStatus().equalsIgnoreCase("sleeping")){     //Owner is asleep
             return false;
-        } else if(getOwner().getAllegiance().equalsIgnoreCase("allied")) {
+        } else if(getOwner().getAllegiance().equalsIgnoreCase("allied")) {  //Owner is on your side
             return false;
-        } else if(getOwner().hasAttribute("charmed")){
+        } else if(getOwner().hasAttribute("charmed")){                                  //Owner has been charmed
             return false;
         }
 

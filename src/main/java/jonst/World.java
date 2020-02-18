@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.*;
 
+import jonst.Models.Dialog;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 import jonst.Models.Parser;

@@ -17,12 +17,9 @@ public class Creature extends GenericObject {
     private List<String> casualDialog;
     private String gender;
 
-    private Map<String, String> askTopics = new HashMap<>();
-
+    private Map<String, String> askTopics;
     private BehaviorCore behavior;
-
     private final String defaultRace;
-
     private String initialDialog;
 
     public Creature(String name, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {

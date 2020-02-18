@@ -50,7 +50,13 @@
   },
   {
     "Descriptions": {
-      "default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly."
+      "default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
+      "alicorn": "She's a purple alicorn with a striped mane and large wings. You think she's a bit taller than she used to be, too. How annoying.",
+      "human": "She is a gangly human with purple skin and oversized boots. Seriously, why is she wearing those things?",
+      "annoyed": "She's glaring at you.",
+      "happy": "She's smiling happily.",
+      "sleeping": "She is sleeping peacefully, occasionally mumbling in her sleep.",
+      "frightened": "She's staring at you warily."
     },
     "Id": "Creature_Twilight_Sparkle",
     "FullName": "Twilight Sparkle",

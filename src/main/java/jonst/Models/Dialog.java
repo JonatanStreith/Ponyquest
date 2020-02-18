@@ -1,4 +1,4 @@
-package jonst.Models.Objects;
+package jonst.Models;
 
 import java.util.ArrayList;
 import java.util.Map;

@@ -1,7 +1,9 @@
 package jonst;
 
+import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Scripts {
@@ -29,16 +31,38 @@ public class Scripts {
     }
 
     public static void fleeToRandomLocation(GenericObject subject, World world){
-//        if(subject instanceof Creature){
-//            Location currentLocation = subject.getLocation();
-//            List<String> viableExits = currentLocation.getExits();
-//
-//            String chosenExit = viableExits.get((int) Math.floor(Math.random() * viableExits.size()));
-//
-//            world.transferCreatureToLocation((Creature) subject, currentLocation, world.getLocation(chosenExit));
-//            System.out.println("The " + subject.getName() + " flees towards " + chosenExit + "!");
-//        }
+
+        if(subject instanceof Creature){
+            Location currentLocation = subject.getLocation();
+            List<Exit> exits = world.getExitList();
+
+            List<Exit> viableExits = new ArrayList<>();
+
+            for (Exit exit: exits) {
+                if(exit.containsLocation(currentLocation)){
+                    viableExits.add(exit);
+                }
+            }
+
+            Exit chosenExit = viableExits.get((int) Math.floor(Math.random() * viableExits.size()));
+
+            Location destinationLocation = chosenExit.getConnectingLocation(currentLocation);
+
+            world.moveToLocation(subject, currentLocation, destinationLocation);
+            System.out.println("The " + subject + " flees towards " + destinationLocation + "!");
+        }
     }
+
+    public static void fleeTo(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        Location destinationLocation = world.getLocationByID(scriptCommandArray[1]);
+        Location currentLocation = subject.getLocation();
+
+            world.moveToLocation(subject, currentLocation, destinationLocation);
+
+
+    }
+
 
     public static void addAttribute(GenericObject subject, String[] scriptCommandArray, World world) {
         subject.addAttribute(scriptCommandArray[1]);
@@ -181,9 +205,6 @@ public class Scripts {
 
         StationaryObject newObject = JsonBuilder.generateTemplateObject(scriptCommandArray[2]);
 
-
-
-
         world.addToLocation(newObject, location);
         world.addNewToList(newObject);
 
@@ -194,5 +215,6 @@ public class Scripts {
             ((Creature) subject).setInitialDialog(scriptCommandArray[1]);
         }
     }
+
 
 }

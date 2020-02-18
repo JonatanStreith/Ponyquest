@@ -1,7 +1,7 @@
 package jonst;
 
 import jonst.Data.SystemData;
-import jonst.Models.Exit;
+import jonst.Models.Dialog;
 import jonst.Models.Objects.*;
 import org.junit.Test;
 

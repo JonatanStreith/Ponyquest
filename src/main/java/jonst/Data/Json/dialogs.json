@@ -1,6 +1,6 @@
 {
   "Twi_Init_0": {
-    "Line": "\"Hello, Trixie. I didn't know you were in town. What brings you here today?\"",
+    "Line": "Twilight looks at you with a friendly - if wary - mien. \"Hello, Trixie. I didn't know you were in town. What brings you here today?\"",
     "Scripts": [
       "changeinitdialog:Twi_Default_0"
     ],
@@ -29,7 +29,7 @@
     }
   },
   "Twi_Default_0": {
-    "Line": "\"What is it, Trixie?\"",
+    "Line": "Twilight looks at you inquisitively. \"What is it, Trixie?\"",
     "Responses": {
       "0": [
         "Twi_Greetings_1",
@@ -96,10 +96,7 @@
     }
   },
   "Twi_Attack_1": {
-    "Line": "\"What!? No!\"",
-    "Scripts": [
-      "setmood:annoyed"
-    ],
+    "Line": "Her eyes widen. \"What!? No!\"",
     "Responses": {
       "0": [
         "Twi_Joke_1",
@@ -108,7 +105,10 @@
     }
   },
   "Twi_Joke_1": {
-    "Line": "\"That wasn't very funny, Trixie!\"",
+    "Line": "\"That wasn't very funny, Trixie!\" She looks annoyed.",
+    "Scripts": [
+      "setmood:annoyed"
+    ],
     "Responses": {
       "0": [
         "Twi_About_Discord_1",
@@ -138,7 +138,7 @@
     }
   },
   "Twi_END": {
-    "Line": "\"Goodbye.\"",
+    "Line": "\"Goodbye.\" She returns to her own duties.",
     "Responses": {
     }
   }

@@ -1,13 +1,13 @@
 package jonst;
 
 import jonst.Data.SystemData;
+import jonst.Models.Dialog;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static jonst.HelpfulMethods.*;
 
@@ -1071,7 +1071,6 @@ public class Commands {
             }
 
             if(dialogKey.substring(dialogKey.length()-3).equalsIgnoreCase("END")){  //If this was an ending choice, this is where it stops.
-                System.out.println(speaker.getName() + " returns to what " + heOrShe(speaker) + " was doing.\n");
                 break;
             }
 

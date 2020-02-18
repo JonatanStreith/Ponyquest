@@ -13,11 +13,10 @@ public class Item extends GenericObject {
 
     public Item(String name, String id, String locationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
         super(name, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+    }
 
-
-
-
-
+    public GenericObject getHolder() {
+        return holder;
     }
 
     public boolean setHolder(GenericObject holder){
@@ -32,10 +31,6 @@ public class Item extends GenericObject {
         return name;
     }
 
-    public GenericObject getHolder() {
-        return holder;
-    }
-
     public void transformInto(Item template){
         setName(template.getName());
         setId(template.getId());
@@ -47,9 +42,5 @@ public class Item extends GenericObject {
         setDefaultUse(template.getDefaultUse());
         setResponseScripts(template.getResponseScripts());
         setComplexUse(template.getComplexUse());
-
-
     }
-
-
 }

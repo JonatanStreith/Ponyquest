@@ -552,8 +552,8 @@ public class JsonBuilder {
                         }
 
 
-                        bc = new BehaviorCore(mood, activity, allegiance, status);
-                        bc.setPersonalQuotes(personalQuotes);
+                        bc = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
+
                     } else {
                         bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
                     }
@@ -1269,10 +1269,7 @@ public class JsonBuilder {
                             personalQuotes.put(key.toLowerCase(), (String) jsPersonalQuotes.get(key));
                         }
                     }
-
-
-                    bc = new BehaviorCore(mood, activity, allegiance, status);
-                    bc.setPersonalQuotes(personalQuotes);
+                    bc = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
                 } else {
                     bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
                 }

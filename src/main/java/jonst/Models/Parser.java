@@ -539,15 +539,14 @@ public class Parser {
                 Scripts.destroyItem(subject, world);
                 break;
 
-            case "createitem":
-
-                break;
-
             case "fleerandom":
                 Scripts.fleeToRandomLocation(subject, world);
                 break;
 
-
+            case "fleeto":
+                //fleeto:locationId
+                Scripts.fleeTo(subject, scriptCommandArray, world);
+                break;
 
             case "addattribute":
                 Scripts.addAttribute(subject, scriptCommandArray, world);
@@ -555,11 +554,6 @@ public class Parser {
 
             case "removeattribute":
                 Scripts.removeAttribute(subject, scriptCommandArray, world);
-                break;
-
-            case "changeInitDialog":
-                //changeInitDialog:key
-
                 break;
 
             case "addnewitem":
