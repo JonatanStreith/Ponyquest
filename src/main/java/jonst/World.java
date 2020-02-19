@@ -444,28 +444,33 @@ public class World {
 
     public List<Location> matchLocationsMultiple(String name) {
 
-        List<Location> results = new ArrayList<>();
+        List<Location> locations = Lambda.subList(locationList, loc ->  loc.getName().equalsIgnoreCase(name) ||
+                loc.getAlias().contains(name) );
 
-        for (Location loc : locationList) {
-            if (loc.getName().equalsIgnoreCase(name)) {
-                results.add(loc);     //If the name we're looking for is its full name
-            } else {
-                for (String alias : loc.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(loc);
-                        break;
-                    }
-                }
-            }
-        }
-        return results;
+        return locations;
+
+//        List<Location> results = new ArrayList<>();
+//
+//        for (Location loc : locationList) {
+//            if (loc.getName().equalsIgnoreCase(name)) {
+//                results.add(loc);     //If the name we're looking for is its full name
+//            } else {
+//                for (String alias : loc.getAlias()) {
+//                    if (alias.equalsIgnoreCase(name)) {
+//                        results.add(loc);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+        //return locations;
     }
 
 
     public List<String> matchNameMultiple(String name) {
 
-        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
-                ( (GenericObject) generic).getAlias().contains(name); } );
+        List<GenericObject> resultsGen = Lambda.subList(genericList, generic ->  generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name) );
 
         return Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -473,8 +478,8 @@ public class World {
 
     public String matchId(String name) {
 
-        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
-                ( (GenericObject) generic).getAlias().contains(name); } );
+        List<GenericObject> resultsGen = Lambda.subList(genericList,  generic ->  generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name) );
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -491,9 +496,8 @@ public class World {
 
     public String matchName(String name) {
 
-
-        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
-                ( (GenericObject) generic).getAlias().contains(name); } );
+        List<GenericObject> resultsGen = Lambda.subList(genericList,  generic -> generic.getName().equalsIgnoreCase(name) ||
+                 generic.getAlias().contains(name) );
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -528,12 +532,10 @@ public class World {
 
     public String matchNameFromInventory(GenericObject holder, String name) {
 
-        List<Item> itemList = holder.getItemList();
+        List<Item> invList = holder.getItemList();
 
-
-
-        List<Item> resultsItm = Lambda.subList(itemList, (Item generic) -> {return ((Item) generic).getName().equalsIgnoreCase(name) ||
-                ( (Item) generic).getAlias().contains(name); } );
+        List<Item> resultsItm = Lambda.subList(invList,  generic -> generic.getName().equalsIgnoreCase(name) ||
+                 generic.getAlias().contains(name) );
 
         List<String> results = Lambda.getSubvalues(resultsItm, g -> g.getName());
 
@@ -568,11 +570,10 @@ public class World {
 
     public String matchLocalName(String name) {
 
-        List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
+        List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
 
-
-        List<GenericObject> resultsGen = Lambda.subList(genList, (GenericObject generic) -> {return generic.getName().equalsIgnoreCase(name) ||
-                 generic.getAlias().contains(name); } );
+        List<GenericObject> resultsGen = Lambda.subList(localList, (GenericObject generic) -> generic.getName().equalsIgnoreCase(name) ||
+                 generic.getAlias().contains(name) );
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -607,6 +608,10 @@ public class World {
             return results.get(0);
         }
     }
+
+
+
+
 
 
     public String matchLocalOnGround(String name) {
