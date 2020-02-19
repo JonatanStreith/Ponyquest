@@ -322,4 +322,13 @@ public class WorldTest {
         System.out.println(location);
 
     }
+
+    @Test
+    public void matchIdTest() {
+
+        String res = world.matchId("aj");
+
+        System.out.println(res);
+
+    }
 }

@@ -464,40 +464,19 @@ public class World {
 
     public List<String> matchNameMultiple(String name) {
 
-        List<String> results = new ArrayList<>();
+        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
+                ( (GenericObject) generic).getAlias().contains(name); } );
 
-        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+        return Lambda.getSubvalues(resultsGen, g -> g.getName());
 
-            if (generic.getName().equalsIgnoreCase(name)) {
-                results.add(generic.getName());     //If the name we're looking for is its full name
-            } else {
-                for (String alias : generic.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(generic.getName());
-                        break;
-                    }
-                }
-            }
-        }
-        return results;
     }
 
     public String matchId(String name) {
 
-        List<String> results = new ArrayList<>();
+        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
+                ( (GenericObject) generic).getAlias().contains(name); } );
 
-        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-
-            if (generic.getName().equalsIgnoreCase(name)) {
-                results.add(generic.getName());     //If the name we're looking for is its full name
-            } else {
-                for (String alias : generic.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(generic.getName());
-                    }
-                }
-            }
-        }
+        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -506,26 +485,33 @@ public class World {
             System.out.println("'" + name + "' doesn't exist.");
             return "";
         } else {
-            return getLocationByID(results.get(0)).getId();
+            return getGenericObject(results.get(0)).getId();
         }
-
     }
+
     public String matchName(String name) {
 
-        List<String> results = new ArrayList<>();
 
-        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+        List<GenericObject> resultsGen = Lambda.subList(genericList, (GenericObject generic) -> {return ((GenericObject) generic).getName().equalsIgnoreCase(name) ||
+                ( (GenericObject) generic).getAlias().contains(name); } );
 
-            if (generic.getName().equalsIgnoreCase(name)) {
-                results.add(generic.getName());     //If the name we're looking for is its full name
-            } else {
-                for (String alias : generic.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(generic.getName());
-                    }
-                }
-            }
-        }
+        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
+
+
+//        List<String> results = new ArrayList<>();
+//
+//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
+//
+//            if (generic.getName().equalsIgnoreCase(name)) {
+//                results.add(generic.getName());     //If the name we're looking for is its full name
+//            } else {
+//                for (String alias : generic.getAlias()) {
+//                    if (alias.equalsIgnoreCase(name)) {
+//                        results.add(generic.getName());
+//                    }
+//                }
+//            }
+//        }
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -544,20 +530,28 @@ public class World {
 
         List<Item> itemList = holder.getItemList();
 
-        List<String> results = new ArrayList<>();
 
-        for (Item item : itemList) { //Check if something exists that has "name" as its short name, then return its full name
 
-            if (item.getName().equalsIgnoreCase(name)) {
-                results.add(item.getName());     //If the name we're looking for is its full name
-            } else {
-                for (String alias : item.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(item.getName());
-                    }
-                }
-            }
-        }
+        List<Item> resultsItm = Lambda.subList(itemList, (Item generic) -> {return ((Item) generic).getName().equalsIgnoreCase(name) ||
+                ( (Item) generic).getAlias().contains(name); } );
+
+        List<String> results = Lambda.getSubvalues(resultsItm, g -> g.getName());
+
+
+
+
+//        for (Item item : itemList) { //Check if something exists that has "name" as its short name, then return its full name
+//
+//            if (item.getName().equalsIgnoreCase(name)) {
+//                results.add(item.getName());     //If the name we're looking for is its full name
+//            } else {
+//                for (String alias : item.getAlias()) {
+//                    if (alias.equalsIgnoreCase(name)) {
+//                        results.add(item.getName());
+//                    }
+//                }
+//            }
+//        }
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -577,21 +571,28 @@ public class World {
         List<GenericObject> genList = getPlayerLocation().getAllAtLocation();
 
 
-        List<String> results = new ArrayList<>();
-        //genList is now everything at the location.
+        List<GenericObject> resultsGen = Lambda.subList(genList, (GenericObject generic) -> {return generic.getName().equalsIgnoreCase(name) ||
+                 generic.getAlias().contains(name); } );
 
-        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
+        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
-            if (generic.getName().equalsIgnoreCase(name)) {
-                results.add(generic.getName());     //If the name we're looking for is its full name
-            } else {
-                for (String alias : generic.getAlias()) {
-                    if (alias.equalsIgnoreCase(name)) {
-                        results.add(generic.getName());
-                    }
-                }
-            }
-        }
+
+
+//        List<String> results = new ArrayList<>();
+//        //genList is now everything at the location.
+//
+//        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
+//
+//            if (generic.getName().equalsIgnoreCase(name)) {
+//                results.add(generic.getName());     //If the name we're looking for is its full name
+//            } else {
+//                for (String alias : generic.getAlias()) {
+//                    if (alias.equalsIgnoreCase(name)) {
+//                        results.add(generic.getName());
+//                    }
+//                }
+//            }
+//        }
 
         results = HelpfulMethods.removeDuplicatesT(results);
 
