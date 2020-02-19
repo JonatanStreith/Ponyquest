@@ -6,6 +6,7 @@
     "Id": "Item_Trixie_Hat",
     "FullName": "Trixie's hat",
     "Location": "Creature_Trixie",
+    "Owner": "Trixie",
     "DefaultUse": "wear",
     "Alias": [
       "hat",
@@ -29,6 +30,7 @@
     "Id": "Item_Trixie_Cape",
     "FullName": "Trixie's cape",
     "Location": "Creature_Trixie",
+    "Owner": "Trixie",
     "DefaultUse": "wear",
     "Alias": [
       "cape",
