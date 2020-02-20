@@ -1,10 +1,12 @@
 package jonst;
 
+import jonst.Data.ReverseSortIgnoreCase;
 import jonst.Data.SortIgnoreCase;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HelpfulMethods {
 
@@ -47,7 +49,6 @@ public class HelpfulMethods {
     }
 
     public static String hisOrHer(GenericObject subject) {
-
         if (!(subject instanceof Creature)) {
             return "its";
         } else {
@@ -64,7 +65,6 @@ public class HelpfulMethods {
 
 
     public static String capitalize(String str) {
-
         String cap = str.substring(0, 1).toUpperCase();
         String remainder = str.substring(1);
         return cap + remainder;
@@ -76,14 +76,12 @@ public class HelpfulMethods {
         if (num > 1) {
             output = " are ";
         }
-        ;
 
         return output;
     }
 
     public static String turnStringListIntoString(List<String> longList, String separator)     //Takes a list of strings, pieces them together into one string
     {
-
         List<String> shortList = removeDuplicatesT(longList);    //Shortlist with only single entries
 
         List<String> enumeratedList = new ArrayList<>();
@@ -142,7 +140,6 @@ public class HelpfulMethods {
             } else {
                 nameList.add(obj.getName());
             }
-
         }
 
         return turnStringListIntoString(nameList, "and");
@@ -150,57 +147,17 @@ public class HelpfulMethods {
 
     public static void reverseSortStringList(List<String> list) {
 
-        Collections.sort(list, new SortIgnoreCase());
+        Collections.sort(list, new ReverseSortIgnoreCase());
 
-        int size = list.size();
-
-        for (int i = 0; i < size / 2; i++) {
-            String temp = list.get(i);      //Set temp var to first position
-            list.set(i, list.get(size - i - 1));  //Sets first position to last position
-            list.set(size - i - 1, temp);         //Sets last position to temp var
-        }
     }
 
 
     public static <T> List<T> removeDuplicatesT(List<T> list) {
 
-        // Create a new ArrayList
-        ArrayList<T> newList = new ArrayList<T>();
-
-        // Traverse through the first list
-        for (T element : list) {
-
-            // If this element is not present in newList
-            // then add it
-            if (!newList.contains(element)) {
-
-                newList.add(element);
-            }
-        }
-
-        // return the new list
-        return newList;
+        return list.stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
-
-//    public static List<String> removeDuplicates(List<String> list) {
-//
-//        // Create a new ArrayList
-//        List<String> newList = new ArrayList<>();
-//
-//        // Traverse through the first list
-//        for (String element : list) {
-//
-//            // If this element is not present in newList
-//            // then add it
-//            if (!newList.contains(element)) {
-//
-//                newList.add(element);
-//            }
-//        }
-//
-//        // return the new list
-//        return newList;
-//    }
 
 }

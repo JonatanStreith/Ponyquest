@@ -24,10 +24,6 @@ public class Item extends GenericObject {
         return true;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void transformInto(Item template){
         setName(template.getName());
         setId(template.getId());

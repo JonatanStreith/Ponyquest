@@ -1,11 +1,9 @@
 package jonst.Data;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class Lambda {
 
@@ -66,6 +64,19 @@ public class Lambda {
         }
         return null;
     }
+
+    public static <T> boolean exists(List<T> list, Predicate<T> predicate) {
+
+        //Does the list contain an element that satisfies the provided predicate?
+
+        for (T gen : list) {
+            if (predicate.test(gen)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static <T, U> T getFirst(List<T> firstList, List<U> secondList, DualTest<T, U> dual) {
 

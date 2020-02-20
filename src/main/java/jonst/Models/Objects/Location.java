@@ -1,12 +1,14 @@
 package jonst.Models.Objects;
 
 import jonst.App;
+import jonst.Data.Lambda;
 import jonst.Models.Exit;
 import jonst.World;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class Location extends GenericObject {
 
@@ -103,20 +105,14 @@ public class Location extends GenericObject {
 
     public Creature getCreatureByName(String name) {
 
-        for (Creature creature : getCreaturesAtLocation()) {
-            if (creature.getName().equalsIgnoreCase(name))
-                return creature;
-        }
-        return null;
+        return Lambda.getFirst(getCreaturesAtLocation(), a -> a.getName().equalsIgnoreCase(name));
+
     }
 
     public StationaryObject getStationaryObjectByName(String name) {
 
-        for (StationaryObject object : getObjectsAtLocation()) {
-            if (object.getName().equalsIgnoreCase(name))
-                return object;
-        }
-        return null;
+        return Lambda.getFirst(getObjectsAtLocation(), a -> a.getName().equalsIgnoreCase(name));
+
     }
 
     public boolean isAtLocation(GenericObject object) {
@@ -159,38 +155,50 @@ public class Location extends GenericObject {
     }
 
     public List<Exit> getExits() {
-        List<Exit> exits = new ArrayList<>();
 
-        List<Exit> allExits = App.getWorld().getExitList();
+        return Lambda.subList(App.getWorld().getExitList(), a -> a.containsLocation(this));
 
-        for (Exit ex : allExits) {
-            if (ex.containsLocation(this)) {
-                exits.add(ex);
-            }
-        }
-        return exits;
+
+        //List<Exit> exits = new ArrayList<>();
+
+        //List<Exit> allExits = App.getWorld().getExitList();
+
+//        for (Exit ex : allExits) {
+//            if (ex.containsLocation(this)) {
+//                exits.add(ex);
+//            }
+//        }
+
+        //return exits;
+
+
     }
 
     public List<String> getExitNames() {
-        List<String> exitNames = new ArrayList<>();
 
-        List<Exit> allExits = getExits();
+        return Lambda.getSubvalues(getExits(), exit -> exit.getConnectingLocation(this).getName());
 
-        for (Exit ex : allExits) {
-            exitNames.add(ex.getConnectingLocation(this).getName());
-        }
-        return exitNames;
+//        List<Exit> allExits = getExits();
+//
+//        for (Exit ex : allExits) {
+//            exitNames.add(ex.getConnectingLocation(this).getName());
+//        }
+//        return exitNames;
     }
 
     public boolean connectsTo(Location otherLocation, World world){
-        List<Exit> exits = world.getExitList();
 
-        for (Exit exit : exits) {
-            if(exit.connectionExists(this, otherLocation)){
-                return true;
-            }
-        }
-        return false;
+        return Lambda.exists(world.getExitList(), exit -> exit.connectionExists(this, otherLocation));
+
+//
+//        List<Exit> exits = world.getExitList();
+//
+//        for (Exit exit : exits) {
+//            if(exit.connectionExists(this, otherLocation)){
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
 

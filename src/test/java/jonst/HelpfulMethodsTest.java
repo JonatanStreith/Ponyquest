@@ -12,6 +12,18 @@ public class HelpfulMethodsTest {
 
 
     @Test
+    public void removeDuplicatesTTest() {
+
+        List<String> test = new ArrayList() {{ add("Ulf"); add("Ulf"); add("Tor"); add("Stefan"); }};
+
+        List<String> newList = HelpfulMethods.removeDuplicatesT(test);
+
+        System.out.println(newList);
+
+
+    }
+
+    @Test
     public void isOrAreTest() {
 
         int num0 = 0;
