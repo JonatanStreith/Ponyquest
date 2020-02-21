@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.Lambda;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 
@@ -8,38 +9,38 @@ import java.util.List;
 
 public class Scripts {
 
-    public static void setMood(GenericObject subject, String[] script, World world){
+    public static void setMood(GenericObject subject, String[] script, World world) {
 
-        if(subject instanceof Creature) {
+        if (subject instanceof Creature) {
             ((Creature) subject).setMood(script[1]);
         }
     }
 
     public static void deleteThisItem(GenericObject subject, World world) {
-        if(subject instanceof Item) {
+        if (subject instanceof Item) {
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
         }
     }
 
     public static void destroyItem(GenericObject subject, World world) {
-        if(subject instanceof Item) {
-            System.out.println("The " +subject.getName()+ " is destroyed.");
+        if (subject instanceof Item) {
+            System.out.println("The " + subject.getName() + " is destroyed.");
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
         }
     }
 
-    public static void fleeToRandomLocation(GenericObject subject, World world){
+    public static void fleeToRandomLocation(GenericObject subject, World world) {
 
-        if(subject instanceof Creature){
+        if (subject instanceof Creature) {
             Location currentLocation = subject.getLocation();
             List<Exit> exits = world.getExitList();
 
             List<Exit> viableExits = new ArrayList<>();
 
-            for (Exit exit: exits) {
-                if(exit.containsLocation(currentLocation)){
+            for (Exit exit : exits) {
+                if (exit.containsLocation(currentLocation)) {
                     viableExits.add(exit);
                 }
             }
@@ -58,7 +59,7 @@ public class Scripts {
         Location destinationLocation = world.getLocationByID(scriptCommandArray[1]);
         Location currentLocation = subject.getLocation();
 
-            world.moveToLocation(subject, currentLocation, destinationLocation);
+        world.moveToLocation(subject, currentLocation, destinationLocation);
 
 
     }
@@ -81,7 +82,7 @@ public class Scripts {
     public static void send(GenericObject subject, String[] scriptCommandArray, World world) {
         Creature actor;
 
-        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
             actor = world.getPlayer();
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
@@ -89,7 +90,7 @@ public class Scripts {
 
         Location destination = world.getLocationByID(scriptCommandArray[2]);
 
-        if(actor!=null && destination!=null){
+        if (actor != null && destination != null) {
             world.moveToLocation(actor, actor.getLocation(), destination);
 
             Commands.lookAround(world);
@@ -100,7 +101,7 @@ public class Scripts {
 
         Creature actor;
 
-        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
             actor = world.getPlayer();
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
@@ -117,7 +118,7 @@ public class Scripts {
     public static void addNewItem(GenericObject subject, String[] scriptCommandArray, World world) {
         Creature actor;
 
-        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
             actor = world.getPlayer();
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
@@ -137,19 +138,17 @@ public class Scripts {
         Creature actor;
         Item itemToBeDeleted;
 
-        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
             actor = world.getPlayer();
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        if(scriptCommandArray[2].equalsIgnoreCase("this")){
+        if (scriptCommandArray[2].equalsIgnoreCase("this")) {
             itemToBeDeleted = (Item) subject;
         } else {
             itemToBeDeleted = actor.getOwnedItemByName(scriptCommandArray[2]);
         }
-
-
 
 
         actor.removeItem(itemToBeDeleted);
@@ -162,10 +161,10 @@ public class Scripts {
         System.out.println(desc);
     }
 
-    public static void resetRace(String[] scriptCommandArray, World world){
+    public static void resetRace(String[] scriptCommandArray, World world) {
         Creature actor;
 
-        if(scriptCommandArray[1].equalsIgnoreCase("player")){
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
             actor = world.getPlayer();
         } else {
             actor = world.getCreature(scriptCommandArray[1]);
@@ -177,16 +176,14 @@ public class Scripts {
 
     public static void spawnCreature(GenericObject subject, String[] scriptCommandArray, World world) {
         Location location;
-        if(scriptCommandArray[1].equalsIgnoreCase("playerlocation")){
-           location = world.getPlayerLocation();
+        if (scriptCommandArray[1].equalsIgnoreCase("playerlocation")) {
+            location = world.getPlayerLocation();
         } else {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
 
         Creature newCreature = JsonBuilder.generateTemplateCreature(scriptCommandArray[2]);
-
-
 
 
         world.addToLocation(newCreature, location);
@@ -196,7 +193,7 @@ public class Scripts {
     public static void spawnObject(GenericObject subject, String[] scriptCommandArray, World world) {
 
         Location location;
-        if(scriptCommandArray[1].equalsIgnoreCase("playerlocation")){
+        if (scriptCommandArray[1].equalsIgnoreCase("playerlocation")) {
             location = world.getPlayerLocation();
         } else {
             location = world.getLocationByID(scriptCommandArray[1]);
@@ -211,10 +208,45 @@ public class Scripts {
     }
 
     public static void changeInitDialog(GenericObject subject, String[] scriptCommandArray, World world) {
-        if(subject instanceof Creature) {
+        if (subject instanceof Creature) {
             ((Creature) subject).setInitialDialog(scriptCommandArray[1]);
         }
     }
 
+    public static void removeExit(String location1, String location2, World world) {
 
+        List<Exit> allExits = world.getExitList();
+
+        Location loc1 = world.getLocationByID(location1);
+        Location loc2 = world.getLocationByID(location2);
+
+        if (loc1 != null && loc2 != null) {
+
+            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
+
+            if (potentialExit != null) {
+                world.removeExit(potentialExit);
+            }
+        }
+    }
+
+    public static void addExit(String location1, String location2, World world) {
+
+        List<Exit> allExits = world.getExitList();
+
+        Location loc1 = world.getLocationByID(location1);
+        Location loc2 = world.getLocationByID(location2);
+
+        if (loc1 != null && loc2 != null) {
+
+            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
+
+            if (potentialExit == null) {
+
+                Exit newExit = new Exit(new Location[]{loc1, loc2}, true);
+
+                world.addExit(newExit);
+            }
+        }
+    }
 }

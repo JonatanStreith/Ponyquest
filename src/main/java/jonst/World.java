@@ -130,6 +130,15 @@ public class World {
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
+    public void removeExit(Exit exit){
+        exitList.remove(exit);
+    }
+
+    public void addExit(Exit exit){
+        exitList.add(exit);
+    }
+
+
     public void removeFromList(GenericObject gen){
         if (gen instanceof Item) {
             itemList.remove((Item) gen);
@@ -143,25 +152,6 @@ public class World {
         genericList.remove(gen);
     }
 
-/*    public void removeItemFromItemList(Item item) {
-        itemList.remove(item);
-        genericList.remove(item);
-    }
-
-    public void removeCreatureFromCreatureList(Creature creature) {
-        creatureList.remove(creature);
-        genericList.remove(creature);
-    }
-
-    public void removeLocationFromLocationList(Location location) {
-        locationList.remove(location);
-        genericList.remove(location);
-    }
-
-    public void removeStationaryObjectFromStationaryObjectList(StationaryObject stationaryObject) {
-        stationaryObjectList.remove(stationaryObject);
-        genericList.remove(stationaryObject);
-    }*/
 
     //-------- List handling -----------------------
 
