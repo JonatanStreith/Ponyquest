@@ -141,4 +141,14 @@ Bring back "short name". Use for places where we need an abbreviated name. I'm t
 
     TODO: Add "type" to GenericObject. Like "cape", "food", "book", etc. Can be used for more strict typing.
     Like, you can't wear another cape if you're already wearing a cape. May be complicated, but interesting.
-}
+
+
+Idea: Trixie's wagon should be a StationaryObject, but you could enter it to get to an "inside" location. And you should be able to move it to another location
+by hitching it up. Specify where you want to move it, and it goes. But moving the wagon would require changing how the exit is bounded.
+
+Change how runResponseScripts() is built - have it take more than just one argument. Utilize varargs to make everything after the first one into an array of arguments.
+
+If you pick "hitch wagon", you get to specify a destination. (Have it check if it's outside or not - use Arguments for now, maybe use something else later)
+Change the exit to the new ones.
+
+Need new script commands - "RemoveExit:FirstExit:SecondExit" and "AddExit:FirstExit:SecondExit".
