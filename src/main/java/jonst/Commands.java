@@ -220,8 +220,14 @@ public class Commands {
                 return;
             }
 
+
             if (item.hasAttribute("worn")){
                 System.out.println("You're already wearing that.");
+                return;
+            }
+
+            if(world.getPlayer().isWearing(item.getType())){
+                System.out.println("You're already wearing a " + item.getType() + ".");
                 return;
             }
 
@@ -904,6 +910,11 @@ public class Commands {
             if (subject != null) {
                 //do gift thing
 
+                if(subject.hasAttribute("undroppable")){
+                    System.out.println("You don't want to relinquish that.");
+                    return;
+                }
+
                 if(subject.hasAttribute("worn")){
                     remove(subjectName, world);
                 }
@@ -953,11 +964,18 @@ public class Commands {
             return;
         }
 
+
+
         String itemName = world.matchNameFromInventory(world.getPlayer(), commandArray[1]);
         GenericObject item = world.getLocalGenericObject(itemName);
 
         if (item == null) {
             System.out.println("You're not carrying that.");
+            return;
+        }
+
+        if(item.hasAttribute("undroppable")){
+            System.out.println("You don't want to relinquish that.");
             return;
         }
 

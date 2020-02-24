@@ -90,4 +90,19 @@ public class Lambda {
         }
         return null;
     }
+
+    public static <T, U> void processLists(List<T> firstList, List<U> secondList, DualTest<T, U> test, DualFactory<T,U> process) {
+
+        List<T> returnList = new ArrayList<>();
+
+        for (T first : firstList) {
+            for (U second : secondList) {
+
+                if (test.dualTest(first, second)) {
+                    process.dualFactory(first, second);
+                }
+            }
+        }
+    }
+
 }

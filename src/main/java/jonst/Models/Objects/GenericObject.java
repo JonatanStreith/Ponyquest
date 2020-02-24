@@ -10,6 +10,7 @@ import java.util.Map;
 
 public abstract class GenericObject {
     protected String name;
+    private String type;
     private String id;
     private String locationId;
     private Location location;
@@ -31,8 +32,9 @@ public abstract class GenericObject {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String id, String locationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
+    public GenericObject(String name, String type, String id, String locationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
         setName(name);
+        setType(type);
         setId(id);
 
         setLocationId(locationId);
@@ -51,6 +53,10 @@ public abstract class GenericObject {
     }
 
     //--------- Getters ------------
+
+    public String getType() {
+        return type;
+    }
 
     public String getOwnerName() {
         return ownerName;
@@ -110,6 +116,10 @@ public abstract class GenericObject {
 
 
     //--------- Setters ------------
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;

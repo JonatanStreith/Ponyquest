@@ -11,18 +11,23 @@ public class Instructs {
         String fullName = world.matchLocalName(name);
         if (!fullName.equals("")) {
             Item item = subject.getOwnedItemByName(fullName);
-            if (item != null) {
-                //drop
-                if (item.hasAttribute("undroppable")) {
-                    System.out.println(subject.getName() + " won't drop that.");
-                } else {
-                    world.transferItemToNewHolder(item, subject, subject.getLocation());
-                    System.out.println(subject.getName() + " drops the " + name + ".");
-                    item.runResponseScript("drop");
-                }
-            } else {
+
+
+            if (item == null) {
                 System.out.println(subject.getName() + " isn't carrying that.");
+                return;
             }
+
+            if (item.hasAttribute("undroppable")) {
+                System.out.println(subject.getName() + " won't drop that.");
+                return;
+            }
+
+            world.transferItemToNewHolder(item, subject, subject.getLocation());
+            System.out.println(subject.getName() + " drops the " + name + ".");
+            item.runResponseScript("drop");
+
+
         }
     }
 
@@ -165,6 +170,11 @@ public class Instructs {
                 return;
             }
 
+            if (subject.isWearing(item.getType())) {
+                System.out.println(HelpfulMethods.capitalize(HelpfulMethods.heOrShe(subject)) + "'s already wearing a " + item.getType() + ".");
+                return;
+            }
+
             item.addAttribute("worn");
             System.out.println(heOrShe + " puts on the " + name + ".");
             item.runResponseScript("wear");
@@ -214,6 +224,12 @@ public class Instructs {
                 System.out.println("They're not carrying that.");
                 return;
             }
+
+            if (item.hasAttribute("undroppable")) {
+                System.out.println(subject.getName() + " won't relinquish that.");
+                return;
+            }
+
 
             if (item.hasAttribute("worn")) {
                 remove(subject, item.getName(), world);

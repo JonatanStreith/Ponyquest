@@ -128,6 +128,7 @@ public class JsonBuilder {
 
                 put("FullName", crea.getName());
                 put("Id", crea.getId());
+                put("Type", crea.getType());
                 //put("Description", crea.getDescription());
                 put("Location", crea.getLocationId());
                 put("Text", crea.getText());
@@ -213,6 +214,7 @@ public class JsonBuilder {
             locationArray.add(new JSONObject() {{
                 put("FullName", loc.getName());
                 put("Id", loc.getId());
+                put("Type", loc.getType());
                 //put("Description", loc.getDescription());
                 put("Location", loc.getLocationId());
                 put("Text", loc.getText());
@@ -287,6 +289,7 @@ public class JsonBuilder {
             itemArray.add(new JSONObject() {{
                 put("FullName", ite.getName());
                 put("Id", ite.getId());
+                put("Type", ite.getType());
                 //put("Description", ite.getDescription());
                 put("Location", ite.getLocationId());
                 put("Text", ite.getText());
@@ -358,6 +361,7 @@ public class JsonBuilder {
             objectArray.add(new JSONObject() {{
                 put("FullName", sta.getName());
                 put("Id", sta.getId());
+                put("Type", sta.getType());
                 //put("Description", sta.getDescription());
                 put("Location", sta.getLocationId());
                 put("Text", sta.getText());
@@ -473,6 +477,8 @@ public class JsonBuilder {
 
                     tryName = fullName;
 
+                    String type = (String) jObj.get("Type");
+
                     String id = (String) jObj.get("Id");
                     //String description = (String) jObj.get("Description");
                     String race = (String) jObj.get("Race");
@@ -572,7 +578,7 @@ public class JsonBuilder {
                     }
 
 
-                    Creature creature = new Creature(fullName, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
+                    Creature creature = new Creature(fullName, type, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
 
 
 
@@ -614,6 +620,8 @@ public class JsonBuilder {
                     String fullName = (String) jObj.get("FullName");
 
                     tryName = fullName;
+
+                    String type = (String) jObj.get("Type");
 
                     String id = (String) jObj.get("Id");
                     //String description = (String) jObj.get("Description");
@@ -672,7 +680,7 @@ public class JsonBuilder {
                     }
 
 
-                    Location location = new Location(fullName, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions, text, defaultUse, complexUse, responseScripts, null);
+                    Location location = new Location(fullName, type, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions, text, defaultUse, complexUse, responseScripts, null);
 
 
 
@@ -714,6 +722,9 @@ public class JsonBuilder {
                     String fullName = (String) jObj.get("FullName");
 
                     tryName = fullName;
+
+                    String type = (String) jObj.get("Type");
+
                     String id = (String) jObj.get("Id");
                     //String description = (String) jObj.get("Description");
                     String location = (String) jObj.get("Location");
@@ -768,7 +779,7 @@ public class JsonBuilder {
                         }
                     }
 
-                    StationaryObject object = new StationaryObject(fullName, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                    StationaryObject object = new StationaryObject(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
                     stationaryObjectList.add(object);
@@ -808,6 +819,8 @@ public class JsonBuilder {
 
                     tryName = fullName;
 
+                    String type = (String) jObj.get("Type");
+
                     String id = (String) jObj.get("Id");
                     //String description = (String) jObj.get("Description");
                     String location = (String) jObj.get("Location");
@@ -862,7 +875,7 @@ public class JsonBuilder {
                         }
                     }
 
-                    Item item = new Item(fullName, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                    Item item = new Item(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
                     itemList.add(item);
@@ -1094,6 +1107,8 @@ public class JsonBuilder {
             if (jsonItem != null) {
                 String fullName = (String) jsonItem.get("FullName");
                 String id = (String) jsonItem.get("Id");
+                String type = (String) jsonItem.get("Type");
+
                 String locationId = "blank";
 
                 JSONArray jsAlias = (JSONArray) jsonItem.get("Alias");
@@ -1150,7 +1165,7 @@ public class JsonBuilder {
 
                 //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
 
-                item = new Item(fullName, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                item = new Item(fullName, type, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
             }
 
@@ -1183,6 +1198,8 @@ public class JsonBuilder {
             if (jsonCreature != null) {
                 String fullName = (String) jsonCreature.get("FullName");
                 String id = (String) jsonCreature.get("Id");
+                String type = (String) jsonCreature.get("Type");
+
                 String locationId = "blank";
                 String race = (String) jsonCreature.get("Race");
                 String gender = (String) jsonCreature.get("Gender");
@@ -1283,7 +1300,7 @@ public class JsonBuilder {
                 }
 
 
-                creature = new Creature(fullName, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
+                creature = new Creature(fullName, type, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
 
 
 
@@ -1318,6 +1335,8 @@ public class JsonBuilder {
             if (jsonObject != null) {
                 String fullName = (String) jsonObject.get("FullName");
                 String id = (String) jsonObject.get("Id");
+                String type = (String) jsonObject.get("Type");
+
                 String locationId = "blank";
 
                 String text = (String) jsonObject.get("Text");
@@ -1374,7 +1393,7 @@ public class JsonBuilder {
 
 
 
-                object = new StationaryObject(fullName, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                object = new StationaryObject(fullName, type, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
 

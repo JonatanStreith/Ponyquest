@@ -128,16 +128,11 @@ public class World {
         genericList.add(newGen);
     }
 
-    //------------------ If items are removed permanently, they need to be removed from the world lists
-
-    public void removeExit(Exit exit){
-        exitList.remove(exit);
-    }
-
     public void addExit(Exit exit){
         exitList.add(exit);
     }
 
+    //------------------ If items are removed permanently, they need to be removed from the world lists
 
     public void removeFromList(GenericObject gen){
         if (gen instanceof Item) {
@@ -152,6 +147,9 @@ public class World {
         genericList.remove(gen);
     }
 
+    public void removeExit(Exit exit){
+        exitList.remove(exit);
+    }
 
     //-------- List handling -----------------------
 
@@ -280,64 +278,6 @@ public class World {
 
     // ------------- Methods that returns objects from object lists ------------------
 
-/*    public List<StationaryObject> getLocalStationaryObjects(Location location){
-        List<StationaryObject> localObjectsList = new ArrayList<>();
-
-        for (StationaryObject obj : stationaryObjectList) {
-            if (obj.getLocation() == location)
-                localObjectsList.add(obj);
-        }
-
-        return localObjectsList;
-    }*/
-
-/*    public List<Creature> getLocalCreatures(Location location){
-        List<Creature> localCreaturesList = new ArrayList<>();
-
-        for (Creature cre : creatureList) {
-            if (cre.getLocation() == location)
-                localCreaturesList.add(cre);
-        }
-
-        return localCreaturesList;
-    }*/
-
-/*    public List<Item> getLocalItems(Location location){
-        List<Item> localItemsList = new ArrayList<>();
-
-        for (Item item : itemList) {        //Add all loose items to the local items list
-            if (item.getLocation() == location)
-                localItemsList.add(item);
-        }
-
-
-        List<Item> tmpItemsList = new ArrayList<>();
-        for (Item item : localItemsList){
-            tmpItemsList.addAll(item.getItemList());
-        }
-        localItemsList.addAll(tmpItemsList);
-
-        for (StationaryObject obj : getLocalStationaryObjects(location)) {
-            localItemsList.addAll(obj.getItemList());       //Later, have some SO's closed so you can't reach contents
-        }
-
-        for (Creature cre : getLocalCreatures(location)) {
-            localItemsList.addAll(cre.getItemList());
-        }
-
-        return localItemsList;
-    }*/
-
-/*    public List<GenericObject> getLocalAll(Location location){
-        List<GenericObject> localGenericsList = new ArrayList<>();
-
-        for (GenericObject gen : genericList) {
-            if (gen.getLocation() == location)
-                localGenericsList.add(gen);
-        }
-
-        return localGenericsList;
-    }*/
 
     public Location getLocationByName(String wantedLocation) {
 
@@ -352,69 +292,60 @@ public class World {
 
     public Location getLocationByID(String id) {
 
-        for (Location location : locationList) {
-
-            //Instead of using equals, could use contains?
-            if (location.getId().equalsIgnoreCase(id))
-                return location;
-        }
-        return null;
+        return Lambda.getFirst(locationList, l -> l.getId().equalsIgnoreCase(id));
     }
 
     public Creature getCreature(String wantedCreature) {
 
-        for (Creature creature : creatureList) {
-            if (creature.getName().equalsIgnoreCase(wantedCreature))
-                return creature;
-        }
-        return null;
+        return Lambda.getFirst(creatureList, c -> c.getName().equalsIgnoreCase(wantedCreature));
     }
 
     public Item getItem(String wantedItem) {
 
-        for (Item item : itemList) {
-            if (item.getName().equalsIgnoreCase(wantedItem))
-                return item;
-        }
-        return null;
+        return Lambda.getFirst(itemList, i -> i.getName().equalsIgnoreCase(wantedItem));
     }
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
 
-        for (StationaryObject stationaryObject : stationaryObjectList) {
-            if (stationaryObject.getName().equalsIgnoreCase(wantedStationaryObject))
-                return stationaryObject;
-        }
-        return null;
+        return Lambda.getFirst(stationaryObjectList, s -> s.getName().equalsIgnoreCase(wantedStationaryObject));
     }
 
     public Dialog getDialogEntry(String dialogKey) {
 
-        for (Dialog dialog : dialogList) {
-            if (dialog.getKey().equalsIgnoreCase(dialogKey))
-                return dialog;
-        }
-        return null;
+        return Lambda.getFirst(dialogList, d -> d.getKey().equalsIgnoreCase(dialogKey));
+
+
+//        for (Dialog dialog : dialogList) {
+//            if (dialog.getKey().equalsIgnoreCase(dialogKey))
+//                return dialog;
+//        }
+//        return null;
     }
 
     public GenericObject getGenericObject(String wantedGenericObject) {
 
-        for (GenericObject genericObject : genericList) {
-            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-                return genericObject;
-        }
-        return null;
+        return Lambda.getFirst(genericList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+
+
+//        for (GenericObject genericObject : genericList) {
+//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
+//                return genericObject;
+//        }
+//        return null;
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {
 
         List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
 
-        for (GenericObject genericObject : localList) {
-            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-                return genericObject;
-        }
-        return null;
+        return Lambda.getFirst(localList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+
+
+//        for (GenericObject genericObject : localList) {
+//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
+//                return genericObject;
+//        }
+//        return null;
 
     }
 
@@ -422,11 +353,14 @@ public class World {
 
         List<GenericObject> localList = getPlayerLocation().getAllGroundOnly();
 
-        for (GenericObject genericObject : localList) {
-            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-                return genericObject;
-        }
-        return null;
+        return Lambda.getFirst(localList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+
+
+//        for (GenericObject genericObject : localList) {
+//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
+//                return genericObject;
+//        }
+//        return null;
     }
 
 
@@ -649,14 +583,8 @@ public class World {
 
     public void loadListsFromFile(String loadFilePath) {
 
-        boolean loadingSuccess;
+        boolean loadingSuccess = true;
 
-        int counter = 0;
-
-        do
-        {        //Checks to see if the lists are populated properly. Yes, this means they need to have one entry minimum by default.
-            counter++;
-            loadingSuccess = true;
             locationList = JsonBuilder.loadLocationList(loadFilePath);
             creatureList = JsonBuilder.loadCreatureList(loadFilePath);
             itemList = JsonBuilder.loadItemList(loadFilePath);
@@ -670,7 +598,6 @@ public class World {
                 loadingSuccess = false;
             }
 
-        } while (!loadingSuccess && counter < 10);     //Keep repeating loading tries ten times or until it succeeds, in case it's something temporary
 
         if (!loadingSuccess) {
             System.out.println("World lists may not be populated properly due to errors. You may experience problems.");

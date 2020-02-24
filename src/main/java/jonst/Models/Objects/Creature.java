@@ -1,5 +1,6 @@
 package jonst.Models.Objects;
 
+import jonst.Data.Lambda;
 import jonst.HelpfulMethods;
 import jonst.Models.BehaviorCore;
 
@@ -22,8 +23,8 @@ public class Creature extends GenericObject {
     private final String defaultRace;
     private String initialDialog;
 
-    public Creature(String name, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
-        super(name, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+    public Creature(String name, String type, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
+        super(name, type, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
 
 
 
@@ -157,6 +158,14 @@ public class Creature extends GenericObject {
             return true;
 
     }
+
+    public boolean isWearing(String clothingType){
+
+        //Checks: does the creature wear an object of this type?
+        return Lambda.exists(getItemList(), i -> i.hasAttribute("worn") && i.getType().equalsIgnoreCase(clothingType));
+
+    }
+
 
 
 }

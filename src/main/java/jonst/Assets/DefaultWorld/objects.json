@@ -5,6 +5,7 @@
     },
     "Id": "Object_Cutiemap",
     "FullName": "Cutie Map",
+    "Type": "generic",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "map",
@@ -25,6 +26,7 @@
     },
     "Id": "Object_Throne_Group",
     "FullName": "Friendship thrones",
+    "Type": "group",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "thrones",
@@ -45,6 +47,7 @@
     },
     "Id": "Object_Throne_Twilight",
     "FullName": "Twilight's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Magic",
@@ -65,6 +68,7 @@
     },
     "Id": "Object_Throne_Rarity",
     "FullName": "Rarity's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Generosity",
@@ -85,6 +89,7 @@
     },
     "Id": "Object_Throne_Applejack",
     "FullName": "Applejack's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Honesty",
@@ -105,6 +110,7 @@
     },
     "Id": "Object_Throne_Pinkie",
     "FullName": "Pinkie Pie's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Laughter",
@@ -125,6 +131,7 @@
     },
     "Id": "Object_Throne_Fluttershy",
     "FullName": "Fluttershy's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Kindness",
@@ -145,6 +152,7 @@
     },
     "Id": "Object_Throne_Rainbow",
     "FullName": "Rainbow Dash's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "Throne of Loyalty",
@@ -166,6 +174,7 @@
     },
     "Id": "Object_Throne_Spike",
     "FullName": "Spike's throne",
+    "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
       "tiny throne",
@@ -185,6 +194,7 @@
     },
     "Id": "Object_Acres_Tree",
     "FullName": "apple tree",
+    "Type": "producer",
     "Location": "Location_Acres_Exterior",
     "Alias": [
       "tree",
@@ -206,6 +216,7 @@
     },
     "Id": "Object_Boutique_Sewingmachine",
     "FullName": "sewing machine",
+    "Type": "generic",
     "Location": "Location_Carousel_Interior",
     "Alias": [
       "Rarity's sewing machine"
@@ -224,6 +235,7 @@
     },
     "Id": "Object_Sugarcube_Oven",
     "FullName": "baking oven",
+    "Type": "generic",
     "Location": "Location_Sugarcube_Kitchen",
     "Alias": [
       "oven"
@@ -244,6 +256,7 @@
     },
     "Id": "Magic_Mirror",
     "FullName": "magic mirror",
+    "Type": "generic",
     "Location": "Location_Castle_Library",
     "DefaultUse": "enter",
     "Owner": "Twilight Sparkle",
@@ -271,6 +284,7 @@
     },
     "Id": "Human_Statue_Base",
     "FullName": "broken statue base",
+    "Type": "generic",
     "Location": "Canterlot_High_Campus",
     "DefaultUse": "enter",
     "Alias": [
