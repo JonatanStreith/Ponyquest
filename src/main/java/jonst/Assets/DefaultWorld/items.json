@@ -117,7 +117,8 @@
       "Edible"
     ],
     "ResponseScripts": {
-      "fireball": ["destroyitem"]
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
     },
     "ComplexUse": {
     }
@@ -141,7 +142,8 @@
       "Edible"
     ],
     "ResponseScripts": {
-      "fireball": ["destroyitem"]
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
     },
     "ComplexUse": {
     }
@@ -165,7 +167,8 @@
       "Edible"
     ],
     "ResponseScripts": {
-      "fireball": ["destroyitem"]
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
     },
     "ComplexUse": {
     }
@@ -189,7 +192,8 @@
       "Edible"
     ],
     "ResponseScripts": {
-      "fireball": ["destroyitem"]
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
     },
     "ComplexUse": {
     }
@@ -212,7 +216,8 @@
       "Edible"
     ],
     "ResponseScripts": {
-      "fireball": ["destroyitem"]
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
     },
     "ComplexUse": {
       "Applejack": "look at cape"
@@ -236,6 +241,8 @@
       "Edible"
     ],
     "ResponseScripts": {
+
+    "eat": ["writeline:They're hard and taste bland."]
     },
     "ComplexUse": {
     }

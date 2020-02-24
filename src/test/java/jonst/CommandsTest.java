@@ -88,15 +88,15 @@ public class CommandsTest {
     }
 
 
-    @Test
-    public void lookAtTest() {
-
-        Commands.lookAt("Applejack", world);
-        Commands.lookAt("maud", world);
-        Commands.lookAt("acres", world);
-        Commands.lookAt("twilight", world);
-
-    }
+//    @Test
+//    public void lookAtTest() {
+//
+//        Commands.lookAt("Applejack", world);
+//        Commands.lookAt("maud", world);
+//        Commands.lookAt("acres", world);
+//        Commands.lookAt("twilight", world);
+//
+//    }
 
 
     @Test

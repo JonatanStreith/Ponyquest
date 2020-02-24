@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
@@ -517,12 +518,17 @@ public class Commands {
         }
     }
 
-    public static void lookAt(String argument, World world) {         //Make sure you can't look at things that aren't present!
+    public static void lookAt(String[] argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        if (argument == "") {     //If you just type "look", "look at" or "look around"
+        if(!argument[3].equals("")){
+            System.out.println("You don't see '" + argument[3] + "' here.");
+            return;
+        }
+
+        if (argument[1] == "") {     //If you just type "look", "look at" or "look around"
             lookAround(world);
         } else {
-            String fullName = world.matchLocalName(argument);
+            String fullName = world.matchLocalName(argument[1]);
 
             if (!fullName.equals("")) {
 
@@ -585,20 +591,12 @@ public class Commands {
 
         List<Location> potentialDestinations = world.matchLocationsMultiple(newArea);
 
-        Location destination = null;
-
-        if (potentialDestinations.size() > 0) {
-            outerloop:
-            for (Location dest : potentialDestinations) {
-                for (Exit exit : world.getExitList()) {
-                    if (exit.connectionExists(currentLoc, dest)) { //If there's a connection between these two places
-                        destination = dest;
-                        break outerloop;
-                    }
-                }
-            }
+        if(potentialDestinations.size() == 0){
+            System.out.println("You don't know any place by that name.");
+            return;
         }
 
+        Location destination = Lambda.getFirst(potentialDestinations, world.getExitList(), (l, e) -> e.connectionExists(currentLoc, l));
 
         if (destination != null)               //Is a destination found?
         {
@@ -1101,26 +1099,20 @@ public class Commands {
         }
     }
 
-    public static ArrayList<Creature> getFollowers(Location currentLocation, World world) {
+    public static List<Creature> getFollowers(Location currentLocation, World world) {
 
-        ArrayList<Creature> followers = new ArrayList<>();
+        List<Creature> followers = new ArrayList<>();
 
-        for (GenericObject gen : currentLocation.getAllAtLocation()) {
+        Lambda.processList(currentLocation.getAllAtLocation(), gen -> gen instanceof Creature && gen.hasAttribute("following"), gen -> followers.add((Creature) gen));
 
-            if (gen instanceof Creature && gen.hasAttribute("following")) {
-                followers.add((Creature) gen);
-            }
-        }
         return followers;
     }
 
     public static void moveFollowers(Location currentLoc, Location destination, World world) {
-        ArrayList<Creature> followers = getFollowers(currentLoc, world);
-
-        for (Creature follower : followers) {
+        Lambda.processList(getFollowers(currentLoc, world), follower -> {
             world.moveToLocation(follower, currentLoc, destination);
             System.out.println(follower.getName() + " follows you.");
-        }
+        });
     }
 
     public static void initiateDialog(Creature speaker, World world) {

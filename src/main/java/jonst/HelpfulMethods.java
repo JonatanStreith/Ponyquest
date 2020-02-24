@@ -72,12 +72,15 @@ public class HelpfulMethods {
 
 
     public static String isOrAre(int num) {
-        String output = " is ";
-        if (num > 1) {
-            output = " are ";
-        }
 
-        return output;
+        return (num > 1) ? " are " : " is ";
+
+//        String output = " is ";
+//        if (num > 1) {
+//            output = " are ";
+//        }
+//
+//        return output;
     }
 
     public static String turnStringListIntoString(List<String> longList, String separator)     //Takes a list of strings, pieces them together into one string

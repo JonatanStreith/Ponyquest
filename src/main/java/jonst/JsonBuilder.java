@@ -391,11 +391,7 @@ public class JsonBuilder {
                         put(key, sta.getComplexUse().get(key));
                     }
                 }});
-//                put("ResponseScripts", new JSONObject() {{
-//                    for (String key : sta.getResponseScripts().keySet()) {
-//                        put(key, sta.getResponseScripts().get(key));
-//                    }
-//                }});
+
                 put("ResponseScripts", new JSONObject() {{
                     for (String key : sta.getResponseScripts().keySet()) {
                         JSONArray scriptArray = new JSONArray() {{

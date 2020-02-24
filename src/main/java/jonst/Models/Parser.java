@@ -214,7 +214,7 @@ public class Parser {
             case "look":
             case "look around":
             case "look at":
-                Commands.lookAt(commandArray[1], world);
+                Commands.lookAt(commandArray, world);
                 break;
 
             case "exits":

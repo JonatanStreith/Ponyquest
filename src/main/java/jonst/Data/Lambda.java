@@ -2,26 +2,25 @@ package jonst.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Lambda {
 
 
-
-
-    public static <T, R> List<R> getSubvalues(List<T> list, Function<T, R> func){
+    public static <T, R> List<R> getSubvalues(List<T> list, Function<T, R> func) {
 
         List<R> returnList = new ArrayList<>();
 
-        for (T t: list) {
+        for (T t : list) {
             R r = func.apply(t);
             returnList.add(r);
         }
         return returnList;
     }
 
-    public static <T, R> R getSubvalue(T t, Function<T,R> func){
+    public static <T, R> R getSubvalue(T t, Function<T, R> func) {
         R r = func.apply(t);
 
         return r;
@@ -91,7 +90,20 @@ public class Lambda {
         return null;
     }
 
-    public static <T, U> void processLists(List<T> firstList, List<U> secondList, DualTest<T, U> test, DualFactory<T,U> process) {
+    public static <T> void processList(List<T> list, Predicate<T> predicate, Consumer<T> consumer) {
+        for (T t : list) {
+            if (predicate.test(t))
+                consumer.accept(t);
+        }
+    }
+
+    public static <T> void processList(List<T> list, Consumer<T> consumer) {
+        for (T t : list) {
+            consumer.accept(t);
+        }
+    }
+
+    public static <T, U> void processLists(List<T> firstList, List<U> secondList, DualTest<T, U> test, DualFactory<T, U> process) {
 
         List<T> returnList = new ArrayList<>();
 

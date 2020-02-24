@@ -128,13 +128,13 @@ public class World {
         genericList.add(newGen);
     }
 
-    public void addExit(Exit exit){
+    public void addExit(Exit exit) {
         exitList.add(exit);
     }
 
     //------------------ If items are removed permanently, they need to be removed from the world lists
 
-    public void removeFromList(GenericObject gen){
+    public void removeFromList(GenericObject gen) {
         if (gen instanceof Item) {
             itemList.remove((Item) gen);
         } else if (gen instanceof Creature) {
@@ -147,7 +147,7 @@ public class World {
         genericList.remove(gen);
     }
 
-    public void removeExit(Exit exit){
+    public void removeExit(Exit exit) {
         exitList.remove(exit);
     }
 
@@ -155,22 +155,35 @@ public class World {
 
     public void populateLocationLists() {
 
+
+        Lambda.processLists(locationList, new ArrayList<GenericObject>() {{
+                    addAll(creatureList);
+                    addAll(stationaryObjectList);
+                }},
+                (l, g) -> g.getLocationId().equalsIgnoreCase(l.getId()), (l, g) -> {
+                    l.add(g);
+                    g.setLocation(l);
+                });
+
+        Lambda.processLists(itemList, genericList, (i, g) -> i.getLocationId().equalsIgnoreCase(g.getId()), (i, g) -> {
+            g.addItem(i);
+            i.setHolder(g);
+            if (g instanceof Location) {
+                i.setLocation((Location) g);
+            } else {
+                i.setLocation(null);
+            }
+        });
+
+        Lambda.processLists(new ArrayList<GenericObject>() {{
+                                addAll(itemList);
+                                addAll(stationaryObjectList);
+                            }}, creatureList,
+                (t, c) -> t.getOwnerName() != null && t.getOwnerName().equalsIgnoreCase(c.getName()), (t, c) -> {
+                    t.setOwner(c);
+                });
+
         for (Location location : locationList) {
-
-            for (Creature creature : creatureList) {
-                if (creature.getLocationId().equalsIgnoreCase(location.getId())) {
-                    location.add(creature); //Adds creature to the location's list of creatures
-                    creature.setLocation(location); //Sets creature's location reference
-                }
-            }
-
-            for (StationaryObject object : stationaryObjectList) {
-                if (object.getLocationId().equalsIgnoreCase(location.getId())) {
-                    location.add(object);     //Adds object to the location's list of objects
-                    object.setLocation(location);   //Sets object's location reference
-                }
-            }
-
             for (Location loc : locationList) {
                 if (location.getDefaultEnterId() != null && location.getDefaultEnterId().equals(loc.getId())) {
                     location.setDefaultEnter(loc);
@@ -179,45 +192,6 @@ public class World {
                 }
                 if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
                     break;
-                }
-            }
-        }
-
-        for (Item item : itemList) {
-            for (GenericObject gen : genericList) {
-
-                if (item.getLocationId().equalsIgnoreCase(gen.getId())) {
-
-                    gen.addItem(item);
-                    item.setHolder(gen);
-
-                    if (gen instanceof Location) {
-                        item.setLocation((Location) gen);
-                    } else {
-                        item.setLocation(null);
-                    }
-                }
-            }
-        }
-
-        for (
-                Item item : itemList) {
-            if (item.getOwnerName() != null) {
-                for (Creature creature : creatureList) {
-                    if (item.getOwnerName().equalsIgnoreCase(creature.getName())) {
-                        item.setOwner(creature);
-                    }
-                }
-            }
-        }
-
-        for (
-                StationaryObject obj : stationaryObjectList) {
-            if (obj.getOwnerName() != null) {
-                for (Creature creature : creatureList) {
-                    if (obj.getOwnerName().equalsIgnoreCase(creature.getName())) {
-                        obj.setOwner(creature);
-                    }
                 }
             }
         }
@@ -281,13 +255,7 @@ public class World {
 
     public Location getLocationByName(String wantedLocation) {
 
-        for (Location location : locationList) {
-
-            //Instead of using equals, could use contains?
-            if (location.getName().equalsIgnoreCase(wantedLocation))
-                return location;
-        }
-        return null;
+        return Lambda.getFirst(locationList, l -> l.getName().equalsIgnoreCase(wantedLocation));
     }
 
     public Location getLocationByID(String id) {
@@ -313,54 +281,21 @@ public class World {
     public Dialog getDialogEntry(String dialogKey) {
 
         return Lambda.getFirst(dialogList, d -> d.getKey().equalsIgnoreCase(dialogKey));
-
-
-//        for (Dialog dialog : dialogList) {
-//            if (dialog.getKey().equalsIgnoreCase(dialogKey))
-//                return dialog;
-//        }
-//        return null;
     }
 
     public GenericObject getGenericObject(String wantedGenericObject) {
 
         return Lambda.getFirst(genericList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
-
-
-//        for (GenericObject genericObject : genericList) {
-//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-//                return genericObject;
-//        }
-//        return null;
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {
 
-        List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
-
-        return Lambda.getFirst(localList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
-
-
-//        for (GenericObject genericObject : localList) {
-//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-//                return genericObject;
-//        }
-//        return null;
-
+        return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericOnGround(String wantedGenericObject) {
 
-        List<GenericObject> localList = getPlayerLocation().getAllGroundOnly();
-
-        return Lambda.getFirst(localList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
-
-
-//        for (GenericObject genericObject : localList) {
-//            if (genericObject.getName().equalsIgnoreCase(wantedGenericObject))
-//                return genericObject;
-//        }
-//        return null;
+        return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
     }
 
 
@@ -368,33 +303,25 @@ public class World {
 
     public List<Location> matchLocationsMultiple(String name) {
 
-        List<Location> locations = Lambda.subList(locationList, loc ->  loc.getName().equalsIgnoreCase(name) ||
-                loc.getAlias().contains(name) );
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return new ArrayList<Location>();
+        }
 
-        return locations;
-
-//        List<Location> results = new ArrayList<>();
-//
-//        for (Location loc : locationList) {
-//            if (loc.getName().equalsIgnoreCase(name)) {
-//                results.add(loc);     //If the name we're looking for is its full name
-//            } else {
-//                for (String alias : loc.getAlias()) {
-//                    if (alias.equalsIgnoreCase(name)) {
-//                        results.add(loc);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-        //return locations;
+        return Lambda.subList(locationList, loc -> loc.getName().equalsIgnoreCase(name) ||
+                loc.getAlias().contains(name));
     }
 
 
     public List<String> matchNameMultiple(String name) {
 
-        List<GenericObject> resultsGen = Lambda.subList(genericList, generic ->  generic.getName().equalsIgnoreCase(name) ||
-                generic.getAlias().contains(name) );
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return new ArrayList<String>();
+        }
+
+        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name));
 
         return Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -402,8 +329,13 @@ public class World {
 
     public String matchId(String name) {
 
-        List<GenericObject> resultsGen = Lambda.subList(genericList,  generic ->  generic.getName().equalsIgnoreCase(name) ||
-                generic.getAlias().contains(name) );
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return "";
+        }
+
+        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name));
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
 
@@ -420,26 +352,15 @@ public class World {
 
     public String matchName(String name) {
 
-        List<GenericObject> resultsGen = Lambda.subList(genericList,  generic -> generic.getName().equalsIgnoreCase(name) ||
-                 generic.getAlias().contains(name) );
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return "";
+        }
+
+        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name));
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
-
-
-//        List<String> results = new ArrayList<>();
-//
-//        for (GenericObject generic : genericList) { //Check if something exists that has "name" as its short name, then return its full name
-//
-//            if (generic.getName().equalsIgnoreCase(name)) {
-//                results.add(generic.getName());     //If the name we're looking for is its full name
-//            } else {
-//                for (String alias : generic.getAlias()) {
-//                    if (alias.equalsIgnoreCase(name)) {
-//                        results.add(generic.getName());
-//                    }
-//                }
-//            }
-//        }
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -456,28 +377,15 @@ public class World {
 
     public String matchNameFromInventory(GenericObject holder, String name) {
 
-        List<Item> invList = holder.getItemList();
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return "";
+        }
 
-        List<Item> resultsItm = Lambda.subList(invList,  generic -> generic.getName().equalsIgnoreCase(name) ||
-                 generic.getAlias().contains(name) );
+        List<Item> resultsItm = Lambda.subList(holder.getItemList(), generic -> generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name));
 
         List<String> results = Lambda.getSubvalues(resultsItm, g -> g.getName());
-
-
-
-
-//        for (Item item : itemList) { //Check if something exists that has "name" as its short name, then return its full name
-//
-//            if (item.getName().equalsIgnoreCase(name)) {
-//                results.add(item.getName());     //If the name we're looking for is its full name
-//            } else {
-//                for (String alias : item.getAlias()) {
-//                    if (alias.equalsIgnoreCase(name)) {
-//                        results.add(item.getName());
-//                    }
-//                }
-//            }
-//        }
 
         if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
@@ -494,30 +402,15 @@ public class World {
 
     public String matchLocalName(String name) {
 
-        List<GenericObject> localList = getPlayerLocation().getAllAtLocation();
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return "";
+        }
 
-        List<GenericObject> resultsGen = Lambda.subList(localList, (GenericObject generic) -> generic.getName().equalsIgnoreCase(name) ||
-                 generic.getAlias().contains(name) );
+        List<GenericObject> resultsGen = Lambda.subList(getPlayerLocation().getAllAtLocation(), (GenericObject generic) -> generic.getName().equalsIgnoreCase(name) ||
+                generic.getAlias().contains(name));
 
         List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
-
-
-
-//        List<String> results = new ArrayList<>();
-//        //genList is now everything at the location.
-//
-//        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
-//
-//            if (generic.getName().equalsIgnoreCase(name)) {
-//                results.add(generic.getName());     //If the name we're looking for is its full name
-//            } else {
-//                for (String alias : generic.getAlias()) {
-//                    if (alias.equalsIgnoreCase(name)) {
-//                        results.add(generic.getName());
-//                    }
-//                }
-//            }
-//        }
 
         results = HelpfulMethods.removeDuplicatesT(results);
 
@@ -534,11 +427,12 @@ public class World {
     }
 
 
-
-
-
-
     public String matchLocalOnGround(String name) {
+
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return "";
+        }
 
         List<GenericObject> genList = getPlayerLocation().getAllGroundOnly();
 
@@ -585,18 +479,18 @@ public class World {
 
         boolean loadingSuccess = true;
 
-            locationList = JsonBuilder.loadLocationList(loadFilePath);
-            creatureList = JsonBuilder.loadCreatureList(loadFilePath);
-            itemList = JsonBuilder.loadItemList(loadFilePath);
-            stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
+        locationList = JsonBuilder.loadLocationList(loadFilePath);
+        creatureList = JsonBuilder.loadCreatureList(loadFilePath);
+        itemList = JsonBuilder.loadItemList(loadFilePath);
+        stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
 
-            exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
+        exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
 
-            dialogList = JsonBuilder.generateDialogList();
+        dialogList = JsonBuilder.generateDialogList();
 
-            if (locationList.size() == 0 || creatureList.size() == 0 || itemList.size() == 0 || stationaryObjectList.size() == 0) {
-                loadingSuccess = false;
-            }
+        if (locationList.size() == 0 || creatureList.size() == 0 || itemList.size() == 0 || stationaryObjectList.size() == 0) {
+            loadingSuccess = false;
+        }
 
 
         if (!loadingSuccess) {

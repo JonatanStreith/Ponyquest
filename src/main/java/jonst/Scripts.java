@@ -35,21 +35,15 @@ public class Scripts {
 
         if (subject instanceof Creature) {
             Location currentLocation = subject.getLocation();
-            List<Exit> exits = world.getExitList();
 
-            List<Exit> viableExits = new ArrayList<>();
-
-            for (Exit exit : exits) {
-                if (exit.containsLocation(currentLocation)) {
-                    viableExits.add(exit);
-                }
-            }
+            List<Exit> viableExits = Lambda.subList(world.getExitList(), e -> e.containsLocation(currentLocation));
 
             Exit chosenExit = viableExits.get((int) Math.floor(Math.random() * viableExits.size()));
 
             Location destinationLocation = chosenExit.getConnectingLocation(currentLocation);
 
             world.moveToLocation(subject, currentLocation, destinationLocation);
+
             System.out.println("The " + subject + " flees towards " + destinationLocation + "!");
         }
     }
