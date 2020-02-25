@@ -172,7 +172,7 @@ public class Commands {
                 return;
             }
 
-            if(item.hasAttribute("worn")){
+            if (item.hasAttribute("worn")) {
                 remove(name, world);
             }
 
@@ -196,7 +196,7 @@ public class Commands {
                 return;
             }
 
-            if (item.hasAttribute("poisonous") && !(world.getPlayer().hasAttribute("poison immunity"))){
+            if (item.hasAttribute("poisonous") && !(world.getPlayer().hasAttribute("poison immunity"))) {
                 System.out.println("You can't eat that! It's poisonous!");
                 return;
             }
@@ -222,12 +222,12 @@ public class Commands {
             }
 
 
-            if (item.hasAttribute("worn")){
+            if (item.hasAttribute("worn")) {
                 System.out.println("You're already wearing that.");
                 return;
             }
 
-            if(world.getPlayer().isWearing(item.getType())){
+            if (world.getPlayer().isWearing(item.getType())) {
                 System.out.println("You're already wearing a " + item.getType() + ".");
                 return;
             }
@@ -247,7 +247,7 @@ public class Commands {
                 return;
             }
 
-            if (!item.hasAttribute("worn")){
+            if (!item.hasAttribute("worn")) {
                 System.out.println("You're not wearing that.");
                 return;
             }
@@ -339,21 +339,15 @@ public class Commands {
                 Creature creature = (Creature) subject;
                 System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
                 creature.runResponseScript("pick up");
-            }
-
-            else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
+            } else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
             {
                 System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
 
-            }
-
-            else if (subject instanceof Location)                                       //Subject is a location.
+            } else if (subject instanceof Location)                                       //Subject is a location.
             {
                 System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
 
-            }
-
-            else if ((subject instanceof Item)) {
+            } else if ((subject instanceof Item)) {
 
                 if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
 
@@ -520,7 +514,7 @@ public class Commands {
 
     public static void lookAt(String[] argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        if(!argument[3].equals("")){
+        if (!argument[3].equals("")) {
             System.out.println("You don't see '" + argument[3] + "' here.");
             return;
         }
@@ -543,7 +537,7 @@ public class Commands {
 
                         if (owner instanceof Creature) {
 
-                            if(gen.hasAttribute("worn")){
+                            if (gen.hasAttribute("worn")) {
                                 System.out.print("(Worn by " + owner.getName() + ") ");
                             } else {
                                 System.out.print("(Carried by " + owner.getName() + ") ");
@@ -569,7 +563,7 @@ public class Commands {
         }
     }
 
-    public static void goTo(Location destination, World world){
+    public static void goTo(Location destination, World world) {
 
         Location currentLoc = world.getPlayerLocation();
 
@@ -591,8 +585,8 @@ public class Commands {
 
         List<Location> potentialDestinations = world.matchLocationsMultiple(newArea);
 
-        if(potentialDestinations.size() == 0){
-            System.out.println("You don't know any place by that name.");
+        if (potentialDestinations.size() == 0) {
+            System.out.println("You can't get there from here.");
             return;
         }
 
@@ -601,13 +595,12 @@ public class Commands {
         if (destination != null)               //Is a destination found?
         {
             goTo(destination, world);
-
-        } else {
-            System.out.println("You can't get there from here.");
         }
     }
 
     public static void enter(String location, World world) {
+
+        Location currentLoc = world.getPlayerLocation();
 
         if (location.equals("")) {
             //If location has no default enter, or it's incorrect
@@ -624,19 +617,7 @@ public class Commands {
         {
             List<Location> potentialDestinations = world.matchLocationsMultiple(location);
 
-            Location destination = null;
-
-            if (potentialDestinations.size() > 0) {
-                outerloop:
-                for (Location dest : potentialDestinations) {
-                    for (Exit exit : world.getExitList()) {
-                        if (exit.connectionExists(world.getPlayerLocation(), dest)) { //If there's a connection between these two places
-                            destination = dest;
-                            break outerloop;
-                        }
-                    }
-                }
-            }
+            Location destination = Lambda.getFirst(potentialDestinations, world.getExitList(), (l, e) -> e.connectionExists(currentLoc, l));
 
             if (destination != null) {
                 goTo(destination.getName(), world);
@@ -663,12 +644,12 @@ public class Commands {
 
 
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
-        for (String area : possibleAreas) {
-            if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
-                goTo(world.getPlayerLocation().getDefaultEnter().getName(), world);
-                return;
-            }
-        }
+
+        Lambda.processList(possibleAreas, a -> a.equalsIgnoreCase(world.getPlayerLocation().getName()), a -> {
+            goTo(world.getPlayerLocation().getDefaultEnter().getName(), world);
+            return;
+        });
+
         System.out.println("You can only enter your current location.");
 
     }
@@ -688,12 +669,12 @@ public class Commands {
         }
 
         List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
-        for (String area : possibleAreas) {
-            if (area.equalsIgnoreCase(world.getPlayerLocation().getName())) {
-                goTo(world.getPlayerLocation().getDefaultExit().getName(), world);
-                return;
-            }
-        }
+
+        Lambda.processList(possibleAreas, a -> a.equalsIgnoreCase(world.getPlayerLocation().getName()), a -> {
+            goTo(world.getPlayerLocation().getDefaultExit().getName(), world);
+            return;
+        });
+
         System.out.println("You can only exit your current location.");
     }
 
@@ -908,12 +889,12 @@ public class Commands {
             if (subject != null) {
                 //do gift thing
 
-                if(subject.hasAttribute("undroppable")){
+                if (subject.hasAttribute("undroppable")) {
                     System.out.println("You don't want to relinquish that.");
                     return;
                 }
 
-                if(subject.hasAttribute("worn")){
+                if (subject.hasAttribute("worn")) {
                     remove(subjectName, world);
                 }
 
@@ -953,7 +934,7 @@ public class Commands {
         }
 
         if (container.hasAttribute("closed")) {
-            System.out.println("The "+container.getName() + " is closed. You can't put anything into it.");
+            System.out.println("The " + container.getName() + " is closed. You can't put anything into it.");
             return;
         }
 
@@ -961,7 +942,6 @@ public class Commands {
             System.out.println(container.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
-
 
 
         String itemName = world.matchNameFromInventory(world.getPlayer(), commandArray[1]);
@@ -972,7 +952,7 @@ public class Commands {
             return;
         }
 
-        if(item.hasAttribute("undroppable")){
+        if (item.hasAttribute("undroppable")) {
             System.out.println("You don't want to relinquish that.");
             return;
         }
@@ -1013,7 +993,7 @@ public class Commands {
         }
 
         if (container.hasAttribute("closed")) {
-            System.out.println("The "+container.getName() + " is closed. You can't take anything from it.");
+            System.out.println("The " + container.getName() + " is closed. You can't take anything from it.");
             return;
         }
 
@@ -1056,7 +1036,7 @@ public class Commands {
     public static void listOwnedItems(World world, GenericObject owner) {
         List<Item> itemList = owner.getItemList();
 
-        if(owner == world.getPlayer()){
+        if (owner == world.getPlayer()) {
             if (itemList.size() > 0) {
                 System.out.println("You carry " + turnListIntoString(itemList, "and") + ".");
             }
@@ -1119,7 +1099,7 @@ public class Commands {
 
         String dialogKey = speaker.getInitialDialog();
 
-        if(dialogKey == null){
+        if (dialogKey == null) {
             System.out.println(speaker.getName() + " has little to speak about.");
             return;
         }
@@ -1127,7 +1107,7 @@ public class Commands {
         while (true) {
             Dialog currentDialog = world.getDialogEntry(dialogKey);     //Get dialog entry
 
-            if(currentDialog == null){                                  //Check so the entry exists; otherwise, restart. Should not happen.
+            if (currentDialog == null) {                                  //Check so the entry exists; otherwise, restart. Should not happen.
                 System.out.println("[Dialog missing, returning to root.]\n");
                 dialogKey = speaker.getInitialDialog();
                 continue;
@@ -1137,15 +1117,11 @@ public class Commands {
 
             List<String> scripts = currentDialog.getScripts();
 
-            if(scripts != null) {
-                for (String script: scripts) {
-                    world.getParser().runScriptCommand(speaker, script, world);
-                }
-
-
+            if (scripts != null) {
+                Lambda.processList(scripts, s -> world.getParser().runScriptCommand(speaker, s, world));
             }
 
-            if(dialogKey.substring(dialogKey.length()-3).equalsIgnoreCase("END")){  //If this was an ending choice, this is where it stops.
+            if (dialogKey.substring(dialogKey.length() - 3).equalsIgnoreCase("END")) {  //If this was an ending choice, this is where it stops.
                 break;
             }
 
@@ -1154,19 +1130,18 @@ public class Commands {
             System.out.println();
             for (int i = 0; i < responses.length; i++) {                //Print each potential response
 
-                System.out.println(i+1 + ": " + responses[i][1]);
+                System.out.println(i + 1 + ": " + responses[i][1]);
             }
             System.out.println("0: End conversation.");                 //Default "stop talking", just in case
             System.out.println();
 
             int choice = SystemData.getNumericalReply("Your choice? ", responses.length);
 
-            if(choice == 0){
+            if (choice == 0) {
                 System.out.println("You suddenly end the conversation.\n");
                 break;
-            }
-            else {
-                 dialogKey = (String) responses[choice-1][0];
+            } else {
+                dialogKey = (String) responses[choice - 1][0];
             }
 
         }
