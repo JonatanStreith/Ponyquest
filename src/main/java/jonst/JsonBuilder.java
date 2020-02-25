@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.*;
 import jonst.Models.Objects.*;
@@ -112,86 +113,105 @@ public class JsonBuilder {
 
     }
 
+    //----------------------------
+
+    public static JSONObject getJsonGeneric(GenericObject gen) {
+        return new JSONObject() {{
+
+            //Generic attributes here
+            put("FullName", gen.getName());
+            put("Type", gen.getType());
+            put("Id", gen.getId());
+            put("Location", gen.getLocationId());
+            put("Text", gen.getText());
+            put("DefaultUse", gen.getDefaultUse());
+            put("OwnerName", gen.getOwnerName());
+
+            if (gen.getOwner() != null) {
+                put("Owner", gen.getOwner().getName());
+            }
+            put("Alias", new JSONArray() {{
+                for (String alias : gen.getAlias()) {
+                    add(alias);
+                }
+            }});
+            put("Attributes", new JSONArray() {{
+                for (String attribute : gen.getAttributes()) {
+                    add(attribute);
+                }
+            }});
+            put("Descriptions", new JSONObject() {{
+                for (String key : gen.getDescriptions().keySet()) {
+                    put(key, gen.getDescriptions().get(key));
+                }
+            }});
+            put("ComplexUse", new JSONObject() {{
+                for (String key : gen.getComplexUse().keySet()) {
+                    put(key, gen.getComplexUse().get(key));
+                }
+            }});
+            put("ResponseScripts", new JSONObject() {{
+                for (String key : gen.getResponseScripts().keySet()) {
+                    JSONArray scriptArray = new JSONArray() {{
+                        for (String script : gen.getResponseScripts().get(key)) {
+                            add(script);
+                        }
+                    }};
+                    put(key, scriptArray);
+                }
+            }});
+
+            if (gen instanceof Creature) {
+
+                //Creature-specific attributes here
+                put("InitialDialog", ((Creature) gen).getInitialDialog());
+                put("Race", ((Creature) gen).getRace());
+                put("DefaultRace", ((Creature) gen).getDefaultRace());
+                put("Gender", gen.getGender());
+                put("CasualDialog", new JSONArray() {{
+                    for (String dialog : ((Creature) gen).getCasualDialog()) {
+                        add(dialog);
+                    }
+                }});
+
+                put("AskTopics", new JSONObject() {{
+                    for (String key : ((Creature) gen).getAskTopics().keySet()) {
+                        put(key, ((Creature) gen).getAskTopics().get(key));
+                    }
+                }});
+
+                put("BehaviorCore", new JSONObject() {{
+                    put("mood", ((Creature) gen).getMood());
+                    put("activity", ((Creature) gen).getActivity());
+                    put("allegiance", ((Creature) gen).getAllegiance());
+                    put("status", ((Creature) gen).getStatus());
+                }});
+            } else if (gen instanceof Location) {
+
+                //Location-specific attriibutes here
+                if (((Location) gen).getDefaultEnter() != null)
+                    put("DefaultEnter", ((Location) gen).getDefaultEnter().getId());
+                if (((Location) gen).getDefaultExit() != null)
+                    put("DefaultExit", ((Location) gen).getDefaultExit().getId());
+            } else if (gen instanceof Item) {
+                //Reserved space in case items get more stuff
+            } else if (gen instanceof StationaryObject) {
+                //Reserved space in case SOs get more stuff
+            }
+        }};
+
+
+    }
+
     //---------- save methods
     public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
-
-//        Map<String, String> askTopics = new HashMap() {{
-//            put("Key1", "Response");
-//        }};
 
         boolean success = true;
         JSONArray creatureArray = new JSONArray();
 
-
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
-            creatureArray.add(new JSONObject() {{
-
-                put("FullName", crea.getName());
-                put("Id", crea.getId());
-                put("Type", crea.getType());
-                //put("Description", crea.getDescription());
-                put("Location", crea.getLocationId());
-                put("Text", crea.getText());
-                put("DefaultUse", crea.getDefaultUse());
-
-                put("InitialDialog", crea.getInitialDialog());
-
-                put("Alias", new JSONArray() {{
-                    for (String alias : crea.getAlias()) {
-                        add(alias);
-                    }
-                }});
-                put("Attributes", new JSONArray() {{
-                    for (String attribute : crea.getAttributes()) {
-                        add(attribute);
-                    }
-                }});
-
-                put("Race", crea.getRace());
-                put("DefaultRace", crea.getDefaultRace());
-                put("Gender", crea.getGender());
-                put("CasualDialog", new JSONArray() {{
-                    for (String dialog : crea.getCasualDialog()) {
-                        add(dialog);
-                    }
-                }});
-                put("Descriptions", new JSONObject() {{
-                    for (String key : crea.getDescriptions().keySet()) {
-                        put(key, crea.getDescriptions().get(key));
-                    }
-                }});
-                put("AskTopics", new JSONObject() {{
-                    for (String key : crea.getAskTopics().keySet()) {
-                        put(key, crea.getAskTopics().get(key));
-                    }
-                }});
-                put("ComplexUse", new JSONObject() {{
-                    for (String key : crea.getComplexUse().keySet()) {
-                        put(key, crea.getComplexUse().get(key));
-                    }
-                }});
-                put("BehaviorCore", new JSONObject() {{
-                    put("mood", crea.getMood());
-                    put("activity", crea.getActivity());
-                    put("allegiance", crea.getAllegiance());
-                    put("status", crea.getStatus());
-
-
-                }});
-
-                put("ResponseScripts", new JSONObject() {{
-                    for (String key : crea.getResponseScripts().keySet()) {
-                        JSONArray scriptArray = new JSONArray() {{
-                            for (String script : crea.getResponseScripts().get(key)) {
-                                add(script);
-                            }
-                        }};
-                        put(key, scriptArray);
-                    }
-                }});
-            }});
+            creatureArray.add(getJsonGeneric(crea));
         }
-
 
         try (FileWriter file = new FileWriter(filepath + "/creatures.json")) {
 
@@ -211,61 +231,7 @@ public class JsonBuilder {
         JSONArray locationArray = new JSONArray();
 
         for (Location loc : locationList) {        //This creates one JSONObject for every location in the list, populates it with data, and adds it to "locations"
-            locationArray.add(new JSONObject() {{
-                put("FullName", loc.getName());
-                put("Id", loc.getId());
-                put("Type", loc.getType());
-                //put("Description", loc.getDescription());
-                put("Location", loc.getLocationId());
-                put("Text", loc.getText());
-                put("DefaultUse", loc.getDefaultUse());
-
-                put("Alias", new JSONArray() {{
-                    for (String alias : loc.getAlias()) {
-                        add(alias);
-                    }
-                }});
-                put("Attributes", new JSONArray() {{
-                    for (String attribute : loc.getAttributes()) {
-                        add(attribute);
-                    }
-                }});
-
-                if (loc.getDefaultEnter() != null)
-                    put("DefaultEnter", loc.getDefaultEnter().getId());
-                if (loc.getDefaultExit() != null)
-                    put("DefaultExit", loc.getDefaultExit().getId());
-
-
-                put("Descriptions", new JSONObject() {{
-                    for (String key : loc.getDescriptions().keySet()) {
-                        put(key, loc.getDescriptions().get(key));
-                    }
-                }});
-                put("ComplexUse", new JSONObject() {{
-                    for (String key : loc.getComplexUse().keySet()) {
-                        put(key, loc.getComplexUse().get(key));
-                    }
-                }});
-//                put("ResponseScripts", new JSONObject() {{
-//                    for (String key : loc.getResponseScripts().keySet()) {
-//                        put(key, loc.getResponseScripts().get(key));
-//                    }
-//                }});
-
-                put("ResponseScripts", new JSONObject() {{
-                    for (String key : loc.getResponseScripts().keySet()) {
-                        JSONArray scriptArray = new JSONArray() {{
-                            for (String script : loc.getResponseScripts().get(key)) {
-                                add(script);
-                            }
-                        }};
-                        put(key, scriptArray);
-                    }
-                }});
-
-
-            }});
+            locationArray.add(getJsonGeneric(loc));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/locations.json")) {
@@ -286,58 +252,7 @@ public class JsonBuilder {
         JSONArray itemArray = new JSONArray();
 
         for (Item ite : itemList) {        //This creates one JSONObject for every item in the list, populates it with data, and adds it to "items"
-            itemArray.add(new JSONObject() {{
-                put("FullName", ite.getName());
-                put("Id", ite.getId());
-                put("Type", ite.getType());
-                //put("Description", ite.getDescription());
-                put("Location", ite.getLocationId());
-                put("Text", ite.getText());
-                put("DefaultUse", ite.getDefaultUse());
-
-
-                if (ite.getOwner() != null) {
-                    put("Owner", ite.getOwner().getName());
-                }
-
-                put("Alias", new JSONArray() {{
-                    for (String alias : ite.getAlias()) {
-                        add(alias);
-                    }
-                }});
-                put("Attributes", new JSONArray() {{
-                    for (String attribute : ite.getAttributes()) {
-                        add(attribute);
-                    }
-                }});
-                put("Descriptions", new JSONObject() {{
-                    for (String key : ite.getDescriptions().keySet()) {
-                        put(key, ite.getDescriptions().get(key));
-                    }
-                }});
-
-                put("ComplexUse", new JSONObject() {{
-                    for (String key : ite.getComplexUse().keySet()) {
-                        put(key, ite.getComplexUse().get(key));
-                    }
-                }});
-//                put("ResponseScripts", new JSONObject() {{
-//                    for (String key : ite.getResponseScripts().keySet()) {
-//                        put(key, ite.getResponseScripts().get(key));
-//                    }
-//                }});
-                put("ResponseScripts", new JSONObject() {{
-                    for (String key : ite.getResponseScripts().keySet()) {
-                        JSONArray scriptArray = new JSONArray() {{
-                            for (String script : ite.getResponseScripts().get(key)) {
-                                add(script);
-                            }
-                        }};
-                        put(key, scriptArray);
-                    }
-                }});
-
-            }});
+            itemArray.add(getJsonGeneric(ite));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/items.json")) {
@@ -358,52 +273,7 @@ public class JsonBuilder {
         JSONArray objectArray = new JSONArray();
 
         for (StationaryObject sta : objectList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
-            objectArray.add(new JSONObject() {{
-                put("FullName", sta.getName());
-                put("Id", sta.getId());
-                put("Type", sta.getType());
-                //put("Description", sta.getDescription());
-                put("Location", sta.getLocationId());
-                put("Text", sta.getText());
-                put("DefaultUse", sta.getDefaultUse());
-
-                if (sta.getOwner() != null) {
-                    put("Owner", sta.getOwner().getName());
-                }
-
-                put("Alias", new JSONArray() {{
-                    for (String alias : sta.getAlias()) {
-                        add(alias);
-                    }
-                }});
-                put("Attributes", new JSONArray() {{
-                    for (String attribute : sta.getAttributes()) {
-                        add(attribute);
-                    }
-                }});
-                put("Descriptions", new JSONObject() {{
-                    for (String key : sta.getDescriptions().keySet()) {
-                        put(key, sta.getDescriptions().get(key));
-                    }
-                }});
-                put("ComplexUse", new JSONObject() {{
-                    for (String key : sta.getComplexUse().keySet()) {
-                        put(key, sta.getComplexUse().get(key));
-                    }
-                }});
-
-                put("ResponseScripts", new JSONObject() {{
-                    for (String key : sta.getResponseScripts().keySet()) {
-                        JSONArray scriptArray = new JSONArray() {{
-                            for (String script : sta.getResponseScripts().get(key)) {
-                                add(script);
-                            }
-                        }};
-                        put(key, scriptArray);
-                    }
-                }});
-
-            }});
+            objectArray.add(getJsonGeneric(sta));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/objects.json")) {
@@ -453,136 +323,156 @@ public class JsonBuilder {
 
 
     //---------- load methods
+
+    public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
+        //Generic
+
+            String fullName = (String) jObj.get("FullName");
+            String type = (String) jObj.get("Type");
+            String id = (String) jObj.get("Id");
+            String location = (String) jObj.get("Location");
+            String text = (String) jObj.get("Text");
+            String defaultUse = (String) jObj.get("DefaultUse");
+
+            Map<String, String> descriptions = new HashMap() {{
+                JSONObject jsd = (JSONObject) jObj.get("Descriptions");
+                if (jsd != null)
+                    for (Object xObj : jsd.keySet()) {
+                        String key = (String) xObj;
+                        put(key.toLowerCase(), (String) jsd.get(key));
+                    }
+            }};
+
+            Map<String, String> complexUse = new HashMap() {{
+                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+                if (jsCU != null)
+                    for (Object xObj : jsCU.keySet()) {
+                        String key = (String) xObj;
+                        put(key.toLowerCase(), (String) jsCU.get(key));
+                    }
+            }};
+
+            Map<String, ArrayList<String>> responseScripts = new HashMap() {{
+                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+                if (jsRS != null) {
+                    for (Object xObj : jsRS.keySet()) {
+                        String key = (String) xObj;
+                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
+
+                        ArrayList<String> scripts = new ArrayList<>();
+                        scripts.addAll(jsScripts);
+                        put(key.toLowerCase(), scripts);
+                    }
+                }
+            }};
+
+            List<String> alias = new ArrayList() {{
+                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+                if (jsAlias != null)
+                    for (Object xObj : jsAlias) {
+                        String newAlias = (String) xObj;
+                        add(newAlias.toLowerCase());
+                    }
+            }};
+
+            List<String> attributes = new ArrayList() {{
+                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+                if (jsAttributes != null)
+                    for (Object xObj : jsAttributes) {
+                        String newAttribute = (String) xObj;
+                        add(newAttribute.toLowerCase());
+                    }
+            }};
+
+
+        if(typeKey.equals("creature")) {
+            //Creature-specific
+            String race = (String) jObj.get("Race");
+            String defaultRace = (String) jObj.get("DefaultRace");
+            String gender = (String) jObj.get("Gender");
+            String initialDialog = (String) jObj.get("InitialDialog");
+
+            Map<String, String> askTopics = new HashMap() {{
+                JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
+                if (jsAT != null)
+                    for (Object xObj : jsAT.keySet()) {
+                        String key = (String) xObj;
+                        put(key.toLowerCase(), (String) jsAT.get(key));
+                    }
+            }};
+
+            List<String> casualDialog = new ArrayList() {{
+                JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
+                if (jsCD != null)
+                    for (Object xObj : jsCD) {
+                        add((String) xObj);
+                    }
+            }};
+
+            BehaviorCore bc;
+            JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
+
+            if (jsBehaviorCore != null) {
+                String mood = (String) jsBehaviorCore.get("mood");
+                String activity = (String) jsBehaviorCore.get("activity");
+                String allegiance = (String) jsBehaviorCore.get("allegiance");
+                String status = (String) jsBehaviorCore.get("status");
+
+                Map<String, String> personalQuotes = new HashMap<>();
+                JSONObject jsPersonalQuotes = (JSONObject) jsBehaviorCore.get("PersonalQuotes");
+                if (jsPersonalQuotes != null) {
+                    for (Object xObj : jsPersonalQuotes.keySet()) {
+                        String key = (String) xObj;
+                        personalQuotes.put(key.toLowerCase(), (String) jsPersonalQuotes.get(key));
+                    }
+                }
+
+                bc = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
+
+            } else {
+                bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
+            }
+
+            return new Creature(fullName, type, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
+                    gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
+        }
+        else if(typeKey.equals("item")){
+
+            String ownerName = (String) jObj.get("Owner");
+
+            return new Item(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+
+        }
+        else if(typeKey.equals("location")){
+
+            String defaultEnter = (String) jObj.get("DefaultEnter");
+            String defaultExit = (String) jObj.get("DefaultExit");
+
+            return new Location(fullName, type, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions,
+                    text, defaultUse, complexUse, responseScripts, null);
+
+        }
+        else if(typeKey.equals("stationaryobject")){
+            String ownerName = (String) jObj.get("Owner");
+
+            return new StationaryObject(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+
+        }
+
+
+        return null;
+    }
+
+
+    //----------------
     public static List<Creature> loadCreatureList(String filepath) {
 
-
         List<Creature> creatureList = new ArrayList<>();
-
 
         try (FileReader reader = new FileReader(filepath + "/creatures.json")) {
 
             JSONArray creatureJSON = (JSONArray) new JSONParser().parse(reader);
-
-            for (Object obj : creatureJSON) {
-
-                String tryName = "";
-                try {
-
-                    JSONObject jObj = (JSONObject) obj;
-                    String fullName = (String) jObj.get("FullName");
-
-                    tryName = fullName;
-
-                    String type = (String) jObj.get("Type");
-
-                    String id = (String) jObj.get("Id");
-                    //String description = (String) jObj.get("Description");
-                    String race = (String) jObj.get("Race");
-                    String defaultRace = (String) jObj.get("DefaultRace");
-                    String gender = (String) jObj.get("Gender");
-                    String location = (String) jObj.get("Location");
-                    String text = (String) jObj.get("Text");
-                    String defaultUse = (String) jObj.get("DefaultUse");
-
-                    String initialDialog = (String) jObj.get("InitialDialog");
-
-                    List<String> casualDialog = new ArrayList<>();
-                    Map<String, String> descriptions = new HashMap<>();
-                    Map<String, String> askTopics = new HashMap<>();
-                    Map<String, String> complexUse = new HashMap<>();
-                    Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-                    List<String> alias = new ArrayList<>();
-                    List<String> attributes = new ArrayList<>();
-
-                    JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
-                    if (jsCD != null)
-                        for (Object xObj : jsCD) {
-                            casualDialog.add((String) xObj);
-                        }
-
-                    JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-                    if (jsd != null)
-                        for (Object xObj : jsd.keySet()) {
-                            String key = (String) xObj;
-                            descriptions.put(key.toLowerCase(), (String) jsd.get(key));
-                        }
-
-                    JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
-                    if (jsAT != null)
-                        for (Object xObj : jsAT.keySet()) {
-                            String key = (String) xObj;
-                            askTopics.put(key.toLowerCase(), (String) jsAT.get(key));
-                        }
-
-                    JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-                    if (jsCU != null)
-                        for (Object xObj : jsCU.keySet()) {
-                            String key = (String) xObj;
-                            complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
-                        }
-
-
-                    JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                    if (jsAlias != null)
-                        for (Object xObj : jsAlias) {
-                            String newAlias = (String) xObj;
-                            alias.add(newAlias.toLowerCase());
-                        }
-
-                    JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                    if (jsAttributes != null)
-                        for (Object xObj : jsAttributes) {
-                            String newAttribute = (String) xObj;
-                            attributes.add(newAttribute.toLowerCase());
-                        }
-
-                    JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
-                    BehaviorCore bc;
-                    if (jsBehaviorCore != null) {
-                        String mood = (String) jsBehaviorCore.get("mood");
-                        String activity = (String) jsBehaviorCore.get("activity");
-                        String allegiance = (String) jsBehaviorCore.get("allegiance");
-                        String status = (String) jsBehaviorCore.get("status");
-
-                        Map<String, String> personalQuotes = new HashMap<>();
-                        JSONObject jsPersonalQuotes = (JSONObject) jsBehaviorCore.get("PersonalQuotes");
-                        if (jsPersonalQuotes != null) {
-                            for (Object xObj : jsPersonalQuotes.keySet()) {
-                                String key = (String) xObj;
-                                personalQuotes.put(key.toLowerCase(), (String) jsPersonalQuotes.get(key));
-                            }
-                        }
-
-
-                        bc = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
-
-                    } else {
-                        bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
-                    }
-
-
-                    JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-                    if (jsRS != null) {
-                        for (Object xObj : jsRS.keySet()) {
-                            String key = (String) xObj;
-                            JSONArray jsScripts = (JSONArray) jsRS.get(key);
-
-                            ArrayList<String> scripts = new ArrayList<>();
-                            scripts.addAll(jsScripts);
-                            responseScripts.put(key.toLowerCase(), scripts);
-                        }
-                    }
-
-
-                    Creature creature = new Creature(fullName, type, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
-
-
-
-                    creatureList.add(creature);
-                } catch (Exception e) {
-                    System.out.println("There was an error generating Creature: " + tryName);
-                }
-            }
+            Lambda.processList(creatureJSON, c -> creatureList.add((Creature) loadGenericFromJson((JSONObject) c, "creature")));
 
         } catch (FileNotFoundException e) {
             System.out.println("Creatures file not found.");
@@ -601,91 +491,12 @@ public class JsonBuilder {
 
     public static List<Location> loadLocationList(String filepath) {
 
-
         List<Location> locationList = new ArrayList<>();
 
         try (FileReader reader = new FileReader(filepath + "/locations.json")) {
 
             JSONArray locationJSON = (JSONArray) new JSONParser().parse(reader);
-
-            String tryName = "";
-            try {
-
-                for (Object obj : locationJSON) {
-                    JSONObject jObj = (JSONObject) obj;
-                    String fullName = (String) jObj.get("FullName");
-
-                    tryName = fullName;
-
-                    String type = (String) jObj.get("Type");
-
-                    String id = (String) jObj.get("Id");
-                    //String description = (String) jObj.get("Description");
-
-                    String defaultEnter = (String) jObj.get("DefaultEnter");
-                    String defaultExit = (String) jObj.get("DefaultExit");
-                    String text = (String) jObj.get("Text");
-                    String defaultUse = (String) jObj.get("DefaultUse");
-
-                    Map<String, String> descriptions = new HashMap<>();
-                    Map<String, String> complexUse = new HashMap<>();
-                    Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-
-                    ArrayList<String> exits = new ArrayList<>();
-                    List<String> alias = new ArrayList<>();
-                    List<String> attributes = new ArrayList<>();
-
-                    JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                    if (jsAlias != null)
-                        for (Object xObj : jsAlias) {
-                            String newAlias = (String) xObj;
-                            alias.add(newAlias.toLowerCase());
-                        }
-
-                    JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                    if (jsAttributes != null)
-                        for (Object xObj : jsAttributes) {
-                            String newAttribute = (String) xObj;
-                            attributes.add(newAttribute.toLowerCase());
-                        }
-
-                    JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-                    if (jsd != null)
-                        for (Object xObj : jsd.keySet()) {
-                            String key = (String) xObj;
-                            descriptions.put(key.toLowerCase(), (String) jsd.get(key));
-                        }
-
-                    JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-                    if (jsCU != null)
-                        for (Object xObj : jsCU.keySet()) {
-                            String key = (String) xObj;
-                            complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
-                        }
-
-                    JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-                    if (jsRS != null) {
-                        for (Object xObj : jsRS.keySet()) {
-                            String key = (String) xObj;
-                            JSONArray jsScripts = (JSONArray) jsRS.get(key);
-
-                            ArrayList<String> scripts = new ArrayList<>();
-                            scripts.addAll(jsScripts);
-                            responseScripts.put(key.toLowerCase(), scripts);
-                        }
-                    }
-
-
-                    Location location = new Location(fullName, type, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions, text, defaultUse, complexUse, responseScripts, null);
-
-
-
-                    locationList.add(location);
-                }
-            } catch (Exception e) {
-                System.out.println("There was an error generating Location: " + tryName);
-            }
-
+            Lambda.processList(locationJSON, l -> locationList.add((Location) loadGenericFromJson((JSONObject) l, "location")));
 
         } catch (FileNotFoundException e) {
             System.out.println("Locations file not found.");
@@ -710,79 +521,7 @@ public class JsonBuilder {
         try (FileReader reader = new FileReader(filepath + "/objects.json")) {
 
             JSONArray stationaryObjectJSON = (JSONArray) new JSONParser().parse(reader);
-
-            String tryName = "";
-            try {
-                for (Object obj : stationaryObjectJSON) {
-                    JSONObject jObj = (JSONObject) obj;
-                    String fullName = (String) jObj.get("FullName");
-
-                    tryName = fullName;
-
-                    String type = (String) jObj.get("Type");
-
-                    String id = (String) jObj.get("Id");
-                    //String description = (String) jObj.get("Description");
-                    String location = (String) jObj.get("Location");
-                    List<String> alias = new ArrayList<>();
-                    List<String> attributes = new ArrayList<>();
-                    String text = (String) jObj.get("Text");
-                    String defaultUse = (String) jObj.get("DefaultUse");
-
-                    String ownerName = (String) jObj.get("Owner");
-
-                    Map<String, String> descriptions = new HashMap<>();
-                    Map<String, String> complexUse = new HashMap<>();
-                    Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-
-                    JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                    if (jsAlias != null)
-                        for (Object xObj : jsAlias) {
-                            String newAlias = (String) xObj;
-                            alias.add(newAlias.toLowerCase());
-                        }
-
-                    JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                    if (jsAttributes != null)
-                        for (Object xObj : jsAttributes) {
-                            String newAttribute = (String) xObj;
-                            attributes.add(newAttribute.toLowerCase());
-                        }
-
-                    JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-                    if (jsd != null)
-                        for (Object xObj : jsd.keySet()) {
-                            String key = (String) xObj;
-                            descriptions.put(key.toLowerCase(), (String) jsd.get(key));
-                        }
-
-                    JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-                    if (jsCU != null)
-                        for (Object xObj : jsCU.keySet()) {
-                            String key = (String) xObj;
-                            complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
-                        }
-
-                    JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-                    if (jsRS != null) {
-                        for (Object xObj : jsRS.keySet()) {
-                            String key = (String) xObj;
-                            JSONArray jsScripts = (JSONArray) jsRS.get(key);
-
-                            ArrayList<String> scripts = new ArrayList<>();
-                            scripts.addAll(jsScripts);
-                            responseScripts.put(key.toLowerCase(), scripts);
-                        }
-                    }
-
-                    StationaryObject object = new StationaryObject(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
-
-
-                    stationaryObjectList.add(object);
-                }
-            } catch (Exception e) {
-                System.out.println("There was an error generating StationaryObject: " + tryName);
-            }
+            Lambda.processList(stationaryObjectJSON, s -> stationaryObjectList.add((StationaryObject) loadGenericFromJson((JSONObject) s, "stationaryobject")));
 
         } catch (FileNotFoundException e) {
             System.out.println("Stationaryobjects file not found.");
@@ -806,80 +545,7 @@ public class JsonBuilder {
         try (FileReader reader = new FileReader(filepath + "/items.json")) {
 
             JSONArray itemJSON = (JSONArray) new JSONParser().parse(reader);
-
-            String tryName = "";
-            try {
-                for (Object obj : itemJSON) {
-                    JSONObject jObj = (JSONObject) obj;
-                    String fullName = (String) jObj.get("FullName");
-
-                    tryName = fullName;
-
-                    String type = (String) jObj.get("Type");
-
-                    String id = (String) jObj.get("Id");
-                    //String description = (String) jObj.get("Description");
-                    String location = (String) jObj.get("Location");
-                    List<String> alias = new ArrayList<>();
-                    List<String> attributes = new ArrayList<>();
-                    String text = (String) jObj.get("Text");
-                    String defaultUse = (String) jObj.get("DefaultUse");
-
-                    String ownerName = (String) jObj.get("Owner");
-
-                    Map<String, String> descriptions = new HashMap<>();
-                    Map<String, String> complexUse = new HashMap<>();
-                    Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-
-                    JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                    if (jsAlias != null)
-                        for (Object xObj : jsAlias) {
-                            String newAlias = (String) xObj;
-                            alias.add(newAlias.toLowerCase());
-                        }
-
-                    JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                    if (jsAttributes != null)
-                        for (Object xObj : jsAttributes) {
-                            String newAttribute = (String) xObj;
-                            attributes.add(newAttribute.toLowerCase());
-                        }
-
-                    JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-                    if (jsd != null)
-                        for (Object xObj : jsd.keySet()) {
-                            String key = (String) xObj;
-                            descriptions.put(key.toLowerCase(), (String) jsd.get(key));
-                        }
-
-                    JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-                    if (jsCU != null)
-                        for (Object xObj : jsCU.keySet()) {
-                            String key = (String) xObj;
-                            complexUse.put(key.toLowerCase(), (String) jsCU.get(key));
-                        }
-
-                    JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-                    if (jsRS != null) {
-                        for (Object xObj : jsRS.keySet()) {
-                            String key = (String) xObj;
-                            JSONArray jsScripts = (JSONArray) jsRS.get(key);
-
-                            ArrayList<String> scripts = new ArrayList<>();
-                            scripts.addAll(jsScripts);
-                            responseScripts.put(key.toLowerCase(), scripts);
-                        }
-                    }
-
-                    Item item = new Item(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
-
-
-                    itemList.add(item);
-                }
-            } catch (Exception e) {
-                System.out.println("There was an error generating Item: " + tryName);
-            }
-
+            Lambda.processList(itemJSON, i -> itemList.add((Item) loadGenericFromJson((JSONObject) i, "item")));
 
         } catch (FileNotFoundException e) {
             System.out.println("Items file not found.");
@@ -1274,7 +940,7 @@ public class JsonBuilder {
                     String allegiance = (String) jsBehaviorCore.get("allegiance");
                     String status = (String) jsBehaviorCore.get("status");
 
-                    Map<String, String> personalQuotes = new HashMap(){{
+                    Map<String, String> personalQuotes = new HashMap() {{
                         put("thanks", "\"Thanks!\"");
                         put("yes", "\"Yes.\"");
                         put("no", "\"No.\"");
@@ -1297,7 +963,6 @@ public class JsonBuilder {
 
 
                 creature = new Creature(fullName, type, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
-
 
 
             }
@@ -1385,12 +1050,7 @@ public class JsonBuilder {
                 }
 
 
-
-
-
-
                 object = new StationaryObject(fullName, type, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
-
 
 
             }

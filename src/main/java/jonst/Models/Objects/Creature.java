@@ -3,6 +3,8 @@ package jonst.Models.Objects;
 import jonst.Data.Lambda;
 import jonst.HelpfulMethods;
 import jonst.Models.BehaviorCore;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -165,7 +167,5 @@ public class Creature extends GenericObject {
         return Lambda.exists(getItemList(), i -> i.hasAttribute("worn") && i.getType().equalsIgnoreCase(clothingType));
 
     }
-
-
 
 }
