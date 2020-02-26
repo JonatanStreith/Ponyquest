@@ -1,6 +1,7 @@
 package jonst.Models;
 
 import jonst.*;
+import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
@@ -69,11 +70,14 @@ public class Parser {
 
         if (command.contains(",")) {
             String[] attemptedNameSplit = command.split(",");
-            String targetName = world.matchLocalName(attemptedNameSplit[0]);
+
 
             command = attemptedNameSplit[1].trim();
 
-            GenericObject subject = world.getLocalGenericObject(targetName);
+
+
+            GenericObject subject = world.match(world.getLocalGenericList(), attemptedNameSplit[0], Lambda.predicateByName(attemptedNameSplit[0]));
+
 
             if (subject == null) {
                 System.out.println("Who are you talking to?");

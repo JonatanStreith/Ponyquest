@@ -323,12 +323,5 @@ public class WorldTest {
 
     }
 
-    @Test
-    public void matchIdTest() {
 
-        String res = world.matchId("aj");
-
-        System.out.println(res);
-
-    }
 }

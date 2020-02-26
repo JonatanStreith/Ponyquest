@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
@@ -17,19 +18,15 @@ public class Spellcasting {
         }
 
 
-        String fullName = world.matchLocalName(magicCommandArray[3]);   //Try to match the name to a local object.
 
-        if (fullName.equals("")) {
-            System.out.println("You need a specific target.");
-            return;
-        }
+        GenericObject gen = world.match(world.getLocalGroundOnly(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
 
-        GenericObject gen = world.getLocalGenericOnGround(fullName);
 
         if (gen == null) {
-            System.out.println("You can't target objects inside containers or carried by other creatures. You're not that precise.");
+            System.out.println("You need a specific target, and line of sight.");
             return;
         }
+
 
         if (gen instanceof Creature && !((Creature) gen).getAllegiance().equalsIgnoreCase("hostile")) {
             System.out.println("You can't throw fireballs at other creatures! Unless they're hostile and you need to defend yourself, that is.");
@@ -48,8 +45,9 @@ public class Spellcasting {
     }
 
     public static void energize(String[] magicCommandArray, World world) {
-        String fullName = world.matchLocalName(magicCommandArray[3]);
-        GenericObject genTarget = world.getLocalGenericObject(fullName);
+
+        GenericObject genTarget = world.match(world.getLocalGenericList(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
+
 
         if (genTarget != null) {
             if (genTarget instanceof Creature) {
@@ -70,8 +68,8 @@ public class Spellcasting {
     }
 
     public static void sleep(String[] magicCommandArray, World world) {
-        String fullName = world.matchLocalName(magicCommandArray[3]);
-        GenericObject genTarget = world.getLocalGenericObject(fullName);
+
+        GenericObject genTarget = world.match(world.getLocalGenericList(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
 
         if (genTarget != null) {
             if (!(genTarget instanceof Creature)) {
