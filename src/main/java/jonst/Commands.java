@@ -9,6 +9,7 @@ import jonst.Models.Objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static jonst.HelpfulMethods.*;
 
@@ -17,8 +18,13 @@ public class Commands {
 
     public static void activate(String[] commandArray, World world) {
 
-        String fullName = world.matchLocalName(commandArray[1]);
-        GenericObject target = world.getGenericObject(fullName);
+//        String fullName = world.matchLocalName(commandArray[1]);
+//        GenericObject target = world.getGenericObject(fullName);
+//        List<GenericObject> genericList = world.getGenericList();
+        //Predicate<GenericObject> pred = (GenericObject g) -> g.getName().equals(commandArray[1]) || g.getAlias().contains(commandArray[1]);
+
+        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+
 
         if (target == null) {
             System.out.println("Activate what?");
@@ -27,6 +33,7 @@ public class Commands {
 
         if (target.isOwnerPayingAttention()) {
             System.out.println("You can't tamper with that. " + target.getOwner().getName() + " won't let you.");
+            return;
         }
 
         boolean successful = target.runResponseScript("activate");
@@ -38,8 +45,11 @@ public class Commands {
 
     public static void harvest(String[] commandArray, World world) {
 
-        String fullName = world.matchLocalName(commandArray[1]);
-        GenericObject target = world.getGenericObject(fullName);
+//        String fullName = world.matchLocalName(commandArray[1]);
+//        GenericObject target = world.getGenericObject(fullName);
+
+        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+
 
         if (target == null) {
             System.out.println("Harvest what?");
@@ -67,30 +77,27 @@ public class Commands {
 
     public static void read(String subject, World world) {
 
-        String fullName = world.matchLocalName(subject);
+        GenericObject target = world.match(world.getLocalGroundOnly(), subject, Lambda.predicateByName(subject));
 
-        if (!fullName.equals("")) {
 
-            GenericObject gen = world.getGenericObject(fullName);
-
-            if (gen == null) {
-                System.out.println("Read what?");
-                return;
-            }
-
-            if (!gen.hasAttribute("readable")) {
-                System.out.println("There's nothing to read.");
-                return;
-            }
-
-            if (gen.isOwnerPayingAttention()) {
-                System.out.println(gen.getOwner().getName() + " won't let you read that.");
-            }
-
-            System.out.println(gen.getText());
-            gen.runResponseScript("read");
-
+        if (target == null) {
+            System.out.println("Read what?");
+            return;
         }
+
+        if (!target.hasAttribute("readable")) {
+            System.out.println("There's nothing to read.");
+            return;
+        }
+
+        if (target.isOwnerPayingAttention()) {
+            System.out.println(target.getOwner().getName() + " won't let you read that.");
+            return;
+        }
+
+        System.out.println(target.getText());
+        target.runResponseScript("read");
+
 
     }
 
@@ -158,144 +165,201 @@ public class Commands {
         System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().legitimateNouns, "and"));
     }
 
-    public static void drop(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        if (!fullName.equals("")) {
-            Item item = world.getPlayer().getOwnedItemByName(fullName);
-            if (item == null) {
-                System.out.println("You're not carrying that.");
-                return;
-            }
+    public static void drop(String subject, World world) {
 
-            if (item.hasAttribute("undroppable")) {
-                System.out.println("You refuse to drop that.");
-                return;
-            }
+        GenericObject target = world.match(world.getLocalGenericList(), subject, Lambda.predicateByName(subject));
 
-            if (item.hasAttribute("worn")) {
-                remove(name, world);
-            }
-
-            world.transferItemToNewHolder(item, world.getPlayer(), world.getPlayerLocation());
-            System.out.println("You drop the " + name + ".");
-            item.runResponseScript("drop");
+        if (target == null) {
+            System.out.println("Drop what?");
+            return;
         }
+
+        if (!(target instanceof Item)) {
+            System.out.println("You can't drop that. You can't even hold it in the first place!");
+            return;
+        }
+
+        Item targetItem = (Item) target;
+
+        if (!(world.getPlayer().hasItem(targetItem))) {
+            System.out.println("You're not carrying that.");
+            return;
+        }
+
+        if (targetItem.hasAttribute("undroppable")) {
+            System.out.println("You refuse to drop that.");
+            return;
+        }
+
+        if (targetItem.hasAttribute("worn")) {
+            remove(targetItem.getName(), world);
+        }
+
+        world.transferItemToNewHolder(targetItem, world.getPlayer(), world.getPlayerLocation());
+        System.out.println("You drop the " + targetItem.getName() + ".");
+        targetItem.runResponseScript("drop");
+
     }
+
 
     public static void eat(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        if (!fullName.equals("")) {
-            Item item = world.getPlayer().getOwnedItemByName(fullName);
-            if (item == null) {
-                System.out.println("You're not carrying that.");
-                return;
-            }
 
-            if (!item.hasAttribute("edible")) {
-                System.out.println("You can't eat that.");
-                return;
-            }
 
-            if (item.hasAttribute("poisonous") && !(world.getPlayer().hasAttribute("poison immunity"))) {
-                System.out.println("You can't eat that! It's poisonous!");
-                return;
-            }
+        //First check if you're trying to eat something you're carrying.
+        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
 
-            System.out.println("You consume the " + name + ".");
-            item.runResponseScript("eat");
-            item.destroy();
+        if (target == null) {
+            //If not, check if it's "on the ground".
+            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
         }
+
+        if (target == null) {
+            //If not, you can't eat it.
+            System.out.println("Eat what?");
+            return;
+        }
+
+        if (target instanceof Creature) {
+            System.out.println("You're not quite hungry enough to consider resorting to cannibalism.");
+            return;
+        }
+
+        if (target instanceof Location) {
+            System.out.println("You're... not that hungry.");
+            return;
+        }
+
+        if (!target.hasAttribute("edible")) {
+            System.out.println("You can't eat that.");
+            return;
+        }
+
+        if (target.hasAttribute("poisonous") && !(world.getPlayer().hasAttribute("poison immunity"))) {
+            System.out.println("You can't eat that! It's poisonous!");
+            return;
+        }
+
+        System.out.println("You consume the " + target.getName() + ".");
+        target.runResponseScript("eat");
+        target.destroy();
+
+
     }
 
+
     public static void wear(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        if (!fullName.equals("")) {
-            Item item = world.getPlayer().getOwnedItemByName(fullName);
-            if (item == null) {
-                System.out.println("You're not carrying that.");
-                return;
-            }
 
-            if (!item.hasAttribute("wearable")) {
-                System.out.println("You can't wear that.");
-                return;
-            }
+        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
 
 
-            if (item.hasAttribute("worn")) {
-                System.out.println("You're already wearing that.");
-                return;
-            }
-
-            if (world.getPlayer().isWearing(item.getType())) {
-                System.out.println("You're already wearing a " + item.getType() + ".");
-                return;
-            }
-
-            item.addAttribute("worn");
-            System.out.println("You put on the " + name + ".");
-            item.runResponseScript("wear");
+        if (target == null) {
+            System.out.println("You're not carrying that.");
+            return;
         }
+
+        if (!target.hasAttribute("wearable")) {
+            System.out.println("You can't wear that.");
+            return;
+        }
+
+
+        if (target.hasAttribute("worn")) {
+            System.out.println("You're already wearing that.");
+            return;
+        }
+
+        if (world.getPlayer().isWearing(target.getType())) {
+            System.out.println("You're already wearing a " + target.getType() + ".");
+            return;
+        }
+
+        target.addAttribute("worn");
+        System.out.println("You put on the " + target.getName() + ".");
+        target.runResponseScript("wear");
+
     }
 
     public static void remove(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        if (!fullName.equals("")) {
-            Item item = world.getPlayer().getOwnedItemByName(fullName);
-            if (item == null) {
-                System.out.println("You're not carrying that.");
-                return;
-            }
 
-            if (!item.hasAttribute("worn")) {
-                System.out.println("You're not wearing that.");
-                return;
-            }
+        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
 
-            item.removeAttribute("worn");
-            System.out.println("You take off the " + name + ".");
-            item.runResponseScript("remove");
+
+        if (target == null) {
+            System.out.println("You're not carrying that.");
+            return;
         }
+
+        if (!target.hasAttribute("worn")) {
+            System.out.println("You're not wearing that.");
+            return;
+        }
+
+        target.removeAttribute("worn");
+        System.out.println("You take off the " + target.getName() + ".");
+        target.runResponseScript("remove");
+
     }
 
 
     public static void open(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        GenericObject target = world.getGenericObject(fullName);
+        //First check if you're trying to open something you're carrying.
+        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
 
-        if (target != null) {
-            if (!target.hasAttribute("openable")) {
-                System.out.println("That can't be opened.");
-                return;
-            }
-
-            if (target.hasAttribute("locked")) {
-                System.out.println("It's locked.");
-                return;
-            }
-
-            if (target.hasAttribute("open")) {
-                System.out.println("It's already open.");
-                return;
-            }
-
-            if (target.isOwnerPayingAttention()) {
-                System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
-                return;
-            }
-
-            target.addAttribute("open");
-            target.removeAttribute("closed");
-            System.out.println("You open the " + target.getName() + ".");
-            target.runResponseScript("open");
+        if (target == null) {
+            //If not, check if it's "on the ground".
+            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
         }
+
+        if (target == null) {
+            //If not, you can't open it.
+            System.out.println("Open what?");
+            return;
+        }
+
+        if (!target.hasAttribute("openable")) {
+            System.out.println("That can't be opened.");
+            return;
+        }
+
+        if (target.hasAttribute("locked")) {
+            System.out.println("It's locked.");
+            return;
+        }
+
+        if (target.hasAttribute("open")) {
+            System.out.println("It's already open.");
+            return;
+        }
+
+        if (target.isOwnerPayingAttention()) {
+            System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+            return;
+        }
+
+        target.addAttribute("open");
+        target.removeAttribute("closed");
+        System.out.println("You open the " + target.getName() + ".");
+        target.runResponseScript("open");
+
     }
 
     public static void close(String name, World world) {
-        String fullName = world.matchLocalName(name);
-        GenericObject target = world.getGenericObject(fullName);
 
-        if (target != null) {
+        //First check if you're trying to close something you're carrying.
+        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
+
+        if (target == null) {
+            //If not, check if it's "on the ground".
+            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
+        }
+
+        if (target == null) {
+            //If not, you can't close it.
+            System.out.println("Close what?");
+            return;
+        }
+
+
             if (!target.hasAttribute("openable")) {
                 System.out.println("That can't be closed.");
                 return;
@@ -317,16 +381,42 @@ public class Commands {
             target.runResponseScript("close");
 
 
-        }
+
     }
 
     public static void pickUp(String name, World world) {
 
-        String fullName = world.matchLocalName(name);
+        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
 
-        if (!fullName.equals("")) {
+        if (target == null) {
+            System.out.println("Pick up what?");
+            return;
+        }
 
-            GenericObject subject = world.getLocalGenericOnGround(fullName);
+        if (target instanceof Creature) {                                             //Subject is a creature.
+            Creature creature = (Creature) target;
+            System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
+            creature.runResponseScript("pick up");
+            return;
+        }
+
+        if (target instanceof StationaryObject) {                              //Subject is a stationary object
+            System.out.println("You'd rather not try lifting " + target.getName() + ". It's heavy.");
+            return;
+        }
+
+        if (target instanceof Location) {                                      //Subject is a location.
+                    System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
+            return;
+        }
+
+        if (!(target instanceof Item)) {
+            System.out.println("You can't pick that up.");
+            return;
+        }
+
+        Item targetItem = (Item) target;
+        GenericObject itemHolder = targetItem.getHolder();
 
             if (subject == null) {
                 System.out.println("You can't pick up things hidden in containers.");
@@ -334,20 +424,7 @@ public class Commands {
             }
 
 
-            if (subject instanceof Creature)                                              //Subject is a creature.
-            {
-                Creature creature = (Creature) subject;
-                System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
-                creature.runResponseScript("pick up");
-            } else if (subject instanceof StationaryObject)                               //Subject is a stationary object.
-            {
-                System.out.println("You'd rather not try lifting " + subject.getName() + ". It's heavy.");
-
-            } else if (subject instanceof Location)                                       //Subject is a location.
-            {
-                System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
-
-            } else if ((subject instanceof Item)) {
+ if ((subject instanceof Item)) {
 
                 if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
 

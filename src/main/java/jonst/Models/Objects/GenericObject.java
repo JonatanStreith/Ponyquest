@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GenericObject {
+public abstract class GenericObject implements Comparable<GenericObject> {
     protected String name;
     private String type;
     private String id;
@@ -183,11 +183,34 @@ public abstract class GenericObject {
         return this.getName();
     }
 
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 5;
+
+        hash = prime * hash + this.getName().hashCode();
+
+        for (String a: getAlias() ) {
+            hash += a.hashCode();
+        }
+
+        return hash;
+    }
+
+
+
     public boolean equals(GenericObject other) {
         if (other.getName().equals(this.getName()) && other.getAlias().equals(this.getAlias()))
             return true;
         else
             return false;
+    }
+
+    @Override
+    public int compareTo(GenericObject otherObject){
+        if(this.equals(otherObject))
+            return 0;
+        else
+            return -1;
     }
 
     public String getGender() {

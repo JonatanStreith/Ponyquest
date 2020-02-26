@@ -10,7 +10,7 @@
     "Race": "unicorn",
     "DefaultRace": "unicorn",
     "Gender": "female",
-    "Location": "Location_Castle_Library",
+    "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
     "CasualDialog": [
       "Talking to yourself is usually pointless.",

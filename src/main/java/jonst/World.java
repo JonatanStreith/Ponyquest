@@ -9,6 +9,7 @@ import jonst.Models.Parser;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.Predicate;
 
 
 public class World {
@@ -250,6 +251,17 @@ public class World {
         return parser;
     }
 
+    public List<GenericObject> getLocalGenericList() {
+
+        return getPlayerLocation().getAllAtLocation();
+    }
+
+    public List<GenericObject> getLocalGroundOnly() {
+
+        return getPlayerLocation().getAllGroundOnly();
+    }
+
+
     // ------------- Methods that returns objects from object lists ------------------
 
 
@@ -300,6 +312,28 @@ public class World {
 
 
     // --------------- Match name methods ------------------------
+
+    public <T extends GenericObject> T match(List<T> list, String name, Predicate<T> predicate){
+
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return null;
+        }
+
+        List<T> results = Lambda.subList(list, predicate);
+
+        if(results.size() == 1 || HelpfulMethods.isIdentical(results)){
+            return results.get(0);
+        } else if (results.size() > 1) {
+            System.out.println("Which do you mean, " + HelpfulMethods.turnListIntoString(results, "or") + "?");
+            return null;
+        } else {
+            System.out.println("'" + name + "' doesn't exist.");
+            return null;
+        }
+
+    }
+
 
     public List<Location> matchLocationsMultiple(String name) {
 

@@ -64,6 +64,18 @@ public class HelpfulMethods {
     }
 
 
+    public static <T extends GenericObject> boolean isIdentical(List<T> list){
+
+        Set<T> results = list.stream()
+
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<T>((T p1, T p2) -> p1.compareTo(p2) )  )
+                );
+
+        return (results.size() == 1);
+
+    }
+
     public static String capitalize(String str) {
         String cap = str.substring(0, 1).toUpperCase();
         String remainder = str.substring(1);
@@ -145,7 +157,7 @@ public class HelpfulMethods {
             }
         }
 
-        return turnStringListIntoString(nameList, "and");
+        return turnStringListIntoString(nameList, separator);
     }
 
     public static void reverseSortStringList(List<String> list) {

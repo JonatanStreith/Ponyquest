@@ -1,5 +1,7 @@
 package jonst.Data;
 
+import jonst.Models.Objects.GenericObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -7,6 +9,20 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Lambda {
+
+    public static <T extends GenericObject> Predicate<T> predicateByName(String name){
+
+        Predicate<T> pred = (T g) -> g.getName().equals(name) || g.getAlias().contains(name);
+
+        return pred;
+    }
+
+    public static Predicate<GenericObject> predicateById(String id){
+
+        Predicate<GenericObject> pred = (GenericObject g) -> g.getId().equals(id);
+
+        return pred;
+    }
 
 
     public static <T, R> List<R> getSubvalues(List<T> list, Function<T, R> func) {

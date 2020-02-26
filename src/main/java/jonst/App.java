@@ -28,23 +28,49 @@ public class App {
 
         while (true) {
 
-            reply = SystemData.getReply("Do you want to start a (N)ew game, or (L)oad a previous save? ");
-            if (reply.equalsIgnoreCase("n")) {
-                System.out.println(SystemData.getIntroBlurb());
+            reply = SystemData.getReply("Do you want to start a (N)ew game, (L)oad a previous save, or access (O)ptions? ");
 
-                return SystemData.getDefaultWorld();
+            switch (reply.toLowerCase()){
+                case "n":
+                    System.out.println(SystemData.getIntroBlurb());
+                    return SystemData.getDefaultWorld();
 
-            } else if (reply.equalsIgnoreCase("l")) {
+                case "l":
+                    String loadData = getLoadData();
 
-                String loadData = getLoadData();
+                    if (loadData != "") {
+                        return loadData;
+                    }
+                    else {
+                        System.out.println("Save file not found.");
+                    }
+                    break;
 
-                if (loadData != "") {
-                    return loadData;
-                }
+                case "o":
+                    loadOptions();
+                    break;
 
-            } else {
-                System.out.println("Sorry, what?");
+                default:
+                    System.out.println("Sorry, what?");
+                    break;
             }
+
+//            if (reply.equalsIgnoreCase("n")) {
+//                System.out.println(SystemData.getIntroBlurb());
+//
+//                return SystemData.getDefaultWorld();
+//
+//            } else if (reply.equalsIgnoreCase("l")) {
+//
+//                String loadData = getLoadData();
+//
+//                if (loadData != "") {
+//                    return loadData;
+//                }
+//
+//            } else {
+//                System.out.println("Sorry, what?");
+//            }
         }
     }
 
@@ -90,6 +116,11 @@ public class App {
     public static World getWorld() {
         return world;
     }
+
+    public static void loadOptions(){
+        System.out.println("Unfortunately, options haven't been implemented yet.");
+    }
+
 }
 
 
