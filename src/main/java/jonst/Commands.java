@@ -429,7 +429,7 @@ public class Commands {
 
         if (itemHolder instanceof Location) {
 
-            if(targetItem.isOwnerPayingAttention()){
+            if (targetItem.isOwnerPayingAttention()) {
                 System.out.println("You can't take that while " + targetItem.getOwner().getName() + " is looking.");
             } else {
                 world.transferItemToNewHolder(targetItem, targetItem.getHolder(), world.getPlayer());
@@ -439,51 +439,41 @@ public class Commands {
             return;
         }
 
-}
+    }
 
 
     public static void talkTo(String name, World world) {
-        String fullName = world.matchLocalName(name);
 
-        if (!fullName.equals("")) {
+        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
 
-            GenericObject gen = world.getGenericObject(fullName);
+        if (!(target instanceof Creature))                                                //Subject isn't a creature.
+        {
+            System.out.println("You don't make a habit of talking to inanimate objects.");
 
-            if (!(gen instanceof Creature))                                                //Subject isn't a creature.
-            {
-                System.out.println("You don't make a habit of talking to inanimate objects.");
+        } else if ((target instanceof Creature)) {
 
+            Commands.initiateDialog((Creature) target, world);
 
-            } else if ((gen instanceof Creature)) {
-
-                Commands.initiateDialog((Creature) gen, world);
-
-                gen.runResponseScript("talk to");
-            }
+            target.runResponseScript("talk to");
         }
-
-
     }
+
 
     public static void chatWith(String name, World world) {
 
-        String fullName = world.matchLocalName(name);
+        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
 
-        if (!fullName.equals("")) {
-
-            GenericObject gen = world.getGenericObject(fullName);
-
-            if (!(gen instanceof Creature))                                                //Subject isn't a creature.
-            {
-                System.out.println("You don't make a habit of talking to inanimate objects.");
+        if (!(target instanceof Creature))                                                //Subject isn't a creature.
+        {
+            System.out.println("You don't make a habit of talking to inanimate objects.");
 
 
-            } else if ((gen instanceof Creature)) {
-                System.out.println(((Creature) gen).getRandomCasualDialog());         //This runs if you successfully talk to someone.
-                gen.runResponseScript("chat with");
-            }
+        } else if ((target instanceof Creature)) {
+            System.out.println(((Creature) target).getRandomCasualDialog());         //This runs if you successfully talk to someone.
+            target.runResponseScript("chat with");
         }
     }
+
 
     public static void showInventory(World world) {
 
@@ -500,10 +490,8 @@ public class Commands {
 
         Location loc = world.getPlayerLocation();
 
-        System.out.println(loc.getName());
-        System.out.println();
-        System.out.println(loc.getDescription());
-        System.out.println();
+        System.out.println(loc.getName() + "\n" + loc.getDescription() + "\n");
+
         listCreatures(world);   //Lists all creatures on location.
         System.out.println();
         listStationaryObjects(world);   //Lists all objects on location.
@@ -516,142 +504,116 @@ public class Commands {
 
     public static void use(String[] commandArray, World world) {
 
-        String subject = commandArray[1];
 
         String conjunction = commandArray[2];
-        String target = commandArray[3];
 
 
-        String subjectFullName = world.matchLocalName(subject);
-        GenericObject genSub = world.getGenericObject(subjectFullName); //Remember, this will be null if subject doesn't exist here.
+        GenericObject subject = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
 
 
-        if (!subjectFullName.equals("")) {
-
-
-            if (conjunction.equals("") && genSub != null) {       //This is if you do a singular command without a proper conjunction. Also null check, though shouldn't be needed.
-                String defaultUse = genSub.getDefaultUse();
-                if (defaultUse == null) {
-                    System.out.println("You have no clear idea of how to use that.");
-                } else {
-                    commandArray[0] = defaultUse;
-                    world.getParser().runCommandArray(commandArray, world);
-                }
-
+        if (conjunction.equals("") && subject != null) {       //This is if you do a singular command without a proper conjunction. Also null check.
+            String defaultUse = subject.getDefaultUse();
+            if (defaultUse == null) {
+                System.out.println("You have no clear idea of how to use that.");
             } else {
-                //Multicommand
+                commandArray[0] = defaultUse;
+                world.getParser().runCommandArray(commandArray, world);
+            }
+            return;
+        }
 
-                String targetFullName = world.matchLocalName(target);
+        GenericObject target = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
 
 
-                if (!targetFullName.equals("")) {
-                    String commandLine = genSub.getComplexUseCommand(targetFullName);
-
-
-
-/*                  This is a bit too advanced right now. It requires replacing parts of the command line...
-
+        /*                  This is a bit too advanced right now. It requires replacing parts of the command line...
                     if(commandLine == null){
-
                         GenericObject gen = world.getGenericObject(targetFullName);
-
                         if(gen instanceof Item){
                             commandLine = genSub.getComplexUseCommand("anyitem");
                         } else if(gen instanceof Creature){
                              commandLine = genSub.getComplexUseCommand("anycreature");
                         }
                     }
-
 */
 
+        //Todo: Instead of checking if the subject is a specific specimen, try to match against a certain 'type'.
+        //That way, we have more flexibility.
 
-                    if (commandLine != null) {  //If we have a legitimate commandline, run it.
+        if (target != null) {
+            String commandLine = subject.getComplexUseCommand(target.getName());
 
-
-                        world.getParser().runCommand(commandLine, world);
-                    } else {
-                        System.out.println("You have no clear idea of how to use that.");
-                    }
-                }
+            if (commandLine != null) {  //If we have a legitimate commandline, run it.
+                world.getParser().runCommand(commandLine, world);
+            } else {
+                System.out.println("You have no clear idea of how to use that.");
             }
         }
     }
 
     public static void lookAt(String[] argument, World world) {         //Make sure you can't look at things that aren't present!
 
-        if (!argument[3].equals("")) {
+        if (argument[1].equals("") && !argument[3].equals("")) {      //This is to check if we caught junk that isn't found in the nounslist.
             System.out.println("You don't see '" + argument[3] + "' here.");
             return;
         }
 
-        if (argument[1] == "") {     //If you just type "look", "look at" or "look around"
+        if (argument[1].equals("")) {     //If you just type "look", "look at" or "look around"
             lookAround(world);
-        } else {
-            String fullName = world.matchLocalName(argument[1]);
+            return;
+        }
 
-            if (!fullName.equals("")) {
+        GenericObject subject = world.match(world.getLocalGenericList(), argument[1], Lambda.predicateByName(argument[1]));
 
-                GenericObject gen = world.getGenericObject(fullName);
 
-                if (gen == world.getPlayerLocation()) {
-                    lookAround(world);
+        if (subject == null) {
+            System.out.println("You don't see it anywhere.");
+            return;
+        }
+
+
+        if (subject == world.getPlayerLocation()) {
+            lookAround(world);
+            return;
+        }
+
+
+        if (subject instanceof Item) {
+            GenericObject owner = ((Item) subject).getHolder();
+
+            if (owner instanceof Creature) {
+
+                if (subject.hasAttribute("worn")) {
+                    System.out.print("(Worn by " + owner.getName() + ") ");
                 } else {
-
-                    if (gen instanceof Item) {
-                        GenericObject owner = ((Item) gen).getHolder();
-
-                        if (owner instanceof Creature) {
-
-                            if (gen.hasAttribute("worn")) {
-                                System.out.print("(Worn by " + owner.getName() + ") ");
-                            } else {
-                                System.out.print("(Carried by " + owner.getName() + ") ");
-                            }
-
-                        } else if (owner instanceof Item || owner instanceof StationaryObject) {
-                            System.out.print("(In " + owner.getName() + ") ");
-                        }
-                    }
-
-                    System.out.println(gen.getDescription());
-
-                    if (!gen.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
-                        listOwnedItems(world, gen);
-                    } else {
-                        System.out.println("It's closed.");
-                    }
+                    System.out.print("(Carried by " + owner.getName() + ") ");
                 }
 
-                gen.runResponseScript("look at");
-
+            } else if (owner instanceof Item || owner instanceof StationaryObject) {
+                System.out.print("(In " + owner.getName() + ") ");
             }
         }
+
+        System.out.println(subject.getDescription());
+
+        if (!subject.hasAttribute("closed")) {   //If it's closed, you can't see the contents.
+            listOwnedItems(world, subject);
+        } else {
+            System.out.println("It's closed.");
+        }
+
+        subject.runResponseScript("look at");
     }
 
-    public static void goTo(Location destination, World world) {
 
-        Location currentLoc = world.getPlayerLocation();
-
-        world.moveToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
-
-        System.out.println("You go to " + destination.getName() + ".");
-        moveFollowers(currentLoc, destination, world);
-
-        SystemData.getReply("[press enter to continue]");
-        System.out.flush();
-        lookAround(world);
-        destination.runResponseScript("go to");
-
-    }
 
     public static void goTo(String newArea, World world) {
 
         Location currentLoc = world.getPlayerLocation();
 
-        List<Location> potentialDestinations = world.matchLocationsMultiple(newArea);
+        List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), newArea, Lambda.predicateByName(newArea));
 
-        if (potentialDestinations.size() == 0) {
-            System.out.println("You can't get there from here.");
+        if (potentialDestinations == null) {
+            System.out.println("You don't know how to get to ' " + newArea + ".");
             return;
         }
 
@@ -660,39 +622,56 @@ public class Commands {
         if (destination != null)               //Is a destination found?
         {
             goTo(destination, world);
+        } else {
+            System.out.println("You can't get there from here.");
         }
     }
 
     public static void enter(String location, World world) {
 
-        Location currentLoc = world.getPlayerLocation();
 
+
+        //This is for if you just type 'enter'.
         if (location.equals("")) {
             //If location has no default enter, or it's incorrect
             if (world.getPlayerLocation().getDefaultEnter() == null) {
                 System.out.println("Enter where? You don't see any particular place that stands out.");
             } else {
                 goTo(world.getPlayerLocation().getDefaultEnter(), world);
-                //goTo(world.getPlayerLocation().getDefaultEnter().getId(), world);
             }
             return;
         }
 
 
+        //This is for if you want to enter your current location(s enterlocation).
         {
-            List<Location> potentialDestinations = world.matchLocationsMultiple(location);
+            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), location, Lambda.predicateByName(location));
 
-            Location destination = Lambda.getFirst(potentialDestinations, world.getExitList(), (l, e) -> e.connectionExists(currentLoc, l));
+                    //world.matchLocationsMultiple(location);
+            Location currentLoc = world.getPlayerLocation();
 
-            if (destination != null) {
-                goTo(destination.getName(), world);
-                return;
+
+            //TODO: This may be more complicated than necessary.
+            if(potentialDestinations != null) {
+
+                Location destination = Lambda.getFirst(potentialDestinations, l -> l == currentLoc);
+
+                if (destination != null) {
+                    goTo(destination.getDefaultEnter(), world);
+                    return;
+                }
+
+                System.out.println("You can only enter your current location.");
             }
         }
 
+        //This is if you want to enter an object or item... somehow.
+        GenericObject genTarget = world.match(world.getLocalGroundOnly(), location, Lambda.predicateByName(location));
 
-        String targetName = world.matchLocalName(location);
-        GenericObject genTarget = world.getLocalGenericOnGround(targetName);
+        if(genTarget == null){
+            System.out.println("Enter what?");
+            return;
+        }
 
         if (genTarget instanceof StationaryObject || genTarget instanceof Item) {
 
@@ -706,41 +685,43 @@ public class Commands {
 
             return;
         }
-
-
-        List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
-
-        Lambda.processList(possibleAreas, a -> a.equalsIgnoreCase(world.getPlayerLocation().getName()), a -> {
-            goTo(world.getPlayerLocation().getDefaultEnter().getName(), world);
-            return;
-        });
-
-        System.out.println("You can only enter your current location.");
-
     }
 
     public static void exit(String location, World world) {
 
 
         if (location.equals("")) {
-
             if (world.getPlayerLocation().getDefaultExit() == null) {
                 System.out.println("You're not in a place with a clear exit.");
                 return;
             }
-
             goTo(world.getPlayerLocation().getDefaultExit(), world);
             return;
         }
 
-        List<String> possibleAreas = world.matchNameMultiple(location); //A list of all places matching the alias provided
 
-        Lambda.processList(possibleAreas, a -> a.equalsIgnoreCase(world.getPlayerLocation().getName()), a -> {
-            goTo(world.getPlayerLocation().getDefaultExit().getName(), world);
-            return;
-        });
+        {
+            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), location, Lambda.predicateByName(location));
 
-        System.out.println("You can only exit your current location.");
+            //world.matchLocationsMultiple(location);
+
+
+            //TODO: This may be more complicated than necessary.
+            if(potentialDestinations != null) {
+
+                Location currentLoc = world.getPlayerLocation();
+
+
+                Location destination = Lambda.getFirst(potentialDestinations, l -> l == currentLoc);
+
+                if (destination != null) {
+                    goTo(currentLoc.getDefaultExit(), world);
+                    return;
+                }
+
+                System.out.println("You can only exit your current location.");
+            }
+        }
     }
 
     public static void getExits(World world) {
@@ -1214,4 +1195,19 @@ public class Commands {
 
     }
 
+    public static void goTo(Location destination, World world) {
+
+        //This method is not directly called from the parser.
+        Location currentLoc = world.getPlayerLocation();
+
+        world.moveToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
+
+        System.out.println("You go to " + destination.getName() + ".");
+        moveFollowers(currentLoc, destination, world);
+
+        SystemData.getReply("[press enter to continue]");
+        System.out.flush();
+        lookAround(world);
+        destination.runResponseScript("go to");
+    }
 }

@@ -331,8 +331,21 @@ public class World {
             System.out.println("'" + name + "' doesn't exist.");
             return null;
         }
-
     }
+
+    public <T extends GenericObject> List<T> matchMultiple(List<T> list, String name, Predicate<T> predicate){
+
+        if(name.equals("")){
+            System.out.println("Incomplete command.");
+            return null;
+        }
+
+        return Lambda.subList(list, predicate);
+    }
+
+
+
+
 
 
     public List<Location> matchLocationsMultiple(String name) {

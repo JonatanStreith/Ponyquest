@@ -151,4 +151,4 @@ Change how runResponseScripts() is built - have it take more than just one argum
 If you pick "hitch wagon", you get to specify a destination. (Have it check if it's outside or not - use Arguments for now, maybe use something else later)
 Change the exit to the new ones.
 
-Need new script commands - "RemoveExit:FirstExit:SecondExit" and "AddExit:FirstExit:SecondExit".
+Add "showFlags" to Gen.: Notices that are supposed to suffix objects when looked at, i.e. "Bucket (full), cape (worn)"
