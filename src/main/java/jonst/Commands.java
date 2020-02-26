@@ -360,26 +360,25 @@ public class Commands {
         }
 
 
-            if (!target.hasAttribute("openable")) {
-                System.out.println("That can't be closed.");
-                return;
-            }
+        if (!target.hasAttribute("openable")) {
+            System.out.println("That can't be closed.");
+            return;
+        }
 
-            if (target.hasAttribute("closed")) {
-                System.out.println("It's already closed.");
-                return;
-            }
+        if (target.hasAttribute("closed")) {
+            System.out.println("It's already closed.");
+            return;
+        }
 
-            if (target.isOwnerPayingAttention()) {
-                System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
-                return;
-            }
+        if (target.isOwnerPayingAttention()) {
+            System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+            return;
+        }
 
-            target.addAttribute("closed");
-            target.removeAttribute("open");
-            System.out.println("You close the " + target.getName() + ".");
-            target.runResponseScript("close");
-
+        target.addAttribute("closed");
+        target.removeAttribute("open");
+        System.out.println("You close the " + target.getName() + ".");
+        target.runResponseScript("close");
 
 
     }
@@ -406,7 +405,7 @@ public class Commands {
         }
 
         if (target instanceof Location) {                                      //Subject is a location.
-                    System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
+            System.out.println("As great and powerful as you are, lifting entire areas is beyond your ability.");
             return;
         }
 
@@ -418,40 +417,29 @@ public class Commands {
         Item targetItem = (Item) target;
         GenericObject itemHolder = targetItem.getHolder();
 
-            if (subject == null) {
-                System.out.println("You can't pick up things hidden in containers.");
-                return;
-            }
-
-
- if ((subject instanceof Item)) {
-
-                if (((Item) subject).getHolder() instanceof Location) {      //You can only pick up items from the ground. Others need to be taken from containers.
-
-                    if (!subject.isOwnerPayingAttention()) {
-
-                        world.transferItemToNewHolder((Item) subject, ((Item) subject).getHolder(), world.getPlayer());
-                        System.out.println("You pick up the " + name + ".");
-                        subject.runResponseScript("pick up");
-                    } else {
-                        System.out.println("You can't take that while " + subject.getOwner().getName() + " is looking.");
-                    }
-
-
-                } else if (((Item) subject).getHolder() instanceof Creature) {
-                    System.out.println("You can't just take that from " + ((Item) subject).getHolder().getName() + ". Try asking nicely.");
-                } else if (((Item) subject).getHolder() instanceof StationaryObject || ((Item) subject).getHolder() instanceof Item) {
-                    System.out.println("Currently, items in containers need to be TAKEn specifically from the container.");
-                } else {
-                    System.out.println("That doesn't work.");
-                }
-
-            } else {
-                System.out.println("Debug code. If this is shown, something didn't go right.");
-            }
-
+        if (itemHolder instanceof StationaryObject || itemHolder instanceof Item) {
+            System.out.println("You can't pick up things hidden in containers. You need to TAKE them from there.");
+            return;
         }
-    }
+
+        if (itemHolder instanceof Creature) {
+            System.out.println("You can't just take that from " + itemHolder.getName() + ". Try asking nicely.");
+            return;
+        }
+
+        if (itemHolder instanceof Location) {
+
+            if(targetItem.isOwnerPayingAttention()){
+                System.out.println("You can't take that while " + targetItem.getOwner().getName() + " is looking.");
+            } else {
+                world.transferItemToNewHolder(targetItem, targetItem.getHolder(), world.getPlayer());
+                System.out.println("You pick up the " + targetItem.getName() + ".");
+            }
+
+            return;
+        }
+
+}
 
 
     public static void talkTo(String name, World world) {
