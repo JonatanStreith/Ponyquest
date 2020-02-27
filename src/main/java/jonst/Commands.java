@@ -205,13 +205,7 @@ public class Commands {
     public static void eat(String name, World world) {
 
 
-        //First check if you're trying to eat something you're carrying.
-        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
-
-        if (target == null) {
-            //If not, check if it's "on the ground".
-            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
-        }
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't eat it.
@@ -302,13 +296,8 @@ public class Commands {
 
 
     public static void open(String name, World world) {
-        //First check if you're trying to open something you're carrying.
-        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
 
-        if (target == null) {
-            //If not, check if it's "on the ground".
-            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
-        }
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't open it.
@@ -345,13 +334,7 @@ public class Commands {
 
     public static void close(String name, World world) {
 
-        //First check if you're trying to close something you're carrying.
-        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
-
-        if (target == null) {
-            //If not, check if it's "on the ground".
-            target = world.match(world.getLocalGroundOnly(), name, Lambda.predicateByName(name));
-        }
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't close it.
@@ -507,8 +490,7 @@ public class Commands {
 
         String conjunction = commandArray[2];
 
-
-        GenericObject subject = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject subject = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[1], Lambda.predicateByName(commandArray[1]));
 
 
         if (conjunction.equals("") && subject != null) {       //This is if you do a singular command without a proper conjunction. Also null check.
@@ -522,7 +504,7 @@ public class Commands {
             return;
         }
 
-        GenericObject target = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
 
 
         /*                  This is a bit too advanced right now. It requires replacing parts of the command line...
@@ -797,7 +779,7 @@ public class Commands {
 
     public static void hug(String[] command, World world) {
 
-        GenericObject gen = world.match(world.getLocalGenericList(), command[1], Lambda.predicateByName(command[1]));
+        GenericObject gen = world.match(world.getLocalGroundOnly(), command[1], Lambda.predicateByName(command[1]));
 
         if (gen == null) {
             System.out.println("You can only hug nearby things.");
@@ -960,7 +942,7 @@ public class Commands {
 
     public static void place(String[] commandArray, World world) {
 
-        GenericObject container = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
 
         if (container == null) {
             System.out.println("You can't find the " + commandArray[3] + " here.");
@@ -1017,7 +999,7 @@ public class Commands {
             return;
         }
 
-        GenericObject container = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
 
 
         if (container == null) {
@@ -1046,7 +1028,12 @@ public class Commands {
             return;
         }
 
-        Item item = world.match(world.getPlayerInventory(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+
+        if(!(item instanceof Item)){
+            System.out.println("You can't pick that up. It also shouldn't be in a container.");
+            return;
+        }
 
         if (item == null || !(container.hasItem((Item) item))) {
             System.out.println("That's not in there.");
@@ -1067,14 +1054,7 @@ public class Commands {
 
     //--------------- Not for direct use -----------------------
 
-//    public static void listItems(World world) {
-//        List<Item> tempItemList = new ArrayList<>();
-//        tempItemList.addAll(world.getPlayerLocation().getItemList());      //Create a list of items at the location.
-//
-//        if (tempItemList.size() > 0) {
-//            System.out.println("There" + isOrAre(tempItemList.size()) + turnListIntoString(tempItemList, "and") + " here.");
-//        }
-//    }
+
 
     public static void listOwnedItems(World world, GenericObject owner) {
         List<Item> itemList = owner.getItemList();

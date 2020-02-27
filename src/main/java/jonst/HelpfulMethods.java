@@ -64,6 +64,18 @@ public class HelpfulMethods {
     }
 
 
+    public static <T, U extends GenericObject> List<GenericObject> fuseLists(List<T> list1, List<U> list2){
+
+        List<GenericObject> returnList = new ArrayList<>();
+
+
+            returnList.addAll((Collection<? extends GenericObject>) list1);
+            returnList.addAll((Collection<? extends GenericObject>) list2);
+
+
+        return returnList;
+    }
+
     public static <T extends GenericObject> boolean isIdentical(List<T> list){
 
         Set<T> results = list.stream()
