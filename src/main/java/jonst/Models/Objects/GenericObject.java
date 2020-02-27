@@ -13,6 +13,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private String type;
     private String id;
     private String locationId;
+    private String defaultLocationId;
     private Location location;
     private List<String> alias;
     private List<Item> itemList;
@@ -22,7 +23,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
 
 
-    private String ownerName;
+    private String ownerId;
     private Creature Owner;
 
     private Map<String, String> descriptions = new HashMap<>();
@@ -32,13 +33,14 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String type, String id, String locationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
+    public GenericObject(String name, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
         setName(name);
         setType(type);
         setId(id);
 
         setLocationId(locationId);
-        setOwnerName(ownerName);
+        setDefaultLocationId(defaultLocationId);
+        setOwnerId(ownerId);
         setText(text);
         setDefaultUse(defaultUse);
 
@@ -54,12 +56,16 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //--------- Getters ------------
 
+    public String getDefaultLocationId() {
+        return defaultLocationId;
+    }
+
     public String getType() {
         return type;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getOwnerId() {
+        return ownerId;
     }
 
     public Creature getOwner() {
@@ -117,12 +123,16 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //--------- Setters ------------
 
+    public void setDefaultLocationId(String defaultLocationId) {
+        this.defaultLocationId = defaultLocationId;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public void setOwner(Creature owner) {

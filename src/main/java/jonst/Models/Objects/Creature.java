@@ -25,8 +25,8 @@ public class Creature extends GenericObject {
     private final String defaultRace;
     private String initialDialog;
 
-    public Creature(String name, String type, String id, String locationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
-        super(name, type, id, locationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+    public Creature(String name, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
+        super(name, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
 
 
 

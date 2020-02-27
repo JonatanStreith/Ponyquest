@@ -165,6 +165,18 @@ public class Scripts {
         }
 
         actor.setRace(actor.getDefaultRace());
+    }
+
+    public static void returnToDefaultLocation(String[] scriptCommandArray, World world) {
+        Creature actor;
+
+        if (scriptCommandArray[1].equalsIgnoreCase("player")) {
+            actor = world.getPlayer();
+        } else {
+            actor = world.getCreature(scriptCommandArray[1]);
+        }
+
+        world.moveToLocation(actor, actor.getLocation(), world.getLocationByID(actor.getDefaultLocationId()));
 
     }
 
@@ -198,6 +210,18 @@ public class Scripts {
 
         world.addToLocation(newObject, location);
         world.addNewToList(newObject);
+    }
+
+    public static void moveFollowers(GenericObject subject, String[] scriptCommandArray, World world){
+        //moveFollowers:Location_Acres
+        //Move all followers at the location of the thing activating the script, to the location specified by ID
+        Location start = subject.getLocation();
+        Location destination = world.getLocationByID(scriptCommandArray[1]);
+
+        List<Creature> followers = Lambda.subList(start.getCreaturesAtLocation(), c -> c.hasAttribute("following"));
+
+        Lambda.processList(followers, f -> {world.moveToLocation(f, start, destination); System.out.println(f.getName() + " follows you.");});
+
 
     }
 
@@ -243,4 +267,6 @@ public class Scripts {
             }
         }
     }
+
+
 }

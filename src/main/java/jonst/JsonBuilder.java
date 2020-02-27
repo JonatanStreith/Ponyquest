@@ -115,7 +115,7 @@ public class JsonBuilder {
 
     //----------------------------
 
-    public static JSONObject getJsonGeneric(GenericObject gen) {
+    public static JSONObject saveJsonGeneric(GenericObject gen) {
         return new JSONObject() {{
 
             //Generic attributes here
@@ -125,7 +125,7 @@ public class JsonBuilder {
             put("Location", gen.getLocationId());
             put("Text", gen.getText());
             put("DefaultUse", gen.getDefaultUse());
-            put("OwnerName", gen.getOwnerName());
+            put("OwnerId", gen.getOwnerId());
 
             if (gen.getOwner() != null) {
                 put("Owner", gen.getOwner().getName());
@@ -210,7 +210,7 @@ public class JsonBuilder {
         JSONArray creatureArray = new JSONArray();
 
         for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
-            creatureArray.add(getJsonGeneric(crea));
+            creatureArray.add(saveJsonGeneric(crea));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/creatures.json")) {
@@ -231,7 +231,7 @@ public class JsonBuilder {
         JSONArray locationArray = new JSONArray();
 
         for (Location loc : locationList) {        //This creates one JSONObject for every location in the list, populates it with data, and adds it to "locations"
-            locationArray.add(getJsonGeneric(loc));
+            locationArray.add(saveJsonGeneric(loc));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/locations.json")) {
@@ -252,7 +252,7 @@ public class JsonBuilder {
         JSONArray itemArray = new JSONArray();
 
         for (Item ite : itemList) {        //This creates one JSONObject for every item in the list, populates it with data, and adds it to "items"
-            itemArray.add(getJsonGeneric(ite));
+            itemArray.add(saveJsonGeneric(ite));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/items.json")) {
@@ -273,7 +273,7 @@ public class JsonBuilder {
         JSONArray objectArray = new JSONArray();
 
         for (StationaryObject sta : objectList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
-            objectArray.add(getJsonGeneric(sta));
+            objectArray.add(saveJsonGeneric(sta));
         }
 
         try (FileWriter file = new FileWriter(filepath + "/objects.json")) {
@@ -331,7 +331,13 @@ public class JsonBuilder {
             String type = (String) jObj.get("Type");
             String id = (String) jObj.get("Id");
             String location = (String) jObj.get("Location");
-            String text = (String) jObj.get("Text");
+        String defaultLocation = (String) jObj.get("DefaultLocation");
+
+        if(defaultLocation == null){        //If there's no specified defaultLocation, set current location to default.
+            defaultLocation = location;     //Since the default world is the "start" anyway, this works fine.
+        }
+
+        String text = (String) jObj.get("Text");
             String defaultUse = (String) jObj.get("DefaultUse");
 
             Map<String, String> descriptions = new HashMap() {{
@@ -433,14 +439,16 @@ public class JsonBuilder {
                 bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
             }
 
-            return new Creature(fullName, type, id, location.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
+            return new Creature(fullName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
                     gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
         }
         else if(typeKey.equals("item")){
 
-            String ownerName = (String) jObj.get("Owner");
+            String ownerId = (String) jObj.get("OwnerId");
 
-            return new Item(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+            Item test = new Item(fullName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+
+            return test;
 
         }
         else if(typeKey.equals("location")){
@@ -448,14 +456,14 @@ public class JsonBuilder {
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-            return new Location(fullName, type, id, fullName, alias, attributes, defaultEnter, defaultExit, descriptions,
+            return new Location(fullName, type, id, fullName, defaultLocation, alias, attributes, defaultEnter, defaultExit, descriptions,
                     text, defaultUse, complexUse, responseScripts, null);
 
         }
         else if(typeKey.equals("stationaryobject")){
-            String ownerName = (String) jObj.get("Owner");
+            String ownerId = (String) jObj.get("OwnerId");
 
-            return new StationaryObject(fullName, type, id, location, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+            return new StationaryObject(fullName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
 
         }
 
@@ -770,6 +778,7 @@ public class JsonBuilder {
                 String fullName = (String) jsonItem.get("FullName");
                 String id = (String) jsonItem.get("Id");
                 String type = (String) jsonItem.get("Type");
+                String defaultLocation = (String) jsonItem.get("DefaultLocation");
 
                 String locationId = "blank";
 
@@ -827,7 +836,7 @@ public class JsonBuilder {
 
                 //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
 
-                item = new Item(fullName, type, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                item = new Item(fullName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
             }
 
@@ -861,6 +870,7 @@ public class JsonBuilder {
                 String fullName = (String) jsonCreature.get("FullName");
                 String id = (String) jsonCreature.get("Id");
                 String type = (String) jsonCreature.get("Type");
+                String defaultLocation = (String) jsonCreature.get("DefaultLocation");
 
                 String locationId = "blank";
                 String race = (String) jsonCreature.get("Race");
@@ -962,7 +972,7 @@ public class JsonBuilder {
                 }
 
 
-                creature = new Creature(fullName, type, id, locationId, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
+                creature = new Creature(fullName, type, id, locationId, defaultLocation, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
 
 
             }
@@ -997,6 +1007,7 @@ public class JsonBuilder {
                 String fullName = (String) jsonObject.get("FullName");
                 String id = (String) jsonObject.get("Id");
                 String type = (String) jsonObject.get("Type");
+                String defaultLocation = (String) jsonObject.get("DefaultLocation");
 
                 String locationId = "blank";
 
@@ -1050,7 +1061,7 @@ public class JsonBuilder {
                 }
 
 
-                object = new StationaryObject(fullName, type, id, locationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                object = new StationaryObject(fullName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
             }

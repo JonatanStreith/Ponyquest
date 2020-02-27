@@ -75,7 +75,6 @@ public class Parser {
             command = attemptedNameSplit[1].trim();
 
 
-
             GenericObject subject = world.match(world.getLocalGenericList(), attemptedNameSplit[0], Lambda.predicateByName(attemptedNameSplit[0]));
 
 
@@ -603,6 +602,10 @@ public class Parser {
             case "changeinitdialog":
                 //changeinitdialog:dialogId
                 Scripts.changeInitDialog(subject, scriptCommandArray, world);
+                break;
+
+            case "movefollowers":
+                Scripts.moveFollowers(subject, scriptCommandArray, world);
                 break;
         }
     }

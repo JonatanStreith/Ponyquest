@@ -180,7 +180,7 @@ public class World {
                                 addAll(itemList);
                                 addAll(stationaryObjectList);
                             }}, creatureList,
-                (t, c) -> t.getOwnerName() != null && t.getOwnerName().equalsIgnoreCase(c.getName()), (t, c) -> {
+                (t, c) -> t.getOwnerId() != null && t.getOwnerId().equalsIgnoreCase(c.getId()), (t, c) -> {
                     t.setOwner(c);
                 });
 

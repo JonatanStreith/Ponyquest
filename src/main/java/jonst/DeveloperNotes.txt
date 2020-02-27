@@ -1,18 +1,7 @@
-package jonst;
-
-import com.sun.xml.internal.bind.util.Which;
-
-import java.util.Set;
-
-public class Notes {
 
 
     //IMPORTANT! REVISE A LOT OF THINGS so objects use "ID" instead of names, in case we want to use similar names for things.
     //No, that's bad.
-
-
-
-    //Keep a dictionary of bools to track which ponies you're talked to, so they say something special the first time.
 
 
     //      Add "spells" as an new class, make list. Can use "cast" command. Trixie may know some spells, and learn others.
@@ -22,41 +11,22 @@ public class Notes {
     //Remember: GameFlags is a hashmap, get values through GameFlags.get("keyword");
 
 
-    //IMPORTANT! Have a check of all objects to ensure that their "location" is valid, otherwise dump them into a special cleanup location.
-
-
-    //In order to allow a better system for organizing, have everything use IDs instead. When trying to interact with things (looking, going to, talking to, etc),
-    //First check if that thing is within range. I.e. if you type "Go to kitchen", check if any possible exits match that description; otherwise, refuse to go.
-
-
-
     //It's possible to have creatures move around based on time parameters! Just have the location dependent on a time parameter; when asking for someone's location, just provide the time
     //and return a certain location matching that one! Could use a hashmap with time marks as keys!
 
     //Note: It is permissible to have secondary inputs. If a command needs more info, you can prompt for more lines. Good idea!
 
-
-    //have returnFullName return list of all things matching the shortname. If multiple returns, ask "which one?" Since it returns all names...
-    //Example: (assume Celestia and Luna are in the same room) talk to princess -> "Which princess? Princess Celestia or Princess Luna?"
-
-
     //Definitely make a unique ID system.
 
     //Todo: Make function that checks attributes for inconsistencies and contradictions - i.e. "open" and "closed". Could be done with simple rules.
 
-    //Oh yeah! Can probably put in limitations on what you can put into containers based on size, using Attributes! If it has "huge container" it can house "huge" items, or have a number, or something...
+    //Oh yeah! Can probably put in limitations on what you can put into containers based on size, using Attributes! If it has "huge container" it can house
+    "huge" items, or have a number, or something...
 
-
-//    Build in an internal clock! Every turn advances one minute. Use to track how creatures react to things at certain times. Also, have a "schedule" that makes creatures move to other locations at relevant times (i.e. at 3:00 Rarity and Spike go spelunking for jewels.)
+//    Build in an internal clock! Every turn advances one minute. Use to track how creatures react to things at certain times.
+Also, have a "schedule" that makes creatures move to other locations at relevant times (i.e. at 3:00 Rarity and Spike go spelunking for jewels.)
 //
 //    Somehow make dialog dependent on location?
-//
-//    Have "failed to place" objects put in the Mail office lost & found room.
-//
-//
-//
-//    Have Exit as a GenericObject?
-//
 
 //
 //    "Think about" command.
@@ -64,8 +34,6 @@ public class Notes {
 //    Add a tutorial - basically a multi-page guide to how to use commands. Can be displayed with "tutorial" or something.
 //
 //    Magic interface! Basically a command that leads to a continued loop (until you break it) where you can do in-depth magic commands. Possibly set up a magicParser() method.
-//
-//    Add a "text" field to items. the json doesn't need entries for things that aren't "readable" (attribute), so they'll become null. If the item isn't "readable", trying to read it will just return a "There's nothing to read."
 
 //  Have text-content stored somewhere else. Load it with some function.
 //
@@ -73,18 +41,6 @@ public class Notes {
 //
 //    "Discard" command. ASK IF PLAYER WANTS TO DO IT. Yeah, hardcore oldschool.
 //
-
-On the subject of 'use'. This is where scripts come into play.
-Every object has a hashmap of scripts - a key and a string. When a more complex matter needs to be done, we can call:
-
-{ obj.runScript(scriptkey);   }
-
-Which then retrieves a commandline from its map of scripts and runs it through a scriptparser to do things.
-
-For instance, if Trixie goes through the mirror to the human world, we might call the script "go to human world"; "transform into human"; etc.
-
-
-
 
 
 //  Set ResponseScript so it stores an arraylist of strings with each key - that way, we can have multiple scripts with each key!
@@ -106,11 +62,6 @@ Figure out some way to have overriding descriptions and additive descriptions.
 "Tablet of Transmigration".
 
 Figure out how to "cast" from items in your inventory. List of legit nouns needs to be updated accordingly.
-
-Set up some kind of "owned" script, so if you try to pick up an item that is owned by someone who is present, they interfere. Could work!
-
-
-
 
 //Set up nullchecks in jsonbuilder!
 
@@ -152,3 +103,6 @@ If you pick "hitch wagon", you get to specify a destination. (Have it check if i
 Change the exit to the new ones.
 
 Add "showFlags" to Gen.: Notices that are supposed to suffix objects when looked at, i.e. "Bucket (full), cape (worn)"
+
+
+See if we can build a method that tries to "find a path" using exit binders...

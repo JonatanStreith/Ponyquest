@@ -7,7 +7,7 @@
     "FullName": "Trixie's hat",
     "Type": "hat",
     "Location": "Creature_Trixie",
-    "Owner": "Trixie",
+    "OwnerId": "Creature_Trixie",
     "DefaultUse": "wear",
     "Alias": [
       "hat",
@@ -32,7 +32,7 @@
     "FullName": "Trixie's cape",
     "Type": "cape",
     "Location": "Creature_Trixie",
-    "Owner": "Trixie",
+    "OwnerId": "Creature_Trixie",
     "DefaultUse": "wear",
     "Alias": [
       "cape",
@@ -84,7 +84,7 @@
     "FullName": "rock",
     "Type": "generic",
     "Location": "Location_Acres_Exterior",
-    "Owner": "Maud Pie",
+    "OwnerId": "Creature_Maud_Pie",
     "DefaultUse": "look at",
     "Alias": [
       "rock",
@@ -257,7 +257,7 @@
     "Type": "generic",
     "Location": "Location_Acres_Exterior",
     "DefaultUse": "look at",
-    "Owner": "Applejack",
+    "OwnerId": "Creature_Applejack",
     "Alias": [
       "plow",
       "farming tool"
@@ -486,7 +486,7 @@
       "dress",
       "maud's dress"
     ],
-    "Owner": "Creature_Maud_Pie",
+    "OwnerId": "Creature_Maud_Pie",
     "Attributes": [
       "wearable"
     ],

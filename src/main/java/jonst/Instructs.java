@@ -133,15 +133,24 @@ public class Instructs {
     }
 
     public static void follow(Creature subject, World world) {
-        subject.addAttribute("following");
-        System.out.println(subject.getPersonalQuote("yes"));
+
+        if(!subject.hasAttribute("following")){
+            subject.addAttribute("following");
+            System.out.println(subject.getPersonalQuote("yes"));
+        } else {
+            System.out.println("They're already following you.");
+        }
+
     }
 
 
     public static void stopFollow(Creature subject, World world) {
-        subject.removeAttribute("following");
-        System.out.println(subject.getPersonalQuote("yes"));
-
+        if(subject.hasAttribute("following")) {
+            subject.removeAttribute("following");
+            System.out.println(subject.getPersonalQuote("yes"));
+        } else {
+            System.out.println("They weren't following you to begin with.");
+        }
     }
 
     public static void wear(Creature subject, String name, World world) {

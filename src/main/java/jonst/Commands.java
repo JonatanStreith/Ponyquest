@@ -16,6 +16,74 @@ import static jonst.HelpfulMethods.*;
 
 public class Commands {
 
+    // ------- System commands ------------
+
+    public static void saveQuick(World world) {
+        boolean success = world.quickSave();
+    }
+
+    public static void saveGame(World world) {
+        boolean success = world.saveToFile();
+    }
+
+    public static void loadQuick(World world) {
+        String savePath = SystemData.getQuickSave();
+
+        System.out.println("Loading game...");
+
+        System.out.println(savePath);
+
+        world.updateWorld(savePath);
+        lookAround(world);
+    }
+
+    public static void loadGame(World world) {
+
+        String reply = SystemData.getReply("If you load a game now, you will lose your current progress. Do you want to continue? (Y/N) ").toLowerCase();
+
+        switch (reply) {
+            case "y":
+                String savePath = App.getLoadData();
+
+                if (savePath != "") {
+                    System.out.println("Loading game...");
+
+                    world.updateWorld(savePath);
+                    lookAround(world);
+                }
+                break;
+
+            default:
+                System.out.println("Your current game will continue.");
+        }
+    }
+
+    public static void quit() {
+        String choice = SystemData.getReply("Are you sure you want to quit? Y/N ");
+        if (choice.equalsIgnoreCase("y")) {
+            SystemData.getReply("Okay, bye!\n[press return to continue]");
+            System.exit(0);
+        } else
+            System.out.println("Okay, let's continue.");
+    }
+
+    public static void help() {
+        System.out.println("You are the Great and Powerful Trixie, on a quest to... do something. You haven't decided yet.\n" +
+                "To see available commands, nouns and conjunctions, type 'commands', 'nouns' or 'conjunctions'.\n" +
+                "To see available exits, type 'exits'. More help will be available when Trixie adds it.");
+    }
+
+    public static void ListCommands(World world) {
+
+        System.out.println("Commands are: " + turnStringListIntoString(world.getParser().legitimateCommands, "and"));
+    }
+
+    public static void listNouns(World world) {
+        System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().legitimateNouns, "and"));
+    }
+
+    // ------- Interact commands ------------
+
     public static void activate(String[] commandArray, World world) {
 
 //        String fullName = world.matchLocalName(commandArray[1]);
@@ -101,70 +169,6 @@ public class Commands {
 
     }
 
-    public static void saveQuick(World world) {
-        boolean success = world.quickSave();
-    }
-
-    public static void saveGame(World world) {
-        boolean success = world.saveToFile();
-    }
-
-    public static void loadQuick(World world) {
-        String savePath = SystemData.getQuickSave();
-
-        System.out.println("Loading game...");
-
-        System.out.println(savePath);
-
-        world.updateWorld(savePath);
-        lookAround(world);
-    }
-
-    public static void loadGame(World world) {
-
-        String reply = SystemData.getReply("If you load a game now, you will lose your current progress. Do you want to continue? (Y/N) ").toLowerCase();
-
-        switch (reply) {
-            case "y":
-                String savePath = App.getLoadData();
-
-                if (savePath != "") {
-                    System.out.println("Loading game...");
-
-                    world.updateWorld(savePath);
-                    lookAround(world);
-                }
-                break;
-
-            default:
-                System.out.println("Your current game will continue.");
-        }
-    }
-
-    public static void quit() {
-        String choice = SystemData.getReply("Are you sure you want to quit? Y/N ");
-        if (choice.equalsIgnoreCase("y")) {
-            SystemData.getReply("Okay, bye!\n[press return to continue]");
-            System.exit(0);
-        } else
-            System.out.println("Okay, let's continue.");
-    }
-
-    public static void help() {
-        System.out.println("You are the Great and Powerful Trixie, on a quest to... do something. You haven't decided yet.\n" +
-                "To see available commands, nouns and conjunctions, type 'commands', 'nouns' or 'conjunctions'.\n" +
-                "To see available exits, type 'exits'. More help will be available when Trixie adds it.");
-    }
-
-    public static void ListCommands(World world) {
-
-        System.out.println("Commands are: " + turnStringListIntoString(world.getParser().legitimateCommands, "and"));
-    }
-
-    public static void listNouns(World world) {
-        System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().legitimateNouns, "and"));
-    }
-
     public static void drop(String subject, World world) {
 
         GenericObject target = world.match(world.getLocalGenericList(), subject, Lambda.predicateByName(subject));
@@ -201,9 +205,7 @@ public class Commands {
 
     }
 
-
     public static void eat(String name, World world) {
-
 
         GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
 
@@ -236,10 +238,7 @@ public class Commands {
         System.out.println("You consume the " + target.getName() + ".");
         target.runResponseScript("eat");
         target.destroy();
-
-
     }
-
 
     public static void wear(String name, World world) {
 
@@ -293,7 +292,6 @@ public class Commands {
         target.runResponseScript("remove");
 
     }
-
 
     public static void open(String name, World world) {
 
@@ -424,7 +422,6 @@ public class Commands {
 
     }
 
-
     public static void talkTo(String name, World world) {
 
         GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
@@ -441,7 +438,6 @@ public class Commands {
         }
     }
 
-
     public static void chatWith(String name, World world) {
 
         GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
@@ -456,7 +452,6 @@ public class Commands {
             target.runResponseScript("chat with");
         }
     }
-
 
     public static void showInventory(World world) {
 
@@ -524,11 +519,17 @@ public class Commands {
         if (target != null) {
             String commandLine = subject.getComplexUseCommand(target.getName());
 
-            if (commandLine != null) {  //If we have a legitimate commandline, run it.
-                world.getParser().runCommand(commandLine, world);
-            } else {
-                System.out.println("You have no clear idea of how to use that.");
+            if (commandLine == null) {    //If there isn't a complex command line, check if there's one for the target type!
+                commandLine = subject.getComplexUseCommand(target.getType());
             }
+
+            if (commandLine == null) {  //If we have a legitimate commandline, run it.
+                System.out.println("You have no clear idea of how to use that.");
+                return;
+            }
+
+            world.getParser().runCommand(commandLine, world);
+
         }
     }
 
@@ -585,7 +586,6 @@ public class Commands {
 
         subject.runResponseScript("look at");
     }
-
 
     public static void goTo(String newArea, World world) {
 
@@ -820,47 +820,46 @@ public class Commands {
         }
 
 
-                    //This runs if you successfully talk to someone.
-            switch (conjunction) {
-                case "about":
-                    System.out.println(((Creature) target).askAbout(parsedTopic));
-                    target.runResponseScript("ask about " + parsedTopic);
-                    break;
+        //This runs if you successfully talk to someone.
+        switch (conjunction) {
+            case "about":
+                System.out.println(((Creature) target).askAbout(parsedTopic));
+                target.runResponseScript("ask about " + parsedTopic);
+                break;
 
-                case "for":
+            case "for":
 
-                    Item item = world.match(target.getItemList(), topic, Lambda.predicateByName(topic));
-
-
-                    if (item == null) {
-                        System.out.println("I don't have that.");
-                        return;
-                    }
-
-                    String targetMood = ((Creature) target).getMood();
-                    String targetAllegiance = ((Creature) target).getAllegiance();
+                Item item = world.match(target.getItemList(), topic, Lambda.predicateByName(topic));
 
 
-                    if (targetAllegiance.equalsIgnoreCase("hostile")) {
-                        System.out.println(target + " doesn't like you, and won't give you anything.");
-                    } else if (targetMood.equalsIgnoreCase("annoyed")) {
-                        System.out.println(target + " is in a bad mood and doesn't want to give you that.");
-                    } else if (target.hasAttribute("refusetogive_" + item)) {
-                        System.out.println(target + " refuses to give you that for specific reasons.");
-                    } else {
-                        world.transferItemToNewHolder(item, target, world.getPlayer());
-                        System.out.println(target + " gives you the " + item + ".");
-                        target.runResponseScript("ask for " + item);
-                    }
+                if (item == null) {
+                    System.out.println("I don't have that.");
+                    return;
+                }
 
-                    break;
+                String targetMood = ((Creature) target).getMood();
+                String targetAllegiance = ((Creature) target).getAllegiance();
 
-                default:
-                    System.out.println("You may ask " + target + " 'about' or 'for' something. This is not correct.");
-                    break;
-            }
+
+                if (targetAllegiance.equalsIgnoreCase("hostile")) {
+                    System.out.println(target + " doesn't like you, and won't give you anything.");
+                } else if (targetMood.equalsIgnoreCase("annoyed")) {
+                    System.out.println(target + " is in a bad mood and doesn't want to give you that.");
+                } else if (target.hasAttribute("refusetogive_" + item)) {
+                    System.out.println(target + " refuses to give you that for specific reasons.");
+                } else {
+                    world.transferItemToNewHolder(item, target, world.getPlayer());
+                    System.out.println(target + " gives you the " + item + ".");
+                    target.runResponseScript("ask for " + item);
+                }
+
+                break;
+
+            default:
+                System.out.println("You may ask " + target + " 'about' or 'for' something. This is not correct.");
+                break;
+        }
     }
-
 
     public static void create(String[] commandArray, World world) {
         Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
@@ -938,7 +937,6 @@ public class Commands {
         target.runResponseScript("receive gift");
 
     }
-
 
     public static void place(String[] commandArray, World world) {
 
@@ -1030,7 +1028,7 @@ public class Commands {
 
         GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
 
-        if(!(item instanceof Item)){
+        if (!(item instanceof Item)) {
             System.out.println("You can't pick that up. It also shouldn't be in a container.");
             return;
         }
@@ -1053,7 +1051,6 @@ public class Commands {
     }
 
     //--------------- Not for direct use -----------------------
-
 
 
     public static void listOwnedItems(World world, GenericObject owner) {

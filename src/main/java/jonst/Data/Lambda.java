@@ -12,14 +12,14 @@ public class Lambda {
 
     public static <T extends GenericObject> Predicate<T> predicateByName(String name){
 
-        Predicate<T> pred = (T g) -> g.getName().equals(name) || g.getAlias().contains(name);
+        Predicate<T> pred = (T g) -> g.getName().equalsIgnoreCase(name) || g.getAlias().stream().anyMatch(name::equalsIgnoreCase);
 
         return pred;
     }
 
     public static Predicate<GenericObject> predicateById(String id){
 
-        Predicate<GenericObject> pred = (GenericObject g) -> g.getId().equals(id);
+        Predicate<GenericObject> pred = (GenericObject g) -> g.getId().equalsIgnoreCase(id);
 
         return pred;
     }
