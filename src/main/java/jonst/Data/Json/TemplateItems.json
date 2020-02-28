@@ -1,6 +1,7 @@
 {
   "Item_Food_Apple": {
     "FullName": "red apple",
+    "ShortName": "apple",
     "Id": "Item_Food_Apple",
     "Descriptions": {"default": "Fragrant and delicious, just the thing for a quick snack."},
     "DefaultUse": "look at",
@@ -40,6 +41,7 @@
   },
   "Item_Human_Clothes": {
     "FullName": "human clothes",
+    "ShortName": "clothes",
     "Id": "Item_Human_Clothes",
     "Descriptions": {"default": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony."},
     "DefaultUse": "look at",

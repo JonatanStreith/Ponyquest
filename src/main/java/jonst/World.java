@@ -196,6 +196,22 @@ public class World {
                 }
             }
         }
+
+
+        Lambda.processList(stationaryObjectList, p -> p instanceof Vehicle, p -> {
+
+            if (((Vehicle) p).getDestinationIds() != null) {
+
+
+
+                Lambda.processList(((Vehicle) p).getDestinationIds(), q -> {
+                    ((Vehicle) p).addDestination(getLocationByID(q));
+                });
+            }
+        });
+
+        //List<StationaryObject> vehicleList = Lambda.subList(stationaryObjectList, p -> p instanceof Vehicle);
+
     }
 
 
@@ -313,16 +329,16 @@ public class World {
 
     // --------------- Match name methods ------------------------
 
-    public <T extends GenericObject> T match(List<T> list, String name, Predicate<T> predicate){
+    public <T extends GenericObject> T match(List<T> list, String name, Predicate<T> predicate) {
 
-        if(name.equals("")){
+        if (name.equals("")) {
             System.out.println("Incomplete command.");
             return null;
         }
 
         List<T> results = Lambda.subList(list, predicate);
 
-        if(results.size() == 1 || HelpfulMethods.isIdentical(results)){
+        if (results.size() == 1 || HelpfulMethods.isIdentical(results)) {
             return results.get(0);
         } else if (results.size() > 1) {
             System.out.println("Which do you mean, " + HelpfulMethods.turnListIntoString(results, "or") + "?");
@@ -333,9 +349,9 @@ public class World {
         }
     }
 
-    public <T extends GenericObject> List<T> matchMultiple(List<T> list, String name, Predicate<T> predicate){
+    public <T extends GenericObject> List<T> matchMultiple(List<T> list, String name, Predicate<T> predicate) {
 
-        if(name.equals("")){
+        if (name.equals("")) {
             System.out.println("Incomplete command.");
             return null;
         }

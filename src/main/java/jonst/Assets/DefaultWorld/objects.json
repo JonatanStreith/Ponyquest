@@ -5,6 +5,7 @@
     },
     "Id": "Object_Cutiemap",
     "FullName": "Cutie Map",
+    "ShortName": "map",
     "Type": "generic",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -26,6 +27,7 @@
     },
     "Id": "Object_Throne_Group",
     "FullName": "Friendship thrones",
+    "ShortName": "thrones",
     "Type": "group",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -47,6 +49,7 @@
     },
     "Id": "Object_Throne_Twilight",
     "FullName": "Twilight's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -68,6 +71,7 @@
     },
     "Id": "Object_Throne_Rarity",
     "FullName": "Rarity's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -89,6 +93,7 @@
     },
     "Id": "Object_Throne_Applejack",
     "FullName": "Applejack's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -110,6 +115,7 @@
     },
     "Id": "Object_Throne_Pinkie",
     "FullName": "Pinkie Pie's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -131,6 +137,7 @@
     },
     "Id": "Object_Throne_Fluttershy",
     "FullName": "Fluttershy's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -152,6 +159,7 @@
     },
     "Id": "Object_Throne_Rainbow",
     "FullName": "Rainbow Dash's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -174,6 +182,7 @@
     },
     "Id": "Object_Throne_Spike",
     "FullName": "Spike's throne",
+    "ShortName": "throne",
     "Type": "seat",
     "Location": "Location_Castle_Maproom",
     "Alias": [
@@ -194,11 +203,11 @@
     },
     "Id": "Object_Acres_Tree",
     "FullName": "apple tree",
+    "ShortName": "tree",
     "Type": "producer",
     "Location": "Location_Acres_Exterior",
     "Alias": [
-      "tree",
-      "apple tree"
+      "tree"
     ],
     "Attributes": [
 
@@ -284,6 +293,7 @@
     },
     "Id": "Human_Statue_Base",
     "FullName": "broken statue base",
+    "ShortName": "statue",
     "Type": "generic",
     "Location": "Canterlot_High_Campus",
     "DefaultUse": "enter",
@@ -303,5 +313,30 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Descriptions": {
+      "default": "The Friendship Express. A cheerfully decorated train that takes creatures to all the important places in Equestria, and beyond. You prefer to travel by wagon, but sometimes the train is more convenient... and easier on your legs."
+    },
+    "Id": "Vehicle_Train",
+    "FullName": "the Friendship Express",
+    "ShortName": "train",
+    "Type": "vehicle",
+    "Location": "Location_Ponyville_Station",
+    "DefaultUse": "board",
+    "Alias": [
+      "express"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    },
+    "Destinations": [
+      "Location_Ponyville_Station",
+      "Location_Manehattan_Station",
+      "Location_Canterlot_Station"
+    ]
   }
 ]

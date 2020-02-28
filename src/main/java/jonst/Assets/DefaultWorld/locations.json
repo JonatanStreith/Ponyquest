@@ -7,8 +7,8 @@
       "default": "The Castle of Friendship is a majestic crystal structure that looks incredibly out of place with the rest of Ponyville. It's a nice place to hang out, though."
     },
     "Id": "Location_Castle_Exterior",
-    "FullName": "Castle of Friendship",
-    "Location": "Castle of Friendship",
+    "FullName": "the Castle of Friendship",
+    "ShortName": "castle",
     "Alias": [
       "castle",
       "Twilight's castle",
@@ -31,7 +31,6 @@
     },
     "Id": "Location_Sugarcube_Exterior",
     "FullName": "Sugarcube Corner",
-    "Location": "Sugarcube Corner",
     "Alias": [
       "bakery",
       "cake shop",
@@ -54,7 +53,6 @@
     },
     "Id": "Location_Sugarcube_Interior",
     "FullName": "Sugarcube Corner interior",
-    "Location": "Sugarcube Corner interior",
     "Alias": [
       "bakery interior",
       "bakery",
@@ -78,7 +76,7 @@
     },
     "Id": "Location_Sugarcube_Kitchen",
     "FullName": "Sugarcube Corner kitchen",
-    "Location": "Sugarcube Corner kitchen",
+    "ShortName": "kitchen",
     "Alias": [
       "kitchen"
     ],
@@ -99,7 +97,6 @@
     },
     "Id": "Location_Sugercube_Pinkieroom",
     "FullName": "Pinkie Pie's room",
-    "Location": "Pinkie Pie's room",
     "Alias": [
       "pinkie's room",
       "pinkie room",
@@ -122,7 +119,6 @@
     },
     "Id": "Location_Sugarcube_Partycave",
     "FullName": "Party Cave",
-    "Location": "Party Cave",
     "Alias": [
       "partycave",
       "secret cave",
@@ -145,7 +141,6 @@
     },
     "Id": "Location_Carousel_Exterior",
     "FullName": "Carousel Boutique",
-    "Location": "Carousel Boutique",
     "Alias": [
       "boutique exterior",
       "boutique",
@@ -171,7 +166,6 @@
     },
     "Id": "Location_Carousel_Interior",
     "FullName": "Carousel Boutique interior",
-    "Location": "Carousel Boutique interior",
     "Alias": [
       "boutique interior",
       "boutique",
@@ -199,7 +193,6 @@
     },
     "Id": "Location_Acres_Exterior",
     "FullName": "Sweet Apple Acres",
-    "Location": "Sweet Apple Acres",
     "Alias": [
       "acres",
       "apple farm",
@@ -222,7 +215,6 @@
     },
     "Id": "Location_Acres_Farmhouse",
     "FullName": "Farmhouse interior",
-    "Location": "Farmhouse interior",
     "Alias": [
       "farmhouse",
       "Applejack's house",
@@ -245,7 +237,7 @@
     },
     "Id": "Location_Castle_Mainhall",
     "FullName": "Castle main hall",
-    "Location": "Castle main hall",
+    "ShortName": "main hall",
     "Alias": [
       "main hall",
       "hall"
@@ -267,7 +259,6 @@
     },
     "Id": "Location_Castle_Maproom",
     "FullName": "Cutie Map room",
-    "Location": "Cutie Map room",
     "Alias": [
       "map room",
       "throne room"
@@ -289,7 +280,7 @@
     },
     "Id": "Location_Castle_Library",
     "FullName": "Castle library",
-    "Location": "Castle library",
+    "ShortName": "library",
     "Alias": [
       "library",
       "study"
@@ -311,7 +302,7 @@
     },
     "Id": "Location_Castle_Kitchen",
     "FullName": "Castle kitchen",
-    "Location": "Castle kitchen",
+    "ShortName": "kitchen",
     "Alias": [
       "kitchen"
     ],
@@ -332,7 +323,6 @@
     },
     "Id": "Location_Castle_Starlightroom",
     "FullName": "Starlight's room",
-    "Location": "Starlight's room",
     "Alias": [
       "Starlight room"
     ],
@@ -352,7 +342,7 @@
     },
     "Id": "Location_Ponyville_Station",
     "FullName": "Ponyville station",
-    "Location": "Ponyville station",
+    "ShortName": "train station",
     "Alias": [
       "station",
       "train station"
@@ -373,10 +363,52 @@
     },
     "Id": "Canterlot_High_Campus",
     "FullName": "Canterlot High campus",
-    "Location": "Canterlot High campus",
+    "ShortName": "campus",
     "Alias": [
       "campus",
       "school campus"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "DefaultEnter": "",
+    "DefaultExit": "",
+    "Descriptions": {
+      "default": "This is the Manehattan central station, in Manehattan."
+    },
+    "Id": "Location_Manehattan_Station",
+    "FullName": "Manehattan station",
+    "ShortName": "train station",
+    "Alias": [
+      "station",
+      "train station"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "DefaultEnter": "",
+    "DefaultExit": "",
+    "Descriptions": {
+      "default": "This is the Canterlot central station, in Canterlot."
+    },
+    "Id": "Location_Canterlot_Station",
+    "FullName": "Canterlot station",
+    "ShortName": "train station",
+    "Alias": [
+      "station",
+      "train station"
     ],
     "Attributes": [
       ""

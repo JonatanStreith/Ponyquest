@@ -120,9 +120,12 @@ public class JsonBuilder {
 
             //Generic attributes here
             put("FullName", gen.getName());
+            put("ShortName", gen.getShortName());
             put("Type", gen.getType());
             put("Id", gen.getId());
             put("Location", gen.getLocationId());
+            put("DefaultLocation", gen.getDefaultLocationId());
+
             put("Text", gen.getText());
             put("DefaultUse", gen.getDefaultUse());
             put("OwnerId", gen.getOwnerId());
@@ -197,6 +200,10 @@ public class JsonBuilder {
                 //Reserved space in case items get more stuff
             } else if (gen instanceof StationaryObject) {
                 //Reserved space in case SOs get more stuff
+
+                if(gen instanceof Vehicle){
+                    put("Destinations", ((Vehicle) gen).getDestinationIds());
+                }
             }
         }};
 
@@ -327,71 +334,81 @@ public class JsonBuilder {
     public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
         //Generic
 
-            String fullName = (String) jObj.get("FullName");
-            String type = (String) jObj.get("Type");
-            String id = (String) jObj.get("Id");
-            String location = (String) jObj.get("Location");
+        String fullName = (String) jObj.get("FullName");
+        String shortName = (String) jObj.get("ShortName");
+
+        if(shortName == null){
+            shortName = fullName;
+        }
+
+        String type = (String) jObj.get("Type");
+        String id = (String) jObj.get("Id");
+        String location = (String) jObj.get("Location");
         String defaultLocation = (String) jObj.get("DefaultLocation");
 
-        if(defaultLocation == null){        //If there's no specified defaultLocation, set current location to default.
+        if (defaultLocation == null) {        //If there's no specified defaultLocation, set current location to default.
             defaultLocation = location;     //Since the default world is the "start" anyway, this works fine.
         }
 
         String text = (String) jObj.get("Text");
-            String defaultUse = (String) jObj.get("DefaultUse");
+        String defaultUse = (String) jObj.get("DefaultUse");
 
-            Map<String, String> descriptions = new HashMap() {{
-                JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-                if (jsd != null)
-                    for (Object xObj : jsd.keySet()) {
-                        String key = (String) xObj;
-                        put(key.toLowerCase(), (String) jsd.get(key));
-                    }
-            }};
-
-            Map<String, String> complexUse = new HashMap() {{
-                JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-                if (jsCU != null)
-                    for (Object xObj : jsCU.keySet()) {
-                        String key = (String) xObj;
-                        put(key.toLowerCase(), (String) jsCU.get(key));
-                    }
-            }};
-
-            Map<String, ArrayList<String>> responseScripts = new HashMap() {{
-                JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
-                if (jsRS != null) {
-                    for (Object xObj : jsRS.keySet()) {
-                        String key = (String) xObj;
-                        JSONArray jsScripts = (JSONArray) jsRS.get(key);
-
-                        ArrayList<String> scripts = new ArrayList<>();
-                        scripts.addAll(jsScripts);
-                        put(key.toLowerCase(), scripts);
-                    }
+        Map<String, String> descriptions = new HashMap() {{
+            JSONObject jsd = (JSONObject) jObj.get("Descriptions");
+            if (jsd != null)
+                for (Object xObj : jsd.keySet()) {
+                    String key = (String) xObj;
+                    put(key.toLowerCase(), (String) jsd.get(key));
                 }
-            }};
+        }};
 
-            List<String> alias = new ArrayList() {{
-                JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-                if (jsAlias != null)
-                    for (Object xObj : jsAlias) {
-                        String newAlias = (String) xObj;
-                        add(newAlias.toLowerCase());
-                    }
-            }};
+        Map<String, String> complexUse = new HashMap() {{
+            JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+            if (jsCU != null)
+                for (Object xObj : jsCU.keySet()) {
+                    String key = (String) xObj;
+                    put(key.toLowerCase(), (String) jsCU.get(key));
+                }
+        }};
 
-            List<String> attributes = new ArrayList() {{
-                JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-                if (jsAttributes != null)
-                    for (Object xObj : jsAttributes) {
-                        String newAttribute = (String) xObj;
-                        add(newAttribute.toLowerCase());
-                    }
-            }};
+        Map<String, ArrayList<String>> responseScripts = new HashMap() {{
+            JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
+            if (jsRS != null) {
+                for (Object xObj : jsRS.keySet()) {
+                    String key = (String) xObj;
+                    JSONArray jsScripts = (JSONArray) jsRS.get(key);
+
+                    ArrayList<String> scripts = new ArrayList<>();
+                    scripts.addAll(jsScripts);
+                    put(key.toLowerCase(), scripts);
+                }
+            }
+        }};
+
+        List<String> alias = new ArrayList() {{
+            JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+            if (jsAlias != null)
+                for (Object xObj : jsAlias) {
+                    String newAlias = (String) xObj;
+                    add(newAlias.toLowerCase());
+                }
+        }};
+
+        if(!alias.contains(shortName)){
+            alias.add(shortName);
+        }
+
+        List<String> attributes = new ArrayList() {{
+            JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+            if (jsAttributes != null)
+                for (Object xObj : jsAttributes) {
+                    String newAttribute = (String) xObj;
+                    add(newAttribute.toLowerCase());
+                }
+        }};
 
 
-        if(typeKey.equals("creature")) {
+        if (typeKey.equals("creature")) {
             //Creature-specific
             String race = (String) jObj.get("Race");
             String defaultRace = (String) jObj.get("DefaultRace");
@@ -439,31 +456,43 @@ public class JsonBuilder {
                 bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
             }
 
-            return new Creature(fullName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
+            return new Creature(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
                     gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
-        }
-        else if(typeKey.equals("item")){
+        } else if (typeKey.equals("item")) {
 
             String ownerId = (String) jObj.get("OwnerId");
 
-            Item test = new Item(fullName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+            Item test = new Item(fullName, shortName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
 
             return test;
 
-        }
-        else if(typeKey.equals("location")){
+        } else if (typeKey.equals("location")) {
 
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-            return new Location(fullName, type, id, fullName, defaultLocation, alias, attributes, defaultEnter, defaultExit, descriptions,
+            return new Location(fullName, shortName, type, id, fullName, null, alias, attributes, defaultEnter, defaultExit, descriptions,
                     text, defaultUse, complexUse, responseScripts, null);
 
-        }
-        else if(typeKey.equals("stationaryobject")){
+        } else if (typeKey.equals("stationaryobject")) {
             String ownerId = (String) jObj.get("OwnerId");
 
-            return new StationaryObject(fullName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+            JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
+
+            if(jsDestinations != null){
+                //If it has destinations, it's a vehicle
+
+                List<String> destinations = new ArrayList() {{
+                    for (Object dest: jsDestinations) {
+                        add((String) dest);
+                    }
+                }};
+
+                return new Vehicle(fullName, shortName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId, destinations);
+
+            }
+
+            return new StationaryObject(fullName, shortName, type, id, location, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
 
         }
 
@@ -776,6 +805,12 @@ public class JsonBuilder {
 
             if (jsonItem != null) {
                 String fullName = (String) jsonItem.get("FullName");
+                String shortName = (String) jsonItem.get("ShortName");
+
+                if(shortName == null){
+                    shortName = fullName;
+                }
+
                 String id = (String) jsonItem.get("Id");
                 String type = (String) jsonItem.get("Type");
                 String defaultLocation = (String) jsonItem.get("DefaultLocation");
@@ -836,7 +871,7 @@ public class JsonBuilder {
 
                 //String name, String id, String description, String locationName, List<String> alias, List<String> attributes
 
-                item = new Item(fullName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                item = new Item(fullName, shortName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
             }
 
@@ -868,6 +903,12 @@ public class JsonBuilder {
 
             if (jsonCreature != null) {
                 String fullName = (String) jsonCreature.get("FullName");
+                String shortName = (String) jsonCreature.get("ShortName");
+
+                if(shortName == null){
+                    shortName = fullName;
+                }
+
                 String id = (String) jsonCreature.get("Id");
                 String type = (String) jsonCreature.get("Type");
                 String defaultLocation = (String) jsonCreature.get("DefaultLocation");
@@ -972,7 +1013,7 @@ public class JsonBuilder {
                 }
 
 
-                creature = new Creature(fullName, type, id, locationId, defaultLocation, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
+                creature = new Creature(fullName, shortName, type, id, locationId, defaultLocation, alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(), gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerName, bc, initialDialog);
 
 
             }
@@ -1005,6 +1046,12 @@ public class JsonBuilder {
 
             if (jsonObject != null) {
                 String fullName = (String) jsonObject.get("FullName");
+                String shortName = (String) jsonObject.get("ShortName");
+
+                if(shortName == null){
+                    shortName = fullName;
+                }
+
                 String id = (String) jsonObject.get("Id");
                 String type = (String) jsonObject.get("Type");
                 String defaultLocation = (String) jsonObject.get("DefaultLocation");
@@ -1061,7 +1108,7 @@ public class JsonBuilder {
                 }
 
 
-                object = new StationaryObject(fullName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+                object = new StationaryObject(fullName, shortName, type, id, locationId, defaultLocation, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
 
 
             }

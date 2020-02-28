@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GenericObject implements Comparable<GenericObject> {
-    protected String name;
+    private String name;
+    private String shortName;
     private String type;
     private String id;
     private String locationId;
@@ -33,8 +34,9 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
+    public GenericObject(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
         setName(name);
+        setShortName(shortName);
         setType(type);
         setId(id);
 
@@ -74,6 +76,10 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public String getName() {
         return name;
+    }
+
+    public String getShortName() {
+        return shortName;
     }
 
     public String getId() {
@@ -141,6 +147,10 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     protected void setName(String name) {
         this.name = name;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     protected void setId(String id) {
@@ -384,7 +394,14 @@ public abstract class GenericObject implements Comparable<GenericObject> {
             world.removeFromLocation(subject, subject.getLocation());
             world.removeFromList(subject);
         }
+    }
 
+    public void read(){
+        if(getText() != null){
+            System.out.println(getText());
+        } else {
+            System.out.println("There's nothing to read.");
+        }
 
     }
 

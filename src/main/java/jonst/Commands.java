@@ -104,6 +104,8 @@ public class Commands {
             return;
         }
 
+        System.out.println("You attempt to activate the " + target.getShortName());
+
         boolean successful = target.runResponseScript("activate");
 
         if (!successful) {
@@ -153,17 +155,15 @@ public class Commands {
             return;
         }
 
-        if (!target.hasAttribute("readable")) {
-            System.out.println("There's nothing to read.");
-            return;
-        }
+
 
         if (target.isOwnerPayingAttention()) {
             System.out.println(target.getOwner().getName() + " won't let you read that.");
             return;
         }
 
-        System.out.println(target.getText());
+        target.read();
+
         target.runResponseScript("read");
 
 
@@ -200,7 +200,7 @@ public class Commands {
         }
 
         world.transferItemToNewHolder(targetItem, world.getPlayer(), world.getPlayerLocation());
-        System.out.println("You drop the " + targetItem.getName() + ".");
+        System.out.println("You drop the " + targetItem.getShortName() + ".");
         targetItem.runResponseScript("drop");
 
     }
@@ -235,7 +235,7 @@ public class Commands {
             return;
         }
 
-        System.out.println("You consume the " + target.getName() + ".");
+        System.out.println("You consume the " + target.getShortName() + ".");
         target.runResponseScript("eat");
         target.destroy();
     }
@@ -267,7 +267,7 @@ public class Commands {
         }
 
         target.addAttribute("worn");
-        System.out.println("You put on the " + target.getName() + ".");
+        System.out.println("You put on the " + target.getShortName() + ".");
         target.runResponseScript("wear");
 
     }
@@ -288,7 +288,7 @@ public class Commands {
         }
 
         target.removeAttribute("worn");
-        System.out.println("You take off the " + target.getName() + ".");
+        System.out.println("You take off the " + target.getShortName() + ".");
         target.runResponseScript("remove");
 
     }
@@ -319,13 +319,13 @@ public class Commands {
         }
 
         if (target.isOwnerPayingAttention()) {
-            System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+            System.out.println(target.getOwner().getShortName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
         target.addAttribute("open");
         target.removeAttribute("closed");
-        System.out.println("You open the " + target.getName() + ".");
+        System.out.println("You open the " + target.getShortName() + ".");
         target.runResponseScript("open");
 
     }
@@ -352,13 +352,13 @@ public class Commands {
         }
 
         if (target.isOwnerPayingAttention()) {
-            System.out.println(target.getOwner().getName() + " gives you a disapproving look. You better not tamper with that.");
+            System.out.println(target.getOwner().getShortName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
         target.addAttribute("closed");
         target.removeAttribute("open");
-        System.out.println("You close the " + target.getName() + ".");
+        System.out.println("You close the " + target.getShortName() + ".");
         target.runResponseScript("close");
 
 
@@ -375,13 +375,13 @@ public class Commands {
 
         if (target instanceof Creature) {                                             //Subject is a creature.
             Creature creature = (Creature) target;
-            System.out.println("You pick up " + creature.getName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
+            System.out.println("You pick up " + creature.getShortName() + " with your magic and hold " + himOrHer(creature) + " for a moment before putting " + himOrHer(creature) + " down again.");
             creature.runResponseScript("pick up");
             return;
         }
 
         if (target instanceof StationaryObject) {                              //Subject is a stationary object
-            System.out.println("You'd rather not try lifting " + target.getName() + ". It's heavy.");
+            System.out.println("You'd rather not try lifting " + target.getShortName() + ". It's heavy.");
             return;
         }
 
@@ -404,17 +404,17 @@ public class Commands {
         }
 
         if (itemHolder instanceof Creature) {
-            System.out.println("You can't just take that from " + itemHolder.getName() + ". Try asking nicely.");
+            System.out.println("You can't just take that from " + itemHolder.getShortName() + ". Try asking nicely.");
             return;
         }
 
         if (itemHolder instanceof Location) {
 
             if (targetItem.isOwnerPayingAttention()) {
-                System.out.println("You can't take that while " + targetItem.getOwner().getName() + " is looking.");
+                System.out.println("You can't take that while " + targetItem.getOwner().getShortName() + " is looking.");
             } else {
                 world.transferItemToNewHolder(targetItem, targetItem.getHolder(), world.getPlayer());
-                System.out.println("You pick up the " + targetItem.getName() + ".");
+                System.out.println("You pick up the " + targetItem.getShortName() + ".");
             }
 
             return;
@@ -657,7 +657,7 @@ public class Commands {
 
             if (genTarget.hasAttribute("canenter")) {
 
-                System.out.println("You step into the " + genTarget.getName() + ".");
+                System.out.println("You step into the " + genTarget.getShortName() + ".");
                 genTarget.runResponseScript("enter");
             } else {
                 System.out.println("You can't enter that.");
@@ -728,22 +728,22 @@ public class Commands {
                 Commands.teleportSelf(command, world);
 
             } else if (target instanceof Location) {
-                System.out.println("You'd rather not teleport " + target.getName() + " anywhere. You made that mistake once, and it wasn't pretty.");
+                System.out.println("You'd rather not teleport " + target.getShortName() + " anywhere. You made that mistake once, and it wasn't pretty.");
 
 
             } else if (target instanceof Creature) {
                 world.moveToLocation((Creature) target, world.getPlayerLocation(), destination);
-                System.out.println(target.getName() + " vanishes in a burst of smoke!");
+                System.out.println(target.getShortName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
             } else if (target instanceof Item) {
                 world.transferItemToNewHolder((Item) target, world.getPlayerLocation(), destination);
-                System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
+                System.out.println("The " + target.getShortName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
             } else if (target instanceof StationaryObject) {
                 world.moveToLocation((StationaryObject) target, world.getPlayerLocation(), destination);
-                System.out.println("The " + target.getName() + " vanishes in a burst of smoke!");
+                System.out.println("The " + target.getShortName() + " vanishes in a burst of smoke!");
                 target.runResponseScript("teleport");
 
 
@@ -766,7 +766,7 @@ public class Commands {
             world.moveToLocation(world.getPlayer(), world.getPlayerLocation(), destination);
 
 
-            System.out.println("You vanish in a burst of smoke, and reappear at " + destination.getName() + ".");
+            System.out.println("You vanish in a burst of smoke, and reappear at " + destination.getShortName() + ".");
             SystemData.getReply("[press enter to continue]");
             System.out.flush();
             lookAround(world);
@@ -787,7 +787,7 @@ public class Commands {
 
 
         if (gen.hasAttribute("huggable")) {
-            System.out.println("You hug " + gen.getName() + " affectionately.");
+            System.out.println("You hug " + gen.getShortName() + " affectionately.");
             gen.runResponseScript("hug");
         } else
             System.out.println("They don't look very huggable.");
@@ -842,14 +842,14 @@ public class Commands {
 
 
                 if (targetAllegiance.equalsIgnoreCase("hostile")) {
-                    System.out.println(target + " doesn't like you, and won't give you anything.");
+                    System.out.println(target.getShortName() + " doesn't like you, and won't give you anything.");
                 } else if (targetMood.equalsIgnoreCase("annoyed")) {
-                    System.out.println(target + " is in a bad mood and doesn't want to give you that.");
+                    System.out.println(target.getShortName() + " is in a bad mood and doesn't want to give you that.");
                 } else if (target.hasAttribute("refusetogive_" + item)) {
-                    System.out.println(target + " refuses to give you that for specific reasons.");
+                    System.out.println(target.getShortName() + " refuses to give you that for specific reasons.");
                 } else {
                     world.transferItemToNewHolder(item, target, world.getPlayer());
-                    System.out.println(target + " gives you the " + item + ".");
+                    System.out.println(target + " gives you the " + item.getShortName() + ".");
                     target.runResponseScript("ask for " + item);
                 }
 
@@ -872,7 +872,7 @@ public class Commands {
 
             world.addNewToList(newItem);
 
-            System.out.println("You create a " + commandArray[1] + " from nothing, and put it in your pocket.");
+            System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
             newItem.runResponseScript("create");
         } else {
             System.out.println("You try to create something, but it fails somehow.");
@@ -883,7 +883,7 @@ public class Commands {
 
         GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
 
-        String originalName = item.getName();
+        String originalName = item.getShortName();
 
         if (!(item instanceof Item)) {
             System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
@@ -893,7 +893,7 @@ public class Commands {
 
             ((Item) item).transformInto(newItem);
 
-            System.out.println("You magically transform the " + originalName + " into a " + item.getName() + ". Excellent!");
+            System.out.println("You magically transform the " + originalName + " into a " + item.getShortName() + ". Excellent!");
             item.runResponseScript("transform");
         }
     }
@@ -930,7 +930,7 @@ public class Commands {
         }
 
         world.transferItemToNewHolder(subject, world.getPlayer(), target);
-        System.out.println(target.getName() + " accepts the " + subject.getName() + ". " + ((Creature) target).getPersonalQuote("thanks"));
+        System.out.println(target.getShortName() + " accepts the " + subject.getShortName() + ". " + ((Creature) target).getPersonalQuote("thanks"));
 
 
         subject.runResponseScript("is given");
@@ -954,17 +954,17 @@ public class Commands {
         }
 
         if (!(container.hasAttribute("container"))) {
-            System.out.println("You can't put anything into the " + container + ".");
+            System.out.println("You can't put anything into the " + container.getShortName() + ".");
             return;
         }
 
         if (container.hasAttribute("closed")) {
-            System.out.println("The " + container + " is closed. You can't put anything into it.");
+            System.out.println("The " + container.getShortName() + " is closed. You can't put anything into it.");
             return;
         }
 
         if (container.isOwnerPayingAttention()) {
-            System.out.println(container.getOwner() + " gives you a disapproving look. You better not tamper with that.");
+            System.out.println(container.getOwner().getShortName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
@@ -985,7 +985,7 @@ public class Commands {
         //Assuming the container exists, the item exists, and the container is a legitimate "container", we'll get here.
 
         world.transferItemToNewHolder((Item) item, world.getPlayer(), container);
-        System.out.println("You put the " + item.getName() + " into the " + container.getName() + ".");
+        System.out.println("You put the " + item.getShortName() + " into the " + container.getShortName() + ".");
         item.runResponseScript("get placed");
         container.runResponseScript("get something placed into");
     }
@@ -1006,7 +1006,7 @@ public class Commands {
         }
 
         if (container instanceof Creature) {
-            System.out.println(container + " doesn't appreciate you rummaging through "
+            System.out.println(container.getShortName() + " doesn't appreciate you rummaging through "
                     + hisOrHer((Creature) container) + " things. Try asking nicely.");
             return;
         }
@@ -1017,12 +1017,12 @@ public class Commands {
         }
 
         if (container.hasAttribute("closed")) {
-            System.out.println("The " + container + " is closed. You can't take anything from it.");
+            System.out.println("The " + container.getShortName() + " is closed. You can't take anything from it.");
             return;
         }
 
         if (container.isOwnerPayingAttention()) {
-            System.out.println(container.getOwner() + " gives you a disapproving look. You better not tamper with that.");
+            System.out.println(container.getOwner().getShortName() + " gives you a disapproving look. You better not tamper with that.");
             return;
         }
 
@@ -1039,12 +1039,12 @@ public class Commands {
         }
 
         if (item.isOwnerPayingAttention()) {
-            System.out.println("You can't take that while " + item.getOwner() + " is looking.");
+            System.out.println("You can't take that while " + item.getOwner().getShortName() + " is looking.");
             return;
         }
 
         world.transferItemToNewHolder((Item) item, container, world.getPlayer());
-        System.out.println("You take the " + item + " from the " + container + ".");
+        System.out.println("You take the " + item.getShortName() + " from the " + container.getShortName() + ".");
         item.runResponseScript("pick up");
         container.runResponseScript("get something taken from");
 
@@ -1111,7 +1111,7 @@ public class Commands {
     public static void moveFollowers(Location currentLoc, Location destination, World world) {
         Lambda.processList(getFollowers(currentLoc, world), follower -> {
             world.moveToLocation(follower, currentLoc, destination);
-            System.out.println(follower.getName() + " follows you.");
+            System.out.println(follower.getShortName() + " follows you.");
         });
     }
 
@@ -1120,7 +1120,7 @@ public class Commands {
         String dialogKey = speaker.getInitialDialog();
 
         if (dialogKey == null) {
-            System.out.println(speaker.getName() + " has little to speak about.");
+            System.out.println(speaker.getShortName() + " has little to speak about.");
             return;
         }
 
@@ -1176,7 +1176,7 @@ public class Commands {
 
         world.moveToLocation(world.getPlayer(), currentLoc, destination);                                            //Add player to new location
 
-        System.out.println("You go to " + destination.getName() + ".");
+        System.out.println("You go to " + destination.getShortName() + ".");
         moveFollowers(currentLoc, destination, world);
 
         SystemData.getReply("[press enter to continue]");

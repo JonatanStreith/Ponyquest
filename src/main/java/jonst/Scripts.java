@@ -176,8 +176,9 @@ public class Scripts {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        world.moveToLocation(actor, actor.getLocation(), world.getLocationByID(actor.getDefaultLocationId()));
-
+        if(actor.getDefaultLocationId() != null) {
+            world.moveToLocation(actor, actor.getLocation(), world.getLocationByID(actor.getDefaultLocationId()));
+        }
     }
 
     public static void spawnCreature(GenericObject subject, String[] scriptCommandArray, World world) {

@@ -5,9 +5,9 @@
     },
     "Id": "Object_Tree",
     "FullName": "apple tree",
+    "ShortName": "tree",
     "Alias": [
-      "tree",
-      "apple tree"
+      "tree"
     ],
     "Attributes": [
       "huggable",
