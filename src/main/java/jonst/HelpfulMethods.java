@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.ReverseSortIgnoreCase;
 import jonst.Data.SortIgnoreCase;
+import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 
@@ -188,5 +189,9 @@ public class HelpfulMethods {
                 .collect(Collectors.toList());
     }
 
+
+    public static void pause(){
+        SystemData.getReply("[Press return to continue]");
+    }
 
 }

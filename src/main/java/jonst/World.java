@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
 
+import static jonst.HelpfulMethods.*;
+
 
 public class World {
 
@@ -53,7 +55,7 @@ public class World {
 
     public void runGame() {
 
-        System.out.println("------------------------------------------------------------------------------------------------------------------------");
+        pause();
 
         Commands.lookAround(this);
 
@@ -203,7 +205,6 @@ public class World {
             if (((Vehicle) p).getDestinationIds() != null) {
 
 
-
                 Lambda.processList(((Vehicle) p).getDestinationIds(), q -> {
                     ((Vehicle) p).addDestination(getLocationByID(q));
                 });
@@ -338,10 +339,10 @@ public class World {
 
         List<T> results = Lambda.subList(list, predicate);
 
-        if (results.size() == 1 || HelpfulMethods.isIdentical(results)) {
+        if (results.size() == 1 || isIdentical(results)) {
             return results.get(0);
         } else if (results.size() > 1) {
-            System.out.println("Which do you mean, " + HelpfulMethods.turnListIntoString(results, "or") + "?");
+            System.out.println("Which do you mean, " + turnListIntoString(results, "or") + "?");
             return null;
         } else {
             System.out.println("'" + name + "' doesn't exist.");
@@ -357,183 +358,6 @@ public class World {
         }
 
         return Lambda.subList(list, predicate);
-    }
-
-/*
-
-
-
-
-//    public List<Location> matchLocationsMultiple(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return new ArrayList<Location>();
-//        }
-//
-//        return Lambda.subList(locationList, loc -> loc.getName().equalsIgnoreCase(name) ||
-//                loc.getAlias().contains(name));
-//    }
-
-
-//    public List<String> matchNameMultiple(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return new ArrayList<String>();
-//        }
-//
-//        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
-//                generic.getAlias().contains(name));
-//
-//        return Lambda.getSubvalues(resultsGen, g -> g.getName());
-//
-//    }
-
-//    public String matchId(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return "";
-//        }
-//
-//        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
-//                generic.getAlias().contains(name));
-//
-//        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
-//
-//        if (results.size() > 1) {
-//            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
-//            return "";
-//        } else if (results.size() == 0) {
-//            System.out.println("'" + name + "' doesn't exist.");
-//            return "";
-//        } else {
-//            return getGenericObject(results.get(0)).getId();
-//        }
-//    }
-
-//    public String matchName(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return "";
-//        }
-//
-//        List<GenericObject> resultsGen = Lambda.subList(genericList, generic -> generic.getName().equalsIgnoreCase(name) ||
-//                generic.getAlias().contains(name));
-//
-//        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
-//
-//        if (results.size() > 1) {
-//            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
-//            return "";
-//        } else if (results.size() == 0) {
-//            System.out.println("'" + name + "' doesn't exist.");
-//            return "";
-//        } else {
-//
-//            return results.get(0);
-//        }
-//
-//    }
-
-//    public String matchNameFromInventory(GenericObject holder, String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return "";
-//        }
-//
-//        List<Item> resultsItm = Lambda.subList(holder.getItemList(), generic -> generic.getName().equalsIgnoreCase(name) ||
-//                generic.getAlias().contains(name));
-//
-//        List<String> results = Lambda.getSubvalues(resultsItm, g -> g.getName());
-//
-//        if (results.size() > 1) {
-//            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
-//            return "";
-//        } else if (results.size() == 0) {
-//            System.out.println("You don't carry a '" + name + "'.");
-//            return "";
-//        } else {
-//
-//            return results.get(0);
-//        }
-//    }
-
-
-//    public String matchLocalName(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return "";
-//        }
-//
-//        List<GenericObject> resultsGen = Lambda.subList(getPlayerLocation().getAllAtLocation(), (GenericObject generic) -> generic.getName().equalsIgnoreCase(name) ||
-//                generic.getAlias().contains(name));
-//
-//        List<String> results = Lambda.getSubvalues(resultsGen, g -> g.getName());
-//
-//        results = HelpfulMethods.removeDuplicatesT(results);
-//
-//        if (results.size() > 1) {
-//            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
-//            return "";
-//        } else if (results.size() == 0) {
-//            System.out.println("You don't see a '" + name + "' here.");
-//            return "";
-//        } else {
-//
-//            return results.get(0);
-//        }
-//    }
-
-//
-//    public String matchLocalOnGround(String name) {
-//
-//        if(name.equals("")){
-//            System.out.println("Incomplete command.");
-//            return "";
-//        }
-//
-//        List<GenericObject> genList = getPlayerLocation().getAllGroundOnly();
-//
-//
-//        List<String> results = new ArrayList<>();
-//        //genList is now everything at the location.
-//
-//        for (GenericObject generic : genList) { //Check if something exists that has "name" as its short name, then return its full name
-//
-//            if (generic.getName().equalsIgnoreCase(name)) {
-//                results.add(generic.getName());     //If the name we're looking for is its full name
-//            } else {
-//                for (String alias : generic.getAlias()) {
-//                    if (alias.equalsIgnoreCase(name)) {
-//                        results.add(generic.getName());
-//                    }
-//                }
-//            }
-//        }
-//
-//        results = HelpfulMethods.removeDuplicatesT(results);
-//
-//        if (results.size() > 1) {
-//            System.out.println("Which do you mean, " + HelpfulMethods.turnStringListIntoString(results, "or") + "?");
-//            return "";
-//        } else if (results.size() == 0) {
-//            System.out.println("You don't see a '" + name + "' here.");
-//            return "";
-//        } else {
-//
-//            return results.get(0);
-//        }
-//    }*/
-
-    // ------------- Boolean checks ---------------------
-
-    public boolean doesObjectExist(String selected) {
-        return getGenericObject(selected) != null;
     }
 
     // ------------------ The load function! --------------------------

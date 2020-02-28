@@ -156,7 +156,6 @@ public class Commands {
         }
 
 
-
         if (target.isOwnerPayingAttention()) {
             System.out.println(target.getOwner().getName() + " won't let you read that.");
             return;
@@ -1050,6 +1049,63 @@ public class Commands {
 
     }
 
+    public static void board(String[] commandArray, World world) {
+        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+
+        if (target instanceof Creature) {
+            System.out.println("That's a bit too intimate for your taste.");
+            return;
+        }
+
+        if (!(target instanceof Vehicle)) {
+            System.out.println("You can't ride that.");
+            return;
+        }
+
+        Location current = world.getPlayerLocation();
+        Location destination;
+
+        if (commandArray[3].equalsIgnoreCase("")) {                     //This is if you don't type in a destination.
+            List<Location> destinations = ((Vehicle) target).getDestinations();
+            System.out.println("Where do you want to go?\n");
+            for (int i = 0; i < destinations.size(); i++) {
+                System.out.println("" + (i + 1) + "\t" + destinations.get(i).getName());
+            }
+            System.out.println("0:\t Abort");
+            int reply = SystemData.getNumericalReply("\n(0 - " + destinations.size() + "): ", destinations.size());
+
+            if (reply == 0) {
+                System.out.println("You decide not to go anywhere.");
+                return;
+            }
+            destination = destinations.get(reply - 1);
+        } else {
+            destination = world.match(((Vehicle) target).getDestinations(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        }
+
+        if(destination == null){
+            System.out.println("The " + target.getShortName() + " doesn't go there.");
+        }
+
+        if(destination == world.getPlayerLocation()){
+            System.out.println("You're already here! Well, that was a short trip.");
+            return;
+        }
+
+
+        System.out.println("You board the " + target.getShortName() + " and travel to " + destination + ".");
+        moveFollowers(current, destination, world);
+
+        world.moveToLocation(target, current, destination);
+
+        world.moveToLocation(world.getPlayer(), current, destination);
+
+        pause();
+
+        lookAround(world);
+
+    }
+
     //--------------- Not for direct use -----------------------
 
 
@@ -1179,7 +1235,8 @@ public class Commands {
         System.out.println("You go to " + destination.getShortName() + ".");
         moveFollowers(currentLoc, destination, world);
 
-        SystemData.getReply("[press enter to continue]");
+        pause();
+
         System.out.flush();
         lookAround(world);
         destination.runResponseScript("go to");

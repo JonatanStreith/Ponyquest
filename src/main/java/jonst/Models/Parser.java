@@ -141,7 +141,9 @@ public class Parser {
                 break;
 
             case "board":
+            case "ride":
                 //Can only board vehicles. Some vehicles need tickets.
+                Commands.board(commandArray, world);
                 break;
 
             case "use":
@@ -289,6 +291,9 @@ public class Parser {
             case "eat":
                 Commands.eat(commandArray[1], world);
                 break;
+
+
+
 
         }
     }
