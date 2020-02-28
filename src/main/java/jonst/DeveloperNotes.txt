@@ -106,3 +106,11 @@ Add "showFlags" to Gen.: Notices that are supposed to suffix objects when looked
 
 
 See if we can build a method that tries to "find a path" using exit binders...
+
+
+Merchant stuff:
+Added to JsonBuilder so if a Creature has a "Merchandise" array, it builds it into a Merchant object.
+
+The merchandise string could be something löike this: "name:id:price". "Red apple:Item_Food_Apple:25"
+
+Next: Needs a method to actually buy from a merchant. Both with a menu and with direct call.

@@ -189,6 +189,15 @@ public class JsonBuilder {
                     put("allegiance", ((Creature) gen).getAllegiance());
                     put("status", ((Creature) gen).getStatus());
                 }});
+
+                if(gen instanceof Merchant){
+                    put("Merchandise", new JSONArray() {{
+                        for (String ware : ((Merchant) gen).getMerchandise()) {
+                            add(ware);
+                        }
+                    }});
+                }
+
             } else if (gen instanceof Location) {
 
                 //Location-specific attriibutes here
@@ -198,6 +207,9 @@ public class JsonBuilder {
                     put("DefaultExit", ((Location) gen).getDefaultExit().getId());
             } else if (gen instanceof Item) {
                 //Reserved space in case items get more stuff
+
+
+
             } else if (gen instanceof StationaryObject) {
                 //Reserved space in case SOs get more stuff
 
@@ -455,6 +467,23 @@ public class JsonBuilder {
             } else {
                 bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
             }
+
+            JSONArray jsonMerch = (JSONArray) jObj.get("Merchandise");
+
+            if(jsonMerch != null){
+
+                List<String> merchandise = new ArrayList() {{
+                    addAll(jsonMerch);
+                }};
+
+                return new Merchant(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
+                        gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandise);
+
+            }
+
+
+
+
 
             return new Creature(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
                     gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);

@@ -12,7 +12,7 @@ public class Vehicle extends StationaryObject {
 
     public Vehicle(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, List<String> destinationIds) {
         super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
-        this.destinationIds = destinationIds;
+        setDestinationIds(destinationIds);
 
         destinations = new ArrayList<>();
     }
