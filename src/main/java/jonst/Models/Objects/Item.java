@@ -2,7 +2,9 @@ package jonst.Models.Objects;
 
 
 import jonst.App;
+import jonst.Data.Lambda;
 import jonst.JsonBuilder;
+import jonst.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,11 @@ public class Item extends GenericObject {
 
 
     public Item(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes,     text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    }
+
+    public Item(Item original){
+        super(original.getName(), original.getShortName(), original.getType(), original.getId(), original.getLocationId(), original.getDefaultLocationId(), original.getAlias(), original.getAttributes(), original.getText(), original.getDefaultUse(), original.getDescriptions(), original.getComplexUse(), original.getResponseScripts(), original.getOwnerId());
     }
 
     public GenericObject getHolder() {
@@ -41,7 +47,12 @@ public class Item extends GenericObject {
     }
 
     public static Item create(String Id){
-        Item newItem = JsonBuilder.generateTemplateItem(Id);
+
+        World world = App.getWorld();
+
+        Item template = (Item) Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id) && t instanceof Item);
+
+        Item newItem = new Item(template);
 
         App.getWorld().addNewToList(newItem);
 

@@ -1,5 +1,5 @@
-{
-  "Monster_Timberwolf": {
+[
+  {
     "Descriptions": {
       "default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
       "onfire": "It's furiously trying to put out the fire in its foliage."
@@ -35,4 +35,4 @@
     "ComplexUse": {
     }
   }
-}
+]

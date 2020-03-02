@@ -192,8 +192,8 @@ public class JsonBuilder {
 
                 if(gen instanceof Merchant){
                     put("Merchandise", new JSONArray() {{
-                        for (Merchandise ware : ((Merchant) gen).getMerchandiseList()) {
-                            add(ware.getId() + ":" + ware.getPrice());
+                        for (String ware : ((Merchant) gen).getMerchandiseIds()) {
+                            add(ware);
                         }
                     }});
                 }
@@ -472,28 +472,21 @@ public class JsonBuilder {
 
             if(jsonMerch != null){
 
-                List<Merchandise> merchandiseList = new ArrayList() {{
+                List<String> merchandiseList = new ArrayList() {{
 
-                    for (Object merch: jsonMerch) {
-                        String[] split = ((String) merch).split(":");
+                    addAll(jsonMerch);
 
-                        List<String> names = getItemNamesFromTemplateId(split[0]);
-
-                        add(new Merchandise(split[0], split[1], names));
-                    }
                 }};
 
-                return new Merchant(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
-                        gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandiseList);
+                return new Merchant(fullName, shortName, type, id, location, defaultLocation, alias, attributes, race, defaultRace,
+                        gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandiseList);
 
             }
+            return new Creature(fullName, shortName, type, id, location, defaultLocation, alias, attributes, race, defaultRace,
+                    gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
 
 
 
-
-
-            return new Creature(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
-                    gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
         } else if (typeKey.equals("item")) {
 
             String ownerId = (String) jObj.get("OwnerId");
@@ -771,6 +764,7 @@ public class JsonBuilder {
     }
 
     //--------------------------------------------
+/*
 
     public static List<String> getItemNamesFromTemplateId(String id){
 
@@ -783,7 +777,9 @@ public class JsonBuilder {
         return returns;
     }
 
-    public static List<String> getTemplateItemNames() {
+*/
+
+/*    public static List<String> getTemplateItemNames() {
 
         List<String> templateItemNames = new ArrayList<>();
 
@@ -1174,6 +1170,63 @@ public class JsonBuilder {
 
         return object;
     }
+*/
+
+
+    public static List<GenericObject> generateTemplateList(){
+
+        List<GenericObject> templateList = new ArrayList<>();
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateItems.json")) {
+            JSONArray itemJSON = (JSONArray) new JSONParser().parse(reader);
+            Lambda.processList(itemJSON, t -> templateList.add((Item) loadGenericFromJson((JSONObject) t, "item")));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("File corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateCreatures.json")) {
+            JSONArray creatureJSON = (JSONArray) new JSONParser().parse(reader);
+
+            Lambda.processList(creatureJSON, t -> templateList.add((Creature) loadGenericFromJson((JSONObject) t, "creature")));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("File corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+
+        try (FileReader reader = new FileReader(SystemData.getGamepath() + "/Data/Json/TemplateObjects.json")) {
+            JSONArray objectJSON = (JSONArray) new JSONParser().parse(reader);
+            Lambda.processList(objectJSON, t -> templateList.add((StationaryObject) loadGenericFromJson((JSONObject) t, "stationaryobject")));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("There was an error reading the file.");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            System.out.println("File corrupt, or there was an error during the reading.");
+            e.printStackTrace();
+        }
+
+        return templateList;
+    }
+
 
 }
 

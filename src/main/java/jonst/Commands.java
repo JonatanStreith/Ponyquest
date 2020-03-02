@@ -139,7 +139,13 @@ public class Commands {
 
         String prodName = commandArray[1];
 
-        Merchandise product = Lambda.getFirst(((Merchant) merchant).getMerchandiseList(), p -> p.getNames().contains(prodName));
+        List<Item> merchList = ((Merchant) merchant).getMerchandiseList();
+
+        Item product = world.match(merchList, prodName, Lambda.predicateByName(prodName));
+
+
+        //Item product = world.match(((Merchant) merchant).getMerchandiseList(), prodName, Lambda.predicateByName(prodName));
+
         if(product == null){
             System.out.println(merchant + " doesn't sell that.");
             return;
@@ -158,14 +164,14 @@ public class Commands {
 
     }
 
-    public static void sellTo(GenericObject merchant, Merchandise product, World world){
+    public static void sellTo(GenericObject merchant, Item product, World world){
         //System.out.println("sellTo: " + product.getName());
     }
     public static void openShop(){
         System.out.println(("openShop"));
     }
 
-    public static void buyFrom(GenericObject merchant, Merchandise product, World world){
+    public static void buyFrom(GenericObject merchant, Item product, World world){
 
         Item newItem = Item.create(product.getId());
 
@@ -953,21 +959,29 @@ public class Commands {
     }
 
     public static void create(String[] commandArray, World world) {
-        Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
 
-        if (newItem != null) {
-            Creature player = world.getPlayer();
-            player.addItem(newItem);
-            newItem.setHolder(player);
-            newItem.setLocationId(player.getName());
 
-            world.addNewToList(newItem);
 
-            System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
-            newItem.runResponseScript("create");
-        } else {
-            System.out.println("You try to create something, but it fails somehow.");
-        }
+//TODO
+//        Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
+//
+//        if (newItem != null) {
+//            Creature player = world.getPlayer();
+//            player.addItem(newItem);
+//            newItem.setHolder(player);
+//            newItem.setLocationId(player.getName());
+//
+//            world.addNewToList(newItem);
+//
+//            System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
+//            newItem.runResponseScript("create");
+//        } else {
+//            System.out.println("You try to create something, but it fails somehow.");
+//        }
+
+
+
+
     }
 
     public static void transform(String[] commandArray, World world) {
@@ -979,13 +993,13 @@ public class Commands {
         if (!(item instanceof Item)) {
             System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
         } else {
-
-            Item newItem = JsonBuilder.generateTemplateItem(commandArray[3]);
-
-            ((Item) item).transformInto(newItem);
-
-            System.out.println("You magically transform the " + originalName + " into a " + item.getShortName() + ". Excellent!");
-            item.runResponseScript("transform");
+//TODO
+//            Item newItem = JsonBuilder.generateTemplateItem(commandArray[3]);
+//
+//            ((Item) item).transformInto(newItem);
+//
+//            System.out.println("You magically transform the " + originalName + " into a " + item.getShortName() + ". Excellent!");
+//            item.runResponseScript("transform");
         }
     }
 

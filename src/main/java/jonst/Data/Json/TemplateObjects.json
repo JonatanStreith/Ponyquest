@@ -1,5 +1,5 @@
-{
-  "Object_Tree": {
+[
+  {
     "Descriptions": {
       "default": "An apple tree, full of ripe fruit."
     },
@@ -22,4 +22,4 @@
     "ComplexUse": {
     }
   }
-}
+]

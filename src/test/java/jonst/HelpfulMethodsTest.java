@@ -12,20 +12,7 @@ import static org.junit.Assert.*;
 public class HelpfulMethodsTest {
 
 
-    @Test
-    public void isIdenticalTest() {
-        List<Item> items = new ArrayList<>();
-        items.add(JsonBuilder.generateTemplateItem("Item_Food_Apple"));
-        items.add(JsonBuilder.generateTemplateItem("Item_Food_Apple"));
-        items.add(JsonBuilder.generateTemplateItem("Item_Food_Apple"));
-        items.add(JsonBuilder.generateTemplateItem("Item_Food_Apple"));
-        items.add(JsonBuilder.generateTemplateItem("Item_Food_Apple"));
 
-        boolean result = HelpfulMethods.isIdentical(items);
-
-        assertTrue(result);
-
-    }
 
     @Test
     public void removeDuplicatesTTest() {

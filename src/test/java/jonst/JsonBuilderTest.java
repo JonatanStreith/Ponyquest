@@ -130,13 +130,7 @@ public class JsonBuilderTest {
 
     }
 
-    @Test
-    public void generateDefaultItemTest(){
 
-        Item testItem = JsonBuilder.generateTemplateItem("red Apple");
-        assertNull(testItem);
-
-    }
 
     @Test
     public void test() {
@@ -155,5 +149,12 @@ public class JsonBuilderTest {
         List<Dialog> testList = JsonBuilder.generateDialogList();
 
         System.out.println("Stop here.");
+    }
+
+    @Test
+    public void generateTemplateListTest() {
+        List<GenericObject> testList = JsonBuilder.generateTemplateList();
+
+        System.out.println(".");
     }
 }

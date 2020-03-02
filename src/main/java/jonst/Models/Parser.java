@@ -18,20 +18,22 @@ public class Parser {
     private Map<String, String> topicParseList;
     private List<String> legitimateSpells;
 
-    public Parser(List<GenericObject> genericList) {
+    public Parser(World world) {
         legitimateCommands = SystemData.getLegitimateCommands();
         legitimateConjunctions = SystemData.getLegitimateConjunctions();
         legitimateNouns = new ArrayList<>();
         legitimateSpells = SystemData.getLegitimateSpells();
 
-        for (GenericObject gen : genericList) {
+        for (GenericObject gen : world.getGenericList()) {
             legitimateNouns.add(gen.getName());
             legitimateNouns.addAll(gen.getAlias());
-
-
         }
 
-        legitimateNouns.addAll(JsonBuilder.getTemplateItemNames());     //Load from template items
+        for (GenericObject gen : world.getTemplateList()) {
+            legitimateNouns.add(gen.getName());
+            legitimateNouns.addAll(gen.getAlias());
+        }
+
 
         legitimateNouns = HelpfulMethods.removeDuplicatesT((ArrayList<String>) legitimateNouns);
 

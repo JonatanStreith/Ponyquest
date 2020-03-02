@@ -9,8 +9,8 @@ public class Merchandise {
 
 
 
-    public Merchandise(final String id, final String price, List<String> names) {
-        setNames(names);
+    public Merchandise(final String id, final String price) {
+
         setId(id);
         setPrice(price);
     }

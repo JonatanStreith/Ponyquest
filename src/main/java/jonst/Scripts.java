@@ -119,11 +119,10 @@ public class Scripts {
         }
 
         String newItemName = scriptCommandArray[2];
-
-        Item newItem = JsonBuilder.generateTemplateItem(newItemName);
-
-        world.addItemToHolder(newItem, actor);
-        world.addNewToList(newItem);
+//TODO
+//        Item newItem = JsonBuilder.generateTemplateItem(newItemName);
+//        world.addItemToHolder(newItem, actor);
+//        world.addNewToList(newItem);
 
     }
 
@@ -189,12 +188,10 @@ public class Scripts {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
-
-        Creature newCreature = JsonBuilder.generateTemplateCreature(scriptCommandArray[2]);
-
-
-        world.addToLocation(newCreature, location);
-        world.addNewToList(newCreature);
+//TODO
+//        Creature newCreature = JsonBuilder.generateTemplateCreature(scriptCommandArray[2]);
+//        world.addToLocation(newCreature, location);
+//        world.addNewToList(newCreature);
     }
 
     public static void spawnObject(GenericObject subject, String[] scriptCommandArray, World world) {
@@ -206,11 +203,10 @@ public class Scripts {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
-
-        StationaryObject newObject = JsonBuilder.generateTemplateObject(scriptCommandArray[2]);
-
-        world.addToLocation(newObject, location);
-        world.addNewToList(newObject);
+//TODO
+//        StationaryObject newObject = JsonBuilder.generateTemplateObject(scriptCommandArray[2]);
+//        world.addToLocation(newObject, location);
+//        world.addNewToList(newObject);
     }
 
     public static void moveFollowers(GenericObject subject, String[] scriptCommandArray, World world){

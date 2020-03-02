@@ -4,6 +4,7 @@ import jonst.Data.*;
 
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
+import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 import jonst.Models.Parser;
 
@@ -23,6 +24,8 @@ public class World {
     private List<StationaryObject> stationaryObjectList;
     private List<Item> itemList;
     private List<GenericObject> genericList;
+
+    private List<GenericObject> templateList;
 
     private List<Exit> exitList;
     private List<Dialog> dialogList;
@@ -46,7 +49,7 @@ public class World {
 
         populateLocationLists();
 
-        parser = new Parser(genericList);       //The parser holds lists of words, and parses input
+        parser = new Parser(this);       //The parser holds lists of words, and parses input
 
         setMainCharacter(getCreature(SystemData.getProtagonist()));             //Establish protagonist
 
@@ -211,6 +214,17 @@ public class World {
             }
         });
 
+        Lambda.processList(creatureList, c -> c instanceof Merchant, c -> {
+
+            if (((Merchant) c).getMerchandiseIds() != null) {
+
+                Lambda.processList(((Merchant) c).getMerchandiseIds(), q -> {
+                    ((Merchant) c).addMerchandise((Item) Lambda.getFirst(templateList, p -> p.getId().equals(q) && p instanceof Item));
+                });
+
+            }
+        });
+
         //List<StationaryObject> vehicleList = Lambda.subList(stationaryObjectList, p -> p instanceof Vehicle);
 
     }
@@ -264,6 +278,10 @@ public class World {
         return genericList;
     }
 
+    public List<GenericObject> getTemplateList() {
+        return templateList;
+    }
+
     public Parser getParser() {
         return parser;
     }
@@ -300,6 +318,11 @@ public class World {
     public Item getItem(String wantedItem) {
 
         return Lambda.getFirst(itemList, i -> i.getName().equalsIgnoreCase(wantedItem));
+    }
+
+    public Item getItemById(String wantedItem) {
+
+        return Lambda.getFirst(itemList, i -> i.getId().equalsIgnoreCase(wantedItem));
     }
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
@@ -374,6 +397,7 @@ public class World {
         exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
 
         dialogList = JsonBuilder.generateDialogList();
+        templateList = JsonBuilder.generateTemplateList();
 
         if (locationList.size() == 0 || creatureList.size() == 0 || itemList.size() == 0 || stationaryObjectList.size() == 0) {
             loadingSuccess = false;
