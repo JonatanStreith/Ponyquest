@@ -263,7 +263,11 @@
       ]
     },
     "ComplexUse": {
-    }
+    },
+    "Merchandise": [
+      "red apple:Item_Food_Apple:25",
+      "apple pie:Item_Food_Applepie:50"
+    ]
   },
   {
     "Descriptions": {

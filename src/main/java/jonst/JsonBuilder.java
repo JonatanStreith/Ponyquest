@@ -192,8 +192,8 @@ public class JsonBuilder {
 
                 if(gen instanceof Merchant){
                     put("Merchandise", new JSONArray() {{
-                        for (String ware : ((Merchant) gen).getMerchandise()) {
-                            add(ware);
+                        for (Merchandise ware : ((Merchant) gen).getMerchandiseList()) {
+                            add(ware.getName() + ":" + ware.getId() + ":" + ware.getPrice());
                         }
                     }});
                 }
@@ -476,8 +476,16 @@ public class JsonBuilder {
                     addAll(jsonMerch);
                 }};
 
+                List<Merchandise> merchandiseList = new ArrayList() {{
+
+                    for (Object merch: jsonMerch) {
+                        String[] split = ((String) merch).split(":");
+                        add(new Merchandise(split[0], split[1], split[2]));
+                    }
+                }};
+
                 return new Merchant(fullName, shortName, type, id, location.toLowerCase(), defaultLocation.toLowerCase(), alias, attributes, race.toLowerCase(), defaultRace.toLowerCase(),
-                        gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandise);
+                        gender.toLowerCase(), casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandiseList);
 
             }
 
@@ -764,6 +772,13 @@ public class JsonBuilder {
     }
 
     //--------------------------------------------
+
+    public static String getTemplateIdfromName(String name){
+
+        //Fix this up later.
+
+        return null;
+    }
 
     public static List<String> getTemplateItemNames() {
 

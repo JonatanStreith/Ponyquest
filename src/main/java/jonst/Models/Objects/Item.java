@@ -1,6 +1,9 @@
 package jonst.Models.Objects;
 
 
+import jonst.App;
+import jonst.JsonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,5 +38,13 @@ public class Item extends GenericObject {
         setDefaultUse(template.getDefaultUse());
         setResponseScripts(template.getResponseScripts());
         setComplexUse(template.getComplexUse());
+    }
+
+    public static Item create(String Id){
+        Item newItem = JsonBuilder.generateTemplateItem(Id);
+
+        App.getWorld().addNewToList(newItem);
+
+        return newItem;
     }
 }

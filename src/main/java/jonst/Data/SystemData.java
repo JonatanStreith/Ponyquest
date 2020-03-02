@@ -117,6 +117,14 @@ public class SystemData {
             add("follow me");
             add("stop follow");
             add("stop following me");
+
+            add("shop");
+            add("barter");
+            add("buy");
+            add("sell");
+
+
+
         }};
     }
 

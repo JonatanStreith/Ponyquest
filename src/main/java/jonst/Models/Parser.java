@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser {
-    public List<String> legitimateNouns;
-    public List<String> legitimateCommands;
+    private List<String> legitimateNouns;
+    private List<String> legitimateCommands;
     private List<String> legitimateConjunctions;
     private Map<String, String> topicParseList;
     private List<String> legitimateSpells;
@@ -44,6 +44,22 @@ public class Parser {
     }
 
 
+    public List<String> getLegitimateNouns() {
+        return legitimateNouns;
+    }
+
+    public List<String> getLegitimateCommands() {
+        return legitimateCommands;
+    }
+
+    public List<String> getLegitimateConjunctions() {
+        return legitimateConjunctions;
+    }
+
+    public List<String> getLegitimateSpells() {
+        return legitimateSpells;
+    }
+
     public String[] parse(String commandInput) {
         //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
 
@@ -59,8 +75,15 @@ public class Parser {
             cleanCommand[1] = extractNoun(commandLine);
         }
 
-        cleanCommand[2] = extractConjunction(commandLine);
-        cleanCommand[3] = commandLine.toString().trim();      //Add the remainder
+        if(cleanCommand[1].equals("")){                             //Is the second word not an acceptable noun? Maybe it's a conjunction instead.
+            cleanCommand[1] = extractConjunction(commandLine);
+            cleanCommand[2] = commandLine.toString().trim();
+        } else {
+            cleanCommand[2] = extractConjunction(commandLine);
+            cleanCommand[3] = commandLine.toString().trim();      //Add the remainder
+
+        }
+
         return cleanCommand;
     }
 
@@ -125,10 +148,13 @@ public class Parser {
                 //stuff
                 break;
 
+            case "shop":
+            case "barter":
             case "buy":
+            case "sell":
                 //"Buy" command. Structure: [buy] [item] [from] [creature]. Creature needs to have attribute "merchant", possibly a sell list(?), and a sell blurb.
                 // Trixie has a bottomless purse for now.
-
+                Commands.shop(commandArray, world);
                 break;
 
             case "harvest":

@@ -4,6 +4,7 @@ import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
+import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 
 
@@ -75,14 +76,106 @@ public class Commands {
 
     public static void ListCommands(World world) {
 
-        System.out.println("Commands are: " + turnStringListIntoString(world.getParser().legitimateCommands, "and"));
+        System.out.println("Commands are: " + turnStringListIntoString(world.getParser().getLegitimateCommands(), "and"));
     }
 
     public static void listNouns(World world) {
-        System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().legitimateNouns, "and"));
+        System.out.println("Nouns are: " + turnStringListIntoString(world.getParser().getLegitimateNouns(), "and"));
     }
 
     // ------- Interact commands ------------
+
+    public static void shop(String[] commandArray, World world){
+
+        //Check if we're asking to buy something specific.
+
+        boolean isNoun = world.getParser().getLegitimateConjunctions().contains(commandArray[1]);
+
+
+        if(isNoun){
+
+            GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[2], Lambda.predicateByName(commandArray[2]));
+
+            if(merchant == null){
+                System.out.println("Who or what are you trying to do business with?");
+                return;
+            }
+
+            if(!(merchant instanceof Creature)){
+                System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
+                return;
+            }
+
+            if(!(merchant instanceof Merchant)){
+                System.out.println(merchant + " doesn't have anything to offer.");
+                return;
+            }
+            //We didn't specify a proper thing to buy, so let's open the shop interface.
+            openShop();
+            return;
+        }
+
+        if(!(world.getParser().getLegitimateNouns().contains(commandArray[1]))){
+            System.out.println("What are you trying to shop for?");
+            return;
+        }
+
+        GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+
+        if(merchant == null){
+            System.out.println("Who or what are you trying to do business with?");
+        return;
+        }
+
+        if(!(merchant instanceof Creature)){
+            System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
+            return;
+        }
+
+        if(!(merchant instanceof Merchant)){
+            System.out.println(merchant + " doesn't have anything to offer.");
+            return;
+        }
+
+        String prodName = commandArray[1];
+
+        Merchandise product = Lambda.getFirst(((Merchant) merchant).getMerchandiseList(), world.getItemList(), (m, i) -> m.getId().equalsIgnoreCase(i.getId()) && (i.getName().equalsIgnoreCase(prodName) || i.getAlias().contains(prodName)));
+
+        if(product == null){
+            System.out.println(merchant + " doesn't sell that.");
+            return;
+        }
+
+
+        if(commandArray[0].equalsIgnoreCase("buy")){
+            buyFrom(merchant, product, world);
+            return;
+        }
+
+        if(commandArray[0].equalsIgnoreCase("sell")){
+            sellTo(merchant, product, world);
+            return;
+        }
+
+    }
+
+    public static void sellTo(GenericObject merchant, Merchandise product, World world){
+        System.out.println("sellTo: " + product.getName());
+    }
+    public static void openShop(){
+        System.out.println(("openShop"));
+    }
+
+    public static void buyFrom(GenericObject merchant, Merchandise product, World world){
+
+        Item newItem = Item.create(product.getId());
+
+        System.out.println("You buy a " + newItem.getShortName() + " from " + merchant + ".");
+
+        world.addItemToHolder(newItem, world.getPlayer());
+    }
+
+
 
     public static void activate(String[] commandArray, World world) {
 

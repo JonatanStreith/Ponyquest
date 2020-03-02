@@ -332,10 +332,10 @@ public class World {
 
     public <T extends GenericObject> T match(List<T> list, String name, Predicate<T> predicate) {
 
-        if (name.equals("")) {
-            System.out.println("Incomplete command.");
-            return null;
-        }
+//        if (name.equals("")) {
+//            System.out.println("Incomplete command.");
+//            return null;
+//        }
 
         List<T> results = Lambda.subList(list, predicate);
 
@@ -345,17 +345,17 @@ public class World {
             System.out.println("Which do you mean, " + turnListIntoString(results, "or") + "?");
             return null;
         } else {
-            System.out.println("'" + name + "' doesn't exist.");
+            //System.out.println("'" + name + "' doesn't exist.");
             return null;
         }
     }
 
     public <T extends GenericObject> List<T> matchMultiple(List<T> list, String name, Predicate<T> predicate) {
 
-        if (name.equals("")) {
-            System.out.println("Incomplete command.");
-            return null;
-        }
+//        if (name.equals("")) {
+//            System.out.println("Incomplete command.");
+//            return null;
+//        }
 
         return Lambda.subList(list, predicate);
     }
