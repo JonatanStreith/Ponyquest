@@ -193,7 +193,7 @@ public class JsonBuilder {
                 if(gen instanceof Merchant){
                     put("Merchandise", new JSONArray() {{
                         for (Merchandise ware : ((Merchant) gen).getMerchandiseList()) {
-                            add(ware.getName() + ":" + ware.getId() + ":" + ware.getPrice());
+                            add(ware.getId() + ":" + ware.getPrice());
                         }
                     }});
                 }
@@ -472,15 +472,14 @@ public class JsonBuilder {
 
             if(jsonMerch != null){
 
-                List<String> merchandise = new ArrayList() {{
-                    addAll(jsonMerch);
-                }};
-
                 List<Merchandise> merchandiseList = new ArrayList() {{
 
                     for (Object merch: jsonMerch) {
                         String[] split = ((String) merch).split(":");
-                        add(new Merchandise(split[0], split[1], split[2]));
+
+                        List<String> names = getItemNamesFromTemplateId(split[0]);
+
+                        add(new Merchandise(split[0], split[1], names));
                     }
                 }};
 
@@ -773,11 +772,15 @@ public class JsonBuilder {
 
     //--------------------------------------------
 
-    public static String getTemplateIdfromName(String name){
+    public static List<String> getItemNamesFromTemplateId(String id){
 
-        //Fix this up later.
+        Item item = generateTemplateItem(id);
 
-        return null;
+        List<String> returns = new ArrayList<>(item.getAlias());
+        returns.add(item.getName());
+
+
+        return returns;
     }
 
     public static List<String> getTemplateItemNames() {

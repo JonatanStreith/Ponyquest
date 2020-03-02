@@ -1,22 +1,27 @@
 package jonst.Models;
 
+import java.util.List;
+
 public class Merchandise {
-    private String name;
+    private List<String> names;
     private String Id;
     private String price;
 
-    public Merchandise(final String name, final String id, final String price) {
-        setName(name);
+
+
+    public Merchandise(final String id, final String price, List<String> names) {
+        setNames(names);
         setId(id);
         setPrice(price);
     }
 
-    public String getName() {
-        return this.name;
+
+    public List<String> getNames() {
+        return this.names;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setNames(final List<String> names) {
+        this.names = names;
     }
 
     public String getId() {

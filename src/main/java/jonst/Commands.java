@@ -139,8 +139,7 @@ public class Commands {
 
         String prodName = commandArray[1];
 
-        Merchandise product = Lambda.getFirst(((Merchant) merchant).getMerchandiseList(), world.getItemList(), (m, i) -> m.getId().equalsIgnoreCase(i.getId()) && (i.getName().equalsIgnoreCase(prodName) || i.getAlias().contains(prodName)));
-
+        Merchandise product = Lambda.getFirst(((Merchant) merchant).getMerchandiseList(), p -> p.getNames().contains(prodName));
         if(product == null){
             System.out.println(merchant + " doesn't sell that.");
             return;
@@ -160,7 +159,7 @@ public class Commands {
     }
 
     public static void sellTo(GenericObject merchant, Merchandise product, World world){
-        System.out.println("sellTo: " + product.getName());
+        //System.out.println("sellTo: " + product.getName());
     }
     public static void openShop(){
         System.out.println(("openShop"));
