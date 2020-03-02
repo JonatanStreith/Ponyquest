@@ -22,14 +22,11 @@ public class Creature extends GenericObject {
 
     private Map<String, String> askTopics;
     private BehaviorCore behavior;
-    private final String defaultRace;
+    private String defaultRace;
     private String initialDialog;
 
-    public Creature(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, BehaviorCore bc, String initialDialog) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
-
-
-
+    public Creature(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, BehaviorCore bc, String initialDialog) {
+        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
         setRace(race);
         this.defaultRace = defaultRace;
         setGender(gender);
@@ -38,6 +35,26 @@ public class Creature extends GenericObject {
         setBehaviorCore(bc);
         setInitialDialog(initialDialog);
 
+    }
+
+    public Creature(Creature template) {
+        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getDescriptions(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+        setRace(template.getRace());
+
+        setDefaultRace(template.getDefaultRace());
+        setGender(template.getGender());
+        setCasualDialog(template.getCasualDialog());
+        setAskTopics(template.getAskTopics());
+        setBehaviorCore(template.getBehavior());
+        setInitialDialog(template.getInitialDialog());
+    }
+
+    public BehaviorCore getBehavior() {
+        return behavior;
+    }
+
+    public void setBehavior(BehaviorCore behavior) {
+        this.behavior = behavior;
     }
 
     public String getInitialDialog() {
@@ -56,11 +73,15 @@ public class Creature extends GenericObject {
         this.race = race;
     }
 
+
+
     public String getDefaultRace() {
         return defaultRace;
     }
 
-
+    public void setDefaultRace(String defaultRace) {
+        this.defaultRace = defaultRace;
+    }
 
     public void setGender(String gender) {
         this.gender = gender;
@@ -143,6 +164,8 @@ public class Creature extends GenericObject {
         behavior.setStatus(newStatus);
         return true;
     }
+
+
 
     public String getPersonalQuote(String key){
 

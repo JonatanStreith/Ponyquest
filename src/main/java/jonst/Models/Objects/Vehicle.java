@@ -10,12 +10,20 @@ public class Vehicle extends StationaryObject {
 
     List<Location> destinations;
 
-    public Vehicle(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName, List<String> destinationIds) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerName);
+    public Vehicle(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, List<String> destinationIds) {
+        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
         setDestinationIds(destinationIds);
 
         destinations = new ArrayList<>();
     }
+
+    public Vehicle(Vehicle template) {
+        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+        setDestinationIds(template.getDestinationIds());
+
+        destinations = template.getDestinations();
+    }
+
 
     public List<String> getDestinationIds() {
         return this.destinationIds;

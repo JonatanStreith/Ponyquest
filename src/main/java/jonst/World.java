@@ -112,11 +112,11 @@ public class World {
         holder.addItem(thing);
         thing.setHolder(holder);
 
-        if (holder instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
-            thing.setLocation((Location) holder);
-        } else {
-            thing.setLocation(null);
-        }
+//        if (holder instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
+//            thing.setLocation((Location) holder);
+//        } else {
+//            thing.setLocation(null);
+//        }
     }
 
     //------------- If new objects are created, they need to be added to the world lists ----------

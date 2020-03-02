@@ -25,8 +25,8 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation;
 
 
-    public Location(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerName) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerName);
+    public Location(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String defaultEnterId, String defaultExitId, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
+        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
 
 
         setDefaultEnterId(defaultEnterId);
@@ -37,6 +37,21 @@ public class Location extends GenericObject {
         creaturesAtLocation = new ArrayList<Creature>();
         objectsAtLocation = new ArrayList<StationaryObject>();
     }
+
+    public Location(Location template) {
+        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getDescriptions(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+
+
+        setDefaultEnterId(template.getDefaultEnterId());
+        setDefaultExitId(template.getDefaultExitId());
+
+        setLocation(this);
+
+        creaturesAtLocation = new ArrayList<Creature>();
+        objectsAtLocation = new ArrayList<StationaryObject>();
+    }
+
+
 
     //--------- Getters ------------
 

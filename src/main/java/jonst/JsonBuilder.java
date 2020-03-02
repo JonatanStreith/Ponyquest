@@ -123,7 +123,7 @@ public class JsonBuilder {
             put("ShortName", gen.getShortName());
             put("Type", gen.getType());
             put("Id", gen.getId());
-            put("Location", gen.getLocationId());
+            put("Location", gen.getHolderId());
             put("DefaultLocation", gen.getDefaultLocationId());
 
             put("Text", gen.getText());

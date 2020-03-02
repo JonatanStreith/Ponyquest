@@ -1,5 +1,6 @@
 package jonst;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
@@ -32,9 +33,8 @@ public class Commands {
 
         System.out.println("Loading game...");
 
-        System.out.println(savePath);
-
         world.updateWorld(savePath);
+        pause();
         lookAround(world);
     }
 
@@ -50,6 +50,7 @@ public class Commands {
                     System.out.println("Loading game...");
 
                     world.updateWorld(savePath);
+                    pause();
                     lookAround(world);
                 }
                 break;
@@ -961,23 +962,21 @@ public class Commands {
     public static void create(String[] commandArray, World world) {
 
 
+        Item newItem = Item.create(commandArray[1]);
 
-//TODO
-//        Item newItem = JsonBuilder.generateTemplateItem(commandArray[1]);
-//
-//        if (newItem != null) {
-//            Creature player = world.getPlayer();
-//            player.addItem(newItem);
-//            newItem.setHolder(player);
-//            newItem.setLocationId(player.getName());
-//
-//            world.addNewToList(newItem);
-//
-//            System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
-//            newItem.runResponseScript("create");
-//        } else {
-//            System.out.println("You try to create something, but it fails somehow.");
-//        }
+        if (newItem != null) {
+            Creature player = world.getPlayer();
+            player.addItem(newItem);
+            newItem.setHolder(player);
+            newItem.setLocationId(player.getName());
+
+            world.addNewToList(newItem);
+
+            System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
+            newItem.runResponseScript("create");
+        } else {
+            System.out.println("You try to create something, but it fails somehow.");
+        }
 
 
 

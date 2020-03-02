@@ -1,6 +1,7 @@
 package jonst.Models.Objects;
 
 import jonst.App;
+import jonst.Data.Lambda;
 import jonst.World;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
     private String text;
     private String defaultUse;
-
 
 
     private String ownerId;
@@ -175,10 +175,10 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public void setLocation(Location location) {
         this.location = location;
-        if (location != null)
+
+        if (location != null) {
             locationId = location.getId();
-        else
-            locationId = "Carried, not at a location";
+        }
     }
 
     public void setDefaultUse(String defaultUse) {
@@ -199,7 +199,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //--------- Other ------------
 
-    public String toString(){
+    public String toString() {
         return this.getName();
     }
 
@@ -209,13 +209,12 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
         hash = prime * hash + this.getName().hashCode();
 
-        for (String a: getAlias() ) {
+        for (String a : getAlias()) {
             hash += a.hashCode();
         }
 
         return hash;
     }
-
 
 
     public boolean equals(GenericObject other) {
@@ -226,8 +225,8 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     @Override
-    public int compareTo(GenericObject otherObject){
-        if(this.equals(otherObject))
+    public int compareTo(GenericObject otherObject) {
+        if (this.equals(otherObject))
             return 0;
         else
             return -1;
@@ -235,7 +234,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public String getGender() {
 
-        if(this instanceof Creature){
+        if (this instanceof Creature) {
             return ((Creature) this).getGender();
         }
         return "neuter";
@@ -245,27 +244,27 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
         StringBuilder fullDescription = new StringBuilder(descriptions.get("default"));
 
-        if(this instanceof Creature){
-            if(descriptions.keySet().contains( ((Creature) this).getRace() )){
-                fullDescription.append(" " + descriptions.get( ((Creature) this).getRace() ));
+        if (this instanceof Creature) {
+            if (descriptions.keySet().contains(((Creature) this).getRace())) {
+                fullDescription.append(" " + descriptions.get(((Creature) this).getRace()));
             }
-            if(descriptions.keySet().contains( ((Creature) this).getMood() )){
-                fullDescription.append(" " + descriptions.get( ((Creature) this).getMood() ));
+            if (descriptions.keySet().contains(((Creature) this).getMood())) {
+                fullDescription.append(" " + descriptions.get(((Creature) this).getMood()));
             }
-            if(descriptions.keySet().contains( ((Creature) this).getStatus() )){
-                fullDescription.append(" " + descriptions.get( ((Creature) this).getStatus() ));
+            if (descriptions.keySet().contains(((Creature) this).getStatus())) {
+                fullDescription.append(" " + descriptions.get(((Creature) this).getStatus()));
             }
         }
 
-        for (String attr: getAttributes()) {
-            if(descriptions.keySet().contains(attr)){
+        for (String attr : getAttributes()) {
+            if (descriptions.keySet().contains(attr)) {
                 fullDescription.append(" " + descriptions.get(attr));
             }
         }
         return fullDescription.toString();
     }
 
-    public String getSpecficDescription(String key){
+    public String getSpecficDescription(String key) {
         return descriptions.get(key);
     }
 
@@ -273,18 +272,18 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         return attributes.contains(attr);
     }
 
-    public boolean addAttribute(String attr){
+    public boolean addAttribute(String attr) {
 
-        if(!attributes.contains(attr)) {
+        if (!attributes.contains(attr)) {
             attributes.add(attr);
             return true;
         }
         return false;
     }
 
-    public boolean removeAttribute(String attr){
+    public boolean removeAttribute(String attr) {
 
-        if(attributes.contains(attr)) {
+        if (attributes.contains(attr)) {
             attributes.remove(attr);
             return true;
         }
@@ -362,47 +361,100 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         return false;
     }
 
-    public boolean isOwnerPayingAttention(){
+    public boolean isOwnerPayingAttention() {
 
-        if(getOwner() == null){     //No owner is set
+        if (getOwner() == null) {     //No owner is set
             return false;
-        } else if(getOwner().getLocation() != location){        //Owner is not present
+        } else if (getOwner().getLocation() != location) {        //Owner is not present
             return false;
-        } else if(getOwner().getStatus().equalsIgnoreCase("sleeping")){     //Owner is asleep
+        } else if (getOwner().getStatus().equalsIgnoreCase("sleeping")) {     //Owner is asleep
             return false;
-        } else if(getOwner().getAllegiance().equalsIgnoreCase("allied")) {  //Owner is on your side
+        } else if (getOwner().getAllegiance().equalsIgnoreCase("allied")) {  //Owner is on your side
             return false;
-        } else if(getOwner().hasAttribute("charmed")){                                  //Owner has been charmed
+        } else if (getOwner().hasAttribute("charmed")) {                                  //Owner has been charmed
             return false;
         }
 
         return true;
     }
 
-    public void destroy(){
+    public void destroy() {
 
         World world = App.getWorld();
 
         GenericObject subject = this;
 
-        if(subject instanceof Item) {
+        if (subject instanceof Item) {
             world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
-        }
-
-        else {
+        } else {
             world.removeFromLocation(subject, subject.getLocation());
             world.removeFromList(subject);
         }
     }
 
-    public void read(){
-        if(getText() != null){
+    public void read() {
+        if (getText() != null) {
             System.out.println(getText());
         } else {
             System.out.println("There's nothing to read.");
         }
 
     }
+
+    public String getHolderId() {
+        if (!(this instanceof Item)) {
+            return locationId;
+        } else {
+
+            return ((Item) this).getHolder().getId();
+
+
+        }
+    }
+
+    public static GenericObject create(String Id) {
+        World world = App.getWorld();
+
+        GenericObject templ = Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id));
+        GenericObject gen;
+
+        if (templ == null) {
+            return null;
+        }
+
+        if (templ instanceof Item) {
+            gen = new Item((Item) templ);
+        } else if (templ instanceof Creature) {
+            gen = new Creature((Creature) templ);
+        } else if (templ instanceof StationaryObject) {
+            gen = new StationaryObject((StationaryObject) templ);
+        } else if (templ instanceof Location) {
+            gen = new Location((Location) templ);
+        } else {
+            gen = null;
+        }
+        if (gen != null) {
+            App.getWorld().addNewToList(gen);
+        }
+
+        return gen;
+
+
+    }
+
+
+//    public static Item create(String Id){
+//
+//        World world = App.getWorld();
+//
+//        Item template = (Item) Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id) && t instanceof Item);
+//
+//        Item newItem = new Item(template);
+//
+//        App.getWorld().addNewToList(newItem);
+//
+//        return newItem;
+//    }
 
 }
