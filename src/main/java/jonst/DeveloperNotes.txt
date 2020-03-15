@@ -114,3 +114,5 @@ Added to JsonBuilder so if a Creature has a "Merchandise" array, it builds it in
 The merchandise string could be something löike this: "name:id:price". "Red apple:Item_Food_Apple:25"
 
 Next: Needs a method to actually buy from a merchant. Both with a menu and with direct call.
+
+Idea: Add "MazeLocation" (extends Location) for places like caves and deep forests, where you can only go "north, west, southwest" etc. Has its own navsystem.
