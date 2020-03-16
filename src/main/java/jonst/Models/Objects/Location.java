@@ -39,11 +39,7 @@ public class Location extends GenericObject {
     }
 
     public Location(Location template) {
-        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getDescriptions(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
-
-
-        setDefaultEnterId(template.getDefaultEnterId());
-        setDefaultExitId(template.getDefaultExitId());
+        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDefaultEnterId(), template.getDefaultExitId(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
 
         setLocation(this);
 

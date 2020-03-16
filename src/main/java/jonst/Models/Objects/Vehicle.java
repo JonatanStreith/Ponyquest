@@ -18,8 +18,7 @@ public class Vehicle extends StationaryObject {
     }
 
     public Vehicle(Vehicle template) {
-        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
-        setDestinationIds(template.getDestinationIds());
+        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getDestinationIds());
 
         destinations = template.getDestinations();
     }

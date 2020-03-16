@@ -21,7 +21,7 @@ public class Item extends GenericObject {
     }
 
     public Item(Item original){
-        super(original.getName(), original.getShortName(), original.getType(), original.getId(), original.getLocationId(), original.getDefaultLocationId(), original.getAlias(), original.getAttributes(), original.getText(), original.getDefaultUse(), original.getDescriptions(), original.getComplexUse(), original.getResponseScripts(), original.getOwnerId());
+        this(original.getName(), original.getShortName(), original.getType(), original.getId(), original.getLocationId(), original.getDefaultLocationId(), original.getAlias(), original.getAttributes(), original.getDescriptions(), original.getText(), original.getDefaultUse(), original.getComplexUse(), original.getResponseScripts(), original.getOwnerId());
     }
 
     public GenericObject getHolder() {
@@ -30,7 +30,12 @@ public class Item extends GenericObject {
 
     public boolean setHolder(GenericObject holder){
         this.holder = holder;
-        setLocationId(holder.getId());
+        if(holder != null) {
+            setLocationId(holder.getId());
+        }
+        else {
+            setLocationId(null);
+        }
         return true;
     }
 

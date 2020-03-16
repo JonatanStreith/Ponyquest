@@ -62,16 +62,19 @@ public class SystemData {
             add("go");          //Works!
             add("enter");       //Works!
             add("exit");        //Works!
-            add("use");
-            add("pick up");     //Works!
+            add("use");         //Works!
+            add("pick up");     //Works
             add("talk to");     //Works!
             add("talk");        //Works!
             add("quit");        //Works!
             add("drop");        //Works!
-            add("brandish");
-            add("ask");
-            add("cast");
-            add("buy");
+            add("ask");         //Works
+            add("read");        //Works
+
+            add("chat with");   //Works
+
+
+
             add("exits");       //Works!
             add("teleport to"); //Works!
             add("teleport");    //Works!
@@ -79,50 +82,51 @@ public class SystemData {
             add("commands");    //Works!
             add("nouns");       //Works!
             add("inventory");   //Works!
-            add("attack");
-            add("harvest");
-            add("read");
 
-            add("chat with");
+            add("give");        //Works
+            add("take");        //Works
+            add("retrieve");    //Works
+            add("put");         //Works
+            add("place");       //Works
+            add("hug");         //Works
 
-            add("give");
-            add("take");
-            add("retrieve");
+            add("wear");        //Works
+            add("remove");      //Works
+            add("put on");      //Works
+            add("take off");    //Works
 
-            add("put");
-            add("place");
+            add("create");      //Works!
 
-            add("hug");
 
-            add("wear");
-            add("remove");
-
-            add("put on");
-            add("take off");
-
-            add("create");
             add("transform");
 
-            add("open");
-            add("close");
-            add("activate");
 
-            add("eat");
+            add("harvest");     //Broken
 
-            add("board");
-            add("ride");
+            add("open");        //Works!
+            add("close");       //Works!
+            add("activate");    //Works!
+
+            add("eat");         //Works!
+
+            add("board");       //Works!
+            add("ride");        //Works!
 
 
-            add("follow");
-            add("follow me");
-            add("stop follow");
-            add("stop following me");
+            add("follow");      //Works!
+            add("follow me");   //Works!
+            add("stop follow"); //Works!
+            add("stop following me");   //Works!
+
+            add("cast");        //Test spells for specifics.
 
             add("shop");
             add("barter");
             add("buy");
             add("sell");
 
+            add("attack");      //Not implemented
+            add("brandish");    //Not implemented
 
 
         }};

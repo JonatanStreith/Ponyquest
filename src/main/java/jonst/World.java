@@ -325,6 +325,12 @@ public class World {
         return Lambda.getFirst(itemList, i -> i.getId().equalsIgnoreCase(wantedItem));
     }
 
+    public GenericObject getTemplate(String searchName){
+
+        return Lambda.getFirst(templateList, Lambda.predicateByName(searchName));
+    }
+
+
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
 
         return Lambda.getFirst(stationaryObjectList, s -> s.getName().equalsIgnoreCase(wantedStationaryObject));

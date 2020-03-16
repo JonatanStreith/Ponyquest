@@ -55,22 +55,6 @@ public class App {
                     break;
             }
 
-//            if (reply.equalsIgnoreCase("n")) {
-//                System.out.println(SystemData.getIntroBlurb());
-//
-//                return SystemData.getDefaultWorld();
-//
-//            } else if (reply.equalsIgnoreCase("l")) {
-//
-//                String loadData = getLoadData();
-//
-//                if (loadData != "") {
-//                    return loadData;
-//                }
-//
-//            } else {
-//                System.out.println("Sorry, what?");
-//            }
         }
     }
 

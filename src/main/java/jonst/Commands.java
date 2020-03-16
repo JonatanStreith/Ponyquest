@@ -10,6 +10,7 @@ import jonst.Models.Objects.*;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -86,28 +87,28 @@ public class Commands {
 
     // ------- Interact commands ------------
 
-    public static void shop(String[] commandArray, World world){
+    public static void shop(String[] commandArray, World world) {
 
         //Check if we're asking to buy something specific.
 
         boolean isNoun = world.getParser().getLegitimateConjunctions().contains(commandArray[1]);
 
 
-        if(isNoun){
+        if (isNoun) {
 
             GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[2], Lambda.predicateByName(commandArray[2]));
 
-            if(merchant == null){
+            if (merchant == null) {
                 System.out.println("Who or what are you trying to do business with?");
                 return;
             }
 
-            if(!(merchant instanceof Creature)){
+            if (!(merchant instanceof Creature)) {
                 System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
                 return;
             }
 
-            if(!(merchant instanceof Merchant)){
+            if (!(merchant instanceof Merchant)) {
                 System.out.println(merchant + " doesn't have anything to offer.");
                 return;
             }
@@ -116,24 +117,24 @@ public class Commands {
             return;
         }
 
-        if(!(world.getParser().getLegitimateNouns().contains(commandArray[1]))){
+        if (!(world.getParser().getLegitimateNouns().contains(commandArray[1]))) {
             System.out.println("What are you trying to shop for?");
             return;
         }
 
         GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
 
-        if(merchant == null){
+        if (merchant == null) {
             System.out.println("Who or what are you trying to do business with?");
-        return;
+            return;
         }
 
-        if(!(merchant instanceof Creature)){
+        if (!(merchant instanceof Creature)) {
             System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
             return;
         }
 
-        if(!(merchant instanceof Merchant)){
+        if (!(merchant instanceof Merchant)) {
             System.out.println(merchant + " doesn't have anything to offer.");
             return;
         }
@@ -147,32 +148,33 @@ public class Commands {
 
         //Item product = world.match(((Merchant) merchant).getMerchandiseList(), prodName, Lambda.predicateByName(prodName));
 
-        if(product == null){
+        if (product == null) {
             System.out.println(merchant + " doesn't sell that.");
             return;
         }
 
 
-        if(commandArray[0].equalsIgnoreCase("buy")){
+        if (commandArray[0].equalsIgnoreCase("buy")) {
             buyFrom(merchant, product, world);
             return;
         }
 
-        if(commandArray[0].equalsIgnoreCase("sell")){
+        if (commandArray[0].equalsIgnoreCase("sell")) {
             sellTo(merchant, product, world);
             return;
         }
 
     }
 
-    public static void sellTo(GenericObject merchant, Item product, World world){
+    public static void sellTo(GenericObject merchant, Item product, World world) {
         //System.out.println("sellTo: " + product.getName());
     }
-    public static void openShop(){
+
+    public static void openShop() {
         System.out.println(("openShop"));
     }
 
-    public static void buyFrom(GenericObject merchant, Item product, World world){
+    public static void buyFrom(GenericObject merchant, Item product, World world) {
 
         Item newItem = Item.create(product.getId());
 
@@ -180,7 +182,6 @@ public class Commands {
 
         world.addItemToHolder(newItem, world.getPlayer());
     }
-
 
 
     public static void activate(String[] commandArray, World world) {
@@ -203,7 +204,7 @@ public class Commands {
             return;
         }
 
-        System.out.println("You attempt to activate the " + target.getShortName());
+        System.out.println("You attempt to activate the " + target.getShortName() + ".");
 
         boolean successful = target.runResponseScript("activate");
 
@@ -521,6 +522,9 @@ public class Commands {
     }
 
     public static void talkTo(String name, World world) {
+
+        //TODO: If creatre is asleep, should not respond.
+
 
         GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
 
@@ -961,11 +965,18 @@ public class Commands {
 
     public static void create(String[] commandArray, World world) {
 
+        GenericObject template = world.getTemplate(commandArray[1]);
 
-        Item newItem = Item.create(commandArray[1]);
+        if (template == null) {
+            System.out.println("You try to create something, but it fails somehow.");
+            return;
+        }
 
-        if (newItem != null) {
+        if (template instanceof Item) {
+            Item newItem = new Item((Item) template);
+
             Creature player = world.getPlayer();
+
             player.addItem(newItem);
             newItem.setHolder(player);
             newItem.setLocationId(player.getName());
@@ -974,24 +985,79 @@ public class Commands {
 
             System.out.println("You create a " + newItem.getShortName() + " from nothing, and put it in your pocket.");
             newItem.runResponseScript("create");
-        } else {
-            System.out.println("You try to create something, but it fails somehow.");
+            return;
         }
 
+        if (template instanceof Creature) {
+            Creature newCreature = new Creature((Creature) template);
 
+            Location currentLocation = world.getPlayerLocation();
+
+            currentLocation.add(newCreature);
+            newCreature.setLocation(currentLocation);
+
+            world.addNewToList(newCreature);
+
+
+            System.out.println("You create a " + newCreature.getShortName() + " from nothing. It appears before you.");
+            newCreature.runResponseScript("create");
+        }
+
+        if (template instanceof StationaryObject) {
+            StationaryObject newObject = new StationaryObject((StationaryObject) template);
+
+            Location currentLocation = world.getPlayerLocation();
+
+            currentLocation.add(newObject);
+            newObject.setLocation(currentLocation);
+
+            world.addNewToList(newObject);
+
+
+            System.out.println("You create a " + newObject.getShortName() + " from nothing. It appears before you.");
+            newObject.runResponseScript("create");
+        }
 
 
     }
 
     public static void transform(String[] commandArray, World world) {
 
-        GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));    //Get the item we're transforming
 
         String originalName = item.getShortName();
 
         if (!(item instanceof Item)) {
             System.out.println("You can only transform small, non-living items. Otherwise Starlight gets mad.");
-        } else {
+            return;
+        }
+
+        GenericObject template = world.getTemplate(commandArray[3]);        //Get a template item.
+
+        if (template == null || !(template instanceof Item)) {    //If the template is unknown, or not an item.
+            System.out.println("You don't know how to transform the " + item.getName() + " into that.");
+            return;
+        }
+        System.out.println("You magically transform the " + item.getShortName() + " into a " + template.getShortName() + ". Excellent!");
+
+        if (!item.getItemList().isEmpty() && !template.hasAttribute("container")) {      //If the item contains things? And the new item isn't a container?
+            System.out.println("Its contents spill forth onto the ground.");
+
+            item.getItemList().forEach(i -> {
+                item.getLocation().addItem(i);
+                i.setHolder(item.getLocation());
+            });
+
+            item.getItemList().clear();
+
+        }
+
+
+        ((Item) item).transformInto((Item) template);
+
+
+        item.runResponseScript("transform");
+
 //TODO
 //            Item newItem = JsonBuilder.generateTemplateItem(commandArray[3]);
 //
@@ -999,11 +1065,12 @@ public class Commands {
 //
 //            System.out.println("You magically transform the " + originalName + " into a " + item.getShortName() + ". Excellent!");
 //            item.runResponseScript("transform");
-        }
+
     }
 
     public static void give(String[] commandArray, World world) {
 
+        //TODO: Can't give things to sleeping creatures!
 
         Item subject = world.match(world.getPlayerInventory(), commandArray[1], Lambda.predicateByName(commandArray[1]));
         GenericObject target = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
@@ -1157,6 +1224,10 @@ public class Commands {
     public static void board(String[] commandArray, World world) {
         GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
 
+        if (target == null) {
+            System.out.println("Ride what?");
+        }
+
         if (target instanceof Creature) {
             System.out.println("That's a bit too intimate for your taste.");
             return;
@@ -1174,9 +1245,9 @@ public class Commands {
             List<Location> destinations = ((Vehicle) target).getDestinations();
             System.out.println("Where do you want to go?\n");
             for (int i = 0; i < destinations.size(); i++) {
-                System.out.println("" + (i + 1) + "\t" + destinations.get(i).getName());
+                System.out.println("" + (i + 1) + ":\t" + destinations.get(i).getName());
             }
-            System.out.println("0:\t Abort");
+            System.out.println("0:\tCancel");
             int reply = SystemData.getNumericalReply("\n(0 - " + destinations.size() + "): ", destinations.size());
 
             if (reply == 0) {
@@ -1188,11 +1259,11 @@ public class Commands {
             destination = world.match(((Vehicle) target).getDestinations(), commandArray[3], Lambda.predicateByName(commandArray[3]));
         }
 
-        if(destination == null){
+        if (destination == null) {
             System.out.println("The " + target.getShortName() + " doesn't go there.");
         }
 
-        if(destination == world.getPlayerLocation()){
+        if (destination == world.getPlayerLocation()) {
             System.out.println("You're already here! Well, that was a short trip.");
             return;
         }

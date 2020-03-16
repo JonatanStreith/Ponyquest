@@ -38,15 +38,7 @@ public class Creature extends GenericObject {
     }
 
     public Creature(Creature template) {
-        super(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getDescriptions(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
-        setRace(template.getRace());
-
-        setDefaultRace(template.getDefaultRace());
-        setGender(template.getGender());
-        setCasualDialog(template.getCasualDialog());
-        setAskTopics(template.getAskTopics());
-        setBehaviorCore(template.getBehavior());
-        setInitialDialog(template.getInitialDialog());
+        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehavior(), template.getInitialDialog());
     }
 
     public BehaviorCore getBehavior() {

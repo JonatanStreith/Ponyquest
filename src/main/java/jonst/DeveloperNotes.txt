@@ -116,3 +116,7 @@ The merchandise string could be something löike this: "name:id:price". "Red app
 Next: Needs a method to actually buy from a merchant. Both with a menu and with direct call.
 
 Idea: Add "MazeLocation" (extends Location) for places like caves and deep forests, where you can only go "north, west, southwest" etc. Has its own navsystem.
+
+Hypnotize command. Requires hypnotizing item.
+
+Have book of hypnotism somewhere you need to find, with legit phrases. Some creatures are hypno-proof.
