@@ -118,11 +118,15 @@ public class Scripts {
             actor = world.getCreature(scriptCommandArray[1]);
         }
 
-        String newItemName = scriptCommandArray[2];
-//TODO
-//        Item newItem = JsonBuilder.generateTemplateItem(newItemName);
-//        world.addItemToHolder(newItem, actor);
-//        world.addNewToList(newItem);
+        GenericObject template = world.getTemplate(scriptCommandArray[2]);
+
+        if(template != null && template instanceof Item) {
+
+            Item newItem = new Item((Item) template);
+
+            world.addItemToHolder(newItem, actor);
+            world.addNewToList(newItem);
+        }
 
     }
 
@@ -188,10 +192,13 @@ public class Scripts {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
-//TODO
-//        Creature newCreature = JsonBuilder.generateTemplateCreature(scriptCommandArray[2]);
-//        world.addToLocation(newCreature, location);
-//        world.addNewToList(newCreature);
+        GenericObject template = world.getTemplate(scriptCommandArray[2]);
+
+        if(template != null && template instanceof Creature) {
+            Creature newCreature = new Creature((Creature) template);
+            world.addToLocation(newCreature, location);
+            world.addNewToList(newCreature);
+        }
     }
 
     public static void spawnObject(GenericObject subject, String[] scriptCommandArray, World world) {
@@ -203,10 +210,14 @@ public class Scripts {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
-//TODO
-//        StationaryObject newObject = JsonBuilder.generateTemplateObject(scriptCommandArray[2]);
-//        world.addToLocation(newObject, location);
-//        world.addNewToList(newObject);
+        GenericObject template = world.getTemplate(scriptCommandArray[2]);
+
+        if(template != null && template instanceof StationaryObject) {
+            StationaryObject newObject = new StationaryObject((StationaryObject) template);
+            world.addToLocation(newObject, location);
+            world.addNewToList(newObject);
+        }
+
     }
 
     public static void moveFollowers(GenericObject subject, String[] scriptCommandArray, World world){

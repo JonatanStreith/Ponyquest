@@ -98,7 +98,7 @@ public class SystemData {
             add("create");      //Works!
 
 
-            add("transform");
+            add("transform");   //Works!
 
 
             add("harvest");     //Broken
@@ -127,6 +127,7 @@ public class SystemData {
 
             add("attack");      //Not implemented
             add("brandish");    //Not implemented
+
 
 
         }};

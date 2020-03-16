@@ -1058,13 +1058,6 @@ public class Commands {
 
         item.runResponseScript("transform");
 
-//TODO
-//            Item newItem = JsonBuilder.generateTemplateItem(commandArray[3]);
-//
-//            ((Item) item).transformInto(newItem);
-//
-//            System.out.println("You magically transform the " + originalName + " into a " + item.getShortName() + ". Excellent!");
-//            item.runResponseScript("transform");
 
     }
 
@@ -1281,6 +1274,54 @@ public class Commands {
         lookAround(world);
 
     }
+
+    public static void hypnotize(String[] commandArray, World world){
+        //Example: "hypnotize Spike with pendant".
+
+        GenericObject subject = world.getLocalGenericObject(commandArray[1]);
+        GenericObject device = world.getFromInventory(commandArray[3]);
+
+        if(subject == null){
+            System.out.println("Who are you trying to hypnotize?");
+            return;
+        }
+
+        if (!(subject instanceof Creature)){
+            System.out.println("You're fairly certain you can't hypnotize that.");
+            return;
+        }
+
+        if(device == null){
+            System.out.println("You're not carrying that.");
+            return;
+        }
+
+        if(!device.hasAttribute("hypnosis_tool")){
+            System.out.println("The " + device.getShortName() + " doesn't lend itself well to hypnosis.");
+            return;
+        }
+
+        System.out.println("You wave the " + device.getShortName() + " before " + subject + "'s eyes, while whispering, \"You are getting sleepy... very, very sleepy...\"");
+
+        if(subject.hasAttribute("hypnosis_immunity")){
+            System.out.println(capitalize(heOrShe(subject))+ " gives you an unamused look. They appear to be unaffected.");
+            subject.runResponseScript("hypnosis_failed");
+            return;
+        } else {
+            System.out.println(capitalize(heOrShe(subject)) + "falls into a deep trance." );
+            ((Creature) subject).setStatus("hypnotized");
+            subject.runResponseScript("hypnosis_success");
+        }
+
+
+
+
+    }
+
+
+
+
+
 
     //--------------- Not for direct use -----------------------
 

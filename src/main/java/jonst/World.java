@@ -356,6 +356,11 @@ public class World {
         return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
     }
 
+    public GenericObject getFromInventory(String wantedGenericObject) {
+
+        return Lambda.getFirst(getPlayerInventory(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+    }
+
 
     // --------------- Match name methods ------------------------
 
