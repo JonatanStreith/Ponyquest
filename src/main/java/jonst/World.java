@@ -450,6 +450,12 @@ public class World {
 
     }
 
+    public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
+
+        return JsonBuilder.saveGenericList(filepath + "/creatures.json", creatureList);
+
+    }
+
     public boolean save(String saveFilePath) {
 
         File saveFile = new File(saveFilePath + "/");
@@ -458,10 +464,12 @@ public class World {
             saveFile.mkdir();
 
         Boolean[] successes = new Boolean[5];
-        successes[0] = JsonBuilder.saveLocationList(saveFilePath, locationList);
-        successes[1] = JsonBuilder.saveCreatureList(saveFilePath, creatureList);
-        successes[2] = JsonBuilder.saveItemList(saveFilePath, itemList);
-        successes[3] = JsonBuilder.saveStationaryObjectList(saveFilePath, stationaryObjectList);
+
+        successes[0] = JsonBuilder.saveGenericList(saveFilePath + "/locations.json", locationList);
+        successes[1] = JsonBuilder.saveGenericList(saveFilePath + "/creatures.json", creatureList);
+        successes[2] = JsonBuilder.saveGenericList(saveFilePath + "/items.json", itemList);
+        successes[3] = JsonBuilder.saveGenericList(saveFilePath + "/objects.json", stationaryObjectList);
+
         successes[4] = JsonBuilder.saveExitList(saveFilePath, exitList);
 
         for (boolean boo : successes) {

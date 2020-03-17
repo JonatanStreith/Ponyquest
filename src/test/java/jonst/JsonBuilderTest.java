@@ -69,44 +69,44 @@ public class JsonBuilderTest {
 
     }
 
-    @Test
-    public void saveCreatureListTest() {
-
-        List<Creature> testlist = JsonBuilder.loadCreatureList(SystemData.getDefaultWorld());
-
-        boolean test = JsonBuilder.saveCreatureList(SystemData.getTestpath(), testlist);
-
-        assertTrue(test);
-    }
-
-
-    @Test
-    public void saveItemListTest() {
-
-        List<Item> testlist = JsonBuilder.loadItemList(SystemData.getDefaultWorld());
-
-        boolean test = JsonBuilder.saveItemList(SystemData.getTestpath(), testlist);
-
-        assertTrue(test);
-    }
-    @Test
-    public void saveLocationListTest() {
-
-        List<Location> testlist = JsonBuilder.loadLocationList(SystemData.getDefaultWorld());
-
-        boolean test = JsonBuilder.saveLocationList(SystemData.getTestpath(), testlist);
-
-        assertTrue(test);
-    }
-    @Test
-    public void saveStationaryObjectListTest() {
-
-        List<StationaryObject> testlist = JsonBuilder.loadStationaryObjectList(SystemData.getDefaultWorld());
-
-        boolean test = JsonBuilder.saveStationaryObjectList(SystemData.getTestpath(), testlist);
-
-        assertTrue(test);
-    }
+//    @Test
+//    public void saveCreatureListTest() {
+//
+//        List<Creature> testlist = JsonBuilder.loadCreatureList(SystemData.getDefaultWorld());
+//
+//        boolean test = JsonBuilder.saveCreatureList(SystemData.getTestpath(), testlist);
+//
+//        assertTrue(test);
+//    }
+//
+//
+//    @Test
+//    public void saveItemListTest() {
+//
+//        List<Item> testlist = JsonBuilder.loadItemList(SystemData.getDefaultWorld());
+//
+//        boolean test = JsonBuilder.saveItemList(SystemData.getTestpath(), testlist);
+//
+//        assertTrue(test);
+//    }
+//    @Test
+//    public void saveLocationListTest() {
+//
+//        List<Location> testlist = JsonBuilder.loadLocationList(SystemData.getDefaultWorld());
+//
+//        boolean test = JsonBuilder.saveLocationList(SystemData.getTestpath(), testlist);
+//
+//        assertTrue(test);
+//    }
+//    @Test
+//    public void saveStationaryObjectListTest() {
+//
+//        List<StationaryObject> testlist = JsonBuilder.loadStationaryObjectList(SystemData.getDefaultWorld());
+//
+//        boolean test = JsonBuilder.saveStationaryObjectList(SystemData.getTestpath(), testlist);
+//
+//        assertTrue(test);
+//    }
 
     @Test
     public void getSavesMenuTest() {

@@ -223,18 +223,19 @@ public class JsonBuilder {
     }
 
     //---------- save methods
-    public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
+
+    public static <T extends GenericObject> boolean saveGenericList(String filepath, List<T> list) {
 
         boolean success = true;
-        JSONArray creatureArray = new JSONArray();
+        JSONArray array = new JSONArray();
 
-        for (Creature crea : creatureList) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
-            creatureArray.add(saveJsonGeneric(crea));
+        for (T t : list) {        //This creates one JSONObject for every creature in the list, populates it with data, and adds it to "creatures"
+            array.add(saveJsonGeneric(t));
         }
 
-        try (FileWriter file = new FileWriter(filepath + "/creatures.json")) {
+        try (FileWriter file = new FileWriter(filepath)) {
 
-            file.write(creatureArray.toJSONString());
+            file.write(array.toJSONString());
             file.flush();
 
         } catch (IOException e) {
@@ -243,70 +244,6 @@ public class JsonBuilder {
         }
         return success;
     }
-
-    public static boolean saveLocationList(String filepath, List<Location> locationList) {
-
-        boolean success = true;
-        JSONArray locationArray = new JSONArray();
-
-        for (Location loc : locationList) {        //This creates one JSONObject for every location in the list, populates it with data, and adds it to "locations"
-            locationArray.add(saveJsonGeneric(loc));
-        }
-
-        try (FileWriter file = new FileWriter(filepath + "/locations.json")) {
-
-            file.write(locationArray.toJSONString());
-            file.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            success = false;
-        }
-        return success;
-    }
-
-    public static boolean saveItemList(String filepath, List<Item> itemList) {
-
-        boolean success = true;
-        JSONArray itemArray = new JSONArray();
-
-        for (Item ite : itemList) {        //This creates one JSONObject for every item in the list, populates it with data, and adds it to "items"
-            itemArray.add(saveJsonGeneric(ite));
-        }
-
-        try (FileWriter file = new FileWriter(filepath + "/items.json")) {
-
-            file.write(itemArray.toJSONString());
-            file.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            success = false;
-        }
-        return success;
-    }
-
-    public static boolean saveStationaryObjectList(String filepath, List<StationaryObject> objectList) {
-
-        boolean success = true;
-        JSONArray objectArray = new JSONArray();
-
-        for (StationaryObject sta : objectList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
-            objectArray.add(saveJsonGeneric(sta));
-        }
-
-        try (FileWriter file = new FileWriter(filepath + "/objects.json")) {
-
-            file.write(objectArray.toJSONString());
-            file.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            success = false;
-        }
-        return success;
-    }
-
 
     public static boolean saveExitList(String filepath, List<Exit> exitList) {
 
@@ -341,6 +278,41 @@ public class JsonBuilder {
     }
 
 
+    //---------- Get objects
+
+    public static Map<String, String> getMap(JSONObject MainObj, String key){
+
+        Map<String, String> map = new HashMap();
+        Object obj = MainObj.get(key);
+            if (obj != null && obj instanceof JSONObject) {
+                for (Object InternalKey : ((JSONObject) obj).keySet()) {
+                    map.put(((String) InternalKey).toLowerCase(), (String) ((JSONObject) obj).get((String) InternalKey));
+                }
+            }
+        return map;
+    }
+
+    public static List<String> getList(JSONObject MainObj, String key){
+
+        List<String> list = new ArrayList<>();
+
+        Object arr = MainObj.get(key);
+
+
+
+        if (arr != null && arr instanceof JSONArray) {
+            for (Object xObj : (JSONArray) arr) {
+
+                list.add(((String) xObj).toLowerCase());
+            }
+        }
+        return list;
+    }
+
+
+
+
+
     //---------- load methods
 
     public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
@@ -365,23 +337,18 @@ public class JsonBuilder {
         String text = (String) jObj.get("Text");
         String defaultUse = (String) jObj.get("DefaultUse");
 
-        Map<String, String> descriptions = new HashMap() {{
-            JSONObject jsd = (JSONObject) jObj.get("Descriptions");
-            if (jsd != null)
-                for (Object xObj : jsd.keySet()) {
-                    String key = (String) xObj;
-                    put(key.toLowerCase(), (String) jsd.get(key));
-                }
-        }};
+        Map<String, String> descriptions = getMap(jObj, "Descriptions");
+        Map<String, String> complexUse = getMap(jObj, "ComplexUse");
 
-        Map<String, String> complexUse = new HashMap() {{
-            JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
-            if (jsCU != null)
-                for (Object xObj : jsCU.keySet()) {
-                    String key = (String) xObj;
-                    put(key.toLowerCase(), (String) jsCU.get(key));
-                }
-        }};
+
+//                new HashMap() {{
+//            JSONObject jsCU = (JSONObject) jObj.get("ComplexUse");
+//            if (jsCU != null)
+//                for (Object xObj : jsCU.keySet()) {
+//                    String key = (String) xObj;
+//                    put(key.toLowerCase(), (String) jsCU.get(key));
+//                }
+//        }};
 
         Map<String, ArrayList<String>> responseScripts = new HashMap() {{
             JSONObject jsRS = (JSONObject) jObj.get("ResponseScripts");
@@ -397,27 +364,34 @@ public class JsonBuilder {
             }
         }};
 
-        List<String> alias = new ArrayList() {{
-            JSONArray jsAlias = (JSONArray) jObj.get("Alias");
-            if (jsAlias != null)
-                for (Object xObj : jsAlias) {
-                    String newAlias = (String) xObj;
-                    add(newAlias.toLowerCase());
-                }
-        }};
+        List<String> alias = getList(jObj, "Alias");
 
         if(!alias.contains(shortName)){
             alias.add(shortName);
         }
 
-        List<String> attributes = new ArrayList() {{
-            JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
-            if (jsAttributes != null)
-                for (Object xObj : jsAttributes) {
-                    String newAttribute = (String) xObj;
-                    add(newAttribute.toLowerCase());
-                }
-        }};
+//                new ArrayList() {{
+//            JSONArray jsAlias = (JSONArray) jObj.get("Alias");
+//            if (jsAlias != null)
+//                for (Object xObj : jsAlias) {
+//                    String newAlias = (String) xObj;
+//                    add(newAlias.toLowerCase());
+//                }
+//        }};
+
+
+
+        List<String> attributes = getList(jObj, "Attributes");
+
+
+//                new ArrayList() {{
+//            JSONArray jsAttributes = (JSONArray) jObj.get("Attributes");
+//            if (jsAttributes != null)
+//                for (Object xObj : jsAttributes) {
+//                    String newAttribute = (String) xObj;
+//                    add(newAttribute.toLowerCase());
+//                }
+//        }};
 
 
         if (typeKey.equals("creature")) {
@@ -427,22 +401,28 @@ public class JsonBuilder {
             String gender = (String) jObj.get("Gender");
             String initialDialog = (String) jObj.get("InitialDialog");
 
-            Map<String, String> askTopics = new HashMap() {{
-                JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
-                if (jsAT != null)
-                    for (Object xObj : jsAT.keySet()) {
-                        String key = (String) xObj;
-                        put(key.toLowerCase(), (String) jsAT.get(key));
-                    }
-            }};
+            Map<String, String> askTopics = getMap(jObj, "AskTopics");
 
-            List<String> casualDialog = new ArrayList() {{
-                JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
-                if (jsCD != null)
-                    for (Object xObj : jsCD) {
-                        add((String) xObj);
-                    }
-            }};
+//                    new HashMap() {{
+//                JSONObject jsAT = (JSONObject) jObj.get("AskTopics");
+//                if (jsAT != null)
+//                    for (Object xObj : jsAT.keySet()) {
+//                        String key = (String) xObj;
+//                        put(key.toLowerCase(), (String) jsAT.get(key));
+//                    }
+//            }};
+
+            List<String> casualDialog = getList(jObj, "CasualDialog");
+
+
+
+//                    new ArrayList() {{
+//                JSONArray jsCD = (JSONArray) jObj.get("CasualDialog");
+//                if (jsCD != null)
+//                    for (Object xObj : jsCD) {
+//                        add((String) xObj);
+//                    }
+//            }};
 
             BehaviorCore bc;
             JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
@@ -528,6 +508,8 @@ public class JsonBuilder {
 
         return null;
     }
+
+
 
 
     //----------------
