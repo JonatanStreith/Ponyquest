@@ -20,39 +20,48 @@ public class HelpfulMethods {
 
         if (!(subject instanceof Creature)) {
             return "it";
-        } else {
-
-            switch (subject.getGender().toLowerCase()) {
-                case "male":
-                    return "he";
-                case "female":
-                    return "she";
-                default:
-                    return "it";
-            }
         }
+
+        switch (subject.getGender().toLowerCase()) {
+            case "male":
+                return "he";
+            case "female":
+                return "she";
+            default:
+                return "it";
+        }
+
     }
 
     public static String himOrHer(GenericObject subject) {
 
+        if (subject == App.getWorld().getPlayer()) {
+            return "yourself";
+        }
+
         if (!(subject instanceof Creature)) {
             return "it";
-        } else {
-            switch (subject.getGender().toLowerCase()) {
-                case "male":
-                    return "him";
-                case "female":
-                    return "her";
-                default:
-                    return "it";
-            }
+        }
+
+        switch (subject.getGender().toLowerCase()) {
+            case "male":
+                return "him";
+            case "female":
+                return "her";
+            default:
+                return "it";
         }
     }
 
     public static String hisOrHer(GenericObject subject) {
+
+        if (subject == App.getWorld().getPlayer()) {
+            return "your";
+        }
         if (!(subject instanceof Creature)) {
             return "its";
-        } else {
+        }
+
             switch (subject.getGender().toLowerCase()) {
                 case "male":
                     return "his";
@@ -60,29 +69,29 @@ public class HelpfulMethods {
                     return "her";
                 default:
                     return "its";
-            }
+
         }
     }
 
 
-    public static <T, U extends GenericObject> List<GenericObject> fuseLists(List<T> list1, List<U> list2){
+    public static <T, U extends GenericObject> List<GenericObject> fuseLists(List<T> list1, List<U> list2) {
 
         List<GenericObject> returnList = new ArrayList<>();
 
 
-            returnList.addAll((Collection<? extends GenericObject>) list1);
-            returnList.addAll((Collection<? extends GenericObject>) list2);
+        returnList.addAll((Collection<? extends GenericObject>) list1);
+        returnList.addAll((Collection<? extends GenericObject>) list2);
 
 
         return returnList;
     }
 
-    public static <T extends GenericObject> boolean isIdentical(List<T> list){
+    public static <T extends GenericObject> boolean isIdentical(List<T> list) {
 
         Set<T> results = list.stream()
 
                 .collect(Collectors.toCollection(
-                        () -> new TreeSet<T>((T p1, T p2) -> p1.compareTo(p2) )  )
+                        () -> new TreeSet<T>((T p1, T p2) -> p1.compareTo(p2)))
                 );
 
         return (results.size() == 1);
@@ -100,12 +109,6 @@ public class HelpfulMethods {
 
         return (num > 1) ? " are " : " is ";
 
-//        String output = " is ";
-//        if (num > 1) {
-//            output = " are ";
-//        }
-//
-//        return output;
     }
 
     public static String turnStringListIntoString(List<String> longList, String separator)     //Takes a list of strings, pieces them together into one string
@@ -162,7 +165,7 @@ public class HelpfulMethods {
 
         for (int i = 0; i < list.size(); i++) {
             GenericObject obj = (GenericObject) list.get(i);
-            if(obj.hasAttribute("worn")) {
+            if (obj.hasAttribute("worn")) {
 
                 nameList.add(obj.getName() + " (worn)");
             } else {
@@ -178,7 +181,6 @@ public class HelpfulMethods {
         Collections.sort(list, new ReverseSortIgnoreCase());
 
 
-
     }
 
 
@@ -190,7 +192,7 @@ public class HelpfulMethods {
     }
 
 
-    public static void pause(){
+    public static void pause() {
         SystemData.getReply("[Press return to continue]");
     }
 

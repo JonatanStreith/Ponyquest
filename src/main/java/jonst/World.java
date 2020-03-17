@@ -383,10 +383,10 @@ public class World {
 
         boolean loadingSuccess = true;
 
-        locationList = JsonBuilder.loadLocationList(loadFilePath);
-        creatureList = JsonBuilder.loadCreatureList(loadFilePath);
-        itemList = JsonBuilder.loadItemList(loadFilePath);
-        stationaryObjectList = JsonBuilder.loadStationaryObjectList(loadFilePath);
+        creatureList = JsonBuilder.loadList(loadFilePath + "/creatures.json", "creature");
+        locationList = JsonBuilder.loadList(loadFilePath + "/locations.json", "location");
+        itemList = JsonBuilder.loadList(loadFilePath + "/items.json", "item");
+        stationaryObjectList = JsonBuilder.loadList(loadFilePath + "/objects.json", "stationaryobject");
 
         exitList = JsonBuilder.loadExitList(loadFilePath, locationList);
 
