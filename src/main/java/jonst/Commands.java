@@ -5,7 +5,7 @@ import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
-import jonst.Models.Merchandise;
+//import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 
 
@@ -96,7 +96,7 @@ public class Commands {
 
         if (isNoun) {
 
-            GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[2], Lambda.predicateByName(commandArray[2]));
+            GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[2]));
 
             if (merchant == null) {
                 System.out.println("Who or what are you trying to do business with?");
@@ -122,7 +122,7 @@ public class Commands {
             return;
         }
 
-        GenericObject merchant = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[3]));
 
         if (merchant == null) {
             System.out.println("Who or what are you trying to do business with?");
@@ -143,7 +143,7 @@ public class Commands {
 
         List<Item> merchList = ((Merchant) merchant).getMerchandiseList();
 
-        Item product = world.match(merchList, prodName, Lambda.predicateByName(prodName));
+        Item product = world.match(merchList, Lambda.predicateByName(prodName));
 
 
         //Item product = world.match(((Merchant) merchant).getMerchandiseList(), prodName, Lambda.predicateByName(prodName));
@@ -191,7 +191,7 @@ public class Commands {
 //        List<GenericObject> genericList = world.getGenericList();
         //Predicate<GenericObject> pred = (GenericObject g) -> g.getName().equals(commandArray[1]) || g.getAlias().contains(commandArray[1]);
 
-        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(commandArray[1]));
 
 
         if (target == null) {
@@ -218,7 +218,7 @@ public class Commands {
 //        String fullName = world.matchLocalName(commandArray[1]);
 //        GenericObject target = world.getGenericObject(fullName);
 
-        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(commandArray[1]));
 
 
         if (target == null) {
@@ -247,7 +247,7 @@ public class Commands {
 
     public static void read(String subject, World world) {
 
-        GenericObject target = world.match(world.getLocalGroundOnly(), subject, Lambda.predicateByName(subject));
+        GenericObject target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(subject));
 
 
         if (target == null) {
@@ -270,7 +270,7 @@ public class Commands {
 
     public static void drop(String subject, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), subject, Lambda.predicateByName(subject));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(subject));
 
         if (target == null) {
             System.out.println("Drop what?");
@@ -306,7 +306,7 @@ public class Commands {
 
     public static void eat(String name, World world) {
 
-        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't eat it.
@@ -341,7 +341,7 @@ public class Commands {
 
     public static void wear(String name, World world) {
 
-        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getPlayerInventory(), Lambda.predicateByName(name));
 
 
         if (target == null) {
@@ -373,7 +373,7 @@ public class Commands {
 
     public static void remove(String name, World world) {
 
-        GenericObject target = world.match(world.getPlayerInventory(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getPlayerInventory(), Lambda.predicateByName(name));
 
 
         if (target == null) {
@@ -394,7 +394,7 @@ public class Commands {
 
     public static void open(String name, World world) {
 
-        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't open it.
@@ -431,7 +431,7 @@ public class Commands {
 
     public static void close(String name, World world) {
 
-        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(name));
 
         if (target == null) {
             //If not, you can't close it.
@@ -465,7 +465,7 @@ public class Commands {
 
     public static void pickUp(String name, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
         if (target == null) {
             System.out.println("Pick up what?");
@@ -526,7 +526,7 @@ public class Commands {
         //TODO: If creatre is asleep, should not respond.
 
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
         if (!(target instanceof Creature))                                                //Subject isn't a creature.
         {
@@ -542,7 +542,7 @@ public class Commands {
 
     public static void chatWith(String name, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
         if (!(target instanceof Creature))                                                //Subject isn't a creature.
         {
@@ -587,7 +587,7 @@ public class Commands {
 
         String conjunction = commandArray[2];
 
-        GenericObject subject = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject subject = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(commandArray[1]));
 
 
         if (conjunction.equals("") && subject != null) {       //This is if you do a singular command without a proper conjunction. Also null check.
@@ -601,7 +601,7 @@ public class Commands {
             return;
         }
 
-        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(commandArray[3]));
 
 
         /*                  This is a bit too advanced right now. It requires replacing parts of the command line...
@@ -647,7 +647,7 @@ public class Commands {
             return;
         }
 
-        GenericObject subject = world.match(world.getLocalGenericList(), argument[1], Lambda.predicateByName(argument[1]));
+        GenericObject subject = world.match(world.getLocalGenericList(), Lambda.predicateByName(argument[1]));
 
 
         if (subject == null) {
@@ -693,7 +693,7 @@ public class Commands {
 
         Location currentLoc = world.getPlayerLocation();
 
-        List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), newArea, Lambda.predicateByName(newArea));
+        List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), Lambda.predicateByName(newArea));
 
         if (potentialDestinations == null) {
             System.out.println("You don't know how to get to ' " + newArea + ".");
@@ -727,7 +727,7 @@ public class Commands {
 
         //This is for if you want to enter your current location(s enterlocation).
         {
-            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), location, Lambda.predicateByName(location));
+            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), Lambda.predicateByName(location));
 
             //world.matchLocationsMultiple(location);
             Location currentLoc = world.getPlayerLocation();
@@ -748,7 +748,7 @@ public class Commands {
         }
 
         //This is if you want to enter an object or item... somehow.
-        GenericObject genTarget = world.match(world.getLocalGroundOnly(), location, Lambda.predicateByName(location));
+        GenericObject genTarget = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(location));
 
         if (genTarget == null) {
             System.out.println("Enter what?");
@@ -783,7 +783,7 @@ public class Commands {
 
 
         {
-            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), location, Lambda.predicateByName(location));
+            List<Location> potentialDestinations = world.matchMultiple(world.getLocationList(), Lambda.predicateByName(location));
 
             //world.matchLocationsMultiple(location);
 
@@ -817,9 +817,9 @@ public class Commands {
     public static void teleportOther(String[] command, World world) {                            //TO DO Make sure you can teleport items and objects - different code?
 
 
-        GenericObject target = world.match(world.getLocalGenericList(), command[1], Lambda.predicateByName(command[1]));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(command[1]));
 
-        Location destination = world.match(world.getLocationList(), command[3], Lambda.predicateByName(command[3]));
+        Location destination = world.match(world.getLocationList(), Lambda.predicateByName(command[3]));
 
 
         if (target != null && destination != null) {
@@ -859,7 +859,7 @@ public class Commands {
     public static void teleportSelf(String[] command, World world) { //Make sure you can teleport items and objects - different code?
 
 
-        Location destination = world.match(world.getLocationList(), command[1], Lambda.predicateByName(command[1]));
+        Location destination = world.match(world.getLocationList(), Lambda.predicateByName(command[1]));
 
 
         if (destination != null) {
@@ -881,7 +881,7 @@ public class Commands {
 
     public static void hug(String[] command, World world) {
 
-        GenericObject gen = world.match(world.getLocalGroundOnly(), command[1], Lambda.predicateByName(command[1]));
+        GenericObject gen = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(command[1]));
 
         if (gen == null) {
             System.out.println("You can only hug nearby things.");
@@ -907,7 +907,7 @@ public class Commands {
         String parsedTopic = world.getParser().parseTopic(topic.toLowerCase());
 
 
-        GenericObject target = world.match(world.getLocalGenericList(), creature, Lambda.predicateByName(creature));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(creature));
 
 
         if (target == null) {
@@ -931,7 +931,7 @@ public class Commands {
 
             case "for":
 
-                Item item = world.match(target.getItemList(), topic, Lambda.predicateByName(topic));
+                Item item = world.match(target.getItemList(), Lambda.predicateByName(topic));
 
 
                 if (item == null) {
@@ -1023,7 +1023,7 @@ public class Commands {
 
     public static void transform(String[] commandArray, World world) {
 
-        GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));    //Get the item we're transforming
+        GenericObject item = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[1]));    //Get the item we're transforming
 
         String originalName = item.getShortName();
 
@@ -1065,8 +1065,8 @@ public class Commands {
 
         //TODO: Can't give things to sleeping creatures!
 
-        Item subject = world.match(world.getPlayerInventory(), commandArray[1], Lambda.predicateByName(commandArray[1]));
-        GenericObject target = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        Item subject = world.match(world.getPlayerInventory(), Lambda.predicateByName(commandArray[1]));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[3]));
 
         if (subject == null) {
             System.out.println("Give what?");
@@ -1104,7 +1104,7 @@ public class Commands {
 
     public static void place(String[] commandArray, World world) {
 
-        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(commandArray[3]));
 
         if (container == null) {
             System.out.println("You can't find the " + commandArray[3] + " here.");
@@ -1133,7 +1133,7 @@ public class Commands {
         }
 
 
-        Item item = world.match(world.getPlayerInventory(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        Item item = world.match(world.getPlayerInventory(), Lambda.predicateByName(commandArray[1]));
 
 
         if (item == null) {
@@ -1161,7 +1161,7 @@ public class Commands {
             return;
         }
 
-        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        GenericObject container = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(commandArray[3]));
 
 
         if (container == null) {
@@ -1190,7 +1190,7 @@ public class Commands {
             return;
         }
 
-        GenericObject item = world.match(world.getLocalGenericList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject item = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[1]));
 
         if (!(item instanceof Item)) {
             System.out.println("You can't pick that up. It also shouldn't be in a container.");
@@ -1215,7 +1215,7 @@ public class Commands {
     }
 
     public static void board(String[] commandArray, World world) {
-        GenericObject target = world.match(world.getLocalGroundOnly(), commandArray[1], Lambda.predicateByName(commandArray[1]));
+        GenericObject target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(commandArray[1]));
 
         if (target == null) {
             System.out.println("Ride what?");
@@ -1249,7 +1249,7 @@ public class Commands {
             }
             destination = destinations.get(reply - 1);
         } else {
-            destination = world.match(((Vehicle) target).getDestinations(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+            destination = world.match(((Vehicle) target).getDestinations(), Lambda.predicateByName(commandArray[3]));
         }
 
         if (destination == null) {

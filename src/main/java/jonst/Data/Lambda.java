@@ -4,9 +4,7 @@ import jonst.Models.Objects.GenericObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 public class Lambda {
 
@@ -17,12 +15,15 @@ public class Lambda {
         return pred;
     }
 
-    public static Predicate<GenericObject> predicateById(String id){
+    public static <T extends GenericObject> Predicate<T> predicateById(String id){
 
-        Predicate<GenericObject> pred = (GenericObject g) -> g.getId().equalsIgnoreCase(id);
+        Predicate<T> pred = (T g) -> g.getId().equalsIgnoreCase(id);
 
         return pred;
     }
+
+
+    // -----------------------------
 
 
     public static <T, R> List<R> getSubvalues(List<T> list, Function<T, R> func) {
@@ -55,14 +56,14 @@ public class Lambda {
         return returnList;
     }
 
-    public static <T, U> List<T> subList(List<T> firstList, List<U> secondList, DualTest<T, U> dual) {
+    public static <T, U> List<T> subList(List<T> firstList, List<U> secondList, BiPredicate<T, U> dual) {
 
         List<T> returnList = new ArrayList<>();
 
         for (T first : firstList) {
             for (U second : secondList) {
 
-                if (dual.dualTest(first, second)) {
+                if (dual.test(first, second)) {
                     returnList.add(first);
                 }
             }
@@ -93,12 +94,12 @@ public class Lambda {
     }
 
 
-    public static <T, U> T getFirst(List<T> firstList, List<U> secondList, DualTest<T, U> dual) {
+    public static <T, U> T getFirst(List<T> firstList, List<U> secondList, BiPredicate<T, U> dual) {
 
         for (T first : firstList) {
             for (U second : secondList) {
 
-                if (dual.dualTest(first, second)) {
+                if (dual.test(first, second)) {
                     return first;
                 }
             }
@@ -119,15 +120,15 @@ public class Lambda {
         }
     }
 
-    public static <T, U> void processLists(List<T> firstList, List<U> secondList, DualTest<T, U> test, DualFactory<T, U> process) {
+    public static <T, U> void processLists(List<T> firstList, List<U> secondList, BiPredicate<T, U> test, BiConsumer<T, U> process) {
 
         List<T> returnList = new ArrayList<>();
 
         for (T first : firstList) {
             for (U second : secondList) {
 
-                if (test.dualTest(first, second)) {
-                    process.dualFactory(first, second);
+                if (test.test(first, second)) {
+                    process.accept(first, second);
                 }
             }
         }

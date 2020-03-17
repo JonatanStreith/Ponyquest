@@ -1181,14 +1181,8 @@ public class JsonBuilder {
             JSONArray itemJSON = (JSONArray) new JSONParser().parse(reader);
             Lambda.processList(itemJSON, t -> templateList.add((Item) loadGenericFromJson((JSONObject) t, "item")));
 
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             System.out.println("There was an error reading the file.");
-            e.printStackTrace();
-        } catch (ParseException e) {
-            System.out.println("File corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
 
@@ -1197,14 +1191,8 @@ public class JsonBuilder {
 
             Lambda.processList(creatureJSON, t -> templateList.add((Creature) loadGenericFromJson((JSONObject) t, "creature")));
 
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             System.out.println("There was an error reading the file.");
-            e.printStackTrace();
-        } catch (ParseException e) {
-            System.out.println("File corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
 
@@ -1213,14 +1201,8 @@ public class JsonBuilder {
             JSONArray objectJSON = (JSONArray) new JSONParser().parse(reader);
             Lambda.processList(objectJSON, t -> templateList.add((StationaryObject) loadGenericFromJson((JSONObject) t, "stationaryobject")));
 
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             System.out.println("There was an error reading the file.");
-            e.printStackTrace();
-        } catch (ParseException e) {
-            System.out.println("File corrupt, or there was an error during the reading.");
             e.printStackTrace();
         }
 

@@ -22,15 +22,12 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
     private String text;
     private String defaultUse;
-
-
     private String ownerId;
+
     private Creature Owner;
 
     private Map<String, String> descriptions = new HashMap<>();
-
     private Map<String, String> complexUse = new HashMap<>();
-
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
@@ -197,7 +194,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         this.responseScripts = responseScripts;
     }
 
-    //--------- Other ------------
+    //--------- Cool system methods ------------
 
     public String toString() {
         return this.getName();
@@ -231,6 +228,8 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         else
             return -1;
     }
+
+    // -------------------------------------
 
     public String getGender() {
 
@@ -385,7 +384,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         GenericObject subject = this;
 
         if (subject instanceof Item) {
-            world.removeItemFromGeneric((Item) subject, ((Item) subject).getHolder());
+            world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
         } else {
             world.removeFromLocation(subject, subject.getLocation());
@@ -444,17 +443,6 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
 
-//    public static Item create(String Id){
-//
-//        World world = App.getWorld();
-//
-//        Item template = (Item) Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id) && t instanceof Item);
-//
-//        Item newItem = new Item(template);
-//
-//        App.getWorld().addNewToList(newItem);
-//
-//        return newItem;
-//    }
+
 
 }

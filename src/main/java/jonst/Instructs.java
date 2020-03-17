@@ -9,7 +9,7 @@ public class Instructs {
 
 
     public static void drop(Creature subject, String name, World world) {
-        Item item = world.match(subject.getItemList(), name, Lambda.predicateByName(name));
+        Item item = world.match(subject.getItemList(), Lambda.predicateByName(name));
 
         if (item == null) {
             System.out.println(subject.getName() + " isn't carrying that.");
@@ -29,7 +29,7 @@ public class Instructs {
 
     public static void pickUp(Creature subject, String name, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
         if (target == null) {
             System.out.println(subject.getName() + " doesn't see it lying around.");
@@ -73,7 +73,7 @@ public class Instructs {
 
     public static void open(Creature subject, String name, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
         if (target != null) {
             if (target.hasAttribute("openable")) {
@@ -95,7 +95,7 @@ public class Instructs {
 
     public static void close(Creature subject, String name, World world) {
 
-        GenericObject target = world.match(world.getLocalGenericList(), name, Lambda.predicateByName(name));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
 
         if (target != null) {
@@ -118,7 +118,7 @@ public class Instructs {
 
     public static void hug(Creature subject, String[] command, World world) {
 
-        GenericObject gen = world.match(world.getLocalGenericList(), command[1], Lambda.predicateByName(command[1]));
+        GenericObject gen = world.match(world.getLocalGenericList(), Lambda.predicateByName(command[1]));
 
         if (gen == null) {
             System.out.println(subject + " gives you an odd look.");
@@ -157,7 +157,7 @@ public class Instructs {
 
         String heOrShe = HelpfulMethods.capitalize(HelpfulMethods.heOrShe(subject));
 
-        Item item = world.match(subject.getItemList(), name, Lambda.predicateByName(name));
+        Item item = world.match(subject.getItemList(), Lambda.predicateByName(name));
 
         if (item == null) {
             System.out.println(heOrShe + " isn't carrying that.");
@@ -189,7 +189,7 @@ public class Instructs {
 
         String heOrShe = HelpfulMethods.capitalize(HelpfulMethods.heOrShe(subject));
 
-        Item item = world.match(subject.getItemList(), name, Lambda.predicateByName(name));
+        Item item = world.match(subject.getItemList(), Lambda.predicateByName(name));
 
 
         if (item == null) {
@@ -211,8 +211,8 @@ public class Instructs {
     public static void give(Creature subject, String[] commandArray, World world) {
 
 
-        Item item = world.match(subject.getItemList(), commandArray[1], Lambda.predicateByName(commandArray[1]));
-        GenericObject target = world.match(world.getLocalGenericList(), commandArray[3], Lambda.predicateByName(commandArray[3]));
+        Item item = world.match(subject.getItemList(), Lambda.predicateByName(commandArray[1]));
+        GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[3]));
 
         if (!(target instanceof Creature)) {
             System.out.println(subject.getName() + " wonders why you're asking them to present a gift to a non-sentient object.");

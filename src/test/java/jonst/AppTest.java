@@ -17,12 +17,11 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
-        HashMap<String, String> test = new HashMap<>();
 
-        test.put("London", "England");
+        StringBuilder sb = new StringBuilder("   test   ");
+        System.out.println(sb);
 
-        System.out.println(test.get("London"));
-        System.out.println(test.get("Paris"));
+
 
         //assertTrue( true );
     }

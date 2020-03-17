@@ -24,15 +24,28 @@ public class Parser {
         legitimateNouns = new ArrayList<>();
         legitimateSpells = SystemData.getLegitimateSpells();
 
-        for (GenericObject gen : world.getGenericList()) {
-            legitimateNouns.add(gen.getName());
-            legitimateNouns.addAll(gen.getAlias());
-        }
+        world.getGenericList().stream()
+                .forEach(g -> {
+                    legitimateNouns.add(g.getName());
+                    legitimateNouns.addAll(g.getAlias());
+                });
 
-        for (GenericObject gen : world.getTemplateList()) {
-            legitimateNouns.add(gen.getName());
-            legitimateNouns.addAll(gen.getAlias());
-        }
+        world.getTemplateList().stream()
+                .forEach(g -> {
+                    legitimateNouns.add(g.getName());
+                    legitimateNouns.addAll(g.getAlias());
+                });
+
+
+//        for (GenericObject gen : world.getGenericList()) {
+//            legitimateNouns.add(gen.getName());
+//            legitimateNouns.addAll(gen.getAlias());
+//        }
+
+//        for (GenericObject gen : world.getTemplateList()) {
+//            legitimateNouns.add(gen.getName());
+//            legitimateNouns.addAll(gen.getAlias());
+//        }
 
 
         legitimateNouns = HelpfulMethods.removeDuplicatesT((ArrayList<String>) legitimateNouns);
@@ -62,46 +75,14 @@ public class Parser {
         return legitimateSpells;
     }
 
-    public String[] parse(String commandInput) {
-        //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
-
-        StringBuilder commandLine = new StringBuilder(commandInput.toLowerCase().trim());
-
-        String[] cleanCommand = {"", "", "", ""};
-
-        cleanCommand[0] = extractCommand(commandLine);
-
-        if (cleanCommand[0].equalsIgnoreCase("cast")) {
-            cleanCommand[1] = extractSpellNoun(commandLine);
-        } else {
-            cleanCommand[1] = extractNoun(commandLine);
-        }
-
-        if(cleanCommand[1].equals("")){                             //Is the second word not an acceptable noun? Maybe it's a conjunction instead.
-            cleanCommand[1] = extractConjunction(commandLine);
-            cleanCommand[2] = commandLine.toString().trim();
-        } else {
-            cleanCommand[2] = extractConjunction(commandLine);
-            cleanCommand[3] = commandLine.toString().trim();      //Add the remainder
-
-        }
-
-        return cleanCommand;
-    }
-
-
     public void runCommand(String command, World world) {
-
 
         if (command.contains(",")) {
             String[] attemptedNameSplit = command.split(",");
 
-
             command = attemptedNameSplit[1].trim();
 
-
-            GenericObject subject = world.match(world.getLocalGenericList(), attemptedNameSplit[0], Lambda.predicateByName(attemptedNameSplit[0]));
-
+            GenericObject subject = world.match(world.getLocalGenericList(), Lambda.predicateByName(attemptedNameSplit[0]));
 
             if (subject == null) {
                 System.out.println("Who are you talking to?");
@@ -119,7 +100,6 @@ public class Parser {
             return;
         }
 
-
         //This is if you don't try instructing anyone.
         String[] commandArray = parse(command);
 
@@ -130,6 +110,113 @@ public class Parser {
         }
     }
 
+    public void runScriptCommand(GenericObject subject, String script, World world) {
+
+        String[] scriptCommandArray = script.split(":");
+
+        runScriptCommandArray(subject, scriptCommandArray, world);
+    }
+
+    public String[] parse(String commandInput) {
+        //A "Command Phrase" contains four elements: a command, a subject, a preposition, and a last argument. Example: "Throw", "rock", "at", "window".
+
+        StringBuilder commandLine = new StringBuilder(commandInput.toLowerCase().trim());
+
+        String[] cleanCommand = {"", "", "", ""};
+
+        cleanCommand[0] = extractCommand(commandLine);
+
+        if (cleanCommand[0].equalsIgnoreCase("cast")) {
+            cleanCommand[1] = extractSpellNoun(commandLine);
+        } else {
+            cleanCommand[1] = extractNoun(commandLine);
+        }
+
+        if (cleanCommand[1].equals("")) {                             //Is the second word not an acceptable noun? Maybe it's a conjunction instead.
+            cleanCommand[1] = extractConjunction(commandLine);
+            cleanCommand[2] = commandLine.toString().trim();
+        } else {
+            cleanCommand[2] = extractConjunction(commandLine);
+            cleanCommand[3] = commandLine.toString().trim();      //Add the remainder
+        }
+
+        return cleanCommand;
+    }
+
+    //-------- Extract commands for the parser --------------------
+
+    public String extractCommand(StringBuilder sb) {
+        for (String command : legitimateCommands) {
+            if (sb.toString().startsWith(command.toLowerCase())) {     //Now separate the command
+                sb.delete(0, command.length());    //Delete the legit command from the stringbuilder
+                if (sb.length() > 0)
+                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
+                        sb.deleteCharAt(0);
+                return command;
+            }
+        }
+        return "";  //A return if the command isn't found
+    }
+
+    public String extractNoun(StringBuilder sb) {
+        for (String noun : legitimateNouns) {
+            if (sb.toString().startsWith(noun.toLowerCase())) {        //Now separate the noun
+                sb.delete(0, noun.length());    //Delete the legit noun from the stringbuilder
+                if (sb.length() > 0)
+                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
+                        sb.deleteCharAt(0);
+                return noun;
+            }
+        }
+        return "";  //A return if the command isn't found
+    }
+
+    public String extractSpellNoun(StringBuilder sb) {
+        for (String spell : legitimateSpells) {
+            if (sb.toString().startsWith(spell.toLowerCase())) {        //Now separate the noun
+                sb.delete(0, spell.length());    //Delete the legit spell from the stringbuilder
+                if (sb.length() > 0)
+                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
+                        sb.deleteCharAt(0);
+                return spell;
+            }
+        }
+        return "";  //A return if the command isn't found
+    }
+
+    public String extractConjunction(StringBuilder sb) {
+        for (String conj : legitimateConjunctions) {
+            if (sb.toString().startsWith(conj.toLowerCase())) {
+                sb.delete(0, conj.length());    //Delete the legit conjunction from the stringbuilder
+                if (sb.length() > 0)
+                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
+                        sb.deleteCharAt(0);
+                return conj;
+            }
+        }
+        return "";
+    }
+
+    // ----------------------------------------------------------------------
+
+    public void addToNouns(String specificAlias) {
+        legitimateNouns.add(specificAlias);
+        HelpfulMethods.reverseSortStringList(legitimateNouns);
+    }
+
+    public void removeFromNouns(String specificAlias) {
+        if (legitimateNouns.contains(specificAlias)) {
+            legitimateNouns.remove(specificAlias);
+        }
+    }
+
+    public String parseTopic(String term) {
+        if (topicParseList.containsKey(term))
+            return topicParseList.get(term);
+        else
+            return term;
+    }
+    // ----------------------------------------------------------------------
 
     public void runCommandArray(String[] commandArray, World world) {
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
@@ -324,7 +411,7 @@ public class Parser {
         }
     }
 
-    //---------------------------------------------
+    // ----------------------------------------------------------------------
 
     public void runInstructCommandArray(Creature subject, String[] commandArray, World world) {
         switch (commandArray[0].toLowerCase())     //This can be used to parse similar expressions, i.e. "examine" points to "look at".
@@ -440,84 +527,7 @@ public class Parser {
         }
     }
 
-    //---------------------------------------------
-
-    public void addToNouns(String specificAlias) {
-        legitimateNouns.add(specificAlias);
-        HelpfulMethods.reverseSortStringList(legitimateNouns);
-    }
-
-    public void removeFromNouns(String specificAlias) {
-        if (legitimateNouns.contains(specificAlias)) {
-            legitimateNouns.remove(specificAlias);
-        }
-    }
-
-    public String parseTopic(String term) {
-        if (topicParseList.containsKey(term))
-            return topicParseList.get(term);
-        else
-            return term;
-    }
-
-
-    //-------- Extract commands for the parser --------------------
-
-    public String extractCommand(StringBuilder sb) {
-        for (String command : legitimateCommands) {
-            if (sb.toString().startsWith(command.toLowerCase())) {     //Now separate the command
-                sb.delete(0, command.length());    //Delete the legit command from the stringbuilder
-                if (sb.length() > 0)
-                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
-                        sb.deleteCharAt(0);
-                return command;
-            }
-        }
-        return "";  //A return if the command isn't found
-    }
-
-    public String extractNoun(StringBuilder sb) {
-        for (String noun : legitimateNouns) {
-            if (sb.toString().startsWith(noun.toLowerCase())) {        //Now separate the noun
-                sb.delete(0, noun.length());    //Delete the legit noun from the stringbuilder
-                if (sb.length() > 0)
-                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
-                        sb.deleteCharAt(0);
-                return noun;
-            }
-        }
-        return "";  //A return if the command isn't found
-    }
-
-    public String extractSpellNoun(StringBuilder sb) {
-        for (String spell : legitimateSpells) {
-            if (sb.toString().startsWith(spell.toLowerCase())) {        //Now separate the noun
-                sb.delete(0, spell.length());    //Delete the legit spell from the stringbuilder
-                if (sb.length() > 0)
-                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
-                        sb.deleteCharAt(0);
-                return spell;
-            }
-        }
-        return "";  //A return if the command isn't found
-    }
-
-    public String extractConjunction(StringBuilder sb) {
-        for (String conj : legitimateConjunctions) {
-            if (sb.toString().startsWith(conj.toLowerCase())) {
-                sb.delete(0, conj.length());    //Delete the legit conjunction from the stringbuilder
-                if (sb.length() > 0)
-                    while (sb.charAt(0) == ' ')    //Trim off empty spaces
-                        sb.deleteCharAt(0);
-                return conj;
-            }
-        }
-        return "";
-    }
-
-
-    //-------- Magic stuff -------------------------------
-
+    // ----------------------------------------------------------------------
 
     public void runMagicCommandArray(String[] magicCommandArray, World world) {
 
@@ -542,14 +552,9 @@ public class Parser {
 
     }
 
-    //-------- Scriptparser stuff ------------------------
+    // ----------------------------------------------------------------------
 
-    public void runScriptCommand(GenericObject subject, String script, World world) {
 
-        String[] scriptCommandArray = script.split(":");
-
-        runScriptCommandArray(subject, scriptCommandArray, world);
-    }
 
 
     public void runScriptCommandArray(GenericObject subject, String[] scriptCommandArray, World world) {

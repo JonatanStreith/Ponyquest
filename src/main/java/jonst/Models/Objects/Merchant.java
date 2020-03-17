@@ -1,7 +1,7 @@
 package jonst.Models.Objects;
 
 import jonst.Models.BehaviorCore;
-import jonst.Models.Merchandise;
+//import jonst.Models.Merchandise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Merchant extends Creature {
     }
 
     public Merchant(Merchant template) {
-        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehavior(), template.getInitialDialog(), template.getMerchandiseIds());
+        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog(), template.getMerchandiseIds());
 
         merchandiseList = template.getMerchandiseList();
     }

@@ -4,7 +4,7 @@ import jonst.Data.*;
 
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
-import jonst.Models.Merchandise;
+//import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 import jonst.Models.Parser;
 
@@ -47,7 +47,7 @@ public class World {
 
         loadListsFromFile(loadFilePath);        //Build lists
 
-        populateLocationLists();
+        populateLists();
 
         parser = new Parser(this);       //The parser holds lists of words, and parses input
 
@@ -84,7 +84,7 @@ public class World {
     public void transferItemToNewHolder(Item item, GenericObject oldHolder, GenericObject newHolder) {
 
         if (item != null && oldHolder != null && newHolder != null) {
-            removeItemFromGeneric(item, oldHolder);
+            removeItemFromHolder(item, oldHolder);
             addItemToHolder(item, newHolder);
         } else
             System.out.println("Illegal operation: transferItemToNewOwner.");
@@ -96,7 +96,7 @@ public class World {
         object.setLocation(null);
     }
 
-    public void removeItemFromGeneric(Item it, GenericObject gen) {
+    public void removeItemFromHolder(Item it, GenericObject gen) {
         gen.removeItem(it);
         it.setHolder(null);
     }
@@ -112,11 +112,6 @@ public class World {
         holder.addItem(thing);
         thing.setHolder(holder);
 
-//        if (holder instanceof Location) {        //If item is moved to a location, its location field is set to that place. Otherwise, it's set to null.
-//            thing.setLocation((Location) holder);
-//        } else {
-//            thing.setLocation(null);
-//        }
     }
 
     //------------- If new objects are created, they need to be added to the world lists ----------
@@ -159,7 +154,7 @@ public class World {
 
     //-------- List handling -----------------------
 
-    public void populateLocationLists() {
+    public void populateLists() {
 
 
         Lambda.processLists(locationList, new ArrayList<GenericObject>() {{
@@ -224,8 +219,6 @@ public class World {
 
             }
         });
-
-        //List<StationaryObject> vehicleList = Lambda.subList(stationaryObjectList, p -> p instanceof Vehicle);
 
     }
 
@@ -302,27 +295,27 @@ public class World {
 
     public Location getLocationByName(String wantedLocation) {
 
-        return Lambda.getFirst(locationList, l -> l.getName().equalsIgnoreCase(wantedLocation));
+        return Lambda.getFirst(locationList, Lambda.predicateByName(wantedLocation));
     }
 
     public Location getLocationByID(String id) {
 
-        return Lambda.getFirst(locationList, l -> l.getId().equalsIgnoreCase(id));
+        return Lambda.getFirst(locationList, Lambda.predicateById(id));
     }
 
     public Creature getCreature(String wantedCreature) {
 
-        return Lambda.getFirst(creatureList, c -> c.getName().equalsIgnoreCase(wantedCreature));
+        return Lambda.getFirst(creatureList,Lambda.predicateByName(wantedCreature));
     }
 
     public Item getItem(String wantedItem) {
 
-        return Lambda.getFirst(itemList, i -> i.getName().equalsIgnoreCase(wantedItem));
+        return Lambda.getFirst(itemList, Lambda.predicateByName(wantedItem));
     }
 
     public Item getItemById(String wantedItem) {
 
-        return Lambda.getFirst(itemList, i -> i.getId().equalsIgnoreCase(wantedItem));
+        return Lambda.getFirst(itemList, Lambda.predicateById(wantedItem));
     }
 
     public GenericObject getTemplate(String searchName){
@@ -333,7 +326,7 @@ public class World {
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
 
-        return Lambda.getFirst(stationaryObjectList, s -> s.getName().equalsIgnoreCase(wantedStationaryObject));
+        return Lambda.getFirst(stationaryObjectList, Lambda.predicateByName(wantedStationaryObject));
     }
 
     public Dialog getDialogEntry(String dialogKey) {
@@ -343,33 +336,28 @@ public class World {
 
     public GenericObject getGenericObject(String wantedGenericObject) {
 
-        return Lambda.getFirst(genericList, g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+        return Lambda.getFirst(genericList, Lambda.predicateByName(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {
 
-        return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+        return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), Lambda.predicateByName(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericOnGround(String wantedGenericObject) {
 
-        return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
+        return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), Lambda.predicateByName(wantedGenericObject));
     }
 
     public GenericObject getFromInventory(String wantedGenericObject) {
 
-        return Lambda.getFirst(getPlayerInventory(), g -> g.getName().equalsIgnoreCase(wantedGenericObject));
-    }
+        return Lambda.getFirst(getPlayerInventory(), Lambda.predicateByName(wantedGenericObject));
 
+    }
 
     // --------------- Match name methods ------------------------
 
-    public <T extends GenericObject> T match(List<T> list, String name, Predicate<T> predicate) {
-
-//        if (name.equals("")) {
-//            System.out.println("Incomplete command.");
-//            return null;
-//        }
+    public <T extends GenericObject> T match(List<T> list, Predicate<T> predicate) {
 
         List<T> results = Lambda.subList(list, predicate);
 
@@ -384,12 +372,7 @@ public class World {
         }
     }
 
-    public <T extends GenericObject> List<T> matchMultiple(List<T> list, String name, Predicate<T> predicate) {
-
-//        if (name.equals("")) {
-//            System.out.println("Incomplete command.");
-//            return null;
-//        }
+    public <T extends GenericObject> List<T> matchMultiple(List<T> list, Predicate<T> predicate) {
 
         return Lambda.subList(list, predicate);
     }

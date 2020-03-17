@@ -21,7 +21,7 @@ public class Creature extends GenericObject {
     private String gender;
 
     private Map<String, String> askTopics;
-    private BehaviorCore behavior;
+    private BehaviorCore behaviorCore;
     private String defaultRace;
     private String initialDialog;
 
@@ -38,15 +38,15 @@ public class Creature extends GenericObject {
     }
 
     public Creature(Creature template) {
-        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehavior(), template.getInitialDialog());
+        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog());
     }
 
-    public BehaviorCore getBehavior() {
-        return behavior;
+    public BehaviorCore getBehaviorCore() {
+        return behaviorCore;
     }
 
-    public void setBehavior(BehaviorCore behavior) {
-        this.behavior = behavior;
+    public void setBehaviorCore(BehaviorCore behaviorCore) {
+        this.behaviorCore = behaviorCore;
     }
 
     public String getInitialDialog() {
@@ -57,9 +57,6 @@ public class Creature extends GenericObject {
         this.initialDialog = initialDialog;
     }
 
-    public void setBehaviorCore(BehaviorCore behavior) {
-        this.behavior = behavior;
-    }
 
     public void setRace(String race) {
         this.race = race;
@@ -122,38 +119,38 @@ public class Creature extends GenericObject {
     }
 
     public String getMood() {
-        return behavior.getMood();
+        return behaviorCore.getMood();
     }
 
     public String getActivity() {
-        return behavior.getActivity();
+        return behaviorCore.getActivity();
     }
 
     public String getAllegiance() {
-        return behavior.getAllegiance();
+        return behaviorCore.getAllegiance();
     }
 
     public String getStatus() {
-        return behavior.getStatus();
+        return behaviorCore.getStatus();
     }
 
     public boolean setMood(String newMood) {
-        behavior.setMood(newMood);
+        behaviorCore.setMood(newMood);
         return true;
     }
 
     public boolean setActivity(String newActivity) {
-        behavior.setActivity(newActivity);
+        behaviorCore.setActivity(newActivity);
         return true;
     }
 
     public boolean setAllegiance(String newAllegiance) {
-        behavior.setAllegiance(newAllegiance);
+        behaviorCore.setAllegiance(newAllegiance);
         return true;
     }
 
     public boolean setStatus(String newStatus) {
-        behavior.setStatus(newStatus);
+        behaviorCore.setStatus(newStatus);
         return true;
     }
 
@@ -161,7 +158,7 @@ public class Creature extends GenericObject {
 
     public String getPersonalQuote(String key){
 
-        String response = behavior.getPersonalQuotes().get(key);
+        String response = behaviorCore.getPersonalQuotes().get(key);
         if(response != null){
             return response;
         }

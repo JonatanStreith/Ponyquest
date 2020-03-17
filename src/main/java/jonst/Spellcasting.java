@@ -19,7 +19,7 @@ public class Spellcasting {
 
 
 
-        GenericObject gen = world.match(world.getLocalGroundOnly(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
+        GenericObject gen = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(magicCommandArray[3]));
 
 
         if (gen == null) {
@@ -46,7 +46,7 @@ public class Spellcasting {
 
     public static void energize(String[] magicCommandArray, World world) {
 
-        GenericObject genTarget = world.match(world.getLocalGenericList(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
+        GenericObject genTarget = world.match(world.getLocalGenericList(), Lambda.predicateByName(magicCommandArray[3]));
 
 
         if (genTarget != null) {
@@ -69,7 +69,7 @@ public class Spellcasting {
 
     public static void sleep(String[] magicCommandArray, World world) {
 
-        GenericObject genTarget = world.match(world.getLocalGenericList(), magicCommandArray[3], Lambda.predicateByName(magicCommandArray[3]));
+        GenericObject genTarget = world.match(world.getLocalGenericList(), Lambda.predicateByName(magicCommandArray[3]));
 
         if (genTarget != null) {
             if (!(genTarget instanceof Creature)) {
