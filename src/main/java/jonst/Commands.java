@@ -45,7 +45,7 @@ public class Commands {
 
         switch (reply) {
             case "y":
-                String savePath = App.getLoadData();
+                String savePath = Options.getLoadData();
 
                 if (savePath != "") {
                     System.out.println("Loading game...");

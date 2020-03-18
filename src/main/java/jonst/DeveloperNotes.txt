@@ -1,9 +1,4 @@
 
-
-    //IMPORTANT! REVISE A LOT OF THINGS so objects use "ID" instead of names, in case we want to use similar names for things.
-    //No, that's bad.
-
-
     //      Add "spells" as an new class, make list. Can use "cast" command. Trixie may know some spells, and learn others.
 
 
