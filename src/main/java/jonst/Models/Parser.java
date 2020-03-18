@@ -37,17 +37,6 @@ public class Parser {
                 });
 
 
-//        for (GenericObject gen : world.getGenericList()) {
-//            legitimateNouns.add(gen.getName());
-//            legitimateNouns.addAll(gen.getAlias());
-//        }
-
-//        for (GenericObject gen : world.getTemplateList()) {
-//            legitimateNouns.add(gen.getName());
-//            legitimateNouns.addAll(gen.getAlias());
-//        }
-
-
         legitimateNouns = HelpfulMethods.removeDuplicatesT((ArrayList<String>) legitimateNouns);
 
         HelpfulMethods.reverseSortStringList(legitimateCommands);
@@ -635,6 +624,11 @@ public class Parser {
                 Scripts.spawnObject(subject, scriptCommandArray, world);
                 break;
 
+            case "transformobject":
+                //transformobject:objectid
+                Scripts.transformObject(subject, scriptCommandArray, world);
+                break;
+
             case "changeinitdialog":
                 //changeinitdialog:dialogId
                 Scripts.changeInitDialog(subject, scriptCommandArray, world);
@@ -643,6 +637,9 @@ public class Parser {
             case "movefollowers":
                 Scripts.moveFollowers(subject, scriptCommandArray, world);
                 break;
+
+            case "starttimedscript":
+                Scripts.startTimedScript(subject, scriptCommandArray, world);
         }
     }
 

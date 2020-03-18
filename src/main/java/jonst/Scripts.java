@@ -210,12 +210,14 @@ public class Scripts {
             location = world.getLocationByID(scriptCommandArray[1]);
         }
 
-        GenericObject template = world.getTemplate(scriptCommandArray[2]);
+        GenericObject template = world.getTemplateById(scriptCommandArray[2]);
 
         if(template != null && template instanceof StationaryObject) {
             StationaryObject newObject = new StationaryObject((StationaryObject) template);
             world.addToLocation(newObject, location);
             world.addNewToList(newObject);
+
+            newObject.runResponseScript("create");
         }
 
     }
@@ -277,4 +279,36 @@ public class Scripts {
     }
 
 
+    public static void startTimedScript(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        int time = Integer.parseInt(scriptCommandArray[1]);
+        boolean recurring = new Boolean(scriptCommandArray[2]);
+        String message = scriptCommandArray[3];
+
+        String script = HelpfulMethods.arrayToScriptString(HelpfulMethods.shortenArray(scriptCommandArray, 4));
+
+        //String[] trimmedArray = HelpfulMethods.shortenArray(scriptCommandArray, 4);
+
+        world.getTimeKeeper().addScript(script, subject, time, recurring, message);
+
+        //String script, GenericObject subject, int time, boolean recurring, String message
+    }
+
+    public static void transformObject(GenericObject subject, String[] scriptCommandArray, World world) {
+
+        GenericObject template = world.getTemplateById(scriptCommandArray[1]);
+
+        if(template == null){
+            template = world.getGenericObjectById(scriptCommandArray[1]);
+        }
+
+        if(template== null){
+            return;
+        }
+
+        //if(template.getClass() == subject.getClass()){
+            subject.transformInto(template);
+        //}
+
+    }
 }

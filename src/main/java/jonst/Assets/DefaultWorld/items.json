@@ -511,5 +511,28 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Descriptions": {
+      "default": "A small apple seed. You could plant it...",
+      "active": ""
+    },
+    "Id": "Apple_Seed",
+    "FullName": "apple seed",
+    "Type": "generic",
+    "Location": "Creature_Trixie",
+    "DefaultUse": "activate",
+    "Alias": [
+      "seed"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+      "activate": ["writeline:You plant the seed in the ground. Now you just have to wait...",
+        "spawnobject:playerlocation:Object_Planted_Seed",
+        "deletecarrieditem:player:this"]
+    },
+    "ComplexUse": {
+    }
   }
 ]

@@ -41,6 +41,32 @@ public class Creature extends GenericObject {
         this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog());
     }
 
+    public void transformInto(GenericObject template){
+
+
+
+        setName(template.getName());
+        setShortName(template.getShortName());
+        setType(template.getType());
+        setId(template.getId());
+        setAlias(template.getAlias());
+        setAttributes(template.getAttributes());
+
+        setRace(((Creature)template).getRace());
+        setDefaultRace(((Creature)template).getDefaultRace());
+        setGender(template.getGender());
+        setCasualDialog(((Creature)template).getCasualDialog());
+        setAskTopics(((Creature)template).getAskTopics());
+        setDescriptions(template.getDescriptions());
+        setText(template.getText());
+        setDefaultUse(template.getDefaultUse());
+        setComplexUse(template.getComplexUse());
+        setResponseScripts(template.getResponseScripts());
+        setBehaviorCore(((Creature)template).getBehaviorCore());
+        setInitialDialog(((Creature)template).getInitialDialog());
+    }
+
+
     public BehaviorCore getBehaviorCore() {
         return behaviorCore;
     }

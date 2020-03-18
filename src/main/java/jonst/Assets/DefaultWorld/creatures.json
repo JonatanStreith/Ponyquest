@@ -514,7 +514,8 @@
     },
     "ResponseScripts": {
       "hug": [
-        "setmood:happy"
+        "setmood:happy",
+        "transformobject:Creature_Pinkie_Pie"
         ]
     },
     "ComplexUse": {

@@ -12,7 +12,20 @@ import static org.junit.Assert.*;
 public class HelpfulMethodsTest {
 
 
+    @Test
+    public void name() {
+        String[] test = {"starttimedscript","10","It's sprouting!","no"};
 
+
+      String[] result =  HelpfulMethods.shortenArray(test, -2);
+
+        for (String s: result
+             ) {
+            System.out.println(s);
+        }
+
+
+    }
 
     @Test
     public void removeDuplicatesTTest() {

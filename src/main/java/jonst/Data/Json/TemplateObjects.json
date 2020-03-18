@@ -21,5 +21,28 @@
     },
     "ComplexUse": {
     }
+  },
+  {
+    "Descriptions": {
+      "default": "A small seed planted into the ground. It looks boring for now, but just wait...",
+      "sprouting": "It's sprouting into a small plant."
+    },
+    "Id": "Object_Planted_Seed",
+    "FullName": "planted seed",
+    "ShortName": "seed",
+    "Alias": [
+      "seed"
+    ],
+    "Attributes": [
+      "huggable"
+    ],
+    "ResponseScripts": {
+      "create": [
+        "writeline:The seed starts to grow...",
+        "starttimedscript:10:false:The plant starts to sprout!:addattribute:sprouting"
+      ]
+    },
+    "ComplexUse": {
+    }
   }
 ]

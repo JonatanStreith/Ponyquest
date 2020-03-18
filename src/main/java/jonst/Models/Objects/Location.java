@@ -176,4 +176,10 @@ public class Location extends GenericObject {
         return Lambda.exists(world.getExitList(), exit -> exit.connectionExists(this, otherLocation));
 
     }
+
+
+    @Override
+    public void transformInto(GenericObject template) {
+        //
+    }
 }

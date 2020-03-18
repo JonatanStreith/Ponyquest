@@ -39,7 +39,7 @@ public class Item extends GenericObject {
         return true;
     }
 
-    public void transformInto(Item template){
+    public void transformInto(GenericObject template){
         setName(template.getName());
         setId(template.getId());
         setDescriptions(template.getDescriptions());

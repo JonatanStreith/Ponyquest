@@ -191,8 +191,10 @@ public class Commands {
 //        List<GenericObject> genericList = world.getGenericList();
         //Predicate<GenericObject> pred = (GenericObject g) -> g.getName().equals(commandArray[1]) || g.getAlias().contains(commandArray[1]);
 
-        GenericObject target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(commandArray[1]));
-
+        GenericObject target = world.match(world.getPlayerInventory(), Lambda.predicateByName(commandArray[1]));
+        if (target == null) {
+            target = world.match(world.getLocalGroundOnly(), Lambda.predicateByName(commandArray[1]));
+        }
 
         if (target == null) {
             System.out.println("Activate what?");
@@ -1275,52 +1277,46 @@ public class Commands {
 
     }
 
-    public static void hypnotize(String[] commandArray, World world){
+    public static void hypnotize(String[] commandArray, World world) {
         //Example: "hypnotize Spike with pendant".
 
         GenericObject subject = world.getLocalGenericObject(commandArray[1]);
         GenericObject device = world.getFromInventory(commandArray[3]);
 
-        if(subject == null){
+        if (subject == null) {
             System.out.println("Who are you trying to hypnotize?");
             return;
         }
 
-        if (!(subject instanceof Creature)){
+        if (!(subject instanceof Creature)) {
             System.out.println("You're fairly certain you can't hypnotize that.");
             return;
         }
 
-        if(device == null){
+        if (device == null) {
             System.out.println("You're not carrying that.");
             return;
         }
 
-        if(!device.hasAttribute("hypnosis_tool")){
+        if (!device.hasAttribute("hypnosis_tool")) {
             System.out.println("The " + device.getShortName() + " doesn't lend itself well to hypnosis.");
             return;
         }
 
         System.out.println("You wave the " + device.getShortName() + " before " + subject + "'s eyes, while whispering, \"You are getting sleepy... very, very sleepy...\"");
 
-        if(subject.hasAttribute("hypnosis_immunity")){
-            System.out.println(capitalize(heOrShe(subject))+ " gives you an unamused look. They appear to be unaffected.");
+        if (subject.hasAttribute("hypnosis_immunity")) {
+            System.out.println(capitalize(heOrShe(subject)) + " gives you an unamused look. They appear to be unaffected.");
             subject.runResponseScript("hypnosis_failed");
             return;
         } else {
-            System.out.println(capitalize(heOrShe(subject)) + "falls into a deep trance." );
+            System.out.println(capitalize(heOrShe(subject)) + "falls into a deep trance.");
             ((Creature) subject).setStatus("hypnotized");
             subject.runResponseScript("hypnosis_success");
         }
 
 
-
-
     }
-
-
-
-
 
 
     //--------------- Not for direct use -----------------------

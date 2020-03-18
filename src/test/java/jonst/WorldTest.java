@@ -19,6 +19,18 @@ public class WorldTest {
     }
 
     @Test
+    public void name() {
+
+        GenericObject o1 = world.getTemplateById("Item_Food_apple");
+        GenericObject o2 = world.getTemplateById("Item_Teacup");
+        GenericObject o3 = world.getTemplateById("Object_Tree");
+
+        System.out.println(o1.getClass()==o2.getClass());
+        System.out.println(o1.getClass()==o3.getClass());
+
+    }
+
+    @Test
     public void ConstructorTest() {
 
         assertNotNull(world);

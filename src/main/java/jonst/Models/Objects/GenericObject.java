@@ -442,6 +442,8 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     }
 
+    public abstract void transformInto(GenericObject template);
+
 
 
 

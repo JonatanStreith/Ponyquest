@@ -62,13 +62,13 @@ public class HelpfulMethods {
             return "its";
         }
 
-            switch (subject.getGender().toLowerCase()) {
-                case "male":
-                    return "his";
-                case "female":
-                    return "her";
-                default:
-                    return "its";
+        switch (subject.getGender().toLowerCase()) {
+            case "male":
+                return "his";
+            case "female":
+                return "her";
+            default:
+                return "its";
 
         }
     }
@@ -195,5 +195,35 @@ public class HelpfulMethods {
     public static void pause() {
         SystemData.getReply("[Press return to continue]");
     }
+
+
+    public static String[] shortenArray(String[] startArray, int reduction) {
+        String[] newArray = new String[startArray.length - reduction];
+        if (reduction >= 0) {
+            for (int i = reduction; i < startArray.length; i++) {
+                newArray[i - reduction] = startArray[i];
+            }
+        }
+
+        return newArray;
+
+    }
+
+    public static String arrayToScriptString(String[] array){
+        StringBuilder sb = new StringBuilder();
+
+        if(array.length>0){
+            sb.append(array[0]);
+
+            if(array.length>1){
+
+                for (int i = 1; i < array.length; i++) {
+                    sb.append(":"+array[i]);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
 
 }

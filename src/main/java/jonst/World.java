@@ -334,6 +334,11 @@ public class World {
         return Lambda.getFirst(templateList, Lambda.predicateByName(searchName));
     }
 
+    public GenericObject getTemplateById(String id){
+
+        return Lambda.getFirst(templateList, Lambda.predicateById(id));
+    }
+
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
 
@@ -348,6 +353,11 @@ public class World {
     public GenericObject getGenericObject(String wantedGenericObject) {
 
         return Lambda.getFirst(genericList, Lambda.predicateByName(wantedGenericObject));
+    }
+
+    public GenericObject getGenericObjectById(String wantedGenericObject) {
+
+        return Lambda.getFirst(genericList, Lambda.predicateById(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {

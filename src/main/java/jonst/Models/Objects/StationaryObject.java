@@ -15,4 +15,21 @@ public class StationaryObject extends GenericObject {
     public StationaryObject(StationaryObject original) {
         this(original.getName(), original.getShortName(), original.getType(), original.getId(), original.getLocationId(), original.getDefaultLocationId(), original.getAlias(), original.getAttributes(), original.getDescriptions(), original.getText(), original.getDefaultUse(), original.getComplexUse(), original.getResponseScripts(), original.getOwnerId());
     }
+
+    public void transformInto(GenericObject template){
+        setName(template.getName());
+        setShortName(template.getShortName());
+        setType(template.getType());
+        setId(template.getId());
+        setAlias(template.getAlias());
+        setAttributes(template.getAttributes());
+        setDescriptions(template.getDescriptions());
+        setText(template.getText());
+        setDefaultUse(template.getDefaultUse());
+        setComplexUse(template.getComplexUse());
+        setResponseScripts(template.getResponseScripts());
+
+
+        //Todo: Must drop contents if not a container
+    }
 }
