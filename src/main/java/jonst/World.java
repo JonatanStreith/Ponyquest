@@ -7,6 +7,7 @@ import jonst.Models.Exit;
 //import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 import jonst.Models.Parser;
+import jonst.Time.TimeKeeper;
 
 import java.io.File;
 import java.util.*;
@@ -34,6 +35,8 @@ public class World {
 
     private Parser parser;
 
+    private TimeKeeper timeKeeper;
+
 
     public World(String loadFilePath) {
         buildWorld(loadFilePath);
@@ -51,6 +54,8 @@ public class World {
 
         parser = new Parser(this);       //The parser holds lists of words, and parses input
 
+        timeKeeper = new TimeKeeper();
+
         setMainCharacter(getCreature(SystemData.getProtagonist()));             //Establish protagonist
 
     }
@@ -66,6 +71,8 @@ public class World {
 
         {
             parser.runCommand(SystemData.getReply("\nPlease input command: "), this);
+
+            timeKeeper.advance();
         }
     }
 
@@ -277,6 +284,10 @@ public class World {
 
     public Parser getParser() {
         return parser;
+    }
+
+    public TimeKeeper getTimeKeeper() {
+        return timeKeeper;
     }
 
     public List<GenericObject> getLocalGenericList() {
