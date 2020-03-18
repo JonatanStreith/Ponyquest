@@ -3,6 +3,7 @@ package jonst;
 import jonst.Data.SystemData;
 
 
+import java.io.File;
 import java.util.Map;
 
 public class App {
@@ -28,9 +29,9 @@ public class App {
 
         while (true) {
 
-            reply = SystemData.getReply("Do you want to start a (N)ew game, (L)oad a previous save, or access (O)ptions? ");
+            reply = SystemData.getReply("Do you want to start a (N)ew game, (L)oad a previous save, access (O)ptions, or (Q)uit? ");
 
-            switch (reply.toLowerCase()){
+            switch (reply.toLowerCase()) {
                 case "n":
                     System.out.println(SystemData.getIntroBlurb());
                     return SystemData.getDefaultWorld();
@@ -40,14 +41,19 @@ public class App {
 
                     if (loadData != "") {
                         return loadData;
-                    }
-                    else {
+                    } else {
                         System.out.println("Save file not found.");
                     }
                     break;
 
                 case "o":
                     loadOptions();
+                    break;
+
+                case "q":
+                    System.out.println("Goodbye.");
+                    HelpfulMethods.pause();
+                    System.exit(0);
                     break;
 
                 default:
@@ -101,8 +107,93 @@ public class App {
         return world;
     }
 
-    public static void loadOptions(){
-        System.out.println("Unfortunately, options haven't been implemented yet.");
+    public static void loadOptions() {
+
+        while (true) {
+
+            System.out.println("Options menu");
+            System.out.println("------------");
+            System.out.println("1:\tDelete save files");
+            System.out.println("0:\tReturn to main menu");
+            System.out.println();
+            int choice = SystemData.getNumericalReply("Your choice: ", 10);
+
+            switch (choice) {
+                case 1:
+                    deleteSaves();
+                    break;
+
+                case 0:
+                    System.out.println("Returning...");
+                    return;
+
+                default:
+                    System.out.println("That's not an option.");
+                    break;
+
+
+            }
+
+        }
+    }
+
+    public static void deleteSaves() {
+
+        System.out.println("Delsave");
+
+        System.out.println("Available saves:");
+
+        Map<Long, String> saves = JsonBuilder.getSavesMenu();
+
+
+        if (saves.size() == 0) {
+            System.out.println("You have no saved games.");
+        } else {
+            for (Long saveId : saves.keySet()) {
+                System.out.println(saveId + ": " + saves.get(saveId));
+            }
+
+            while (true) {
+                String reply = SystemData.getReply("Please input number of save file to delete: ('c' to cancel) ");
+
+                if (reply.equalsIgnoreCase("c")) {
+                    System.out.println("Loading cancelled.");
+                    return;
+                }
+
+
+                try {
+                    long saveReply = Long.parseLong(reply);
+
+                    if (saves.keySet().contains(saveReply)) {
+                        deleteSave(saves, saveReply);
+                    } else {
+                        System.out.println("That save does not exist.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Incorrect input.");
+                }
+
+            }
+        }
+    }
+
+    public static void deleteSave(Map<Long, String> saves, long saveReply) {
+
+        String name = saveReply+saves.get(saveReply);
+        //Delete folder
+        String filePath = SystemData.getSavepath() + saveReply + saves.get(saveReply);
+        File save = new File(filePath);
+        SystemData.deleteDir(save);
+
+
+
+
+        //Delete map entry
+        saves.remove(saveReply);
+
+        System.out.println("Save \"" + name + "\" deleted.");
+
     }
 
 }
