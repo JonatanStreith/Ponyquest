@@ -115,3 +115,8 @@ Idea: Add "MazeLocation" (extends Location) for places like caves and deep fores
 Hypnotize command. Requires hypnotizing item.
 
 Have book of hypnotism somewhere you need to find, with legit phrases. Some creatures are hypno-proof.
+
+
+Once we have a time function in the works, we could have timed scripts running in the background.
+For instance, let's say we plant a seed. It starts the script "advanceseed:seedId:500", and a timedScript object is created. When time advances, timedScripts
+tick down. Once it reaches zero, something happens!
