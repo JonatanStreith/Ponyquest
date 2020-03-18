@@ -73,7 +73,7 @@ public class App {
         if (saves.size() > 0) {
 
             for (Long saveId : saves.keySet()) {
-                System.out.println(saveId + ": " + saves.get(saveId));
+                System.out.println(saveId + ":\t" + saves.get(saveId));
             }
 
             while (true) {
@@ -139,8 +139,6 @@ public class App {
 
     public static void deleteSaves() {
 
-        System.out.println("Delsave");
-
         System.out.println("Available saves:");
 
         Map<Long, String> saves = JsonBuilder.getSavesMenu();
@@ -150,7 +148,7 @@ public class App {
             System.out.println("You have no saved games.");
         } else {
             for (Long saveId : saves.keySet()) {
-                System.out.println(saveId + ": " + saves.get(saveId));
+                System.out.println(saveId + ":\t" + saves.get(saveId));
             }
 
             while (true) {
@@ -191,6 +189,8 @@ public class App {
 
         //Delete map entry
         saves.remove(saveReply);
+
+        JsonBuilder.buildSavesMenu(saves);
 
         System.out.println("Save \"" + name + "\" deleted.");
 
