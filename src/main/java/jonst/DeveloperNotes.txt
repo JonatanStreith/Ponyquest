@@ -121,3 +121,13 @@ Once we have a time function in the works, we could have timed scripts running i
 For instance, let's say we plant a seed. It starts the script "advanceseed:seedId:500", and a timedScript object is created. When time advances, timedScripts
 tick down. Once it reaches zero, something happens!
 
+
+TODO!
+Develop runnable method to build the DefaultWorld files more efficiently - from templates and a caselist where everything is supposed to be,
+so you don't have to get all up editing every file detail over and over. Would be much neater to just have one place dictating "place 5 Item_Apple
+and one Item_plow at Location_Acres" and have the different method retrieving everything from templates.
+
+Idea: See if we can have every template as a separate file, and just try to run the check on the folder. Then you can just add a new file if
+you want a new template.
+
+Copy things to the templates. Everything needs to be represented.
