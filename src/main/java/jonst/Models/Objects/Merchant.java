@@ -15,6 +15,8 @@ public class Merchant extends Creature {
 
     private List<Item> merchandiseList;
 
+    //TODO: Can a merchant have a combo of unique and generic items? If you sell an item to them, will they remember that specific one?
+
     public Merchant(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, BehaviorCore bc, String initialDialog, List<String> merchandiseIds) {
         super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, race, defaultRace, gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerId, bc, initialDialog);
         setMerchandiseIds(merchandiseIds);

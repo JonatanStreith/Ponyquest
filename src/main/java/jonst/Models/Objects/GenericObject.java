@@ -238,7 +238,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     public String getGender() {
 
         if (this instanceof Creature) {
-            return ((Creature) this).getGender();
+            return this.getGender();
         }
         return "neuter";
     }
@@ -281,7 +281,15 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public boolean hasAttribute(String attr) {
+
         return attributes.contains(attr);
+    }
+    public boolean hasAnyAttributes(String[] attributeArray) {
+        for (String attr: attributeArray) {
+            if(attributes.contains(attr))
+                return true;
+        }
+        return false;
     }
 
     public boolean addAttribute(String attr) {
@@ -382,7 +390,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
              || (getOwner().getLocation() != location)  //Owner is not present
              || (getOwner().hasStatus("sleeping"))      //Owner is asleep
              || (getOwner().hasAllegiance("allied"))    //Owner is on your side
-             || (getOwner().hasAttribute("charmed"))    //Owner has been charmed
+             || (getOwner().hasAnyAttributes(new String[]{"charmed"}))    //Owner has any relevant attributes
         )
             return false;
 
@@ -419,13 +427,12 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         if (!(this instanceof Item)) {
             return locationId;
         } else {
-
             return ((Item) this).getHolder().getId();
-
-
         }
     }
 
+
+    //TODO: Move this to World
     public static GenericObject create(String Id) {
         World world = App.getWorld();
 

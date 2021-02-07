@@ -12,9 +12,6 @@ import java.util.function.Predicate;
 
 public class Location extends GenericObject {
 
-//
-//    private List<String> legitimateExits = new ArrayList<>();
-
     private String defaultEnterId;
     private String defaultExitId;
 
@@ -40,8 +37,6 @@ public class Location extends GenericObject {
         creaturesAtLocation = new ArrayList<Creature>();
         objectsAtLocation = new ArrayList<StationaryObject>();
     }
-
-
 
     //--------- Getters ------------
 
@@ -101,9 +96,9 @@ public class Location extends GenericObject {
     public void remove(GenericObject obj) {
         if (isAtLocation(obj)) {
             if (obj instanceof Creature) {
-                creaturesAtLocation.remove((Creature) obj);
+                creaturesAtLocation.remove(obj);
             } else if (obj instanceof StationaryObject) {
-                objectsAtLocation.remove((StationaryObject) obj);
+                objectsAtLocation.remove(obj);
             }
         }
     }
@@ -177,9 +172,9 @@ public class Location extends GenericObject {
 
     }
 
-
+    //TODO: Transform locations
     @Override
     public void transformInto(GenericObject template) {
-        //
+        System.out.println("Cannot transform entire locations yet.");
     }
 }
