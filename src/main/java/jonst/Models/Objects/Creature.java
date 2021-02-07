@@ -160,6 +160,14 @@ public class Creature extends GenericObject {
         return behaviorCore.getStatus();
     }
 
+    public boolean hasAllegiance(String allegiance) {
+        return behaviorCore.getAllegiance().equalsIgnoreCase(allegiance);
+    }
+
+    public boolean hasStatus(String status) {
+        return behaviorCore.getStatus().equalsIgnoreCase(status);
+    }
+
     public boolean setMood(String newMood) {
         behaviorCore.setMood(newMood);
         return true;

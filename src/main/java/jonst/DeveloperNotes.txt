@@ -1,4 +1,7 @@
 
+Make some generic methods to test objects for certain qualifications in the Commands class.
+Like "isCreature", "isItem", "hasFlag", "isPresent", etc. So I don't have to run convoluted if trees.
+
     //      Add "spells" as an new class, make list. Can use "cast" command. Trixie may know some spells, and learn others.
 
 
@@ -99,8 +102,14 @@ Change the exit to the new ones.
 
 Add "showFlags" to Gen.: Notices that are supposed to suffix objects when looked at, i.e. "Bucket (full), cape (worn)"
 
+MAKE ATTRIBUTE CHECKS CASE INSENSITIVE!
 
 See if we can build a method that tries to "find a path" using exit binders...
+
+Alt. idea for moving around - "travel" command, but can only travel to location that is reachable. Figure out algorithm for checking this.
+Easiest would be to set up two lists: searchable and searched. Add current location to the searchable list. Then "search":
+check adjacent locations if any is the target. If not, add them all to searchable as long as they're not on searched. Remove current from
+searchable and add it to searched. Then check topmost searchable. Repeat until target is found or list is empty.
 
 
 Merchant stuff:
@@ -120,6 +129,15 @@ Have book of hypnotism somewhere you need to find, with legit phrases. Some crea
 Once we have a time function in the works, we could have timed scripts running in the background.
 For instance, let's say we plant a seed. It starts the script "advanceseed:seedId:500", and a timedScript object is created. When time advances, timedScripts
 tick down. Once it reaches zero, something happens!
+
+Equippable enchants!
+Have a "settings" object that reads in the properties and can provide the paths
+Turn attributes list into map; allows adding string messages to use. For insance, Phyllis the plant may have the attribute "untakable": "Starlight won't let you."
+Have some way to rename objects under certain circumstances. For instance, casting "detect poison" on a group of apples would rename it apple (poisoned).
+Make world, parser singleton.
+Flytta objekttolkning till parser istället för att låta World göra det (eller skapa annat objekt som gör det)
+Timekeeper object, Advance method.
+Add isWearing method to Creature class.
 
 
 TODO!

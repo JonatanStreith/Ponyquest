@@ -118,7 +118,7 @@
       "red apple"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
       "fireball": ["destroyitem"],
@@ -144,7 +144,7 @@
       "red apple"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
       "fireball": ["destroyitem"],
@@ -170,7 +170,7 @@
       "red apple"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
       "fireball": ["destroyitem"],
@@ -196,7 +196,7 @@
       "red apple"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
       "fireball": ["destroyitem"],
@@ -222,7 +222,7 @@
       "red apple"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
       "fireball": ["destroyitem"],
@@ -248,7 +248,7 @@
       "vegetables"
     ],
     "Attributes": [
-      "Edible"
+      "edible"
     ],
     "ResponseScripts": {
 

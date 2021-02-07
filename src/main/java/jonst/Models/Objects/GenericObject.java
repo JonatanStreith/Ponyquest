@@ -31,7 +31,12 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
-    public GenericObject(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String text, String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
+    public GenericObject(
+            String name, String shortName, String type, String id, String locationId,
+            String defaultLocationId, List<String> alias, List<String> attributes, String text,
+            String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse,
+            Map<String, ArrayList<String>> responseScripts, String ownerId
+    ) {
         setName(name);
         setShortName(shortName);
         setType(type);
@@ -213,7 +218,6 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         return hash;
     }
 
-
     public boolean equals(GenericObject other) {
         if (other.getName().equals(this.getName()) && other.getAlias().equals(this.getAlias()))
             return true;
@@ -241,7 +245,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public String getDescription() {
 
+        // This method returns a string combining various relevant descriptions of the object
+
         StringBuilder fullDescription = new StringBuilder(descriptions.get("default"));
+
+        // Creatures can have specific descriptions pertaining to various races, moods, and statuses
 
         if (this instanceof Creature) {
             if (descriptions.keySet().contains(((Creature) this).getRace())) {
@@ -254,6 +262,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
                 fullDescription.append(" " + descriptions.get(((Creature) this).getStatus()));
             }
         }
+
+        //Options for other classes
+
+
+        // Descriptions specific to any current attributes
 
         for (String attr : getAttributes()) {
             if (descriptions.keySet().contains(attr)) {
@@ -330,7 +343,9 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public boolean addAlias(String specificAlias) {
-        alias.add(specificAlias);
+        if (!alias.contains(specificAlias)) {
+            alias.add(specificAlias);
+        }
         App.getWorld().getParser().addToNouns(specificAlias);
         return true;
     }
@@ -362,17 +377,14 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public boolean isOwnerPayingAttention() {
 
-        if (getOwner() == null) {     //No owner is set
+        if (
+                (getOwner() == null)                    //No owner is set
+             || (getOwner().getLocation() != location)  //Owner is not present
+             || (getOwner().hasStatus("sleeping"))      //Owner is asleep
+             || (getOwner().hasAllegiance("allied"))    //Owner is on your side
+             || (getOwner().hasAttribute("charmed"))    //Owner has been charmed
+        )
             return false;
-        } else if (getOwner().getLocation() != location) {        //Owner is not present
-            return false;
-        } else if (getOwner().getStatus().equalsIgnoreCase("sleeping")) {     //Owner is asleep
-            return false;
-        } else if (getOwner().getAllegiance().equalsIgnoreCase("allied")) {  //Owner is on your side
-            return false;
-        } else if (getOwner().hasAttribute("charmed")) {                                  //Owner has been charmed
-            return false;
-        }
 
         return true;
     }
@@ -386,6 +398,8 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         if (subject instanceof Item) {
             world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
+        } else if(subject instanceof Location)   {
+            System.out.println("Destroying a location is not supported yet.");  //TODO: Destroying locations
         } else {
             world.removeFromLocation(subject, subject.getLocation());
             world.removeFromList(subject);
@@ -443,8 +457,6 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public abstract void transformInto(GenericObject template);
-
-
 
 
 }

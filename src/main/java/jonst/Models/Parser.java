@@ -189,8 +189,10 @@ public class Parser {
     // ----------------------------------------------------------------------
 
     public void addToNouns(String specificAlias) {
-        legitimateNouns.add(specificAlias);
-        HelpfulMethods.reverseSortStringList(legitimateNouns);
+        if (!legitimateNouns.contains(specificAlias)) {
+            legitimateNouns.add(specificAlias);
+            HelpfulMethods.reverseSortStringList(legitimateNouns);
+        }
     }
 
     public void removeFromNouns(String specificAlias) {

@@ -2,10 +2,7 @@ package jonst.Data;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class SystemData {
 
@@ -22,6 +19,35 @@ public class SystemData {
             "A great and powerful magician went to Ponyville to awe and impress. That didn't end very well. Later, she returned for vengeance. That didn't quite work out either.\n" +
             "Then she returned again and made a great friend, and later helped save Equestria from the changeling menace, proving how all those neighsayers were foolish and wrong for doubting Trixie.\n" +
             "Now, Trixie has returned to Ponyville once again. What adventures await her this time?";
+
+
+    public static String getReply(String line) {
+        System.out.print(line);
+        return inputReader.nextLine();
+    }
+
+    public static int getNumericalReply(String line, int maxNum){
+
+        while(true){
+            System.out.print(line);
+            String response = inputReader.nextLine();
+            int output;
+            try{
+                output = Integer.parseInt(response);
+            } catch (Exception e) {
+                System.out.println("That's not a legitimate choice.");
+                continue;
+            }
+
+            if(output <= maxNum && output >= 0){
+                return output;
+            } else {
+                System.out.println("That's not a legitimate choice.");
+            }
+        }
+    }
+
+
 
     public static String getGamepath() {
         return gamepath;
@@ -51,163 +77,44 @@ public class SystemData {
         return protagonist;
     }
 
+
+
     public static ArrayList getLegitimateCommands() {
-        return new ArrayList<String>() {{
-            add("save");        //Works!
-            add("load");        //Works!
-            add("quicksave");   //Works!
-            add("quickload");   //Works!
-            add("look at");     //Works!
-            add("look around"); //Works!
-            add("look");        //Works!
-            add("go to");       //Works!
-            add("go");          //Works!
-            add("enter");       //Works!
-            add("exit");        //Works!
-            add("use");         //Works!
-            add("pick up");     //Works
-            add("talk to");     //Works!
-            add("talk");        //Works!
-            add("quit");        //Works!
-            add("drop");        //Works!
-            add("ask");         //Works
-            add("read");        //Works
+        return new ArrayList<>(Arrays.asList(
+                "save",     "load",     "quicksave",    "quickload",    "look at",  "look around",  "look",
+                "go to",    "go",       "enter",        "exit",         "use",      "pick up",      "talk to",
+                "talk",     "quit",     "drop",         "ask",          "read",     "chat with",    "exits",
+                "teleport", "teleport to",              "help",         "put",      "place",        "harvest",
+                "commands", "nouns",    "inventory",    "give",         "take",     "retrieve",     "transform",
+                "hug",      "wear",     "remove",       "put on",       "take off", "create",       "activate",
+                "open",     "close",    "eat",          "board",        "ride",     "follow",       "follow me",
+                "stop follow",          "stop following me",            "cast",
+                "shop",     "barter",   "buy",          "sell",
 
-            add("chat with");   //Works
-
-
-
-            add("exits");       //Works!
-            add("teleport to"); //Works!
-            add("teleport");    //Works!
-            add("help");        //Works!
-            add("commands");    //Works!
-            add("nouns");       //Works!
-            add("inventory");   //Works!
-
-            add("give");        //Works
-            add("take");        //Works
-            add("retrieve");    //Works
-            add("put");         //Works
-            add("place");       //Works
-            add("hug");         //Works
-
-            add("wear");        //Works
-            add("remove");      //Works
-            add("put on");      //Works
-            add("take off");    //Works
-
-            add("create");      //Works!
-
-
-            add("transform");   //Works!
-
-
-            add("harvest");     //Broken
-
-            add("open");        //Works!
-            add("close");       //Works!
-            add("activate");    //Works!
-
-            add("eat");         //Works!
-
-            add("board");       //Works!
-            add("ride");        //Works!
-
-
-            add("follow");      //Works!
-            add("follow me");   //Works!
-            add("stop follow"); //Works!
-            add("stop following me");   //Works!
-
-            add("cast");        //Test spells for specifics.
-
-            add("shop");
-            add("barter");
-            add("buy");
-            add("sell");
-
-            add("attack");      //Not implemented
-            add("brandish");    //Not implemented
-
-
-
-        }};
+                "attack",   "brandish"    //Not implemented
+        ));
     }
 
     public static ArrayList getDefaultNouns() {
-        return new ArrayList<String>() {{
-            add("anyitem");
-            add("anycreature");
-            add("anylocation");
-            add("anygenericobject");
-        }};
+        return new ArrayList<>(Arrays.asList(
+                "anyitem","anycreature","anylocation","anygenericobject"
+        ));
     }
-
 
     public static ArrayList getLegitimateConjunctions() {
-        return new ArrayList<String>() {{
-            add("to");
-            add("about");
-            add("behind");
-            add("at");
-            add("under");
-            add("in front of");
-            add("on");
-            add("in");
-            add("for");
-            add("from");
-            add("inside");
-            add("into");
-            add("with");
-        }};
+        return new ArrayList<>(Arrays.asList(
+                "to",   "about",    "behind",   "at",   "under",    "in front of",
+                "on",   "in",       "for",      "from", "inside",   "into",         "with"
+        ));
     }
-
 
     public static ArrayList getLegitimateSpells() {
-        return new ArrayList<String>() {{
-            add("fireball");
-            add("teleport");
-            add("bodyswap");
-            add("telekinesis");
-            add("cloudwalk");
-            add("disintegrate");
-            add("fireworks");
-            add("wings");
-            add("want it need it");
-            add("sleep");
-            add("energize");
-            add("transform");
-            add("create");
-        }};
+        return new ArrayList<>(Arrays.asList(
+                "fireball",     "teleport",     "bodyswap", "telekinesis",      "cloudwalk",
+                "disintegrate", "fireworks",    "wings",    "want it need it",  "sleep",
+                "energize",     "transform",    "create"
+        ));
     }
-
-    public static String getReply(String line) {
-        System.out.print(line);
-        return inputReader.nextLine();
-    }
-
-    public static int getNumericalReply(String line, int maxNum){
-
-        while(true){
-            System.out.print(line);
-            String response = inputReader.nextLine();
-            int output;
-            try{
-                output = Integer.parseInt(response);
-            } catch (Exception e) {
-                System.out.println("That's not a legitimate choice.");
-                continue;
-            }
-
-            if(output <= maxNum && output >= 0){
-                return output;
-            } else {
-                System.out.println("That's not a legitimate choice.");
-            }
-        }
-    }
-
 
     public static Map<String, String> getTopicParseList(){
         return new HashMap(){{
@@ -245,7 +152,6 @@ public class SystemData {
 
 
     }
-
 
     public static void deleteDir(File file) {
         File[] contents = file.listFiles();

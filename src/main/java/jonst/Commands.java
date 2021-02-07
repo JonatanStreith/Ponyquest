@@ -1,6 +1,6 @@
 package jonst;
 
-import com.sun.xml.internal.bind.v2.TODO;
+
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
@@ -399,7 +399,6 @@ public class Commands {
         GenericObject target = world.match(fuseLists(world.getPlayerInventory(), world.getLocalGroundOnly()), Lambda.predicateByName(name));
 
         if (target == null) {
-            //If not, you can't open it.
             System.out.println("Open what?");
             return;
         }
