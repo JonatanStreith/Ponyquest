@@ -1,7 +1,6 @@
 package jonst;
 
 import jonst.Data.ReverseSortIgnoreCase;
-import jonst.Data.SortIgnoreCase;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
@@ -14,7 +13,7 @@ public class HelpfulMethods {
 
     public static String heOrShe(GenericObject subject) {
 
-        if (subject == App.getWorld().getPlayer()) {
+        if (subject == Game.getWorld().getPlayer()) {
             return "you";
         }
 
@@ -35,7 +34,7 @@ public class HelpfulMethods {
 
     public static String himOrHer(GenericObject subject) {
 
-        if (subject == App.getWorld().getPlayer()) {
+        if (subject == Game.getWorld().getPlayer()) {
             return "yourself";
         }
 
@@ -55,7 +54,7 @@ public class HelpfulMethods {
 
     public static String hisOrHer(GenericObject subject) {
 
-        if (subject == App.getWorld().getPlayer()) {
+        if (subject == Game.getWorld().getPlayer()) {
             return "your";
         }
         if (!(subject instanceof Creature)) {

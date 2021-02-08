@@ -1,6 +1,9 @@
 package jonst.Models;
 
-import jonst.*;
+import jonst.CommandSheets.Commands;
+import jonst.CommandSheets.Instructs;
+import jonst.CommandSheets.Scripts;
+import jonst.CommandSheets.Spellcasting;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;

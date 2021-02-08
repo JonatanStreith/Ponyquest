@@ -1,7 +1,7 @@
 package jonst.Time;
 
 
-import jonst.App;
+import jonst.Game;
 import jonst.Models.Objects.GenericObject;
 import jonst.Models.World;
 
@@ -59,7 +59,7 @@ public class TimedScript {
 
     public void activate(){
 
-        World world = App.getWorld();
+        World world = Game.getWorld();
         world.getParser().runScriptCommand(subject, script, world);
         System.out.println(message);
 

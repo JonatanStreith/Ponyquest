@@ -130,17 +130,6 @@ public class JsonBuilder {
             put("ComplexUse", gen.getComplexUse());
             put("ResponseScripts", gen.getResponseScripts());
 
-//            put("ResponseScripts", new JSONObject() {{
-//                for (String key : gen.getResponseScripts().keySet()) {
-//                    JSONArray scriptArray = new JSONArray() {{
-//                        for (String script : gen.getResponseScripts().get(key)) {
-//                            add(script);
-//                        }
-//                    }};
-//                    put(key, scriptArray);
-//                }
-//            }});
-
             if (gen instanceof Creature) {
 
                 //Creature-specific attributes here
@@ -296,6 +285,7 @@ public class JsonBuilder {
     public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
         //Generic
 
+//        JSONObject jsIdentityCore = (JSONObject) jObj.get("IdentityCore");
         IdentityCore identityCore = new IdentityCore(
                 (String) jObj.get("FullName"),
                 (String) jObj.get("ShortName"),

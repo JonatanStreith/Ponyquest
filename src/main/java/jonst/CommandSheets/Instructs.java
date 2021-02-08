@@ -1,6 +1,7 @@
-package jonst;
+package jonst.CommandSheets;
 
 import jonst.Data.Lambda;
+import jonst.HelpfulMethods;
 import jonst.Models.Objects.*;
 import jonst.Models.World;
 

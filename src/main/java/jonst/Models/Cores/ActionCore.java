@@ -1,6 +1,6 @@
 package jonst.Models.Cores;
 
-import jonst.App;
+import jonst.Game;
 import jonst.Models.Objects.GenericObject;
 
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class ActionCore {
 
         if (responseCommands != null) {
             for (String script : responseCommands) {
-                App.getWorld().getParser().runScriptCommand(target, script, App.getWorld());
+                Game.getWorld().getParser().runScriptCommand(target, script, Game.getWorld());
             }
             return true;
         }

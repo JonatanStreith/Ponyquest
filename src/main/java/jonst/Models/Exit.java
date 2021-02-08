@@ -2,6 +2,10 @@ package jonst.Models;
 
 import jonst.Models.Objects.Location;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Exit {
     private Location[] connectsLocations;
     private boolean open;
@@ -31,6 +35,18 @@ public class Exit {
         open = false;
     }
 
+    public List<Location> getConnectingLocations(Location current){
+
+        List<Location> connecting = Arrays.asList(connectsLocations);
+
+        if(connecting.contains(current)) {
+            connecting.remove(current);
+            return connecting;
+        }
+        return null;
+    }
+
+
     public Location getConnectingLocation(Location current){
         if(connectsLocations[0] == current){
             return connectsLocations[1];
@@ -50,9 +66,13 @@ public class Exit {
 
     public boolean containsLocation(Location loc){
         //does this exit connect to this one location?
-        if(connectsLocations[0] == loc ||  connectsLocations[1] == loc){
-            return true;
+
+        for (Location l: connectsLocations
+             ) {
+            if(l == loc)
+                return true;
         }
+
         return false;
     }
 

@@ -1,6 +1,8 @@
-package jonst;
+package jonst.CommandSheets;
 
+import jonst.CommandSheets.Commands;
 import jonst.Data.Lambda;
+import jonst.HelpfulMethods;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 import jonst.Models.World;
@@ -241,42 +243,42 @@ public class Scripts {
         }
     }
 
-    public static void removeExit(String location1, String location2, World world) {
-
-        List<Exit> allExits = world.getExitList();
-
-        Location loc1 = world.getLocationByID(location1);
-        Location loc2 = world.getLocationByID(location2);
-
-        if (loc1 != null && loc2 != null) {
-
-            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
-
-            if (potentialExit != null) {
-                world.removeExit(potentialExit);
-            }
-        }
-    }
-
-    public static void addExit(String location1, String location2, World world) {
-
-        List<Exit> allExits = world.getExitList();
-
-        Location loc1 = world.getLocationByID(location1);
-        Location loc2 = world.getLocationByID(location2);
-
-        if (loc1 != null && loc2 != null) {
-
-            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
-
-            if (potentialExit == null) {
-
-                Exit newExit = new Exit(new Location[]{loc1, loc2}, true);
-
-                world.addExit(newExit);
-            }
-        }
-    }
+//    public static void removeExit(String location1, String location2, World world) {
+//
+//        List<Exit> allExits = world.getExitList();
+//
+//        Location loc1 = world.getLocationByID(location1);
+//        Location loc2 = world.getLocationByID(location2);
+//
+//        if (loc1 != null && loc2 != null) {
+//
+//            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
+//
+//            if (potentialExit != null) {
+//                world.removeExit(potentialExit);
+//            }
+//        }
+//    }
+//
+//    public static void addExit(String location1, String location2, World world) {
+//
+//        List<Exit> allExits = world.getExitList();
+//
+//        Location loc1 = world.getLocationByID(location1);
+//        Location loc2 = world.getLocationByID(location2);
+//
+//        if (loc1 != null && loc2 != null) {
+//
+//            Exit potentialExit = Lambda.getFirst(allExits, e -> e.connectionExists(loc1, loc2));
+//
+//            if (potentialExit == null) {
+//
+//                Exit newExit = new Exit(new Location[]{loc1, loc2}, true);
+//
+//                world.addExit(newExit);
+//            }
+//        }
+//    }
 
 
     public static void startTimedScript(GenericObject subject, String[] scriptCommandArray, World world) {

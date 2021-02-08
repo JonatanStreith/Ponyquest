@@ -1,14 +1,11 @@
 package jonst.Models;
 
-import jonst.Commands;
+import jonst.CommandSheets.Commands;
 import jonst.Data.*;
 
 import jonst.JsonBuilder;
-import jonst.Models.Dialog;
-import jonst.Models.Exit;
 //import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
-import jonst.Models.Parser;
 import jonst.Time.TimeKeeper;
 
 import java.io.File;

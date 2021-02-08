@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class GameTest
 {
     /**
      * Rigorous Test :-)

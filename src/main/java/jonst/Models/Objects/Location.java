@@ -1,6 +1,6 @@
 package jonst.Models.Objects;
 
-import jonst.App;
+import jonst.Game;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
@@ -10,7 +10,6 @@ import jonst.Models.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Location extends GenericObject {
 
@@ -160,7 +159,7 @@ public class Location extends GenericObject {
 
     public List<Exit> getExits() {
 
-        return Lambda.subList(App.getWorld().getExitList(), a -> a.containsLocation(this));
+        return Lambda.subList(Game.getWorld().getExitList(), a -> a.containsLocation(this));
 
     }
 

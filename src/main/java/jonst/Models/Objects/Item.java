@@ -1,16 +1,12 @@
 package jonst.Models.Objects;
 
 
-import jonst.App;
+import jonst.Game;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
 import jonst.Models.World;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Item extends GenericObject {
 
@@ -56,13 +52,13 @@ public class Item extends GenericObject {
 
     public static Item create(String Id){
 
-        World world = App.getWorld();
+        World world = Game.getWorld();
 
         Item template = (Item) Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id) && t instanceof Item);
 
         Item newItem = new Item(template);
 
-        App.getWorld().addNewToList(newItem);
+        Game.getWorld().addNewToList(newItem);
 
         return newItem;
     }

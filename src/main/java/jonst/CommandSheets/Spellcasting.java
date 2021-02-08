@@ -1,7 +1,8 @@
-package jonst;
+package jonst.CommandSheets;
 
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
+import jonst.HelpfulMethods;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 import jonst.Models.World;

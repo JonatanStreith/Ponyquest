@@ -1,4 +1,4 @@
-package jonst;
+package jonst.CommandSheets;
 
 
 import jonst.Data.Lambda;
@@ -7,6 +7,7 @@ import jonst.Models.Dialog;
 //import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
 import jonst.Models.World;
+import jonst.Options;
 
 
 import java.util.ArrayList;

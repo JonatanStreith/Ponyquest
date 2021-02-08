@@ -1,6 +1,6 @@
 package jonst.Models.Objects;
 
-import jonst.App;
+import jonst.Game;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
@@ -8,7 +8,6 @@ import jonst.Models.Cores.RelationCore;
 import jonst.Models.World;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -308,7 +307,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         if (!identityCore.getAlias().contains(specificAlias)) {
             identityCore.getAlias().add(specificAlias);
         }
-        App.getWorld().getParser().addToNouns(specificAlias);
+        Game.getWorld().getParser().addToNouns(specificAlias);
         return true;
     }
 
@@ -316,7 +315,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         if (identityCore.getAlias().contains(specificAlias)) {
             identityCore.getAlias().remove(specificAlias);
         }
-        App.getWorld().getParser().removeFromNouns(specificAlias);
+        Game.getWorld().getParser().removeFromNouns(specificAlias);
         return true;
     }
 
@@ -344,7 +343,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public void destroy() {
 
-        World world = App.getWorld();
+        World world = Game.getWorld();
 
         GenericObject subject = this;
 
@@ -379,7 +378,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //TODO: Move this to World
     public static GenericObject create(String Id) {
-        World world = App.getWorld();
+        World world = Game.getWorld();
 
         GenericObject templ = Lambda.getFirst(world.getTemplateList(), t -> t.getId().equals(Id));
         GenericObject gen;
@@ -400,7 +399,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
             gen = null;
         }
         if (gen != null) {
-            App.getWorld().addNewToList(gen);
+            Game.getWorld().addNewToList(gen);
         }
 
         return gen;

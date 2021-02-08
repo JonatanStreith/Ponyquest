@@ -2,7 +2,7 @@ package jonst;
 
 import jonst.Models.World;
 
-public class App {
+public class Game {
 
     private static World world;
 
