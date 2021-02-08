@@ -3,6 +3,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
+import jonst.Models.Cores.IdentityCore;
 import jonst.Models.World;
 
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ public class Item extends GenericObject {
     private GenericObject holder;
 
 
-    public Item(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    public Item(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
+        super(identityCore, locationId, defaultLocationId, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
     }
 
     public Item(Item template){
-        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
     }
 
     public GenericObject getHolder() {

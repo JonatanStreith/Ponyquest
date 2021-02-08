@@ -1,5 +1,7 @@
 package jonst.Models.Objects;
 
+import jonst.Models.Cores.IdentityCore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,15 +12,15 @@ public class Vehicle extends StationaryObject {
 
     List<Location> destinations;
 
-    public Vehicle(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, List<String> destinationIds) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+    public Vehicle(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, List<String> destinationIds) {
+        super(identityCore, locationId, defaultLocationId, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
         setDestinationIds(destinationIds);
 
         destinations = new ArrayList<>();
     }
 
     public Vehicle(Vehicle template) {
-        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getDestinationIds());
+        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getDestinationIds());
 
         destinations = template.getDestinations();
     }

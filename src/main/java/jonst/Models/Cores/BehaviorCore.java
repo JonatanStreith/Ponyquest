@@ -1,4 +1,4 @@
-package jonst.Models;
+package jonst.Models.Cores;
 
 import java.util.HashMap;
 import java.util.Map;

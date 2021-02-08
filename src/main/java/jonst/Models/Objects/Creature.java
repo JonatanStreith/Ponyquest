@@ -1,7 +1,8 @@
 package jonst.Models.Objects;
 
 import jonst.Data.Lambda;
-import jonst.Models.BehaviorCore;
+import jonst.Models.Cores.BehaviorCore;
+import jonst.Models.Cores.IdentityCore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ public class Creature extends GenericObject {
     private Map<String, String> askTopics;
     private String initialDialog;
 
-    public Creature(String name, String shortName, String type, String id, String locationId, String defaultLocationId, List<String> alias, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, BehaviorCore bc, String initialDialog) {
-        super(name, shortName, type, id, locationId, defaultLocationId, alias, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    public Creature(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, BehaviorCore bc, String initialDialog) {
+        super(identityCore, locationId, defaultLocationId, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
         setRace(race);
         this.defaultRace = defaultRace;
         setGender(gender);
@@ -34,7 +35,7 @@ public class Creature extends GenericObject {
     }
 
     public Creature(Creature template) {
-        this(template.getName(), template.getShortName(), template.getType(), template.getId(), template.getLocationId(), template.getDefaultLocationId(), template.getAlias(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog());
+        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog());
     }
 
         //TODO: Can I move the major burden of this method to GenericObject?

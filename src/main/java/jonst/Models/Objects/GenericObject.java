@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
+import jonst.Models.Cores.IdentityCore;
 import jonst.Models.World;
 
 import java.util.ArrayList;
@@ -11,14 +12,13 @@ import java.util.Map;
 
 
 public abstract class GenericObject implements Comparable<GenericObject> {
-    private String name;
-    private String shortName;
-    private String type;
-    private String id;
+
+    private IdentityCore identityCore;
+
     private String locationId;
     private String defaultLocationId;
     private Location location;
-    private List<String> alias;
+
     private List<Item> itemList;
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
     private String text;
@@ -33,15 +33,14 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
 
     public GenericObject(
-            String name, String shortName, String type, String id, String locationId,
-            String defaultLocationId, List<String> alias, List<String> attributes, String text,
+            IdentityCore identityCore,
+
+            String locationId,
+            String defaultLocationId, List<String> attributes, String text,
             String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse,
             Map<String, ArrayList<String>> responseScripts, String ownerId
     ) {
-        setName(name);
-        setShortName(shortName);
-        setType(type);
-        setId(id);
+        setIdentityCore(identityCore);
 
         setLocationId(locationId);
         setDefaultLocationId(defaultLocationId);
@@ -49,7 +48,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         setText(text);
         setDefaultUse(defaultUse);
 
-        setAlias(alias);
+
         setAttributes(attributes);
         setDescriptions(descriptions);
 
@@ -61,12 +60,21 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //--------- Getters ------------
 
+
+    public IdentityCore getIdentityCore() {
+        return identityCore;
+    }
+
+    public void setIdentityCore(IdentityCore identityCore) {
+        this.identityCore = identityCore;
+    }
+
     public String getDefaultLocationId() {
         return defaultLocationId;
     }
 
     public String getType() {
-        return type;
+        return identityCore.getType();
     }
 
     public String getOwnerId() {
@@ -78,15 +86,15 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public String getName() {
-        return name;
+        return identityCore.getName();
     }
 
     public String getShortName() {
-        return shortName;
+        return identityCore.getShortName();
     }
 
     public String getId() {
-        return id;
+        return identityCore.getId();
     }
 
     public Map<String, String> getDescriptions() {
@@ -102,7 +110,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public List<String> getAlias() {
-        return alias;
+        return identityCore.getAlias();
     }
 
     public List<String> getAttributes() {
@@ -137,7 +145,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public void setType(String type) {
-        this.type = type;
+        identityCore.setType(type);
     }
 
     public void setOwnerId(String ownerId) {
@@ -149,15 +157,15 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     protected void setName(String name) {
-        this.name = name;
+        identityCore.setName(name);
     }
 
     public void setShortName(String shortName) {
-        this.shortName = shortName;
+        identityCore.setShortName(shortName);
     }
 
     protected void setId(String id) {
-        this.id = id;
+        identityCore.setId(id);
     }
 
     public void setDescriptions(Map<String, String> descriptions) {
@@ -169,7 +177,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     protected void setAlias(List<String> alias) {
-        this.alias = alias;
+        identityCore.setAlias(alias);
     }
 
     protected void setAttributes(List<String> attributes) {
@@ -352,16 +360,16 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public boolean addAlias(String specificAlias) {
-        if (!alias.contains(specificAlias)) {
-            alias.add(specificAlias);
+        if (!identityCore.getAlias().contains(specificAlias)) {
+            identityCore.getAlias().add(specificAlias);
         }
         App.getWorld().getParser().addToNouns(specificAlias);
         return true;
     }
 
     public boolean removeAlias(String specificAlias) {
-        if (alias.contains(specificAlias)) {
-            alias.remove(specificAlias);
+        if (identityCore.getAlias().contains(specificAlias)) {
+            identityCore.getAlias().remove(specificAlias);
         }
         App.getWorld().getParser().removeFromNouns(specificAlias);
         return true;
