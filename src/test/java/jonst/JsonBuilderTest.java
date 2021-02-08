@@ -67,4 +67,15 @@ public class JsonBuilderTest {
 
         System.out.println(".");
     }
+
+    @Test
+    public void generateLists(){
+
+        List<GenericObject> itemList = JsonBuilder.loadList(SystemData.getDefaultWorld() + "/items.json", "item");
+        List<GenericObject> creatureList = JsonBuilder.loadList(SystemData.getDefaultWorld() + "/creatures.json", "creature");
+        List<GenericObject> locationList = JsonBuilder.loadList(SystemData.getDefaultWorld() + "/locations.json", "location");
+        List<GenericObject> objectList = JsonBuilder.loadList(SystemData.getDefaultWorld() + "/objects.json", "stationaryobject");
+
+        System.out.println(".");
+    }
 }

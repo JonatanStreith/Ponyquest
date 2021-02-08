@@ -1,0 +1,342 @@
+[
+  {
+    "Descriptions": {
+      "default": "The Cutie Map serves as a magic display for 'friendship emergencies', or something. Starlight won't let you go near it after... the incident."
+    },
+    "Id": "Object_Cutiemap",
+    "FullName": "Cutie Map",
+    "ShortName": "map",
+    "Type": "generic",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "map",
+      "map table",
+      "table"
+    ],
+    "Attributes": [
+      "Usable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "The thrones of the Council of Friendship, or whatever Twilight's group call themselves. Each bear the cutie mark of its owner. Despite being made of crystal, they're surprisingly comfortable."
+    },
+    "Id": "Object_Throne_Group",
+    "FullName": "Friendship thrones",
+    "ShortName": "thrones",
+    "Type": "group",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "thrones",
+      "seats",
+      "chairs"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Twilight's throne. You sometimes sit here when she's not around. Or sometimes when she is."
+    },
+    "Id": "Object_Throne_Twilight",
+    "FullName": "Twilight's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Magic",
+      "Twilight's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Rarity's throne. She probably brings cushions."
+    },
+    "Id": "Object_Throne_Rarity",
+    "FullName": "Rarity's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Generosity",
+      "Rarity's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Applejack's throne. You can tell by the dried apple juice stains."
+    },
+    "Id": "Object_Throne_Applejack",
+    "FullName": "Applejack's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Honesty",
+      "Applejack's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Pinkie Pie's throne. What marechiavellian party plans have been planned from this seat, you wonder?"
+    },
+    "Id": "Object_Throne_Pinkie",
+    "FullName": "Pinkie Pie's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Laughter",
+      "Pinkie's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fluttershy's throne. She sits on it like she's afraid it'll break."
+    },
+    "Id": "Object_Throne_Fluttershy",
+    "FullName": "Fluttershy's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Kindness",
+      "Fluttershy's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Rainbow Dash's throne. It's just another napping spot to her."
+    },
+    "Id": "Object_Throne_Rainbow",
+    "FullName": "Rainbow Dash's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "Throne of Loyalty",
+      "Rainbow Dash's throne",
+      "Rainbow's throne",
+      "throne"
+    ],
+    "Attributes": [
+      "Sittable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Spike's throne. A diminuitive seat for a diminuitive guy."
+    },
+    "Id": "Object_Throne_Spike",
+    "FullName": "Spike's throne",
+    "ShortName": "throne",
+    "Type": "seat",
+    "Location": "Location_Castle_Maproom",
+    "Alias": [
+      "tiny throne",
+      "throne"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "An apple tree, full of ripe fruit."
+    },
+    "Id": "Object_Acres_Tree",
+    "FullName": "apple tree",
+    "ShortName": "tree",
+    "Type": "producer",
+    "Location": "Location_Acres_Exterior",
+    "Alias": [
+      "tree"
+    ],
+    "Attributes": [
+
+      "huggable", "harvestable"
+    ],
+    "ResponseScripts": {
+      "harvest": ["writeline:You pick a juicy red apple from the tree.", "addnewitem:player:red apple"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A sewing machine for advanced stitchwork. You could use it to fix damaged clothes... or better yet, let Rarity do it for you. It's her job, not yours."
+    },
+    "Id": "Object_Boutique_Sewingmachine",
+    "FullName": "sewing machine",
+    "Type": "generic",
+    "Location": "Location_Carousel_Interior",
+    "Alias": [
+      "Rarity's sewing machine"
+    ],
+    "Attributes": [
+      "Usable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A typical oven for baking. You could probably use it... if you wanted to. Or you could get somepony else to do it for you."
+    },
+    "Id": "Object_Sugarcube_Oven",
+    "FullName": "baking oven",
+    "Type": "generic",
+    "Location": "Location_Sugarcube_Kitchen",
+    "Alias": [
+      "oven"
+    ],
+    "Attributes": [
+      "Usable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A beautiful full-length mirror, set in an oval frame and decorated with sciencey knickknacks. According to Starlight, it leads to strange alternate world.",
+      "inactive": "Right now, it only shows your reflection.",
+      "active": "The surface swirls with mesmerizing colors. You think you could step inside..."
+    },
+    "Id": "Magic_Mirror",
+    "FullName": "magic mirror",
+    "Type": "generic",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "enter",
+    "OwnerId": "Creature_Twilight_Sparkle",
+    "Alias": [
+      "mirror",
+      "gateway"
+    ],
+    "Attributes": [
+      "inactive"
+    ],
+    "ResponseScripts": {
+      "energize": [
+        "addattribute:active", "removeattribute:inactive", "addattribute:canenter", "showdescription:active"
+      ],
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "changerace:player:human", "send:player:Canterlot_High_Campus", "movefollowers:Canterlot_High_Campus", "addnewitem:player:human clothes"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A large marble foundation for a statue, which appears to be smashed to pieces. You think you can see a faint glow coming from the top. You sense considerable magic in it.",
+      "inactive": "The sides of the base appears to be completely solid.",
+      "active": "While seemingly solid and rock-like, the statue offers no resistance to entry. You can pass through with ease."
+    },
+    "Id": "Human_Statue_Base",
+    "FullName": "broken statue base",
+    "ShortName": "statue",
+    "Type": "generic",
+    "Location": "Canterlot_High_Campus",
+    "DefaultUse": "enter",
+    "Alias": [
+      "statue base",
+      "statue"
+    ],
+    "Attributes": [
+      "active",
+      "canenter"
+    ],
+    "ResponseScripts": {
+      "energize": [
+        "addattribute:active", "removeattribute:inactive", "addattribute:canenter"
+      ],
+      "enter": ["writeline:Immediately, you are whisked away through a maddening sea of colors. You feel your body changing...", "resetrace:player", "send:player:Location_Castle_Library", "deletecarrieditem:player:human clothes"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "The Friendship Express. A cheerfully decorated train that takes creatures to all the important places in Equestria, and beyond. You prefer to travel by wagon, but sometimes the train is more convenient... and easier on your legs."
+    },
+    "Id": "Vehicle_Train",
+    "FullName": "the Friendship Express",
+    "ShortName": "train",
+    "Type": "vehicle",
+    "Location": "Location_Ponyville_Station",
+    "DefaultUse": "board",
+    "Alias": [
+      "express"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    },
+    "Destinations": [
+      "Location_Ponyville_Station",
+      "Location_Manehattan_Station",
+      "Location_Canterlot_Station"
+    ]
+  }
+]

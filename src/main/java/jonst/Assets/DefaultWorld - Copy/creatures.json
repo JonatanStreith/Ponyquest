@@ -1,0 +1,797 @@
+[
+  {
+    "Descriptions": {
+      "default": "You are the Great and Powerful Trixie! You are Equestria's greatest stage magician, a unicorn of peerless beauty and magical ability, a brave and fearless hero, and also very humble.",
+      "unicorn": "You are a blue unicorn with a silvery mane.",
+      "human": "You are a human teenager with blue skin, silver hair, and gangly long limbs. Your horn seems to have disappeared in the change, which is worrisome..."
+    },
+    "Id": "Creature_Trixie",
+    "FullName": "Trixie",
+    "Race": "unicorn",
+    "DefaultRace": "unicorn",
+    "Gender": "female",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "Talking to yourself is usually pointless.",
+      "Much as you're a wonderful conversationalist, there's not much point.",
+      "You'd rather not. Other ponies think you're weird enough as it is."
+    ],
+    "AskTopics": {
+      "Default": "You're not the type of pony to question yourself."
+    },
+    "Alias": [
+      "The Great and Powerful Trixie",
+      "yourself",
+      "you",
+      "unicorn",
+      "best pony"
+    ],
+    "Attributes": [
+      "Playable"
+    ],
+    "BehaviorCore": {
+      "mood": "haughty",
+      "activity": "questing",
+      "allegiance": "self",
+      "status": "powerful",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"Excuse me?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "You're mostly over your issues with Twilight Sparkle, the princess of friendship and books and obnoxious... mostly.",
+      "alicorn": "She's a purple alicorn with a striped mane and large wings. You think she's a bit taller than she used to be, too. How annoying.",
+      "human": "She is a gangly human with purple skin and oversized boots. Seriously, why is she wearing those things?",
+      "annoyed": "She's glaring at you.",
+      "happy": "She's smiling happily.",
+      "sleeping": "She is sleeping peacefully, occasionally mumbling in her sleep.",
+      "frightened": "She's staring at you warily."
+    },
+    "Id": "Creature_Twilight_Sparkle",
+    "FullName": "Twilight Sparkle",
+    "Race": "alicorn",
+    "DefaultRace": "alicorn",
+    "Gender": "female",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "look at",
+    "InitialDialog": "Twi_Init_0",
+    "CasualDialog": [
+      "She looks at you with a frown. \"Oh... hello, Trixie.\"",
+      "\"Do you want something?\"",
+      "\"Please don't bother me while I'm busy.\"",
+      "\"I'm sure Starlight is around here somewhere.\"",
+      "\"No, I won't teach you the 'Want it, Need it' spell. Stop asking.\""
+    ],
+    "AskTopics": {
+      "Default": "\"I'm not quite sure. Can I look it up later?\"",
+      "Alicorn amulet": "\"Princess Celestia took care of it, Trixie. You're not getting it back.\"",
+      "Magic": "\"You'll have to be more specific, Trixie. It's kind of my speciality. Is there a specific spell you want to know about?\"",
+      "Teleportation": "\"Teleportation allows you to move things, including yourself, anywhere else you can imagine. I'm actually impressed you can do it... it's not something just anypony can master.\"",
+      "Transformation": "\"Transformation allows you to turn things into other things. Now if you could create something other than teacups...\""
+    },
+    "Alias": [
+      "Twilight",
+      "Sparkle",
+      "princess",
+      "Twily",
+      "alicorn"
+    ],
+    "Attributes": [
+      "Princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Stop that!\"",
+        "excuseme?": "\"Excuse me?\""
+      }
+    },
+    "ResponseScripts": {
+      "scare": ["moveto:Castle_Main_Hall"],
+      "hug": ["setmood:happy"],
+      "pick up": ["setmood:annoyed"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Ponyville's resident fashion pony. Really melodramatic and self-obsessed, in your opinion."
+    },
+    "Id": "Creature_Rarity",
+    "FullName": "Rarity",
+    "Race": "unicorn",
+    "DefaultRace": "unicorn",
+    "Gender": "female",
+    "Location": "Location_Carousel_Interior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Hello, Trixie.\"",
+      "\"Yes, dear?\"",
+      "\"Please. I'm 'in the zone' at the moment.\"",
+      "\"Do you want something? A new outfit?\"",
+      "\"If you set off another smoke bomb in here, I WILL tell Starlight.\""
+    ],
+    "AskTopics": {
+      "default": "\"Oh, I really don't know anything about that.\"",
+      "alicorn amulet": "\"As reprehensible as it was tasteless. I can think of nicer things for you to wear.\""
+    },
+    "Alias": [
+      "Rarara",
+      "fashion pony",
+      "Diva",
+      "unicorn"
+    ],
+    "Attributes": [
+      "Blank"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you, darling.!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No, no, no.\"",
+        "angryprotest": "\"Now stop that!\"",
+        "excuseme?": "\"I beg your pardon?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Ponyville's premier party pony. A total weirdo. Frankly, she unnerves you."
+    },
+    "Id": "Creature_Pinkie_Pie",
+    "FullName": "Pinkie Pie",
+    "Race": "earth pony",
+    "DefaultRace": "earth pony",
+    "Gender": "female",
+    "Location": "Location_Sugarcube_Interior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Hi Trixie!\"",
+      "\"Yeah? You want something? You want me to throw you a party?\"",
+      "\"Hey, what's your favorite flavor? Blueberry? Chocolate? Chili pepper? Nooo reason...\"",
+      "\"Sometimes I like to go WHEEEE! for no reason at all! You know what I'm talking about?\"",
+      "\"I think the programmer is trying to come up with new things for me to say.\""
+    ],
+    "AskTopics": {
+      "default": "\"I dunno!\"",
+      "alicorn amulet": "\"Uh, it's evil and nasty and we like you better when you're not going crazy and evil and stuff?\""
+    },
+    "Alias": [
+      "Pinkie",
+      "Pie",
+      "baker",
+      "party pony",
+      "weirdo",
+      "earth pony"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Sure.\"",
+        "no": "\"Nope!\"",
+        "angryprotest": "\"Hey, quit it!\"",
+        "excuseme?": "\"Excuse me, what?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
+      "sleeping": "She is sleeping peacefully.",
+      "annoyed": "She scowls at you.",
+      "earth pony": "She is an orange earth pony with a blonde mane tied into a practical ponytail."
+    },
+    "Id": "Creature_Applejack",
+    "FullName": "Applejack",
+    "Race": "earth pony",
+    "DefaultRace": "earth pony",
+    "Gender": "female",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Hey there, Trixie.\"",
+      "\"You want somethin'?\"",
+      "\"For the love o' Celestia, don't cause another mess.\"",
+      "She snorts. \"Unlike some ponies, I'm too darn busy to stand around gawkin'.\"",
+      "\"Y'wanna make yerself useful? fetch me a... aw, forgot who I was talkin' to.\""
+    ],
+    "AskTopics": {
+      "default": "\"Can't help ya with that.\"",
+      "alicorn amulet": "\"You wanna start that kinda nonsense again?\"",
+      "self": "\"Me? Shucks, I don't wanna brag, but I'm an honest apple farmer. Me an' my family run Sweet Apple Acres.\""
+    },
+    "Alias": [
+      "AJ",
+      "earth pony"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "annoyed",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"Beg yer pardon?\"",
+        "okay": "\"Well, all right then.\""
+      }
+    },
+    "ResponseScripts": {
+      "pick up": [
+        "setmood:annoyed"
+      ]
+    },
+    "ComplexUse": {
+    },
+    "Merchandise": [
+      "Item_Food_Apple",
+      "Item_Food_Applepie"
+    ]
+  },
+  {
+    "Descriptions": {
+      "default": "One of the most arrogant and loudmouthed ponies you've ever known. Nice to have on your side, though."
+    },
+    "Id": "Creature_Rainbow_Dash",
+    "FullName": "Rainbow Dash",
+    "Race": "pegasus",
+    "DefaultRace": "pegasus",
+    "Gender": "female",
+    "Location": "Location_Sugarcube_Interior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Oh, hey.\"",
+      "\"When did you get here?\"",
+      "\"Hey, can you do fireworks on demand?\"",
+      "\"Zzzzz... uh? Huh?\"",
+      "\"I'm soooo bored.\""
+    ],
+    "AskTopics": {
+      "default": "\"...What?\"",
+      "alicorn amulet": "\"Now why'd you have to go and bring that up again?\""
+    },
+    "Alias": [
+      "Rainbow",
+      "Dash",
+      "Dashie",
+      "pegasus"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Cool, thanks!\"",
+        "yes": "\"Yeah!\"",
+        "no": "\"Nu-uh.\"",
+        "angryprotest": "\"Cut that out!\"",
+        "excuseme?": "\"What?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A meek and shy pegasus who spends most of her time keeping animals. Also has some thing with Discord? She puzzles you."
+    },
+    "Id": "Creature_Fluttershy",
+    "FullName": "Fluttershy",
+    "Race": "pegasus",
+    "DefaultRace": "pegasus",
+    "Gender": "female",
+    "Location": "Location_Carousel_Interior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Umm...\"",
+      "Fluttershy looks away bashfully.",
+      "\"Um. Yes? D-do you want something?\"",
+      "\"I... um... nevermind.\" *squeak*",
+      "\"Trixie, I... I... nevermind.\""
+    ],
+    "AskTopics": {
+      "default": "\"Um... sorry, I don't know anything about that.\"",
+      "alicorn amulet": "Fluttershy's eyes widen, and she shakes in fear. You quickly try to change the subject.",
+      "animals": "Fluttershy immediately gets excited. \"Oh, I love animals! Fluffy bunnies and singing birds and big cuddly bears, and did you know...\" She soon loses herself in a lengthy elaboration that you have no interest in."
+    },
+    "Alias": [
+      "Flutters",
+      "Shutterfly",
+      "pegasus"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Um... thank you.\"",
+        "yes": "\"Yes...\"",
+        "no": "\"Um... no?\"",
+        "angryprotest": "\"Please stop... if you don't mind.\"",
+        "excuseme?": "\"I-I'm sorry?\""
+      }
+    },
+    "ResponseScripts": {
+      "ask about animals": ["setmood:happy"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Twilight Sparkle's runty dragon assistant. He's kind of annoying."
+    },
+    "Id": "Creature_Spike",
+    "FullName": "Spike",
+    "Race": "dragon",
+    "DefaultRace": "dragon",
+    "Gender": "male",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"What do you want?\"",
+      "\"Please tell me you're not going to break stuff again.\"",
+      "\"Oh... I think I've got stuff to do. Elsewhere.\"",
+      "\"Starlight's in the library, I think. Go bother her.\"",
+      "\"Uh, yeah?\""
+    ],
+    "AskTopics": {
+      "default": "\"Uh, I dunno.\"",
+      "alicorn amulet": "\"Oh, no no no. You're not getting that thing back.\""
+    },
+    "Alias": [
+      "Spiky",
+      "dragon"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks!\"",
+        "yes": "\"Yeah, sure.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Lay it off!\"",
+        "excuseme?": "\"Excuse me?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Starlight Glimmer is your best friend. She's talented, understanding, fun... and she knows what it's like to have a troubled past. She's the best."
+    },
+    "Id": "Creature_Starlight_Glimmer",
+    "FullName": "Starlight Glimmer",
+    "Race": "unicorn",
+    "DefaultRace": "unicorn",
+    "Gender": "female",
+    "Location": "Location_Castle_Maproom",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Oh, hi, Trixie!\"",
+      "\"I didn't know you were back in town.\"",
+      "\"So what have you been up to lately? Anything exciting?\"",
+      "\"Wanna hang out later? We could work on magic or something. You choose.\"",
+      "\"You haven't been bothering Twilight, have you?\""
+    ],
+    "AskTopics": {
+      "default": "\"Sorry, Trixie. I don't really know.\"",
+      "alicorn amulet": "\"No, Trixie. NO. Twilight told me about that. You're NOT going to play around with evil artifacts again, you hear?\""
+    },
+    "Alias": [
+      "Starlight",
+      "Glimmy",
+      "Glim-Glam",
+      "friend",
+      "best friend",
+      "unicorn",
+      "other best pony"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks, Trixie!\"",
+        "yes": "\"Yes, of course.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Trixie... stop.\"",
+        "excuseme?": "\"What are you talking about?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Maud Pie is... strange.  In some ways she's even weirder than Pinkie Pie. Are they really sisters? At least she doesn't judge you.",
+      "sleeping": "She is sleeping like a rock."
+    },
+    "Id": "Creature_Maud_Pie",
+    "FullName": "Maud Pie",
+    "Race": "earth pony",
+    "DefaultRace": "earth pony",
+    "Gender": "female",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Trixie. Hello.\"",
+      "\"Do you want something?\"",
+      "\"...\"",
+      "\"I seem to have misplaced my chisel...\"",
+      "\"Seen any good rocks lately?\""
+    ],
+    "AskTopics": {
+      "default": "Maud looks disinterested."
+    },
+    "Alias": [
+      "maud",
+      "pie",
+      "earth pony"
+    ],
+    "Attributes": [
+      "huggable",
+      "sleep immunity"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thanks.\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Don't do that.\"",
+        "excuseme?": "\"I don't know what you're talking about.\"",
+        "okay": "\"Okay...\""
+      }
+    },
+    "ResponseScripts": {
+      "hug": [
+        "setmood:happy",
+        "transformobject:Creature_Pinkie_Pie"
+        ]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "The Princess of the Sun, diarch of Equestria. It's one of your dreams to one day get to perform at her court."
+    },
+    "Id": "Creature_Celestia",
+    "FullName": "Princess Celestia",
+    "Race": "alicorn",
+    "DefaultRace": "alicorn",
+    "Gender": "female",
+    "Location": "Location_Castle_Kitchen",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Hello, my little pony.\"",
+      "\"Trixie, hmm? I've heard about you. Don't worry, they're good things. Well, mostly good things.\"",
+      "\"Do you like bananas?\"",
+      "\"You're a bit of a troublemaker, aren't you? Equestria needs ponies like you, too.\"",
+      "Celestia smiles warmly at you. \"Yes?\""
+    ],
+    "AskTopics": {
+      "default": "\"Oh dear, I can't really help you with that. Have you tried asking somepony more knowledgeable about the subject?\"",
+      "alicorn amulet": "\"Don't worry, it's safely locked away where it can't hurt anypony again.\" She gives you a pointed look. \"Let's not talk about that anymore.\""
+    },
+    "Alias": [
+      "Celly",
+      "Tia",
+      "princess",
+      "alicorn"
+    ],
+    "Attributes": [
+      "princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Thank you.\"",
+        "yes": "\"Yes.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Behave yourself, my little pony.\"",
+        "excuseme?": "\"I beg your pardon?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "The Princess of the Moon, diarch of Equestria. You've always felt a certain kinship with her, and her plight. She keeps the night safe."
+    },
+    "Id": "Creature_Luna",
+    "FullName": "Princess Luna",
+    "Race": "alicorn",
+    "DefaultRace": "alicorn",
+    "Gender": "female",
+    "Location": "Location_Castle_Mainhall",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"GREET... *ahem* greetings, faithful subject.\"",
+      "\"We recognize you... you're that pony who sends all the fan letters, correct?\"",
+      "\"How may we be of assistance, citizen?\"",
+      "\"Ah, the Great and Powerful Trixie. We've... heard of you.\"",
+      "\"I really should be getting some sleep. Busy night, you know.\""
+    ],
+    "AskTopics": {
+      "default": "\"We are... uncertain about that subject.\"",
+      "alicorn amulet": "\"'Tis an evil, evil thing. You should not concern yourself about it, little pony.\""
+    },
+    "Alias": [
+      "Luna",
+      "Lulu",
+      "Moony",
+      "princess",
+      "alicorn"
+    ],
+    "Attributes": [
+      "princess"
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"You have our gratitude.\"",
+        "yes": "\"Indeed.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"You will behave!\"",
+        "excuseme?": "\"What gives?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "The grand Chaos Noodle himself. Weird, obnoxious, egocentric, annoying... okay, sometimes he's kind of fun, but don't let him hear that."
+    },
+    "Id": "Creature_Discord",
+    "FullName": "Discord",
+    "Race": "draconequus",
+    "DefaultRace": "draconequus",
+    "Gender": "male",
+    "Location": "Location_Sugarcube_Partycave",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Well, if it isn't Trixie!\"",
+      "\"Hmm. Care to assist me in a prank later? I could use a patsy... I mean, partner.\"",
+      "\"Wait, are we in a game now? Splendid!\"",
+      "\"No, I'm not going to lend you my powers of chaos, no matter how fun that'd be. Fluttershy is still upset about the last time.\"",
+      "Discord grins and snaps his claw. You don't know what he might have done, but you should worry."
+    ],
+    "AskTopics": {
+      "default": "\"Oh, the things I could tell you! But I won't. Because it's more fun this way.\"",
+      "alicorn amulet": "\"Such a nice little toy! But, ah, I don't think anypony should DIG it up again. It could cause... trouble."
+    },
+    "Alias": [
+      "dissy",
+      "spirit",
+      "draconequus"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal",
+      "PersonalQuotes": {
+        "thanks": "\"Why, thank you!\"",
+        "yes": "\"Of course.\"",
+        "no": "\"No.\"",
+        "angryprotest": "\"Oh, stop that!\"",
+        "excuseme?": "\"Oh, excuse me?\""
+      }
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "An authoritative-looking pony who sells tickets and stops freeloaders. His moustache is quite impressive."
+    },
+    "Id": "All_Aboard",
+    "FullName": "All Aboard",
+    "Race": "earth pony",
+    "DefaultRace": "earth pony",
+    "Gender": "male",
+    "Location": "Location_Ponyville_Station",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"Going somewhere today, ma'am?\"",
+      "\"Let me know if you want a ticket somewhere, ma'am.\"",
+      "\"Don't you usually have your own wagon, Miss Trixie?\"",
+      "\"Keep all hooves, wings, horns and other appendages inside the train until it's reached a full stop\"",
+      "\"The train to Klugetown has been cancelled today. Bandits. Again.\""
+    ],
+    "AskTopics": {
+      "default": "\"Sorry, ma'am, don't know. I just sell tickets and work the trains.\"",
+      "tickets": "\"Just let me know where you want to go.\""
+    },
+    "Alias": [
+      "train pony",
+      "ticket pony"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "friendly",
+      "status": "normal"
+    },
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A dangerous creature from the Everfree Forest. It looks like a wolf made out of twigs and branches.",
+      "onfire": "It's furiously trying to put out the fire in its foliage."
+    },
+    "Id": "Monster_Timberwolf",
+    "FullName": "timberwolf",
+    "Race": "monster",
+    "DefaultRace": "monster",
+    "Gender": "undefined",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "AskTopics": {
+      "default": "It growls angrily."
+    },
+    "Alias": [
+      "monster",
+      "wolf"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "angry",
+      "activity": "idle",
+      "allegiance": "hostile",
+      "status": "normal"
+
+    },
+    "ResponseScripts": {
+      "fireball": [
+        "fleerandom",
+        "setmood:scared"
+      ]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "An assortment of students attending Canterlot High. They come in all kinds and colors and you really can't keep track of them."
+    },
+    "Id": "Crowd_Students",
+    "FullName": "crowd of students",
+    "Race": "human",
+    "DefaultRace": "human",
+    "Gender": "undefined",
+    "Location": "Canterlot_High_Campus",
+    "DefaultUse": "look at",
+    "CasualDialog": [
+      "\"What do you want, Trixie?\"",
+      "\"I'm late, I'm late, I'm late!\"",
+      "\"Hey, Trixie.\"",
+      "\"Excuse me...\"",
+      "The student is too busy listening into a small square to notice you."
+    ],
+    "AskTopics": {
+      "default": "They yammer a bit. It seems nobody has anything useful to say."
+    },
+    "Alias": [
+      "crowd",
+      "students"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "BehaviorCore": {
+      "mood": "neutral",
+      "activity": "idle",
+      "allegiance": "neutral",
+      "status": "normal"
+
+    },
+    "ResponseScripts": {
+      "fireball": [
+        "fleerandom",
+        "setmood:scared"
+      ]
+    },
+    "ComplexUse": {
+    }
+  }
+]
+
+
+

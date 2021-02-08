@@ -2,6 +2,8 @@ package jonst.Models.Cores;
 
 import jonst.Models.Objects.Creature;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,12 @@ public class SpeechCore {
         this.casualDialog = casualDialog;
         this.askTopics = askTopics;
         this.initialDialog = initialDialog;
+    }
+
+    public SpeechCore() {
+        this.casualDialog = new ArrayList<>();
+        this.askTopics = new HashMap<>();
+        this.initialDialog = "Blank";
     }
 
     public List<String> getCasualDialog() {

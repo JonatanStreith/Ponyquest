@@ -13,8 +13,8 @@ public class ActionCore {
     private String text;
     private String defaultUse;
 
-    private Map<String, String> complexUse = new HashMap<>();
-    private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
+    private Map<String, String> complexUse;
+    private Map<String, ArrayList<String>> responseScripts;
 
     public ActionCore(List<String> attributes, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
         this.attributes = attributes;
@@ -22,6 +22,14 @@ public class ActionCore {
         this.defaultUse = defaultUse;
         this.complexUse = complexUse;
         this.responseScripts = responseScripts;
+    }
+
+    public ActionCore() {
+        this.attributes = new ArrayList<>();
+        this.text = "text";
+        this.defaultUse = "defaultUse";
+        this.complexUse = new HashMap<>();
+        this.responseScripts = new HashMap<>();
     }
 
     public List<String> getAttributes() {

@@ -1,0 +1,538 @@
+[
+  {
+    "Descriptions": {
+      "default": "Your hat. Anypony who sees it will know that they're dealing with a magnificent magician. Good for keeping the sun out of your eyes, too."
+    },
+    "Id": "Item_Trixie_Hat",
+    "FullName": "Trixie's hat",
+    "ShortName": "hat",
+    "Type": "hat",
+    "Location": "Creature_Trixie",
+    "OwnerId": "Creature_Trixie",
+    "DefaultUse": "wear",
+    "Alias": [
+      "hat",
+      "wizard hat",
+      "magician's hat"
+    ],
+    "Attributes": [
+      "Wearable",
+      "worn",
+      "undroppable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Your cape. Anypony who sees it will know that they're dealing with a magnificent magician. Keeps you warm during travels, too."
+    },
+    "Id": "Item_Trixie_Cape",
+    "FullName": "Trixie's cape",
+    "ShortName": "cape",
+    "Type": "cape",
+    "Location": "Creature_Trixie",
+    "OwnerId": "Creature_Trixie",
+    "DefaultUse": "wear",
+    "Alias": [
+      "cape",
+      "wizard cape",
+      "magician's cape"
+    ],
+    "Attributes": [
+      "Wearable",
+      "worn",
+      "undroppable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A wooden crate for putting things in.",
+      "open": "The lid is off.",
+      "closed": "The lid is nailed shut."
+    },
+    "Id": "Item_Acres_Crate",
+    "FullName": "wooden crate",
+    "ShortName": "crate",
+    "Type": "container",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "crate",
+      "wooden crate",
+      "box",
+      "wooden box"
+    ],
+    "Attributes": [
+      "Container",
+      "openable",
+      "open"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "Default": "It's a rock. You saw enough of them during your time on the rock farm."
+    },
+    "Id": "Item_Generic_Rock",
+    "FullName": "rock",
+    "Type": "generic",
+    "Location": "Location_Acres_Exterior",
+    "OwnerId": "Creature_Maud_Pie",
+    "DefaultUse": "look at",
+    "Alias": [
+      "rock",
+      "stone"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fragrant and delicious, just the thing for a quick snack."
+    },
+    "Id": "Item_Food_Apple",
+    "FullName": "red apple",
+    "ShortName": "apple",
+    "Type": "food",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit",
+      "red apple"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fragrant and delicious, just the thing for a quick snack."
+    },
+    "Id": "Item_Food_Apple",
+    "FullName": "red apple",
+    "ShortName": "apple",
+    "Type": "food",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit",
+      "red apple"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fragrant and delicious, just the thing for a quick snack."
+    },
+    "Id": "Item_Food_Apple",
+    "FullName": "red apple",
+    "ShortName": "apple",
+    "Type": "food",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit",
+      "red apple"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fragrant and delicious, just the thing for a quick snack."
+    },
+    "Id": "Item_Food_Apple",
+    "FullName": "red apple",
+    "ShortName": "apple",
+    "Type": "food",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit",
+      "red apple"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "Fragrant and delicious, just the thing for a quick snack."
+    },
+    "Id": "Item_Food_Apple",
+    "FullName": "red apple",
+    "ShortName": "apple",
+    "Type": "food",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "apple",
+      "fruit",
+      "red fruit",
+      "red apple"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+      "fireball": ["destroyitem"],
+      "eat": ["writeline:It's delicious!"]
+    },
+    "ComplexUse": {
+      "Applejack": "look at cape"
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A pile of freshly-harvested turnips. Bland and boring."
+    },
+    "Id": "Item_Food_Turnips",
+    "FullName": "pile of turnips",
+    "ShortName": "turnips",
+    "Type": "food",
+    "Location": "Item_Acres_Crate",
+    "DefaultUse": "look at",
+    "Alias": [
+      "turnips",
+      "tubers",
+      "vegetables"
+    ],
+    "Attributes": [
+      "edible"
+    ],
+    "ResponseScripts": {
+
+    "eat": ["writeline:They're hard and taste bland."]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A piece of farming equipment used by earth ponies. You've done enough farming in your life already."
+    },
+    "Id": "Item_Acres_Plow",
+    "FullName": "heavy plow",
+    "ShortName": "plow",
+    "Type": "generic",
+    "Location": "Location_Acres_Exterior",
+    "DefaultUse": "look at",
+    "OwnerId": "Creature_Applejack",
+    "Alias": [
+      "plow",
+      "farming tool"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A spool of blue thread. Rarity probably won't miss it."
+    },
+    "Id": "Item_Carousel_Spool",
+    "FullName": "spool of blue thread",
+    "ShortName": "thread",
+    "Type": "generic",
+    "Location": "Location_Carousel_Interior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "thread",
+      "blue thread",
+      "spool"
+    ],
+    "Attributes": [
+      ""
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "This outfit is clearly far from complete, unless Rarity's fashion standards have changed very dramatically in the last week."
+    },
+    "Id": "Item_Carousel_Unfinisheddress",
+    "FullName": "unfinished dress",
+    "ShortName": "dress",
+    "Type": "dress",
+    "Location": "Location_Carousel_Interior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "dress",
+      "unfinished dress",
+      "outfit"
+    ],
+    "Attributes": [
+      "Wearable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A bucket of chocolate-chip ice cream. You're certain you've earned yourself a treat today."
+    },
+    "Id": "Item_Food_Icecream",
+    "FullName": "bucket of ice cream",
+    "ShortName": "ice cream",
+    "Type": "food",
+    "Location": "Location_Sugarcube_Interior",
+    "DefaultUse": "look at",
+    "Alias": [
+      "ice cream",
+      "bucket",
+      "bucket of ice cream"
+    ],
+    "Attributes": [
+      "Edible"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A bunch of magical fireworks, crafted by yours truly. Handle with care!"
+    },
+    "Id": "Item_Generic_Fireworks",
+    "FullName": "bundle of fireworks",
+    "ShortName": "fireworks",
+    "Type": "generic",
+    "Location": "Creature_Trixie",
+    "DefaultUse": "look at",
+    "Alias": [
+      "fireworks",
+      "bundle of fireworks",
+      "explody things"
+    ],
+    "Attributes": [
+      "Usable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A big shiny diamond. Perfect for a dragon meal, decoration, or an industrial drill."
+    },
+    "Id": "Item_Generic_Diamond",
+    "FullName": "diamond",
+    "Type": "generic",
+    "Location": "Creature_Maud_Pie",
+    "DefaultUse": "look at",
+    "Alias": [
+      "diamond",
+      "gemstone",
+      "dragon food",
+      "shiny thing"
+    ],
+    "Attributes": [
+      "Gemstone"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "\"Daring Do and the Sapphire Chalice\", hardcover, by A.K. Yearling. One of your favorites. It's dogeared and worn."
+    },
+    "Id": "Book_DaringDo",
+    "FullName": "\"Daring Do and the Sapphire Chalice\"",
+    "ShortName": "Daring Do book",
+    "Type": "book",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "read",
+    "Text": "You browse through a few of your favorite parts.",
+    "Alias": [
+      "book",
+      "novel",
+      "Sapphire Chalice"
+    ],
+    "Attributes": [
+      "readable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+      "Twilight Sparkle": "give \"Daring Do and the Sapphire Chalice\" to Twilight Sparkle"
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "It's your spellbook! Well, it's a notebook you started using after Starlight convinced you to take magic seriously again, but you're allowed to pretend. It's full of notes on spells, although you don't know how to do all of them... yet."
+    },
+    "Id": "Trixie_spellbook",
+    "FullName": "spellbook",
+    "Type": "book",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "read",
+    "Text": "The book is full of scribbles and notes on magic. Mostly by you, but Starlight and Twilight appears to have made their own contributions as well. Not by permission.\n\nTELEKINESIS: The ability to move and manipulate physical objects by magic. Any unicorn can do this. It's so basic, it hardly bears mention.\n\nTELEPORT: Transport yourself or other things to any place you can imagine. Extremely useful! Only very capable unicorns can do it. \n[Just don't lose your concentration and we won't have any more mistakes, okay? -SG]\n[I'm actually impressed. Good work! -TS]\n\nTEACUPIFY: Turn things into teacups!\n[And other things, Trixie. Not just teacups. Please stop fixating on teacups, for the love of Celestia! -SG]\n\nENERGIZE: Infuses objects with raw magic energy. Magical artifacts and devices often require a source of magic in order to work properly.\n\nFIREWORKS: Fires lights and harmless explosions into the sky, to dazzle and amaze. Trixie's favorite spell!\n\nCLOUDWALK: Bestows the ability to walk on clouds the way pegasi can. Can be cast on self or others. Probably very useful.\n[It's got a limited duration, so recast it if you need to stay up for a longer time. -TS]\n\nWINGS SPELL: Creates beautiful butterfly wings imbued with real flight ability. TRIXIE MUST LEARN THIS SPELL. The performance possibilities are literally endless. Twilight says it takes a lot of magic, but she's probably exaggerating.\n[Those wings are really fragile and sensitive to heat, though. You need to be careful. -SG]\n[Starlight, teach Trixie a slowfall spell and make sure she gets it. I don't trust her to be 'careful'. -TS]\n\nWANT IT, NEED IT: Causes anypony who sees the targeted object to become enormously infatuated/obsessed with it. Very useful!\n[No, no, no, no, NO. Absolutely not! -TS]\n\nFIREBALL: Launches a ball of fire at a target, damaging it and setting it on fire. Possible substitute for fireworks. Note: Promised Starlight only to use this for good.\n[Just remember that assault is a crime, okay? -TS]\n\nSLEEP: Puts target to sleep for a while. Useful if they're causing trouble, or in case of insomnia.\n[Good, good, use this instead of setting ponies on fire, okay? -TS]\n\nBODYSWAP: Exchanges bodies - or minds - with the target. Starlight wants me to remember that if I swap bodies with a non-unicorn, I can't cast the spell to turn back. Good point.\n[If you're going to do this, make sure your 'target' is informed and consenting, okay? Identity theft is also a crime. -TS]\n\nDISINTEGRATE: Utterly destroys a thing. Good for getting rid of things I don't need anymore, like garbage. Doesn't work on living things, which is for the best.\n[Just... don't break stuff that doesn't belong to you, okay? The teacups were bad enough. -SG]",
+    "Alias": [
+      "book",
+      "Trixie's spellbook"
+    ],
+    "Attributes": [
+      "readable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "It's a cape imbued with an invisibility spell. Some colt with a lightning-bolt cutie mark left it behind during a visit.",
+      "active": "It's almost completely invisible. Only the faintest ripple - and the fact that you know it's there - belies its presence."
+    },
+    "Id": "Invisible_Cape",
+    "FullName": "invisibility cape",
+    "ShortName": "cape",
+    "Type": "cape",
+    "Location": "Location_Castle_Library",
+    "DefaultUse": "wear",
+    "Alias": [
+      "cape",
+      "cloak"
+    ],
+    "Attributes": [
+      "wearable"
+    ],
+    "ResponseScripts": {
+      "wear": ["player add attribute:wears cape"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A small apple seed imbued with concentrated earth magic. Can be used to create a whole tree!",
+      "active": ""
+    },
+    "Id": "Magic_Seed",
+    "FullName": "magic seed",
+    "Type": "generic",
+    "Location": "Creature_Trixie",
+    "DefaultUse": "activate",
+    "Alias": [
+      "seed"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+      "activate": ["spawnobject:playerlocation:Object_Tree",
+      "writeline:You plant the seed in the ground. Within seconds, an entire tree sprouts!",
+      "deletecarrieditem:player:this"]
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A drab, slate-blue dress. Featureless and boring, it's definitely Maud's... 'style'."
+    },
+    "Id": "Maud_Dress",
+    "FullName": "drab dress",
+    "ShortName": "dress",
+    "Type": "dress",
+    "Location": "Creature_Maud_Pie",
+    "DefaultUse": "wear",
+    "Alias": [
+      "dress",
+      "maud's dress"
+    ],
+    "OwnerId": "Creature_Maud_Pie",
+    "Attributes": [
+      "wearable"
+    ],
+    "ResponseScripts": {
+    },
+    "ComplexUse": {
+    }
+  },
+  {
+    "Descriptions": {
+      "default": "A small apple seed. You could plant it...",
+      "active": ""
+    },
+    "Id": "Apple_Seed",
+    "FullName": "apple seed",
+    "Type": "generic",
+    "Location": "Creature_Trixie",
+    "DefaultUse": "activate",
+    "Alias": [
+      "seed"
+    ],
+    "Attributes": [
+    ],
+    "ResponseScripts": {
+      "activate": ["writeline:You plant the seed in the ground. Now you just have to wait...",
+        "spawnobject:playerlocation:Object_Planted_Seed",
+        "deletecarrieditem:player:this"]
+    },
+    "ComplexUse": {
+    }
+  }
+]

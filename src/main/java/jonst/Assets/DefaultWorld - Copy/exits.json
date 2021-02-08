@@ -1,0 +1,33 @@
+[
+  ["Location_Castle_Exterior", "Location_Sugarcube_Exterior", "open"],
+  ["Location_Castle_Exterior", "Location_Carousel_Exterior", "open"],
+  ["Location_Castle_Exterior", "Location_Acres_Exterior", "open"],
+  ["Location_Castle_Exterior", "Location_Ponyville_Station", "open"],
+
+  ["Location_Sugarcube_Exterior", "Location_Carousel_Exterior", "open"],
+  ["Location_Sugarcube_Exterior", "Location_Acres_Exterior", "open"],
+  ["Location_Sugarcube_Exterior", "Location_Ponyville_Station", "open"],
+
+  ["Location_Carousel_Exterior", "Location_Acres_Exterior", "open"],
+  ["Location_Carousel_Exterior", "Location_Ponyville_Station", "open"],
+
+  ["Location_Acres_Exterior", "Location_Ponyville_Station", "open"],
+
+  ["Location_Sugarcube_Exterior", "Location_Sugarcube_Interior", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugarcube_Kitchen", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugercube_Pinkieroom", "open"],
+  ["Location_Sugarcube_Interior", "Location_Sugarcube_Partycave", "open"],
+
+  ["Location_Carousel_Exterior", "Location_Carousel_Interior", "open"],
+
+  ["Location_Acres_Exterior", "Location_Acres_Farmhouse", "open"],
+
+  ["Location_Castle_Exterior", "Location_Castle_Mainhall", "open"],
+
+  ["Location_Castle_Mainhall", "Location_Castle_Maproom", "open"],
+  ["Location_Castle_Mainhall", "Location_Castle_Library", "open"],
+  ["Location_Castle_Mainhall", "Location_Castle_Kitchen", "open"],
+  ["Location_Castle_Mainhall", "Location_Castle_Starlightroom"]
+
+
+]

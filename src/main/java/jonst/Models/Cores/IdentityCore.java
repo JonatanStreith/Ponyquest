@@ -1,5 +1,6 @@
 package jonst.Models.Cores;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,15 @@ public class IdentityCore {
         this.id = id;
         this.alias = alias;
         this.descriptions = descriptions;
+    }
+
+    public IdentityCore() {
+        this.name = "Blank";
+        this.shortName = "Blank";
+        this.type = "Blank";
+        this.id = "Blank";
+        this.alias = new ArrayList<>();
+        this.descriptions = new HashMap<>();
     }
 
     public String getName() {

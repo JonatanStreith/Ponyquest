@@ -1,95 +1,109 @@
 [
   {
-    "FullName": "red apple",
-    "ShortName": "apple",
-    "Id": "Item_Food_Apple",
-    "Descriptions": {
-      "default": "Fragrant and delicious, just the thing for a quick snack."
-    },
-    "DefaultUse": "look at",
-    "ComplexUse": "",
-    "Alias": [
-      "apple",
-      "fruit",
-      "red fruit",
-      "red apple"
-    ],
-    "Attributes": [
-      "edible"
-    ],
-    "ResponseScripts": {
-      "fireball": [
-        "destroyitem"
+    "IdentityCore": {
+      "FullName": "red apple",
+      "ShortName": "apple",
+      "Id": "Item_Food_Apple",
+      "Descriptions": {
+        "default": "Fragrant and delicious, just the thing for a quick snack."
+      },
+      "Alias": [
+        "apple",
+        "fruit",
+        "red fruit",
+        "red apple"
       ]
     },
-    "ComplexUse": {
+    "ActionCore": {
+      "ResponseScripts": {
+        "fireball": [
+          "destroyitem"
+        ]
+      },
+      "DefaultUse": "look at",
+      "ComplexUse": {},
+      "Attributes": [
+        "edible"
+      ]
+    }
+    },
+  {
+    "IdentityCore": {
+      "FullName": "apple pie",
+      "ShortName": "pie",
+      "Id": "Item_Food_Applepie",
+      "Descriptions": {
+        "default": "A delicious apple pie."
+      },
+      "Alias": [
+        "pie",
+        "dessert"
+      ]
+    },
+    "ActionCore": {
+      "DefaultUse": "look at",
+      "ComplexUse": "",
+      "Attributes": [
+        "edible"
+      ],
+      "ResponseScripts": {
+        "fireball": [
+          "destroyitem"
+        ]
+      },
+      "ComplexUse": {
+      }
     }
   },
   {
-    "FullName": "apple pie",
-    "ShortName": "pie",
-    "Id": "Item_Food_Applepie",
-    "Descriptions": {
-      "default": "A delicious apple pie."
-    },
-    "DefaultUse": "look at",
-    "ComplexUse": "",
-    "Alias": [
-      "pie",
-      "dessert"
-    ],
-    "Attributes": [
-      "edible"
-    ],
-    "ResponseScripts": {
-      "fireball": [
-        "destroyitem"
+    "IdentityCore": {
+      "FullName": "teacup",
+      "Id": "Item_Teacup",
+      "Descriptions": {
+        "default": "A delicate pink porcelain teacup."
+      },
+      "Alias": [
+        "cup"
       ]
     },
-    "ComplexUse": {
+    "ActionCore": {
+      "DefaultUse": "look at",
+      "ComplexUse": "",
+      "Attributes": [
+      ],
+      "ResponseScripts": {
+        "fireball": [
+          "destroyitem"
+        ]
+      },
+      "ComplexUse": {
+      }
     }
   },
   {
-    "FullName": "teacup",
-    "Id": "Item_Teacup",
-    "Descriptions": {
-      "default": "A delicate pink porcelain teacup."
-    },
-    "DefaultUse": "look at",
-    "ComplexUse": "",
-    "Alias": [
-      "cup"
-    ],
-    "Attributes": [
-    ],
-    "ResponseScripts": {
-      "fireball": [
-        "destroyitem"
+    "IdentityCore": {
+      "FullName": "human clothes",
+      "ShortName": "clothes",
+      "Id": "Item_Human_Clothes",
+      "Descriptions": {
+        "default": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony."
+      },
+      "Alias": [
+        "clothes"
       ]
     },
-    "ComplexUse": {
-    }
-  },
-  {
-    "FullName": "human clothes",
-    "ShortName": "clothes",
-    "Id": "Item_Human_Clothes",
-    "Descriptions": {
-      "default": "A set of casual clothing. Perfectly comfortable for a human to wear, but a poor fit for a pony."
-    },
-    "DefaultUse": "look at",
-    "ComplexUse": "",
-    "Alias": [
-      "clothes"
-    ],
-    "Attributes": [
-      "Wearable",
-      "worn",
-      "undroppable"
-    ],
-    "ResponseScripts": {
-    },
-    "ComplexUse": {
+    "ActionCore": {
+      "DefaultUse": "look at",
+      "ComplexUse": "",
+      "Attributes": [
+        "Wearable",
+        "worn",
+        "undroppable"
+      ],
+      "ResponseScripts": {
+      },
+      "ComplexUse": {
+      }
     }
   }
 ]

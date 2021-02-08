@@ -11,6 +11,12 @@ public class CreatureCore {
         this.gender = gender;
     }
 
+    public CreatureCore() {
+        this.race = "Blank";
+        this.defaultRace = "Blank";
+        this.gender = "Blank";
+    }
+
     public String getRace() {
         return race;
     }

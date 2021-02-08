@@ -103,9 +103,9 @@ public class JsonBuilder {
 
     }
 
-    //----------------------------
+    //-----------
 
-    public static JSONObject saveJsonGeneric(GenericObject gen) {
+ /*   public static JSONObject saveJsonGeneric(GenericObject gen) {
         return new JSONObject() {{
 
             //Generic attributes here
@@ -173,6 +173,86 @@ public class JsonBuilder {
             }
         }};
     }
+*/
+
+    //----------------------------
+
+    public static JSONObject saveJsonGeneric(GenericObject gen) {
+        return new JSONObject() {{
+            //Generic attributes here
+
+            put("IdentityCore", new JSONObject() {{
+                put("FullName", gen.getName());
+                put("ShortName", gen.getShortName());
+                put("Type", gen.getType());
+                put("Id", gen.getId());
+                put("Alias", gen.getAlias());
+                put("Descriptions", gen.getDescriptions());
+            }});
+
+            put("RelationCore", new JSONObject() {{
+                put("Location", gen.getHolderId());
+                put("DefaultLocation", gen.getDefaultLocationId());
+                put("OwnerId", gen.getOwnerId());
+//                if (gen.getOwner() != null) {
+//                    put("Owner", gen.getOwner().getName());
+//                }
+            }});
+
+            put("ActionCore", new JSONObject() {{
+                put("Attributes", gen.getAttributes());
+                put("Text", gen.getText());
+                put("DefaultUse", gen.getDefaultUse());
+                put("ComplexUse", gen.getComplexUse());
+                put("ResponseScripts", gen.getResponseScripts());
+            }});
+
+
+            if (gen instanceof Creature) {
+                //Creature-specific attributes here
+                put("CreatureCore", new JSONObject() {{
+                    put("Race", ((Creature) gen).getRace());
+                    put("DefaultRace", ((Creature) gen).getDefaultRace());
+                    put("Gender", gen.getGender());
+                }});
+
+                put("SpeechCore", new JSONObject() {{
+                    put("CasualDialog", ((Creature) gen).getCasualDialog());
+                    put("AskTopics", ((Creature) gen).getAskTopics());
+                    put("InitialDialog", ((Creature) gen).getInitialDialog());
+                }});
+
+                put("BehaviorCore", new JSONObject() {{
+                    put("mood", ((Creature) gen).getMood());
+                    put("activity", ((Creature) gen).getActivity());
+                    put("allegiance", ((Creature) gen).getAllegiance());
+                    put("status", ((Creature) gen).getStatus());
+                }});
+
+                if (gen instanceof Merchant) {
+                    put("Merchandise", ((Merchant) gen).getMerchandiseIds());
+                }
+
+            } else if (gen instanceof Location) {
+
+                //Location-specific attriibutes here
+                if (((Location) gen).getDefaultEnter() != null)
+                    put("DefaultEnter", ((Location) gen).getDefaultEnter().getId());
+                if (((Location) gen).getDefaultExit() != null)
+                    put("DefaultExit", ((Location) gen).getDefaultExit().getId());
+            } else if (gen instanceof Item) {
+                //Reserved space in case items get more stuff
+
+
+            } else if (gen instanceof StationaryObject) {
+                //Reserved space in case SOs get more stuff
+
+                if (gen instanceof Vehicle) {
+                    put("Destinations", ((Vehicle) gen).getDestinationIds());
+                }
+            }
+        }};
+    }
 
     //---------- save methods
 
@@ -231,21 +311,21 @@ public class JsonBuilder {
 
     //---------- Get objects
 
-    public static Map<String, String> getMap(JSONObject MainObj, String key){
+    public static Map<String, String> getMap(JSONObject MainObj, String key) {
 
         Map<String, String> map = new HashMap();
         Object obj = MainObj.get(key);
-            if (obj != null && obj instanceof JSONObject) {
-                for (Object internalKey : ((JSONObject) obj).keySet()) {
-                    map.put(((String) internalKey).toLowerCase(), (String) ((JSONObject) obj).get((String) internalKey));
-                }
+        if (obj != null && obj instanceof JSONObject) {
+            for (Object internalKey : ((JSONObject) obj).keySet()) {
+                map.put(((String) internalKey).toLowerCase(), (String) ((JSONObject) obj).get((String) internalKey));
             }
+        }
         return map;
     }
 
-    public static Map<String, ArrayList<String>> getSubMap(JSONObject MainObj, String key){
+    public static Map<String, ArrayList<String>> getSubMap(JSONObject MainObj, String key) {
         Map<String, ArrayList<String>> map = new HashMap();
-        Object obj = MainObj.get("ResponseScripts");
+        Object obj = MainObj.get(key);
         if (obj != null && obj instanceof JSONObject) {
             for (Object internalKey : ((JSONObject) obj).keySet()) {
 
@@ -260,7 +340,7 @@ public class JsonBuilder {
         return map;
     }
 
-    public static List<String> getList(JSONObject MainObj, String key){
+    public static List<String> getList(JSONObject MainObj, String key) {
 
         List<String> list = new ArrayList<>();
 
@@ -277,11 +357,9 @@ public class JsonBuilder {
     }
 
 
-
-
-
     //---------- load methods
 
+    /*
     public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
         //Generic
 
@@ -294,8 +372,8 @@ public class JsonBuilder {
                 getList(jObj, "Alias"),
                 getMap(jObj, "Descriptions")
         ){{
-                    if(getShortName() == null)
-                        setShortName(getName());
+            if(getShortName() == null)
+                setShortName(getName());
 
             if(!getAlias().contains(getShortName()))
                 getAlias().add(getShortName());
@@ -369,7 +447,7 @@ public class JsonBuilder {
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-                return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
+            return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
         }
 
         if (typeKey.equals("stationaryobject")) {
@@ -377,6 +455,145 @@ public class JsonBuilder {
             JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
 
             if(jsDestinations != null){
+                //If it has destinations, it's a vehicle
+                List<String> destinations = new ArrayList() {{
+                    addAll(jsDestinations);
+                }};
+
+                return new Vehicle(identityCore, relationCore, actionCore, destinations);
+            }
+            return new StationaryObject(identityCore, relationCore, actionCore);
+        }
+        return null;
+    }
+*/
+
+
+    public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
+        //Generic
+
+        JSONObject jsIdentityCore = (JSONObject) jObj.get("IdentityCore");
+        IdentityCore identityCore;
+        if (jsIdentityCore == null) {
+            identityCore = new IdentityCore();
+        } else {
+            identityCore = new IdentityCore(
+                    (String) jsIdentityCore.get("FullName"),
+                    (String) jsIdentityCore.get("ShortName"),
+                    (String) jsIdentityCore.get("Type"),
+                    (String) jsIdentityCore.get("Id"),
+                    getList(jsIdentityCore, "Alias"),
+                    getMap(jsIdentityCore, "Descriptions")
+            ) {{
+                if (getShortName() == null)
+                    setShortName(getName());
+
+                if (!getAlias().contains(getShortName()))
+                    getAlias().add(getShortName());
+            }};
+        }
+
+
+        JSONObject jsRelationCore = (JSONObject) jObj.get("RelationCore");
+        RelationCore relationCore;
+        if (jsRelationCore == null) {
+            relationCore = new RelationCore();
+        } else {
+            relationCore = new RelationCore(
+                    (String) jsRelationCore.get("Location"),
+                    (String) jsRelationCore.get("DefaultLocation"),
+                    (String) jsRelationCore.get("OwnerId")
+            ) {{
+                if (getDefaultLocationId() == null)         //If there's no specified defaultLocation, set current location to default.
+                    setDefaultLocationId(getLocationId());     //Since the default world is the "start" anyway, this works fine.
+            }};
+        }
+
+        JSONObject jsActionCore = (JSONObject) jObj.get("ActionCore");
+        ActionCore actionCore;
+        if (jsActionCore == null) {
+            actionCore = new ActionCore();
+        } else {
+            actionCore = new ActionCore(
+                    getList(jsActionCore, "Attributes"),
+                    (String) jsActionCore.get("Text"),
+                    (String) jsActionCore.get("DefaultUse"),
+                    getMap(jsActionCore, "ComplexUse"),
+                    getSubMap(jsActionCore, "ResponseScripts")
+            );
+        }
+
+        if (typeKey.equals("creature")) {
+            //Creature-specific
+            JSONObject jsCreatureCore = (JSONObject) jObj.get("CreatureCore");
+            CreatureCore creatureCore;
+            if (jsCreatureCore == null) {
+                creatureCore = new CreatureCore();
+            } else {
+                creatureCore = new CreatureCore(
+                        (String) jsCreatureCore.get("Race"),
+                        (String) jsCreatureCore.get("DefaultRace"),
+                        (String) jsCreatureCore.get("Gender")
+                );
+            }
+
+            JSONObject jsSpeechCore = (JSONObject) jObj.get("SpeechCore");
+            SpeechCore speechCore;
+            if (jsSpeechCore == null) {
+                speechCore = new SpeechCore();
+            } else {
+                speechCore = new SpeechCore(
+                        getList(jsSpeechCore, "CasualDialog"),
+                        getMap(jsSpeechCore, "AskTopics"),
+                        (String) jsSpeechCore.get("InitialDialog")
+                );
+            }
+
+
+            JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
+            BehaviorCore behaviorCore;
+            if (jsBehaviorCore == null) {
+                behaviorCore = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
+            } else {
+                behaviorCore = new BehaviorCore(
+                        (String) jsBehaviorCore.get("mood"),
+                        (String) jsBehaviorCore.get("activity"),
+                        (String) jsBehaviorCore.get("allegiance"),
+                        (String) jsBehaviorCore.get("status"),
+                        getMap(jsBehaviorCore, "PersonalQuotes")
+                );
+            }
+
+            JSONArray jsonMerch = (JSONArray) jObj.get("Merchandise");
+
+            if (jsonMerch != null) {
+                List<String> merchandiseList = new ArrayList() {{
+                    addAll(jsonMerch);
+                }};
+                return new Merchant(identityCore, relationCore, actionCore, creatureCore,
+                        speechCore, behaviorCore, merchandiseList);
+            }
+            return new Creature(identityCore, relationCore, actionCore, creatureCore,
+                    speechCore, behaviorCore);
+        }
+
+        if (typeKey.equals("item")) {
+            return new Item(identityCore, relationCore, actionCore);
+        }
+
+        if (typeKey.equals("location")) {
+
+            String defaultEnter = (String) jObj.get("DefaultEnter");
+            String defaultExit = (String) jObj.get("DefaultExit");
+
+            return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
+        }
+
+        if (typeKey.equals("stationaryobject")) {
+
+            JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
+
+            if (jsDestinations != null) {
                 //If it has destinations, it's a vehicle
                 List<String> destinations = new ArrayList() {{
                     addAll(jsDestinations);
@@ -479,46 +696,45 @@ public class JsonBuilder {
             for (Object obj : dialogJSON.keySet()) {
 
 
-
-                    String key = (String) obj;
-                    String text;
-                    List<String> scripts = new ArrayList<>();
-
-
-                    JSONObject dialog = (JSONObject) dialogJSON.get(key);
-
-                    text = (String) dialog.get("Line");
-
-                    JSONArray jsScripts = (JSONArray) dialog.get("Scripts");
+                String key = (String) obj;
+                String text;
+                List<String> scripts = new ArrayList<>();
 
 
-                    if (jsScripts != null) {
-                        for (Object script : jsScripts) {
-                            scripts.add((String) script);
-                        }
+                JSONObject dialog = (JSONObject) dialogJSON.get(key);
 
-                    } else {
-                        scripts = null;
+                text = (String) dialog.get("Line");
+
+                JSONArray jsScripts = (JSONArray) dialog.get("Scripts");
+
+
+                if (jsScripts != null) {
+                    for (Object script : jsScripts) {
+                        scripts.add((String) script);
                     }
 
-                    JSONObject jsResponses = (JSONObject) dialog.get("Responses");
+                } else {
+                    scripts = null;
+                }
 
-                    String[][] responses = new String[jsResponses.size()][2];
+                JSONObject jsResponses = (JSONObject) dialog.get("Responses");
 
-                    for (int i = 0; i < jsResponses.size(); i++) {
-                        JSONArray responseArray = (JSONArray) jsResponses.get("" + i);
+                String[][] responses = new String[jsResponses.size()][2];
 
-                        responses[i][0] = (String) responseArray.get(0);
-                        responses[i][1] = (String) responseArray.get(1);
+                for (int i = 0; i < jsResponses.size(); i++) {
+                    JSONArray responseArray = (JSONArray) jsResponses.get("" + i);
+
+                    responses[i][0] = (String) responseArray.get(0);
+                    responses[i][1] = (String) responseArray.get(1);
 
 
-                    }
+                }
 
 
-                    Dialog dialogEntry = new Dialog(key, text, responses);
-                    dialogEntry.setScripts((ArrayList<String>) scripts);
+                Dialog dialogEntry = new Dialog(key, text, responses);
+                dialogEntry.setScripts((ArrayList<String>) scripts);
 
-                    dialogList.add(dialogEntry);
+                dialogList.add(dialogEntry);
 
 
             }
@@ -540,7 +756,7 @@ public class JsonBuilder {
 
     //--------------------------------------------
 
-    public static List<GenericObject> generateTemplateList(){
+    public static List<GenericObject> generateTemplateList() {
 
         List<GenericObject> templateList = new ArrayList<>();
 

@@ -30,7 +30,13 @@ public class RelationCore {
         itemList = new ArrayList<>();
     }
 
+    public RelationCore() {
+        this.locationId = "Blank";
+        this.defaultLocationId = "Blank";
+        this.ownerId = "Blank";
 
+        itemList = new ArrayList<>();
+    }
 
     public List<Item> getItemList() {
         return itemList;
