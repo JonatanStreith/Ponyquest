@@ -215,7 +215,8 @@
     "Descriptions": {
       "default": "A down-to-earth apple farmer and general rustic country bumpkin. Boring, but fairly nice.",
       "sleeping": "She is sleeping peacefully.",
-      "annoyed": "She scowls at you."
+      "annoyed": "She scowls at you.",
+      "earth pony": "She is an orange earth pony with a blonde mane tied into a practical ponytail."
     },
     "Id": "Creature_Applejack",
     "FullName": "Applejack",

@@ -5,6 +5,7 @@ import jonst.Data.SystemData;
 import jonst.Models.*;
 import jonst.Models.Cores.BehaviorCore;
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 import jonst.Models.Objects.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -302,7 +303,9 @@ public class JsonBuilder {
                 (String) jObj.get("ShortName"),
                 (String) jObj.get("Type"),
                 (String) jObj.get("Id"),
-                getList(jObj, "Alias")){{
+                getList(jObj, "Alias"),
+                getMap(jObj, "Descriptions")
+        ){{
                     if(getShortName() == null)
                         setShortName(getName());
 
@@ -310,33 +313,22 @@ public class JsonBuilder {
                 getAlias().add(getShortName());
         }};
 
-        //String fullName = (String) jObj.get("FullName");
-        //String shortName = (String) jObj.get("ShortName");
-
-//        if(shortName == null)
-//            shortName = fullName;
-
-//        String type = (String) jObj.get("Type");
-//        String id = (String) jObj.get("Id");
-        String location = (String) jObj.get("Location");
-        String defaultLocation = (String) jObj.get("DefaultLocation");
-
-        if (defaultLocation == null)         //If there's no specified defaultLocation, set current location to default.
-            defaultLocation = location;     //Since the default world is the "start" anyway, this works fine.
+        RelationCore relationCore = new RelationCore(
+                (String) jObj.get("Location"),
+                (String) jObj.get("DefaultLocation"),
+                (String) jObj.get("OwnerId")
+        ){{
+            if (getDefaultLocationId() == null)         //If there's no specified defaultLocation, set current location to default.
+                setDefaultLocationId(getLocationId());     //Since the default world is the "start" anyway, this works fine.
+        }};
 
 
         String text = (String) jObj.get("Text");
         String defaultUse = (String) jObj.get("DefaultUse");
 
-        Map<String, String> descriptions = getMap(jObj, "Descriptions");
+
         Map<String, String> complexUse = getMap(jObj, "ComplexUse");
-
         List<String> attributes = getList(jObj, "Attributes");
-//        List<String> alias = getList(jObj, "Alias");
-//
-//        if(!alias.contains(shortName))
-//            alias.add(shortName);
-
         Map<String, ArrayList<String>> responseScripts = getSubMap(jObj, "ResponseScripts");
 
         if (typeKey.equals("creature")) {
@@ -375,19 +367,19 @@ public class JsonBuilder {
                     addAll(jsonMerch);
                 }};
 
-                return new Merchant(identityCore, location, defaultLocation, attributes, race, defaultRace,
-                        gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog, merchandiseList);
+                return new Merchant(identityCore, relationCore, attributes, race, defaultRace,
+                        gender, casualDialog, askTopics, text, defaultUse, complexUse, responseScripts, bc, initialDialog, merchandiseList);
 
             }
-            return new Creature(identityCore, location, defaultLocation, attributes, race, defaultRace,
-                    gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, null, bc, initialDialog);
+            return new Creature(identityCore, relationCore, attributes, race, defaultRace,
+                    gender, casualDialog, askTopics, text, defaultUse, complexUse, responseScripts, bc, initialDialog);
 
         }
 
         if (typeKey.equals("item")) {
 
             String ownerId = (String) jObj.get("OwnerId");
-            Item test = new Item(identityCore, location, defaultLocation, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+            Item test = new Item(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
 
             return test;
         }
@@ -397,8 +389,8 @@ public class JsonBuilder {
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-            return new Location(identityCore, identityCore.getName(), null,  attributes, defaultEnter, defaultExit, descriptions,
-                    text, defaultUse, complexUse, responseScripts, null);
+                return new Location(identityCore, relationCore, attributes, defaultEnter, defaultExit,
+                        text, defaultUse, complexUse, responseScripts);
         }
 
         if (typeKey.equals("stationaryobject")) {
@@ -412,9 +404,9 @@ public class JsonBuilder {
                     addAll(jsDestinations);
                 }};
 
-                return new Vehicle(identityCore, location, defaultLocation, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId, destinations);
+                return new Vehicle(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts, destinations);
             }
-            return new StationaryObject(identityCore, location, defaultLocation, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+            return new StationaryObject(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
         }
         return null;
     }

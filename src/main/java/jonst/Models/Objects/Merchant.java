@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.Models.Cores.BehaviorCore;
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 //import jonst.Models.Merchandise;
 
 import java.util.ArrayList;
@@ -18,15 +19,15 @@ public class Merchant extends Creature {
 
     //TODO: Can a merchant have a combo of unique and generic items? If you sell an item to them, will they remember that specific one?
 
-    public Merchant(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, BehaviorCore bc, String initialDialog, List<String> merchandiseIds) {
-        super(identityCore, locationId, defaultLocationId,  attributes, race, defaultRace, gender, casualDialog, askTopics, descriptions, text, defaultUse, complexUse, responseScripts, ownerId, bc, initialDialog);
+    public Merchant(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, BehaviorCore bc, String initialDialog, List<String> merchandiseIds) {
+        super(identityCore, relationCore, attributes, race, defaultRace, gender, casualDialog, askTopics, text, defaultUse, complexUse, responseScripts, bc, initialDialog);
         setMerchandiseIds(merchandiseIds);
 
         merchandiseList = new ArrayList<>();
     }
 
     public Merchant(Merchant template) {
-        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getBehaviorCore(), template.getInitialDialog(), template.getMerchandiseIds());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getBehaviorCore(), template.getInitialDialog(), template.getMerchandiseIds());
 
         merchandiseList = template.getMerchandiseList();
     }

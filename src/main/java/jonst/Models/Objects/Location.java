@@ -3,6 +3,7 @@ package jonst.Models.Objects;
 import jonst.App;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 import jonst.Models.Exit;
 import jonst.Models.World;
 
@@ -22,8 +23,8 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation;
 
 
-    public Location(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, String defaultEnterId, String defaultExitId, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
-        super(identityCore, locationId, defaultLocationId, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    public Location(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String defaultEnterId, String defaultExitId, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
+        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);
         setLocation(this);
@@ -32,7 +33,7 @@ public class Location extends GenericObject {
     }
 
     public Location(Location template) {
-        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getDefaultEnterId(), template.getDefaultExitId(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getDefaultEnterId(), template.getDefaultExitId(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts());
         setLocation(this);
         creaturesAtLocation = new ArrayList<Creature>();
         objectsAtLocation = new ArrayList<StationaryObject>();

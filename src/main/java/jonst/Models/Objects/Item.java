@@ -4,6 +4,7 @@ package jonst.Models.Objects;
 import jonst.App;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 import jonst.Models.World;
 
 import java.util.ArrayList;
@@ -16,12 +17,12 @@ public class Item extends GenericObject {
     private GenericObject holder;
 
 
-    public Item(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
-        super(identityCore, locationId, defaultLocationId, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    public Item(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
+        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
     }
 
     public Item(Item template){
-        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts());
     }
 
     public GenericObject getHolder() {

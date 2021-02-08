@@ -1,6 +1,8 @@
 package jonst.Models.Cores;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IdentityCore {
     private String name;
@@ -8,13 +10,15 @@ public class IdentityCore {
     private String type;
     private String id;
     private List<String> alias;
+    private Map<String, String> descriptions;
 
-    public IdentityCore(String name, String shortName, String type, String id, List<String> alias) {
+    public IdentityCore(String name, String shortName, String type, String id, List<String> alias, Map<String, String> descriptions) {
         this.name = name;
         this.shortName = shortName;
         this.type = type;
         this.id = id;
         this.alias = alias;
+        this.descriptions = descriptions;
     }
 
     public String getName() {
@@ -55,5 +59,24 @@ public class IdentityCore {
 
     public void setAlias(List<String> alias) {
         this.alias = alias;
+    }
+
+    public Map<String, String> getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(Map<String, String> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public String getSpecificDescription(String key){
+        if(descriptions.containsKey(key))
+        return descriptions.get(key);
+        else
+            return "[Description missing: " + key + "]";
+    }
+
+    public boolean hasSpecificDescription(String key){
+        return descriptions.containsKey(key);
     }
 }

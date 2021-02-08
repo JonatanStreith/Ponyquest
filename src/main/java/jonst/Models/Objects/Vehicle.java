@@ -1,6 +1,7 @@
 package jonst.Models.Objects;
 
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +13,15 @@ public class Vehicle extends StationaryObject {
 
     List<Location> destinations;
 
-    public Vehicle(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId, List<String> destinationIds) {
-        super(identityCore, locationId, defaultLocationId, attributes, descriptions, text, defaultUse, complexUse, responseScripts, ownerId);
+    public Vehicle(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, List<String> destinationIds) {
+        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
         setDestinationIds(destinationIds);
 
         destinations = new ArrayList<>();
     }
 
     public Vehicle(Vehicle template) {
-        this(template.getIdentityCore(), template.getLocationId(), template.getDefaultLocationId(), template.getAttributes(), template.getDescriptions(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getOwnerId(), template.getDestinationIds());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getDestinationIds());
 
         destinations = template.getDestinations();
     }

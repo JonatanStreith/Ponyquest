@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,12 @@ import java.util.Map;
 public class StationaryObject extends GenericObject {
 
 
-    public StationaryObject(IdentityCore identityCore, String locationId, String defaultLocationId, List<String> attributes, Map<String, String> descriptions, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, String ownerId) {
-        super(identityCore, locationId, defaultLocationId, attributes, text, defaultUse, descriptions, complexUse, responseScripts, ownerId);
+    public StationaryObject(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
+        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
     }
 
-    public StationaryObject(StationaryObject original) {
-        this(original.getIdentityCore(), original.getLocationId(), original.getDefaultLocationId(), original.getAttributes(), original.getDescriptions(), original.getText(), original.getDefaultUse(), original.getComplexUse(), original.getResponseScripts(), original.getOwnerId());
+    public StationaryObject(StationaryObject template) {
+        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts());
     }
 
     public void transformInto(GenericObject template){

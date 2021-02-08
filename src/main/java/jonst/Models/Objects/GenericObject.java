@@ -3,6 +3,7 @@ package jonst.Models.Objects;
 import jonst.App;
 import jonst.Data.Lambda;
 import jonst.Models.Cores.IdentityCore;
+import jonst.Models.Cores.RelationCore;
 import jonst.Models.World;
 
 import java.util.ArrayList;
@@ -14,43 +15,40 @@ import java.util.Map;
 public abstract class GenericObject implements Comparable<GenericObject> {
 
     private IdentityCore identityCore;
+    private RelationCore relationCore;
 
-    private String locationId;
-    private String defaultLocationId;
-    private Location location;
 
     private List<Item> itemList;
+
+
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
     private String text;
     private String defaultUse;
-    private String ownerId;
 
-    private Creature Owner;
 
-    private Map<String, String> descriptions = new HashMap<>();
     private Map<String, String> complexUse = new HashMap<>();
     private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
 
 
     public GenericObject(
             IdentityCore identityCore,
+            RelationCore relationCore,
 
-            String locationId,
-            String defaultLocationId, List<String> attributes, String text,
-            String defaultUse, Map<String, String> descriptions, Map<String, String> complexUse,
-            Map<String, ArrayList<String>> responseScripts, String ownerId
+            List<String> attributes,
+            String text,
+            String defaultUse,
+
+            Map<String, String> complexUse,
+            Map<String, ArrayList<String>> responseScripts
     ) {
         setIdentityCore(identityCore);
+        setRelationCore(relationCore);
 
-        setLocationId(locationId);
-        setDefaultLocationId(defaultLocationId);
-        setOwnerId(ownerId);
         setText(text);
         setDefaultUse(defaultUse);
 
 
         setAttributes(attributes);
-        setDescriptions(descriptions);
 
         setComplexUse(complexUse);
         setResponseScripts(responseScripts);
@@ -61,6 +59,14 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     //--------- Getters ------------
 
 
+    public RelationCore getRelationCore() {
+        return relationCore;
+    }
+
+    public void setRelationCore(RelationCore relationCore) {
+        this.relationCore = relationCore;
+    }
+
     public IdentityCore getIdentityCore() {
         return identityCore;
     }
@@ -70,7 +76,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public String getDefaultLocationId() {
-        return defaultLocationId;
+        return relationCore.getDefaultLocationId();
     }
 
     public String getType() {
@@ -78,11 +84,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public String getOwnerId() {
-        return ownerId;
+        return relationCore.getOwnerId();
     }
 
     public Creature getOwner() {
-        return Owner;
+        return relationCore.getOwner();
     }
 
     public String getName() {
@@ -98,11 +104,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public Map<String, String> getDescriptions() {
-        return descriptions;
+        return identityCore.getDescriptions();
     }
 
     public String getLocationId() {
-        return locationId;
+        return relationCore.getLocationId();
     }
 
     public List<Item> getItemList() {
@@ -118,7 +124,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public Location getLocation() {
-        return location;
+        return relationCore.getLocation();
     }
 
     public String getDefaultUse() {
@@ -141,7 +147,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     //--------- Setters ------------
 
     public void setDefaultLocationId(String defaultLocationId) {
-        this.defaultLocationId = defaultLocationId;
+        relationCore.setDefaultLocationId(defaultLocationId);
     }
 
     public void setType(String type) {
@@ -149,11 +155,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+        relationCore.setOwnerId(ownerId);
     }
 
     public void setOwner(Creature owner) {
-        Owner = owner;
+        relationCore.setOwner(owner);
     }
 
     protected void setName(String name) {
@@ -169,11 +175,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public void setDescriptions(Map<String, String> descriptions) {
-        this.descriptions = descriptions;
+        identityCore.setDescriptions(descriptions);
     }
 
     public void setLocationId(String locationId) {
-        this.locationId = locationId;
+        relationCore.setLocationId(locationId);
     }
 
     protected void setAlias(List<String> alias) {
@@ -185,11 +191,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public void setLocation(Location location) {
-        this.location = location;
-
-        if (location != null) {
-            locationId = location.getId();
-        }
+        relationCore.setLocation(location);
     }
 
     public void setDefaultUse(String defaultUse) {
@@ -256,19 +258,19 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
         // This method returns a string combining various relevant descriptions of the object
 
-        StringBuilder fullDescription = new StringBuilder(descriptions.get("default"));
+        StringBuilder fullDescription = new StringBuilder(identityCore.getSpecificDescription("default"));
 
         // Creatures can have specific descriptions pertaining to various races, moods, and statuses
 
         if (this instanceof Creature) {
-            if (descriptions.keySet().contains(((Creature) this).getRace())) {
-                fullDescription.append(" " + descriptions.get(((Creature) this).getRace()));
+            if (identityCore.hasSpecificDescription(((Creature) this).getRace())) {
+                fullDescription.append(" " + identityCore.getSpecificDescription(((Creature) this).getRace()));
             }
-            if (descriptions.keySet().contains(((Creature) this).getMood())) {
-                fullDescription.append(" " + descriptions.get(((Creature) this).getMood()));
+            if (identityCore.hasSpecificDescription(((Creature) this).getMood())) {
+                fullDescription.append(" " + identityCore.getSpecificDescription(((Creature) this).getMood()));
             }
-            if (descriptions.keySet().contains(((Creature) this).getStatus())) {
-                fullDescription.append(" " + descriptions.get(((Creature) this).getStatus()));
+            if (identityCore.hasSpecificDescription(((Creature) this).getStatus())) {
+                fullDescription.append(" " + identityCore.getSpecificDescription(((Creature) this).getStatus()));
             }
         }
 
@@ -278,24 +280,25 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         // Descriptions specific to any current attributes
 
         for (String attr : getAttributes()) {
-            if (descriptions.keySet().contains(attr)) {
-                fullDescription.append(" " + descriptions.get(attr));
+            if (identityCore.hasSpecificDescription(attr)) {
+                fullDescription.append(" " + identityCore.getSpecificDescription(attr));
             }
         }
         return fullDescription.toString();
     }
 
     public String getSpecficDescription(String key) {
-        return descriptions.get(key);
+        return identityCore.getSpecificDescription(key);
     }
 
     public boolean hasAttribute(String attr) {
 
         return attributes.contains(attr);
     }
+
     public boolean hasAnyAttributes(String[] attributeArray) {
-        for (String attr: attributeArray) {
-            if(attributes.contains(attr))
+        for (String attr : attributeArray) {
+            if (attributes.contains(attr))
                 return true;
         }
         return false;
@@ -396,10 +399,10 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
         if (
                 (getOwner() == null)                    //No owner is set
-             || (getOwner().getLocation() != location)  //Owner is not present
-             || (getOwner().hasStatus("sleeping"))      //Owner is asleep
-             || (getOwner().hasAllegiance("allied"))    //Owner is on your side
-             || (getOwner().hasAnyAttributes(new String[]{"charmed"}))    //Owner has any relevant attributes
+                        || (getOwner().getLocation() != getLocation())  //Owner is not present
+                        || (getOwner().hasStatus("sleeping"))      //Owner is asleep
+                        || (getOwner().hasAllegiance("allied"))    //Owner is on your side
+                        || (getOwner().hasAnyAttributes(new String[]{"charmed"}))    //Owner has any relevant attributes
         )
             return false;
 
@@ -415,7 +418,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         if (subject instanceof Item) {
             world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
-        } else if(subject instanceof Location)   {
+        } else if (subject instanceof Location) {
             System.out.println("Destroying a location is not supported yet.");  //TODO: Destroying locations
         } else {
             world.removeFromLocation(subject, subject.getLocation());
@@ -434,7 +437,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     public String getHolderId() {
         if (!(this instanceof Item)) {
-            return locationId;
+            return getLocationId();
         } else {
             return ((Item) this).getHolder().getId();
         }
