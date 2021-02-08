@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
+import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
 import jonst.Models.Exit;
@@ -23,8 +24,8 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation;
 
 
-    public Location(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String defaultEnterId, String defaultExitId, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
-        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
+    public Location(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, String defaultEnterId, String defaultExitId) {
+        super(identityCore, relationCore, actionCore);
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);
         setLocation(this);
@@ -33,7 +34,7 @@ public class Location extends GenericObject {
     }
 
     public Location(Location template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getDefaultEnterId(), template.getDefaultExitId(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getDefaultEnterId(), template.getDefaultExitId());
         setLocation(this);
         creaturesAtLocation = new ArrayList<Creature>();
         objectsAtLocation = new ArrayList<StationaryObject>();

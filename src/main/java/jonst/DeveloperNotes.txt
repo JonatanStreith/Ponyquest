@@ -1,9 +1,13 @@
 Look over the "Transform" command and stuff. Transformed objects still retain their responsescripts/doesn't gain new ones. Also doesn't get shortname.
 
+Alternate constructor for GenericItem et al that takes json obj.
+
 See if I can break out chunks of info so we don't have to have absurdly long constructors.
 "IdentityCore" needs getAllNouns().
 
 If character attribute is "mineralvore" and object is "mineral", you can eat it.
+
+Exits that can connect a large number of places. Does this work? Could make a town-encompassing connection.
 
 Debug command: getattributes (getattributes cape = lists attributes)
 

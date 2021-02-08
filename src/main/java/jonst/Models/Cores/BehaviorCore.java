@@ -9,7 +9,7 @@ public class BehaviorCore {
     private String allegiance;
     private String status;
 
-    private Map<String, String> personalQuotes = new HashMap<String, String>();
+    private Map<String, String> personalQuotes;
     //This tracks standard lines like greetings and yes/no replies, personalized. Incorporate in the json later for character-specific.
 
 

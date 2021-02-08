@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
+import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
 import jonst.Models.World;
@@ -16,45 +17,28 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     private IdentityCore identityCore;
     private RelationCore relationCore;
-
-
-    private List<String> attributes;        //Contains all attributes that can affect how interactions work!
-    private String text;
-    private String defaultUse;
-
-
-    private Map<String, String> complexUse = new HashMap<>();
-    private Map<String, ArrayList<String>> responseScripts = new HashMap<>();
-
+    private ActionCore actionCore;
 
     public GenericObject(
             IdentityCore identityCore,
             RelationCore relationCore,
-
-            List<String> attributes,
-            String text,
-            String defaultUse,
-
-            Map<String, String> complexUse,
-            Map<String, ArrayList<String>> responseScripts
+            ActionCore actionCore
     ) {
         setIdentityCore(identityCore);
         setRelationCore(relationCore);
-
-        setText(text);
-        setDefaultUse(defaultUse);
-
-
-        setAttributes(attributes);
-
-        setComplexUse(complexUse);
-        setResponseScripts(responseScripts);
-
-
+        setActionCore(actionCore);
     }
 
     //--------- Getters ------------
 
+
+    public ActionCore getActionCore() {
+        return actionCore;
+    }
+
+    public void setActionCore(ActionCore actionCore) {
+        this.actionCore = actionCore;
+    }
 
     public RelationCore getRelationCore() {
         return relationCore;
@@ -117,7 +101,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public List<String> getAttributes() {
-        return attributes;
+        return actionCore.getAttributes();
     }
 
     public Location getLocation() {
@@ -125,19 +109,19 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public String getDefaultUse() {
-        return defaultUse;
+        return actionCore.getDefaultUse();
     }
 
     public Map<String, String> getComplexUse() {
-        return complexUse;
+        return actionCore.getComplexUse();
     }
 
     public String getText() {
-        return text;
+        return actionCore.getText();
     }
 
     public Map<String, ArrayList<String>> getResponseScripts() {
-        return responseScripts;
+        return actionCore.getResponseScripts();
     }
 
 
@@ -184,7 +168,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     protected void setAttributes(List<String> attributes) {
-        this.attributes = attributes;
+        actionCore.setAttributes(attributes);
     }
 
     public void setLocation(Location location) {
@@ -192,19 +176,19 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public void setDefaultUse(String defaultUse) {
-        this.defaultUse = defaultUse;
+        actionCore.setDefaultUse(defaultUse);
     }
 
     public void setComplexUse(Map<String, String> complexUse) {
-        this.complexUse = complexUse;
+        actionCore.setComplexUse(complexUse);
     }
 
     public void setText(String text) {
-        this.text = text;
+        actionCore.setText(text);
     }
 
     public void setResponseScripts(Map<String, ArrayList<String>> responseScripts) {
-        this.responseScripts = responseScripts;
+        actionCore.setResponseScripts(responseScripts);
     }
 
     //--------- Cool system methods ------------
@@ -289,34 +273,19 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public boolean hasAttribute(String attr) {
-
-        return attributes.contains(attr);
+        return actionCore.hasAttribute(attr);
     }
 
     public boolean hasAnyAttributes(String[] attributeArray) {
-        for (String attr : attributeArray) {
-            if (attributes.contains(attr))
-                return true;
-        }
-        return false;
+        return actionCore.hasAnyAttributes(attributeArray);
     }
 
     public boolean addAttribute(String attr) {
-
-        if (!attributes.contains(attr)) {
-            attributes.add(attr);
-            return true;
-        }
-        return false;
+        return actionCore.addAttribute(attr);
     }
 
     public boolean removeAttribute(String attr) {
-
-        if (attributes.contains(attr)) {
-            attributes.remove(attr);
-            return true;
-        }
-        return false;
+        return actionCore.removeAttribute(attr);
     }
 
     public boolean isAtLocation(Location location) {
@@ -356,20 +325,11 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public String getComplexUseCommand(String key) {
-        return complexUse.get(key.toLowerCase());
+        return actionCore.getComplexUseCommand(key);
     }
 
     public boolean runResponseScript(String command) {
-
-        ArrayList<String> responseCommands = responseScripts.get(command);
-
-        if (responseCommands != null) {
-            for (String script : responseCommands) {
-                App.getWorld().getParser().runScriptCommand(this, script, App.getWorld());
-            }
-            return true;
-        }
-        return false;
+        return actionCore.runResponseScript(command, this);
     }
 
     public boolean isOwnerPayingAttention() {

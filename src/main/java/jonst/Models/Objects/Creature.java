@@ -1,6 +1,7 @@
 package jonst.Models.Objects;
 
 import jonst.Data.Lambda;
+import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.BehaviorCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
@@ -23,8 +24,8 @@ public class Creature extends GenericObject {
     private Map<String, String> askTopics;
     private String initialDialog;
 
-    public Creature(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts, BehaviorCore bc, String initialDialog) {
-        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
+    public Creature(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, BehaviorCore bc, String initialDialog) {
+        super(identityCore, relationCore, actionCore);
         setRace(race);
         this.defaultRace = defaultRace;
         setGender(gender);
@@ -36,7 +37,7 @@ public class Creature extends GenericObject {
     }
 
     public Creature(Creature template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts(), template.getBehaviorCore(), template.getInitialDialog());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getBehaviorCore(), template.getInitialDialog());
     }
 
         //TODO: Can I move the major burden of this method to GenericObject?

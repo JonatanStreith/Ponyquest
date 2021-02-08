@@ -1,6 +1,7 @@
 package jonst.Models.Objects;
 
 
+import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
 
@@ -11,12 +12,12 @@ import java.util.Map;
 public class StationaryObject extends GenericObject {
 
 
-    public StationaryObject(IdentityCore identityCore, RelationCore relationCore, List<String> attributes, String text, String defaultUse, Map<String, String> complexUse, Map<String, ArrayList<String>> responseScripts) {
-        super(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
+    public StationaryObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore) {
+        super(identityCore, relationCore, actionCore);
     }
 
     public StationaryObject(StationaryObject template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getAttributes(), template.getText(), template.getDefaultUse(), template.getComplexUse(), template.getResponseScripts());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore());
     }
 
     public void transformInto(GenericObject template){

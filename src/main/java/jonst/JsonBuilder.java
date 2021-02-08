@@ -3,6 +3,7 @@ package jonst;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.*;
+import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.BehaviorCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
@@ -322,14 +323,14 @@ public class JsonBuilder {
                 setDefaultLocationId(getLocationId());     //Since the default world is the "start" anyway, this works fine.
         }};
 
+        ActionCore actionCore = new ActionCore(
+                getList(jObj, "Attributes"),
+                (String) jObj.get("Text"),
+                (String) jObj.get("DefaultUse"),
+                getMap(jObj, "ComplexUse"),
+                getSubMap(jObj, "ResponseScripts")
+        );
 
-        String text = (String) jObj.get("Text");
-        String defaultUse = (String) jObj.get("DefaultUse");
-
-
-        Map<String, String> complexUse = getMap(jObj, "ComplexUse");
-        List<String> attributes = getList(jObj, "Attributes");
-        Map<String, ArrayList<String>> responseScripts = getSubMap(jObj, "ResponseScripts");
 
         if (typeKey.equals("creature")) {
             //Creature-specific
@@ -367,19 +368,19 @@ public class JsonBuilder {
                     addAll(jsonMerch);
                 }};
 
-                return new Merchant(identityCore, relationCore, attributes, race, defaultRace,
-                        gender, casualDialog, askTopics, text, defaultUse, complexUse, responseScripts, bc, initialDialog, merchandiseList);
+                return new Merchant(identityCore, relationCore, actionCore, race, defaultRace,
+                        gender, casualDialog, askTopics, bc, initialDialog, merchandiseList);
 
             }
-            return new Creature(identityCore, relationCore, attributes, race, defaultRace,
-                    gender, casualDialog, askTopics, text, defaultUse, complexUse, responseScripts, bc, initialDialog);
+            return new Creature(identityCore, relationCore, actionCore, race, defaultRace,
+                    gender, casualDialog, askTopics, bc, initialDialog);
 
         }
 
         if (typeKey.equals("item")) {
 
             String ownerId = (String) jObj.get("OwnerId");
-            Item test = new Item(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
+            Item test = new Item(identityCore, relationCore, actionCore);
 
             return test;
         }
@@ -389,8 +390,7 @@ public class JsonBuilder {
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-                return new Location(identityCore, relationCore, attributes, defaultEnter, defaultExit,
-                        text, defaultUse, complexUse, responseScripts);
+                return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
         }
 
         if (typeKey.equals("stationaryobject")) {
@@ -404,9 +404,9 @@ public class JsonBuilder {
                     addAll(jsDestinations);
                 }};
 
-                return new Vehicle(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts, destinations);
+                return new Vehicle(identityCore, relationCore, actionCore, destinations);
             }
-            return new StationaryObject(identityCore, relationCore, attributes, text, defaultUse, complexUse, responseScripts);
+            return new StationaryObject(identityCore, relationCore, actionCore);
         }
         return null;
     }
