@@ -1,43 +1,29 @@
 package jonst.Models.Objects;
 
 import jonst.Data.Lambda;
-import jonst.Models.Cores.ActionCore;
-import jonst.Models.Cores.BehaviorCore;
-import jonst.Models.Cores.IdentityCore;
-import jonst.Models.Cores.RelationCore;
+import jonst.Models.Cores.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static jonst.HelpfulMethods.*;
-
-
 public class Creature extends GenericObject {
 
-    private String race;
-    private String defaultRace;
-    private String gender;
+
+    private CreatureCore creatureCore;
+    private SpeechCore speechCore;
     private BehaviorCore behaviorCore;
 
-    private List<String> casualDialog;
-    private Map<String, String> askTopics;
-    private String initialDialog;
-
-    public Creature(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, BehaviorCore bc, String initialDialog) {
+    public Creature(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore,
+                    CreatureCore creatureCore, SpeechCore speechCore, BehaviorCore behaviorCore) {
         super(identityCore, relationCore, actionCore);
-        setRace(race);
-        this.defaultRace = defaultRace;
-        setGender(gender);
-        setCasualDialog(casualDialog);
-        setAskTopics(askTopics);
-        setBehaviorCore(bc);
-        setInitialDialog(initialDialog);
-
+        setCreatureCore(creatureCore);
+        setSpeechCore(speechCore);
+        setBehaviorCore(behaviorCore);
     }
 
     public Creature(Creature template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getBehaviorCore(), template.getInitialDialog());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(),
+                template.getCreatureCore(), template.getSpeechCore(), template.getBehaviorCore());
     }
 
         //TODO: Can I move the major burden of this method to GenericObject?
@@ -65,32 +51,49 @@ public class Creature extends GenericObject {
 
     // -------- Getters --------
 
+
+    public SpeechCore getSpeechCore() {
+        return speechCore;
+    }
+
+    public void setSpeechCore(SpeechCore speechCore) {
+        this.speechCore = speechCore;
+    }
+
+    public CreatureCore getCreatureCore() {
+        return creatureCore;
+    }
+
+    public void setCreatureCore(CreatureCore creatureCore) {
+        this.creatureCore = creatureCore;
+    }
+
     public BehaviorCore getBehaviorCore() {
         return behaviorCore;
     }
 
     public String getInitialDialog() {
-        return initialDialog;
+        return speechCore.getInitialDialog();
     }
 
     public String getRace() {
-        return race;
+        return creatureCore.getRace();
     }
 
     public String getDefaultRace() {
-        return defaultRace;
+        return creatureCore.getDefaultRace();
     }
 
     public String getGender() {
-        return gender;
+        return creatureCore.getGender();
     }
 
     public List<String> getCasualDialog() {
-        return casualDialog;
+        return speechCore.getCasualDialog();
     }
 
     public Map<String, String> getAskTopics() {
-        return askTopics;
+        return speechCore.getAskTopics();
     }
 
     public String getMood() {
@@ -116,27 +119,27 @@ public class Creature extends GenericObject {
     }
 
     public void setInitialDialog(String initialDialog) {
-        this.initialDialog = initialDialog;
+        speechCore.setInitialDialog(initialDialog);
     }
 
     public void setRace(String race) {
-        this.race = race;
+        creatureCore.setRace(race);
     }
 
     public void setDefaultRace(String defaultRace) {
-        this.defaultRace = defaultRace;
+        creatureCore.setDefaultRace(defaultRace);
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        creatureCore.setGender(gender);
     }
 
     private void setCasualDialog(List<String> casualDialog) {
-        this.casualDialog = casualDialog;
+        speechCore.setCasualDialog(casualDialog);
     }
 
     public void setAskTopics(Map<String, String> askTopics) {
-        this.askTopics = askTopics;
+        speechCore.setAskTopics(askTopics);
     }
 
     public boolean setMood(String newMood) {
@@ -163,19 +166,11 @@ public class Creature extends GenericObject {
 
 
     public String getRandomCasualDialog() {
-        if (casualDialog != null && casualDialog.size() > 0) {
-            return casualDialog.get((int) Math.floor(Math.random() * casualDialog.size()));
-        } else
-            return capitalize(heOrShe(this)) + " doesn't have anything to say to you.";
+        return speechCore.getRandomCasualDialog(this);
     }
 
     public String askAbout(String topic) {
-        if (askTopics.containsKey(topic))
-            return askTopics.get(topic);
-        else if (topic.equalsIgnoreCase(getName())) {
-            return askTopics.get("self");
-        } else
-            return askTopics.get("default");
+        return speechCore.askAbout(topic, this);
     }
 
 

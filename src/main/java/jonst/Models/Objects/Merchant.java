@@ -1,9 +1,6 @@
 package jonst.Models.Objects;
 
-import jonst.Models.Cores.ActionCore;
-import jonst.Models.Cores.BehaviorCore;
-import jonst.Models.Cores.IdentityCore;
-import jonst.Models.Cores.RelationCore;
+import jonst.Models.Cores.*;
 //import jonst.Models.Merchandise;
 
 import java.util.ArrayList;
@@ -20,15 +17,19 @@ public class Merchant extends Creature {
 
     //TODO: Can a merchant have a combo of unique and generic items? If you sell an item to them, will they remember that specific one?
 
-    public Merchant(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, String race, String defaultRace, String gender, List<String> casualDialog, Map<String, String> askTopics, BehaviorCore bc, String initialDialog, List<String> merchandiseIds) {
-        super(identityCore, relationCore, actionCore, race, defaultRace, gender, casualDialog, askTopics, bc, initialDialog);
+    public Merchant(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore,
+                    CreatureCore creatureCore, SpeechCore speechCore, BehaviorCore behaviorCore,
+                    List<String> merchandiseIds) {
+        super(identityCore, relationCore, actionCore, creatureCore, speechCore, behaviorCore);
         setMerchandiseIds(merchandiseIds);
 
         merchandiseList = new ArrayList<>();
     }
 
     public Merchant(Merchant template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRace(), template.getDefaultRace(), template.getGender(), template.getCasualDialog(), template.getAskTopics(), template.getBehaviorCore(), template.getInitialDialog(), template.getMerchandiseIds());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(),
+                template.getCreatureCore(), template.getSpeechCore(), template.getBehaviorCore(),
+                template.getMerchandiseIds());
 
         merchandiseList = template.getMerchandiseList();
     }

@@ -19,11 +19,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private RelationCore relationCore;
     private ActionCore actionCore;
 
-    public GenericObject(
-            IdentityCore identityCore,
-            RelationCore relationCore,
-            ActionCore actionCore
-    ) {
+    public GenericObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore) {
         setIdentityCore(identityCore);
         setRelationCore(relationCore);
         setActionCore(actionCore);

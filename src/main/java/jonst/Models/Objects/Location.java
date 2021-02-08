@@ -24,20 +24,22 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation;
 
 
-    public Location(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, String defaultEnterId, String defaultExitId) {
+    public Location(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore,
+                    String defaultEnterId, String defaultExitId) {
         super(identityCore, relationCore, actionCore);
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);
         setLocation(this);
-        creaturesAtLocation = new ArrayList<Creature>();
-        objectsAtLocation = new ArrayList<StationaryObject>();
+        creaturesAtLocation = new ArrayList<>();
+        objectsAtLocation = new ArrayList<>();
     }
 
     public Location(Location template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getDefaultEnterId(), template.getDefaultExitId());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(),
+                template.getDefaultEnterId(), template.getDefaultExitId());
         setLocation(this);
-        creaturesAtLocation = new ArrayList<Creature>();
-        objectsAtLocation = new ArrayList<StationaryObject>();
+        creaturesAtLocation = new ArrayList<>();
+        objectsAtLocation = new ArrayList<>();
     }
 
     //--------- Getters ------------

@@ -3,10 +3,7 @@ package jonst;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.*;
-import jonst.Models.Cores.ActionCore;
-import jonst.Models.Cores.BehaviorCore;
-import jonst.Models.Cores.IdentityCore;
-import jonst.Models.Cores.RelationCore;
+import jonst.Models.Cores.*;
 import jonst.Models.Objects.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -334,16 +331,19 @@ public class JsonBuilder {
 
         if (typeKey.equals("creature")) {
             //Creature-specific
-            String race = (String) jObj.get("Race");
-            String defaultRace = (String) jObj.get("DefaultRace");
-            String gender = (String) jObj.get("Gender");
-            String initialDialog = (String) jObj.get("InitialDialog");
+            CreatureCore creatureCore = new CreatureCore(
+                    (String) jObj.get("Race"),
+                    (String) jObj.get("DefaultRace"),
+                    (String) jObj.get("Gender")
+            );
 
-            Map<String, String> askTopics = getMap(jObj, "AskTopics");
+            SpeechCore speechCore = new SpeechCore(
+                    getList(jObj, "CasualDialog"),
+                    getMap(jObj, "AskTopics"),
+                    (String) jObj.get("InitialDialog")
+            );
 
-            List<String> casualDialog = getList(jObj, "CasualDialog");
-
-            BehaviorCore bc;
+            BehaviorCore behaviorCore;
             JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
 
             if (jsBehaviorCore != null) {
@@ -351,38 +351,27 @@ public class JsonBuilder {
                 String activity = (String) jsBehaviorCore.get("activity");
                 String allegiance = (String) jsBehaviorCore.get("allegiance");
                 String status = (String) jsBehaviorCore.get("status");
-
                 Map<String, String> personalQuotes = getMap(jsBehaviorCore, "PersonalQuotes");
-
-                bc = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
-
+                behaviorCore = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
             } else {
-                bc = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
+                behaviorCore = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
             }
 
             JSONArray jsonMerch = (JSONArray) jObj.get("Merchandise");
 
             if(jsonMerch != null){
-
                 List<String> merchandiseList = new ArrayList() {{
                     addAll(jsonMerch);
                 }};
-
-                return new Merchant(identityCore, relationCore, actionCore, race, defaultRace,
-                        gender, casualDialog, askTopics, bc, initialDialog, merchandiseList);
-
+                return new Merchant(identityCore, relationCore, actionCore, creatureCore,
+                        speechCore, behaviorCore, merchandiseList);
             }
-            return new Creature(identityCore, relationCore, actionCore, race, defaultRace,
-                    gender, casualDialog, askTopics, bc, initialDialog);
-
+            return new Creature(identityCore, relationCore, actionCore, creatureCore,
+                    speechCore, behaviorCore);
         }
 
         if (typeKey.equals("item")) {
-
-            String ownerId = (String) jObj.get("OwnerId");
-            Item test = new Item(identityCore, relationCore, actionCore);
-
-            return test;
+            return new Item(identityCore, relationCore, actionCore);
         }
 
         if (typeKey.equals("location")) {
@@ -394,7 +383,6 @@ public class JsonBuilder {
         }
 
         if (typeKey.equals("stationaryobject")) {
-            String ownerId = (String) jObj.get("OwnerId");
 
             JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
 
