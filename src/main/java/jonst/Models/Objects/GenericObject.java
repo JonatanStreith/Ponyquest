@@ -18,9 +18,6 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private RelationCore relationCore;
 
 
-    private List<Item> itemList;
-
-
     private List<String> attributes;        //Contains all attributes that can affect how interactions work!
     private String text;
     private String defaultUse;
@@ -53,7 +50,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         setComplexUse(complexUse);
         setResponseScripts(responseScripts);
 
-        itemList = new ArrayList<>();
+
     }
 
     //--------- Getters ------------
@@ -112,7 +109,7 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public List<Item> getItemList() {
-        return itemList;
+        return relationCore.getItemList();
     }
 
     public List<String> getAlias() {
@@ -327,39 +324,19 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public boolean addItem(Item item) {
-        if (!itemList.contains(item)) {
-            itemList.add(item);
-            item.setHolder(this);
-            return true;
-        } else
-            return false;
+        return relationCore.addItem(item, this);
     }
 
     public boolean removeItem(Item item) {
-        if (itemList.contains(item)) {
-            itemList.remove(item);
-            item.setHolder(null);
-            return true;
-        } else
-            return false;
+        return relationCore.removeItem(item);
     }
 
     public boolean hasItem(Item item) {
-
-        if (itemList.contains(item)) {
-            return true;
-        } else
-            return false;
+        return relationCore.hasItem(item);
     }
 
     public Item getOwnedItemByName(String name) {
-
-        for (Item item : itemList) {
-            if (item.getName().equalsIgnoreCase(name)) {
-                return item;
-            }
-        }
-        return null;
+        return relationCore.getOwnedItemByName(name);
     }
 
     public boolean addAlias(String specificAlias) {
