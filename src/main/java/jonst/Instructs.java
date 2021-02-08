@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.Lambda;
 import jonst.Models.Objects.*;
+import jonst.Models.World;
 
 import static jonst.HelpfulMethods.*;
 

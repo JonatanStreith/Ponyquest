@@ -2,10 +2,9 @@ package jonst;
 
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
+import jonst.Models.World;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class CommandsTest {
 

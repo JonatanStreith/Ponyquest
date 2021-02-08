@@ -3,7 +3,7 @@ package jonst.Time;
 
 import jonst.App;
 import jonst.Models.Objects.GenericObject;
-import jonst.World;
+import jonst.Models.World;
 
 public class TimedScript {
 

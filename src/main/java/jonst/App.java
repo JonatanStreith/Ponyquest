@@ -1,10 +1,6 @@
 package jonst;
 
-import jonst.Data.SystemData;
-
-
-import java.io.File;
-import java.util.Map;
+import jonst.Models.World;
 
 public class App {
 

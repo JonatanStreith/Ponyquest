@@ -215,8 +215,8 @@ public class JsonBuilder {
         for (Exit exit : exitList) {        //This creates one JSONObject for every object in the list, populates it with data, and adds it to "objects"
             objectArray.add(new JSONArray() {{
 
-                add(exit.getLocations()[0].getId());
-                add(exit.getLocations()[1].getId());
+                add(exit.getConnectsLocations()[0].getId());
+                add(exit.getConnectsLocations()[1].getId());
 
                 if (exit.isOpen()) {
                     add("open");

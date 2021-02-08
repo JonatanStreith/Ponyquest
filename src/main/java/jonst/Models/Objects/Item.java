@@ -3,8 +3,7 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
-import jonst.JsonBuilder;
-import jonst.World;
+import jonst.Models.World;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,12 +2,13 @@ package jonst.Models.Objects;
 
 import jonst.App;
 import jonst.Data.Lambda;
-import jonst.World;
+import jonst.Models.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public abstract class GenericObject implements Comparable<GenericObject> {
     private String name;

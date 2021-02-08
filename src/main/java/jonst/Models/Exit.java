@@ -2,23 +2,21 @@ package jonst.Models;
 
 import jonst.Models.Objects.Location;
 
-import java.util.ArrayList;
-
 public class Exit {
-    private Location[] locations;
+    private Location[] connectsLocations;
     private boolean open;
 
     public Exit(Location[] locations, boolean open) {
-        this.locations = locations;
+        this.connectsLocations = locations;
         this.open = open;
     }
 
-    public Location[] getLocations() {
-        return this.locations;
+    public Location[] getConnectsLocations() {
+        return this.connectsLocations;
     }
 
-    public void setLocations(Location[] locations) {
-        this.locations = locations;
+    public void setConnectsLocations(Location[] connectsLocations) {
+        this.connectsLocations = connectsLocations;
     }
 
     public boolean isOpen() {
@@ -34,17 +32,17 @@ public class Exit {
     }
 
     public Location getConnectingLocation(Location current){
-        if(locations[0] == current){
-            return locations[1];
-        } else if (locations[1] == current) {
-            return locations[0];
+        if(connectsLocations[0] == current){
+            return connectsLocations[1];
+        } else if (connectsLocations[1] == current) {
+            return connectsLocations[0];
         } else
             return null;
     }
 
     public boolean connectionExists(Location loc0, Location loc1){
         //does this exit connect these two locations? (potential for reverse)
-        if((locations[0] == loc0 && locations[1] == loc1) || (locations[0] == loc1 && locations[1] == loc0)){
+        if((connectsLocations[0] == loc0 && connectsLocations[1] == loc1) || (connectsLocations[0] == loc1 && connectsLocations[1] == loc0)){
             return true;
         }
         return false;
@@ -52,7 +50,7 @@ public class Exit {
 
     public boolean containsLocation(Location loc){
         //does this exit connect to this one location?
-        if(locations[0] == loc ||  locations[1] == loc){
+        if(connectsLocations[0] == loc ||  connectsLocations[1] == loc){
             return true;
         }
         return false;

@@ -3,8 +3,8 @@ package jonst;
 import jonst.Data.Lambda;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
+import jonst.Models.World;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Scripts {

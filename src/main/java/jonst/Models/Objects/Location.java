@@ -3,12 +3,11 @@ package jonst.Models.Objects;
 import jonst.App;
 import jonst.Data.Lambda;
 import jonst.Models.Exit;
-import jonst.World;
+import jonst.Models.World;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class Location extends GenericObject {
 

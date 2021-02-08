@@ -2,8 +2,6 @@ package jonst.Models;
 
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
-import jonst.Models.Objects.Item;
-import jonst.World;
 import org.junit.Before;
 import org.junit.Test;
 

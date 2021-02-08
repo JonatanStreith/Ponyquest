@@ -5,11 +5,12 @@ import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
-import jonst.Models.Objects.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static jonst.HelpfulMethods.*;
 
 public class Parser {
     private List<String> legitimateNouns;
@@ -24,24 +25,26 @@ public class Parser {
         legitimateNouns = new ArrayList<>();
         legitimateSpells = SystemData.getLegitimateSpells();
 
-        world.getGenericList().stream()
+        world.getGenericList()
                 .forEach(g -> {
                     legitimateNouns.add(g.getName());
+                    legitimateNouns.add(g.getShortName());
                     legitimateNouns.addAll(g.getAlias());
                 });
 
-        world.getTemplateList().stream()
+        world.getTemplateList()
                 .forEach(g -> {
                     legitimateNouns.add(g.getName());
+                    legitimateNouns.add(g.getShortName());
                     legitimateNouns.addAll(g.getAlias());
                 });
 
 
-        legitimateNouns = HelpfulMethods.removeDuplicatesT((ArrayList<String>) legitimateNouns);
+        legitimateNouns = removeDuplicatesT((ArrayList<String>) legitimateNouns);
 
-        HelpfulMethods.reverseSortStringList(legitimateCommands);
-        HelpfulMethods.reverseSortStringList(legitimateConjunctions);
-        HelpfulMethods.reverseSortStringList(legitimateNouns);
+        reverseSortStringList(legitimateCommands);
+        reverseSortStringList(legitimateConjunctions);
+        reverseSortStringList(legitimateNouns);
 
         topicParseList = SystemData.getTopicParseList();
 
@@ -191,7 +194,7 @@ public class Parser {
     public void addToNouns(String specificAlias) {
         if (!legitimateNouns.contains(specificAlias)) {
             legitimateNouns.add(specificAlias);
-            HelpfulMethods.reverseSortStringList(legitimateNouns);
+            reverseSortStringList(legitimateNouns);
         }
     }
 
@@ -496,11 +499,6 @@ public class Parser {
 //                Instructs.take(commandArray, world);
 //                break;
 
-            default:
-                System.out.print(subject.getName() + " doesn't seem to understand your request. ");
-                System.out.println(subject.getPersonalQuote("excuseme?"));
-                break;
-
 
             case "hug":
                 Instructs.hug(subject, commandArray, world);
@@ -514,6 +512,13 @@ public class Parser {
             case "close":
                 Instructs.close(subject, commandArray[1], world);
                 break;
+
+
+            default:
+                System.out.print(subject.getName() + " doesn't seem to understand your request. ");
+                System.out.println(subject.getPersonalQuote("excuseme?"));
+                break;
+
 
         }
     }

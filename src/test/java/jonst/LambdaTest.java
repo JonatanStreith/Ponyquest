@@ -3,9 +3,9 @@ package jonst;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Objects.*;
+import jonst.Models.World;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LambdaTest {

@@ -4,15 +4,13 @@ package jonst;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
-import jonst.Models.Exit;
 //import jonst.Models.Merchandise;
 import jonst.Models.Objects.*;
+import jonst.Models.World;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static jonst.HelpfulMethods.*;
 

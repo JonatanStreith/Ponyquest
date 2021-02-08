@@ -80,7 +80,7 @@
     }
   },
   {
-    "descriptions": {
+    "Descriptions": {
       "Default": "It's a rock. You saw enough of them during your time on the rock farm."
     },
     "Id": "Item_Generic_Rock",

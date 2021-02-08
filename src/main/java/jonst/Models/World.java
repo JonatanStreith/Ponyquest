@@ -1,7 +1,9 @@
-package jonst;
+package jonst.Models;
 
+import jonst.Commands;
 import jonst.Data.*;
 
+import jonst.JsonBuilder;
 import jonst.Models.Dialog;
 import jonst.Models.Exit;
 //import jonst.Models.Merchandise;
@@ -18,7 +20,6 @@ import static jonst.HelpfulMethods.*;
 
 public class World {
 
-    public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
 
     private List<Location> locationList;      //Main lists that store all game objects
     private List<Creature> creatureList;
@@ -35,7 +36,10 @@ public class World {
 
     private Parser parser;
 
+    // ---------- Unused ----------
     private TimeKeeper timeKeeper;
+    public HashMap<String, String> gameFlags = new HashMap<String, String>();     //Use this to store event flags and the like!
+    // ---------- ------ ----------
 
 
     public World(String loadFilePath) {
@@ -109,7 +113,6 @@ public class World {
     }
 
     public void addToLocation(GenericObject object, Location location) {
-
         location.add(object);
         object.setLocation(location);
     }
@@ -163,16 +166,20 @@ public class World {
 
     public void populateLists() {
 
-
-        Lambda.processLists(locationList, new ArrayList<GenericObject>() {{
+        //Assign locations to all creatures and stationary objects;
+        //Populate each location's list of creatures and stationary objects
+        Lambda.processLists(
+                locationList, new ArrayList<GenericObject>() {{
                     addAll(creatureList);
                     addAll(stationaryObjectList);
                 }},
                 (l, g) -> g.getLocationId().equalsIgnoreCase(l.getId()), (l, g) -> {
                     l.add(g);
                     g.setLocation(l);
-                });
+                }
+        );
 
+        //Assign holders to all held items; assign locations to all items held by locations
         Lambda.processLists(itemList, genericList, (i, g) -> i.getLocationId().equalsIgnoreCase(g.getId()), (i, g) -> {
             g.addItem(i);
             i.setHolder(g);
@@ -183,6 +190,7 @@ public class World {
             }
         });
 
+        //Assign ownership
         Lambda.processLists(new ArrayList<GenericObject>() {{
                                 addAll(itemList);
                                 addAll(stationaryObjectList);
@@ -191,39 +199,35 @@ public class World {
                     t.setOwner(c);
                 });
 
-        for (Location location : locationList) {
-            for (Location loc : locationList) {
-                if (location.getDefaultEnterId() != null && location.getDefaultEnterId().equals(loc.getId())) {
-                    location.setDefaultEnter(loc);
-                } else if (location.getDefaultExitId() != null && location.getDefaultExitId().equals(loc.getId())) {
-                    location.setDefaultExit(loc);
+        //Assign default enters and exits
+        for (Location superLocation : locationList) {
+            for (Location subLocation : locationList) {
+                if (superLocation.getDefaultEnterId() != null && superLocation.getDefaultEnterId().equals(subLocation.getId())) {
+                    superLocation.setDefaultEnter(subLocation);
+                } else if (superLocation.getDefaultExitId() != null && superLocation.getDefaultExitId().equals(subLocation.getId())) {
+                    superLocation.setDefaultExit(subLocation);
                 }
-                if (location.getDefaultEnter() != null && location.getDefaultExit() != null) {
+                if (superLocation.getDefaultEnter() != null && superLocation.getDefaultExit() != null) {
                     break;
                 }
             }
         }
 
-
+        //Assign destinations to vehicles
         Lambda.processList(stationaryObjectList, p -> p instanceof Vehicle, p -> {
-
             if (((Vehicle) p).getDestinationIds() != null) {
-
-
                 Lambda.processList(((Vehicle) p).getDestinationIds(), q -> {
                     ((Vehicle) p).addDestination(getLocationByID(q));
                 });
             }
         });
 
+        //Assign merchandise to merchants
         Lambda.processList(creatureList, c -> c instanceof Merchant, c -> {
-
             if (((Merchant) c).getMerchandiseIds() != null) {
-
                 Lambda.processList(((Merchant) c).getMerchandiseIds(), q -> {
                     ((Merchant) c).addMerchandise((Item) Lambda.getFirst(templateList, p -> p.getId().equals(q) && p instanceof Item));
                 });
-
             }
         });
 
@@ -232,9 +236,9 @@ public class World {
 
     // --------------- Setters & Getters ------------------------
 
-    public boolean setMainCharacter(Creature cre) {
+    public boolean setMainCharacter(Creature creature) {
 
-        playerCharacter = cre;
+        playerCharacter = creature;
         return !(playerCharacter == null);
     }
 
@@ -303,77 +307,68 @@ public class World {
 
     // ------------- Methods that returns objects from object lists ------------------
 
-
     public Location getLocationByName(String wantedLocation) {
-
         return Lambda.getFirst(locationList, Lambda.predicateByName(wantedLocation));
     }
 
-    public Location getLocationByID(String id) {
-
-        return Lambda.getFirst(locationList, Lambda.predicateById(id));
+    public Location getLocationByID(String wantedLocationId) {
+        return Lambda.getFirst(locationList, Lambda.predicateById(wantedLocationId));
     }
 
     public Creature getCreature(String wantedCreature) {
+        return Lambda.getFirst(creatureList, Lambda.predicateByName(wantedCreature));
+    }
 
-        return Lambda.getFirst(creatureList,Lambda.predicateByName(wantedCreature));
+    public Creature getCreatureById(String wantedCreatureId) {
+        return Lambda.getFirst(creatureList, Lambda.predicateById(wantedCreatureId));
     }
 
     public Item getItem(String wantedItem) {
-
         return Lambda.getFirst(itemList, Lambda.predicateByName(wantedItem));
     }
 
-    public Item getItemById(String wantedItem) {
-
-        return Lambda.getFirst(itemList, Lambda.predicateById(wantedItem));
+    public Item getItemById(String wantedItemId) {
+        return Lambda.getFirst(itemList, Lambda.predicateById(wantedItemId));
     }
 
-    public GenericObject getTemplate(String searchName){
-
-        return Lambda.getFirst(templateList, Lambda.predicateByName(searchName));
+    public GenericObject getTemplate(String wantedTemplate) {
+        return Lambda.getFirst(templateList, Lambda.predicateByName(wantedTemplate));
     }
 
-    public GenericObject getTemplateById(String id){
-
-        return Lambda.getFirst(templateList, Lambda.predicateById(id));
+    public GenericObject getTemplateById(String wantedTemplateId) {
+        return Lambda.getFirst(templateList, Lambda.predicateById(wantedTemplateId));
     }
-
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
-
         return Lambda.getFirst(stationaryObjectList, Lambda.predicateByName(wantedStationaryObject));
     }
 
-    public Dialog getDialogEntry(String dialogKey) {
-
-        return Lambda.getFirst(dialogList, d -> d.getKey().equalsIgnoreCase(dialogKey));
+    public StationaryObject getStationaryObjectById(String wantedStationaryObjectId) {
+        return Lambda.getFirst(stationaryObjectList, Lambda.predicateById(wantedStationaryObjectId));
     }
 
     public GenericObject getGenericObject(String wantedGenericObject) {
-
         return Lambda.getFirst(genericList, Lambda.predicateByName(wantedGenericObject));
     }
 
-    public GenericObject getGenericObjectById(String wantedGenericObject) {
-
-        return Lambda.getFirst(genericList, Lambda.predicateById(wantedGenericObject));
+    public GenericObject getGenericObjectById(String wantedGenericObjectId) {
+        return Lambda.getFirst(genericList, Lambda.predicateById(wantedGenericObjectId));
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {
-
         return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), Lambda.predicateByName(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericOnGround(String wantedGenericObject) {
-
         return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), Lambda.predicateByName(wantedGenericObject));
     }
 
     public GenericObject getFromInventory(String wantedGenericObject) {
-
         return Lambda.getFirst(getPlayerInventory(), Lambda.predicateByName(wantedGenericObject));
+    }
 
+    public Dialog getDialogEntry(String dialogKey) {
+        return Lambda.getFirst(dialogList, d -> d.getKey().equalsIgnoreCase(dialogKey));
     }
 
     // --------------- Match name methods ------------------------
@@ -394,7 +389,6 @@ public class World {
     }
 
     public <T extends GenericObject> List<T> matchMultiple(List<T> list, Predicate<T> predicate) {
-
         return Lambda.subList(list, predicate);
     }
 
@@ -418,22 +412,21 @@ public class World {
             loadingSuccess = false;
         }
 
-
         if (!loadingSuccess) {
             System.out.println("World lists may not be populated properly due to errors. You may experience problems.");
         }
 
-        genericList = new ArrayList<>();
-        genericList.addAll(locationList);
-        genericList.addAll(creatureList);
-        genericList.addAll(itemList);
-        genericList.addAll(stationaryObjectList);
+        genericList = new ArrayList<GenericObject>(){{
+        addAll(locationList);
+        addAll(creatureList);
+        addAll(itemList);
+        addAll(stationaryObjectList);
+        }};
     }
 
     // ---------- The save function! -----------------------
 
     public boolean saveToFile() {
-
 
         String choice = SystemData.getReply("Name your save. Type 'Q' to abort. ");
 
@@ -456,26 +449,19 @@ public class World {
 
             String saveFilePath = SystemData.getSavepath() + savekey + choice;
 
-
             return save(saveFilePath);
 
         }
     }
 
     public boolean quickSave() {
-
-
-        String saveFilePath = SystemData.getQuickSave();
-
-        return save(saveFilePath);
-
+        return save(SystemData.getQuickSave());
     }
 
-    public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
-
-        return JsonBuilder.saveGenericList(filepath + "/creatures.json", creatureList);
-
-    }
+//    public static boolean saveCreatureList(String filepath, List<Creature> creatureList) {
+//        return JsonBuilder.saveGenericList(filepath + "/creatures.json", creatureList);
+//
+//    }
 
     public boolean save(String saveFilePath) {
 
@@ -504,6 +490,4 @@ public class World {
         return true;        //If it successfully saves all files, return true
 
     }
-
-
 }

@@ -1,6 +1,11 @@
+Look over the "Transform" command and stuff. Transformed objects still retain their responsescripts/doesn't gain new ones. Also doesn't get shortname.
 
-Make some generic methods to test objects for certain qualifications in the Commands class.
-Like "isCreature", "isItem", "hasFlag", "isPresent", etc. So I don't have to run convoluted if trees.
+See if I can break out chunks of info so we don't have to have absurdly long constructors.
+"IdentityCore" needs getAllNouns().
+
+If character attribute is "mineralvore" and object is "mineral", you can eat it.
+
+Debug command: getattributes (getattributes cape = lists attributes)
 
     //      Add "spells" as an new class, make list. Can use "cast" command. Trixie may know some spells, and learn others.
 

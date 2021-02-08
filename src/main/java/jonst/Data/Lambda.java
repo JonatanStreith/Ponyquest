@@ -10,16 +10,12 @@ public class Lambda {
 
     public static <T extends GenericObject> Predicate<T> predicateByName(String name){
 
-        Predicate<T> pred = (T g) -> g.getName().equalsIgnoreCase(name) || g.getAlias().stream().anyMatch(name::equalsIgnoreCase);
-
-        return pred;
+        return (T g) -> g.getName().equalsIgnoreCase(name) || g.getShortName().equalsIgnoreCase(name) || g.getAlias().stream().anyMatch(name::equalsIgnoreCase);
     }
 
     public static <T extends GenericObject> Predicate<T> predicateById(String id){
 
-        Predicate<T> pred = (T g) -> g.getId().equalsIgnoreCase(id);
-
-        return pred;
+        return (T g) -> g.getId().equalsIgnoreCase(id);
     }
 
 
@@ -38,9 +34,8 @@ public class Lambda {
     }
 
     public static <T, R> R getSubvalue(T t, Function<T, R> func) {
-        R r = func.apply(t);
 
-        return r;
+        return func.apply(t);
     }
 
 
