@@ -86,7 +86,7 @@ public class Spellcasting {
             }
 
             System.out.println("You sprinkle " + genTarget.getName() + " with magic sand. They immediately turn drowsy, and fall asleep.");
-            ((Creature) genTarget).setStatus("sleeping");
+            genTarget.addAttribute("sleeping");
             genTarget.runResponseScript("sleep");
         }
     }

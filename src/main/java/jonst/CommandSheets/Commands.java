@@ -11,7 +11,6 @@ import jonst.Models.Objects.*;
 import jonst.Models.World;
 import jonst.Data.Options;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,25 +87,6 @@ public class Commands {
 
     // ------- Interact commands ------------
 
-    public static Creature isLegitMerchant(String merchantName, World world){
-        GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(merchantName));
-        if (merchant == null) {
-            System.out.println("Who or what are you trying to do business with?");
-            return null;
-        }
-
-        else if (!(merchant instanceof Creature)) {
-            System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
-            return null;
-        }
-
-        if (!(merchant.hasRole("MerchantRole"))) {
-            System.out.println(merchant + " doesn't have anything to offer.");
-            return null;
-        }
-         else
-             return (Creature) merchant;
-    }
 
     public static void shop(String[] commandArray, World world) {
         Creature merchant;
@@ -114,14 +94,14 @@ public class Commands {
         if (world.getParser().getLegitimateConjunctions().contains(commandArray[1])) {
             //We didn't specify a proper thing to buy, so let's open the shop interface.
             merchant = isLegitMerchant(commandArray[2], world);
-            if(merchant != null) {
+            if (merchant != null) {
                 openShop();
             }
             return;
         }
         merchant = isLegitMerchant(commandArray[3], world);
 
-        if(merchant != null){
+        if (merchant != null) {
             String wantedProduct = commandArray[1];
             List<Item> merchList = ((MerchantRole) merchant.getRoleByKey("MerchantRole")).getMerchandiseList();
 
@@ -143,6 +123,7 @@ public class Commands {
             }
         }
     }
+
 
     public static void sellTo(GenericObject merchant, Item product, World world) {
         //Todo: Work out selling mechanism
@@ -497,22 +478,25 @@ public class Commands {
     }
 
     public static void talkTo(String name, World world) {
-
-        //TODO: If creatre is asleep, should not respond.
-
-
         GenericObject target = world.match(world.getLocalGenericList(), Lambda.predicateByName(name));
 
-        if (!(target instanceof Creature))                                                //Subject isn't a creature.
-        {
-            System.out.println("You don't make a habit of talking to inanimate objects.");
-
-        } else if ((target instanceof Creature)) {
-
-            Commands.initiateDialog((Creature) target, world);
-
-            target.runResponseScript("talk to");
+        if (target == null) {
+            System.out.println("You don't see " + name + " here.");
         }
+
+        if (!(target instanceof Creature)) {                                               //Subject isn't a creature.
+            System.out.println("You don't make a habit of talking to inanimate objects.");
+            return;
+        }
+
+        if (target.hasAnyOfTheseAttributes(new String[]{"sleeping", "paralyzed", "mute"})) {
+            System.out.println(target.getName() + " isn't in a condition to talk.");
+            return;
+        }
+
+        Commands.initiateDialog((Creature) target, world);
+        target.runResponseScript("talk to");
+
     }
 
     public static void chatWith(String name, World world) {
@@ -531,9 +515,7 @@ public class Commands {
     }
 
     public static void showInventory(World world) {
-
         List<Item> items = world.getPlayerInventory();
-
         if (items.size() == 0) {
             System.out.println("You're not carrying anything.");
         } else {
@@ -1294,6 +1276,22 @@ public class Commands {
 
     //--------------- Not for direct use -----------------------
 
+    public static Creature isLegitMerchant(String merchantName, World world) {
+        GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(merchantName));
+        if (merchant == null) {
+            System.out.println("Who or what are you trying to do business with?");
+            return null;
+        } else if (!(merchant instanceof Creature)) {
+            System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
+            return null;
+        }
+
+        if (!(merchant.hasRole("MerchantRole"))) {
+            System.out.println(merchant + " doesn't have anything to offer.");
+            return null;
+        } else
+            return (Creature) merchant;
+    }
 
     public static void listOwnedItems(World world, GenericObject owner) {
         List<Item> itemList = owner.getItemList();

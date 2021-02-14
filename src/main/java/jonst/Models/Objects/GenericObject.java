@@ -318,6 +318,10 @@ public abstract class GenericObject implements Comparable<GenericObject> {
         return actionCore.hasAttribute(attr);
     }
 
+    public boolean hasAnyOfTheseAttributes(String[] attr) {
+        return actionCore.hasAnyOfTheseAttributes(attr);
+    }
+
     public boolean hasAnyAttributes(String[] attributeArray) {
         return actionCore.hasAnyAttributes(attributeArray);
     }

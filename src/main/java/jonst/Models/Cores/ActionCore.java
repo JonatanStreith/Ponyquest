@@ -74,8 +74,15 @@ public class ActionCore {
 
 
     public boolean hasAttribute(String attr) {
-
         return attributes.contains(attr);
+    }
+
+    public boolean hasAnyOfTheseAttributes(String[] attributeArray){
+        for (String attr: attributeArray) {
+            if(attributes.contains(attr))
+                return true;
+        }
+        return false;
     }
 
     public boolean hasAnyAttributes(String[] attributeArray) {

@@ -198,7 +198,6 @@ public class Creature extends GenericObject {
             return false;
         else
             return true;
-
     }
 
     public boolean isWearing(String clothingType) {
