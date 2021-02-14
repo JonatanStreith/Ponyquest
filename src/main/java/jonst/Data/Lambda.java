@@ -8,7 +8,7 @@ import java.util.function.*;
 
 public class Lambda {
 
-    public static <T extends GenericObject> Predicate<T> predicateByName(String name){
+    public static <T extends GenericObject> Predicate<T> objectByName(String name){
 
         return (T g) -> g.getName().equalsIgnoreCase(name) || g.getShortName().equalsIgnoreCase(name) || g.getAlias().stream().anyMatch(name::equalsIgnoreCase);
     }

@@ -307,7 +307,7 @@ public class World {
     // ------------- Methods that returns objects from object lists ------------------
 
     public Location getLocationByName(String wantedLocation) {
-        return Lambda.getFirst(locationList, Lambda.predicateByName(wantedLocation));
+        return Lambda.getFirst(locationList, Lambda.objectByName(wantedLocation));
     }
 
     public Location getLocationByID(String wantedLocationId) {
@@ -315,7 +315,7 @@ public class World {
     }
 
     public Creature getCreature(String wantedCreature) {
-        return Lambda.getFirst(creatureList, Lambda.predicateByName(wantedCreature));
+        return Lambda.getFirst(creatureList, Lambda.objectByName(wantedCreature));
     }
 
     public Creature getCreatureById(String wantedCreatureId) {
@@ -323,7 +323,7 @@ public class World {
     }
 
     public Item getItem(String wantedItem) {
-        return Lambda.getFirst(itemList, Lambda.predicateByName(wantedItem));
+        return Lambda.getFirst(itemList, Lambda.objectByName(wantedItem));
     }
 
     public Item getItemById(String wantedItemId) {
@@ -331,7 +331,7 @@ public class World {
     }
 
     public GenericObject getTemplate(String wantedTemplate) {
-        return Lambda.getFirst(templateList, Lambda.predicateByName(wantedTemplate));
+        return Lambda.getFirst(templateList, Lambda.objectByName(wantedTemplate));
     }
 
     public GenericObject getTemplateById(String wantedTemplateId) {
@@ -339,7 +339,7 @@ public class World {
     }
 
     public StationaryObject getStationaryObject(String wantedStationaryObject) {
-        return Lambda.getFirst(stationaryObjectList, Lambda.predicateByName(wantedStationaryObject));
+        return Lambda.getFirst(stationaryObjectList, Lambda.objectByName(wantedStationaryObject));
     }
 
     public StationaryObject getStationaryObjectById(String wantedStationaryObjectId) {
@@ -347,7 +347,7 @@ public class World {
     }
 
     public GenericObject getGenericObject(String wantedGenericObject) {
-        return Lambda.getFirst(genericList, Lambda.predicateByName(wantedGenericObject));
+        return Lambda.getFirst(genericList, Lambda.objectByName(wantedGenericObject));
     }
 
     public GenericObject getGenericObjectById(String wantedGenericObjectId) {
@@ -355,15 +355,15 @@ public class World {
     }
 
     public GenericObject getLocalGenericObject(String wantedGenericObject) {
-        return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), Lambda.predicateByName(wantedGenericObject));
+        return Lambda.getFirst(getPlayerLocation().getAllAtLocation(), Lambda.objectByName(wantedGenericObject));
     }
 
     public GenericObject getLocalGenericOnGround(String wantedGenericObject) {
-        return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), Lambda.predicateByName(wantedGenericObject));
+        return Lambda.getFirst(getPlayerLocation().getAllGroundOnly(), Lambda.objectByName(wantedGenericObject));
     }
 
     public GenericObject getFromInventory(String wantedGenericObject) {
-        return Lambda.getFirst(getPlayerInventory(), Lambda.predicateByName(wantedGenericObject));
+        return Lambda.getFirst(getPlayerInventory(), Lambda.objectByName(wantedGenericObject));
     }
 
     public Dialog getDialogEntry(String dialogKey) {

@@ -77,7 +77,7 @@ public class Parser {
 
             command = attemptedNameSplit[1].trim();
 
-            GenericObject subject = world.match(world.getLocalGenericList(), Lambda.predicateByName(attemptedNameSplit[0]));
+            GenericObject subject = world.match(world.getLocalGenericList(), Lambda.objectByName(attemptedNameSplit[0]));
 
             if (subject == null) {
                 System.out.println("Who are you talking to?");
