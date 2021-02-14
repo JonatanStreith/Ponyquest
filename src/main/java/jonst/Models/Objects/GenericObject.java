@@ -5,9 +5,11 @@ import jonst.Data.Lambda;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
+import jonst.Models.Roles.GenericRole;
 import jonst.Models.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,37 +20,74 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     private RelationCore relationCore;
     private ActionCore actionCore;
 
-    public GenericObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore) {
+    private Map<String, GenericRole> roles = new HashMap<>();
+
+    public GenericObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, Map<String, GenericRole> roles) {
         setIdentityCore(identityCore);
         setRelationCore(relationCore);
         setActionCore(actionCore);
+        addRoles(roles);
     }
+
+    //--------- Roles methods --------
+
+
+    public Map<String, GenericRole> getRoles() {
+        return roles;
+    }
+
+    public void addRoles(Map<String, GenericRole> roles){
+
+        for (String role: roles.keySet()) {
+            assignRole(roles.get(role));
+        }
+
+    }
+
+    public boolean hasRole(String key){
+        return roles.containsKey(key);
+    }
+
+    public GenericRole getRoleByKey(String key){
+        if(roles.containsKey(key)){
+            return roles.get(key);
+        }
+        return null;
+    }
+
+    public boolean assignRole(GenericRole role){
+        if(!roles.containsKey(role.getType())){
+            roles.put(role.getType(), role);
+            role.setHolder(this);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRole(GenericRole role){
+        if(roles.containsKey(role.getType())){
+            roles.remove(role.getType(), role);
+            role.setHolder(null);
+            return true;
+        }
+        return false;
+    }
+
+
+
 
     //--------- Getters ------------
 
-
     public ActionCore getActionCore() {
         return actionCore;
-    }
-
-    public void setActionCore(ActionCore actionCore) {
-        this.actionCore = actionCore;
     }
 
     public RelationCore getRelationCore() {
         return relationCore;
     }
 
-    public void setRelationCore(RelationCore relationCore) {
-        this.relationCore = relationCore;
-    }
-
     public IdentityCore getIdentityCore() {
         return identityCore;
-    }
-
-    public void setIdentityCore(IdentityCore identityCore) {
-        this.identityCore = identityCore;
     }
 
     public String getDefaultLocationId() {
@@ -122,8 +161,16 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
     //--------- Setters ------------
 
-    public void setDefaultLocationId(String defaultLocationId) {
-        relationCore.setDefaultLocationId(defaultLocationId);
+    public void setActionCore(ActionCore actionCore) {
+        this.actionCore = actionCore;
+    }
+
+    public void setRelationCore(RelationCore relationCore) {
+        this.relationCore = relationCore;
+    }
+
+    public void setIdentityCore(IdentityCore identityCore) {
+        this.identityCore = identityCore;
     }
 
     public void setType(String type) {

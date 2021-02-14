@@ -6,7 +6,10 @@ import jonst.Data.Lambda;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
+import jonst.Models.Roles.GenericRole;
 import jonst.Models.World;
+
+import java.util.Map;
 
 public class Item extends GenericObject {
 
@@ -14,12 +17,12 @@ public class Item extends GenericObject {
     private GenericObject holder;
 
 
-    public Item(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore) {
-        super(identityCore, relationCore, actionCore);
+    public Item(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, Map<String, GenericRole> roleMods) {
+        super(identityCore, relationCore, actionCore, roleMods);
     }
 
     public Item(Item template){
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRoles());
     }
 
     public GenericObject getHolder() {

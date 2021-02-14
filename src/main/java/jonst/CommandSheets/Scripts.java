@@ -1,8 +1,7 @@
 package jonst.CommandSheets;
 
-import jonst.CommandSheets.Commands;
 import jonst.Data.Lambda;
-import jonst.HelpfulMethods;
+import jonst.Data.HelpfulMethods;
 import jonst.Models.Exit;
 import jonst.Models.Objects.*;
 import jonst.Models.World;

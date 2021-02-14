@@ -1,19 +1,21 @@
 package jonst.CommandSheets;
 
 
+import jonst.Data.HelpfulMethods;
 import jonst.Data.Lambda;
 import jonst.Data.SystemData;
 import jonst.Models.Dialog;
-//import jonst.Models.Merchandise;
+import jonst.Models.Roles.MerchantRole;
+import jonst.Models.Roles.VehicleRole;
 import jonst.Models.Objects.*;
 import jonst.Models.World;
-import jonst.Options;
+import jonst.Data.Options;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static jonst.HelpfulMethods.*;
+import static jonst.Data.HelpfulMethods.*;
 
 
 public class Commands {
@@ -86,90 +88,69 @@ public class Commands {
 
     // ------- Interact commands ------------
 
-    public static void shop(String[] commandArray, World world) {
-
-        //Check if we're asking to buy something specific.
-
-        boolean isNoun = world.getParser().getLegitimateConjunctions().contains(commandArray[1]);
-
-
-        if (isNoun) {
-
-            GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[2]));
-
-            if (merchant == null) {
-                System.out.println("Who or what are you trying to do business with?");
-                return;
-            }
-
-            if (!(merchant instanceof Creature)) {
-                System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
-                return;
-            }
-
-            if (!(merchant instanceof Merchant)) {
-                System.out.println(merchant + " doesn't have anything to offer.");
-                return;
-            }
-            //We didn't specify a proper thing to buy, so let's open the shop interface.
-            openShop();
-            return;
-        }
-
-        if (!(world.getParser().getLegitimateNouns().contains(commandArray[1]))) {
-            System.out.println("What are you trying to shop for?");
-            return;
-        }
-
-        GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(commandArray[3]));
-
+    public static Creature isLegitMerchant(String merchantName, World world){
+        GenericObject merchant = world.match(world.getLocalGenericList(), Lambda.predicateByName(merchantName));
         if (merchant == null) {
             System.out.println("Who or what are you trying to do business with?");
-            return;
+            return null;
         }
 
-        if (!(merchant instanceof Creature)) {
+        else if (!(merchant instanceof Creature)) {
             System.out.println("Nice try. Try to do your shopping from actual sentient creatures, okay?");
-            return;
+            return null;
         }
 
-        if (!(merchant instanceof Merchant)) {
+        if (!(merchant.hasRole("MerchantRole"))) {
             System.out.println(merchant + " doesn't have anything to offer.");
+            return null;
+        }
+         else
+             return (Creature) merchant;
+    }
+
+    public static void shop(String[] commandArray, World world) {
+        Creature merchant;
+
+        if (world.getParser().getLegitimateConjunctions().contains(commandArray[1])) {
+            //We didn't specify a proper thing to buy, so let's open the shop interface.
+            merchant = isLegitMerchant(commandArray[2], world);
+            if(merchant != null) {
+                openShop();
+            }
             return;
         }
+        merchant = isLegitMerchant(commandArray[3], world);
 
-        String prodName = commandArray[1];
+        if(merchant != null){
+            String wantedProduct = commandArray[1];
+            List<Item> merchList = ((MerchantRole) merchant.getRoleByKey("MerchantRole")).getMerchandiseList();
 
-        List<Item> merchList = ((Merchant) merchant).getMerchandiseList();
+            Item product = Lambda.getFirst(merchList, Lambda.predicateByName(wantedProduct));
 
-        Item product = world.match(merchList, Lambda.predicateByName(prodName));
+            if (product == null) {
+                System.out.println(merchant + " doesn't sell that.");
+                return;
+            }
 
+            if (commandArray[0].equalsIgnoreCase("buy")) {
+                buyFrom(merchant, product, world);
+                return;
+            }
 
-        //Item product = world.match(((Merchant) merchant).getMerchandiseList(), prodName, Lambda.predicateByName(prodName));
-
-        if (product == null) {
-            System.out.println(merchant + " doesn't sell that.");
-            return;
+            if (commandArray[0].equalsIgnoreCase("sell")) {
+                sellTo(merchant, product, world);
+                return;
+            }
         }
-
-
-        if (commandArray[0].equalsIgnoreCase("buy")) {
-            buyFrom(merchant, product, world);
-            return;
-        }
-
-        if (commandArray[0].equalsIgnoreCase("sell")) {
-            sellTo(merchant, product, world);
-            return;
-        }
-
     }
 
     public static void sellTo(GenericObject merchant, Item product, World world) {
+        //Todo: Work out selling mechanism
         //System.out.println("sellTo: " + product.getName());
     }
 
     public static void openShop() {
+        //Todo: shopping interface
         System.out.println(("openShop"));
     }
 
@@ -177,18 +158,13 @@ public class Commands {
 
         Item newItem = Item.create(product.getId());
 
-        System.out.println("You buy a " + newItem.getShortName() + " from " + merchant + ".");
+        System.out.println("You buy " + newItem.getShortName() + " from " + merchant + ".");
 
         world.addItemToHolder(newItem, world.getPlayer());
     }
 
 
     public static void activate(String[] commandArray, World world) {
-
-//        String fullName = world.matchLocalName(commandArray[1]);
-//        GenericObject target = world.getGenericObject(fullName);
-//        List<GenericObject> genericList = world.getGenericList();
-        //Predicate<GenericObject> pred = (GenericObject g) -> g.getName().equals(commandArray[1]) || g.getAlias().contains(commandArray[1]);
 
         GenericObject target = world.match(world.getPlayerInventory(), Lambda.predicateByName(commandArray[1]));
         if (target == null) {
@@ -242,7 +218,6 @@ public class Commands {
 
         if (!successful) {
             System.out.println("Hmm, nothing happened...");
-            return;
         }
     }
 
@@ -1226,7 +1201,7 @@ public class Commands {
             return;
         }
 
-        if (!(target instanceof Vehicle)) {
+        if (!(target.hasRole("VehicleMod"))) {
             System.out.println("You can't ride that.");
             return;
         }
@@ -1235,7 +1210,7 @@ public class Commands {
         Location destination;
 
         if (commandArray[3].equalsIgnoreCase("")) {                     //This is if you don't type in a destination.
-            List<Location> destinations = ((Vehicle) target).getDestinations();
+            List<Location> destinations = ((VehicleRole) target.getRoleByKey("VehicleMod")).getDestinations();
             System.out.println("Where do you want to go?\n");
             for (int i = 0; i < destinations.size(); i++) {
                 System.out.println("" + (i + 1) + ":\t" + destinations.get(i).getName());
@@ -1249,7 +1224,7 @@ public class Commands {
             }
             destination = destinations.get(reply - 1);
         } else {
-            destination = world.match(((Vehicle) target).getDestinations(), Lambda.predicateByName(commandArray[3]));
+            destination = world.match(((VehicleRole) target.getRoleByKey("VehicleMod")).getDestinations(), Lambda.predicateByName(commandArray[3]));
         }
 
         if (destination == null) {

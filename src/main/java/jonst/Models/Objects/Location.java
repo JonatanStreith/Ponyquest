@@ -6,10 +6,12 @@ import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
 import jonst.Models.Exit;
+import jonst.Models.Roles.GenericRole;
 import jonst.Models.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Location extends GenericObject {
 
@@ -23,9 +25,9 @@ public class Location extends GenericObject {
     private List<StationaryObject> objectsAtLocation;
 
 
-    public Location(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore,
+    public Location(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, Map<String, GenericRole> roleMods,
                     String defaultEnterId, String defaultExitId) {
-        super(identityCore, relationCore, actionCore);
+        super(identityCore, relationCore, actionCore, roleMods);
         setDefaultEnterId(defaultEnterId);
         setDefaultExitId(defaultExitId);
         setLocation(this);
@@ -34,7 +36,7 @@ public class Location extends GenericObject {
     }
 
     public Location(Location template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(),
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRoles(),
                 template.getDefaultEnterId(), template.getDefaultExitId());
         setLocation(this);
         creaturesAtLocation = new ArrayList<>();

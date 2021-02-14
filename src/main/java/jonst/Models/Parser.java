@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static jonst.HelpfulMethods.*;
+import static jonst.Data.HelpfulMethods.*;
 
 public class Parser {
     private List<String> legitimateNouns;

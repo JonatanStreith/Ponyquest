@@ -1,9 +1,10 @@
-package jonst;
+package jonst.Data;
 
-import jonst.Data.Lambda;
-import jonst.Data.SystemData;
 import jonst.Models.*;
 import jonst.Models.Cores.*;
+import jonst.Models.Roles.GenericRole;
+import jonst.Models.Roles.MerchantRole;
+import jonst.Models.Roles.VehicleRole;
 import jonst.Models.Objects.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -103,77 +104,6 @@ public class JsonBuilder {
 
     }
 
-    //-----------
-
- /*   public static JSONObject saveJsonGeneric(GenericObject gen) {
-        return new JSONObject() {{
-
-            //Generic attributes here
-            put("FullName", gen.getName());
-            put("ShortName", gen.getShortName());
-            put("Type", gen.getType());
-            put("Id", gen.getId());
-            put("Location", gen.getHolderId());
-            put("DefaultLocation", gen.getDefaultLocationId());
-
-            put("Text", gen.getText());
-            put("DefaultUse", gen.getDefaultUse());
-            put("OwnerId", gen.getOwnerId());
-
-            if (gen.getOwner() != null) {
-                put("Owner", gen.getOwner().getName());
-            }
-
-            put("Alias", gen.getAlias());
-            put("Attributes", gen.getAttributes());
-            put("Descriptions", gen.getDescriptions());
-            put("ComplexUse", gen.getComplexUse());
-            put("ResponseScripts", gen.getResponseScripts());
-
-            if (gen instanceof Creature) {
-
-                //Creature-specific attributes here
-                put("InitialDialog", ((Creature) gen).getInitialDialog());
-                put("Race", ((Creature) gen).getRace());
-                put("DefaultRace", ((Creature) gen).getDefaultRace());
-                put("Gender", gen.getGender());
-                put("CasualDialog", ((Creature) gen).getCasualDialog());
-
-                put("AskTopics", ((Creature) gen).getAskTopics());
-
-                put("BehaviorCore", new JSONObject() {{
-                    put("mood", ((Creature) gen).getMood());
-                    put("activity", ((Creature) gen).getActivity());
-                    put("allegiance", ((Creature) gen).getAllegiance());
-                    put("status", ((Creature) gen).getStatus());
-                }});
-
-                if(gen instanceof Merchant){
-                    put("Merchandise", ((Merchant) gen).getMerchandiseIds());
-                }
-
-            } else if (gen instanceof Location) {
-
-                //Location-specific attriibutes here
-                if (((Location) gen).getDefaultEnter() != null)
-                    put("DefaultEnter", ((Location) gen).getDefaultEnter().getId());
-                if (((Location) gen).getDefaultExit() != null)
-                    put("DefaultExit", ((Location) gen).getDefaultExit().getId());
-            } else if (gen instanceof Item) {
-                //Reserved space in case items get more stuff
-
-
-
-            } else if (gen instanceof StationaryObject) {
-                //Reserved space in case SOs get more stuff
-
-                if(gen instanceof Vehicle){
-                    put("Destinations", ((Vehicle) gen).getDestinationIds());
-                }
-            }
-        }};
-    }
-*/
 
     //----------------------------
 
@@ -207,6 +137,20 @@ public class JsonBuilder {
                 put("ResponseScripts", gen.getResponseScripts());
             }});
 
+            put("Mods", new JSONObject() {{
+                if(gen.getRoles().containsKey("MerchantRole")){
+                    put("MerchantRole", new JSONObject(){{
+                        put("MerchandiseIds", ((MerchantRole) gen.getRoles().get("MerchantRole")).getMerchandiseIds());
+                    }});
+                }
+
+                if(gen.getRoles().containsKey("VehicleRole")){
+                    put("VehicleRole", new JSONObject(){{
+                        put("DestinationIds", ((VehicleRole) gen.getRoles().get("VehicleRole")).getDestinationIds());
+                    }});
+                }
+
+            }});
 
             if (gen instanceof Creature) {
                 //Creature-specific attributes here
@@ -229,13 +173,9 @@ public class JsonBuilder {
                     put("status", ((Creature) gen).getStatus());
                 }});
 
-                if (gen instanceof Merchant) {
-                    put("Merchandise", ((Merchant) gen).getMerchandiseIds());
-                }
-
             } else if (gen instanceof Location) {
 
-                //Location-specific attriibutes here
+                //Location-specific attributes here
                 if (((Location) gen).getDefaultEnter() != null)
                     put("DefaultEnter", ((Location) gen).getDefaultEnter().getId());
                 if (((Location) gen).getDefaultExit() != null)
@@ -244,12 +184,6 @@ public class JsonBuilder {
                 //Reserved space in case items get more stuff
 
 
-            } else if (gen instanceof StationaryObject) {
-                //Reserved space in case SOs get more stuff
-
-                if (gen instanceof Vehicle) {
-                    put("Destinations", ((Vehicle) gen).getDestinationIds());
-                }
             }
         }};
     }
@@ -348,126 +282,12 @@ public class JsonBuilder {
 
         if (arr != null && arr instanceof JSONArray) {
             list.addAll((JSONArray) arr);
-
-//            for (Object xObj : (JSONArray) arr) {
-//                 list.add(((String) xObj).toLowerCase());
-//            }
         }
         return list;
     }
 
 
     //---------- load methods
-
-    /*
-    public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
-        //Generic
-
-//        JSONObject jsIdentityCore = (JSONObject) jObj.get("IdentityCore");
-        IdentityCore identityCore = new IdentityCore(
-                (String) jObj.get("FullName"),
-                (String) jObj.get("ShortName"),
-                (String) jObj.get("Type"),
-                (String) jObj.get("Id"),
-                getList(jObj, "Alias"),
-                getMap(jObj, "Descriptions")
-        ){{
-            if(getShortName() == null)
-                setShortName(getName());
-
-            if(!getAlias().contains(getShortName()))
-                getAlias().add(getShortName());
-        }};
-
-        RelationCore relationCore = new RelationCore(
-                (String) jObj.get("Location"),
-                (String) jObj.get("DefaultLocation"),
-                (String) jObj.get("OwnerId")
-        ){{
-            if (getDefaultLocationId() == null)         //If there's no specified defaultLocation, set current location to default.
-                setDefaultLocationId(getLocationId());     //Since the default world is the "start" anyway, this works fine.
-        }};
-
-        ActionCore actionCore = new ActionCore(
-                getList(jObj, "Attributes"),
-                (String) jObj.get("Text"),
-                (String) jObj.get("DefaultUse"),
-                getMap(jObj, "ComplexUse"),
-                getSubMap(jObj, "ResponseScripts")
-        );
-
-
-        if (typeKey.equals("creature")) {
-            //Creature-specific
-            CreatureCore creatureCore = new CreatureCore(
-                    (String) jObj.get("Race"),
-                    (String) jObj.get("DefaultRace"),
-                    (String) jObj.get("Gender")
-            );
-
-            SpeechCore speechCore = new SpeechCore(
-                    getList(jObj, "CasualDialog"),
-                    getMap(jObj, "AskTopics"),
-                    (String) jObj.get("InitialDialog")
-            );
-
-            BehaviorCore behaviorCore;
-            JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
-
-            if (jsBehaviorCore != null) {
-                String mood = (String) jsBehaviorCore.get("mood");
-                String activity = (String) jsBehaviorCore.get("activity");
-                String allegiance = (String) jsBehaviorCore.get("allegiance");
-                String status = (String) jsBehaviorCore.get("status");
-                Map<String, String> personalQuotes = getMap(jsBehaviorCore, "PersonalQuotes");
-                behaviorCore = new BehaviorCore(mood, activity, allegiance, status, personalQuotes);
-            } else {
-                behaviorCore = new BehaviorCore();        //If a creature has no stated BC, it gets a default one.
-            }
-
-            JSONArray jsonMerch = (JSONArray) jObj.get("Merchandise");
-
-            if(jsonMerch != null){
-                List<String> merchandiseList = new ArrayList() {{
-                    addAll(jsonMerch);
-                }};
-                return new Merchant(identityCore, relationCore, actionCore, creatureCore,
-                        speechCore, behaviorCore, merchandiseList);
-            }
-            return new Creature(identityCore, relationCore, actionCore, creatureCore,
-                    speechCore, behaviorCore);
-        }
-
-        if (typeKey.equals("item")) {
-            return new Item(identityCore, relationCore, actionCore);
-        }
-
-        if (typeKey.equals("location")) {
-
-            String defaultEnter = (String) jObj.get("DefaultEnter");
-            String defaultExit = (String) jObj.get("DefaultExit");
-
-            return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
-        }
-
-        if (typeKey.equals("stationaryobject")) {
-
-            JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
-
-            if(jsDestinations != null){
-                //If it has destinations, it's a vehicle
-                List<String> destinations = new ArrayList() {{
-                    addAll(jsDestinations);
-                }};
-
-                return new Vehicle(identityCore, relationCore, actionCore, destinations);
-            }
-            return new StationaryObject(identityCore, relationCore, actionCore);
-        }
-        return null;
-    }
-*/
-
 
     public static GenericObject loadGenericFromJson(JSONObject jObj, String typeKey) {
         //Generic
@@ -492,7 +312,6 @@ public class JsonBuilder {
                     getAlias().add(getShortName());
             }};
         }
-
 
         JSONObject jsRelationCore = (JSONObject) jObj.get("RelationCore");
         RelationCore relationCore;
@@ -523,6 +342,33 @@ public class JsonBuilder {
             );
         }
 
+        //---------- build role mods ------------
+
+        Map<String, GenericRole> roleMods = new HashMap<>();
+
+        JSONObject jsonMods = (JSONObject) jObj.get("Roles");
+
+
+        if (jsonMods != null) {
+
+            JSONObject jsonMerch = (JSONObject) jsonMods.get("MerchantRole");
+            if (jsonMerch != null) {
+                roleMods.put("MerchantRole",
+                        new MerchantRole(getList(jsonMerch, "MerchandiseIds")));
+            }
+
+            JSONObject jsonVehicle = (JSONObject) jsonMods.get("VehicleRole");
+            if (jsonVehicle != null) {
+                roleMods.put("VehicleRole",
+                        new VehicleRole(getList(jsonVehicle, "DestinationIds")));
+            }
+
+
+        }
+
+
+        //----------- Role mods completed ------------
+
         if (typeKey.equals("creature")) {
             //Creature-specific
             JSONObject jsCreatureCore = (JSONObject) jObj.get("CreatureCore");
@@ -549,7 +395,6 @@ public class JsonBuilder {
                 );
             }
 
-
             JSONObject jsBehaviorCore = (JSONObject) jObj.get("BehaviorCore");
             BehaviorCore behaviorCore;
             if (jsBehaviorCore == null) {
@@ -564,21 +409,13 @@ public class JsonBuilder {
                 );
             }
 
-            JSONArray jsonMerch = (JSONArray) jObj.get("Merchandise");
 
-            if (jsonMerch != null) {
-                List<String> merchandiseList = new ArrayList() {{
-                    addAll(jsonMerch);
-                }};
-                return new Merchant(identityCore, relationCore, actionCore, creatureCore,
-                        speechCore, behaviorCore, merchandiseList);
-            }
-            return new Creature(identityCore, relationCore, actionCore, creatureCore,
-                    speechCore, behaviorCore);
+            return new Creature(identityCore, relationCore, actionCore, roleMods,
+                    creatureCore, speechCore, behaviorCore);
         }
 
         if (typeKey.equals("item")) {
-            return new Item(identityCore, relationCore, actionCore);
+            return new Item(identityCore, relationCore, actionCore, roleMods);
         }
 
         if (typeKey.equals("location")) {
@@ -586,22 +423,12 @@ public class JsonBuilder {
             String defaultEnter = (String) jObj.get("DefaultEnter");
             String defaultExit = (String) jObj.get("DefaultExit");
 
-            return new Location(identityCore, relationCore, actionCore, defaultEnter, defaultExit);
+            return new Location(identityCore, relationCore, actionCore, roleMods, defaultEnter, defaultExit);
         }
 
         if (typeKey.equals("stationaryobject")) {
 
-            JSONArray jsDestinations = (JSONArray) jObj.get("Destinations");
-
-            if (jsDestinations != null) {
-                //If it has destinations, it's a vehicle
-                List<String> destinations = new ArrayList() {{
-                    addAll(jsDestinations);
-                }};
-
-                return new Vehicle(identityCore, relationCore, actionCore, destinations);
-            }
-            return new StationaryObject(identityCore, relationCore, actionCore);
+            return new StationaryObject(identityCore, relationCore, actionCore, roleMods);
         }
         return null;
     }

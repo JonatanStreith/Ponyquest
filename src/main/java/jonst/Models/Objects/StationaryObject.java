@@ -4,20 +4,19 @@ package jonst.Models.Objects;
 import jonst.Models.Cores.ActionCore;
 import jonst.Models.Cores.IdentityCore;
 import jonst.Models.Cores.RelationCore;
+import jonst.Models.Roles.GenericRole;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class StationaryObject extends GenericObject {
 
 
-    public StationaryObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore) {
-        super(identityCore, relationCore, actionCore);
+    public StationaryObject(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, Map<String, GenericRole> roleMods) {
+        super(identityCore, relationCore, actionCore, roleMods);
     }
 
     public StationaryObject(StationaryObject template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore());
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRoles());
     }
 
     public void transformInto(GenericObject template){

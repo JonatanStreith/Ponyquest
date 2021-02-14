@@ -1,5 +1,6 @@
 package jonst;
 
+import jonst.Data.Options;
 import jonst.Models.World;
 
 public class Game {

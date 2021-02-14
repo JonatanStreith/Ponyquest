@@ -2,6 +2,7 @@ package jonst.Models.Objects;
 
 import jonst.Data.Lambda;
 import jonst.Models.Cores.*;
+import jonst.Models.Roles.GenericRole;
 
 import java.util.List;
 import java.util.Map;
@@ -13,16 +14,16 @@ public class Creature extends GenericObject {
     private SpeechCore speechCore;
     private BehaviorCore behaviorCore;
 
-    public Creature(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore,
+    public Creature(IdentityCore identityCore, RelationCore relationCore, ActionCore actionCore, Map<String, GenericRole> roleMods,
                     CreatureCore creatureCore, SpeechCore speechCore, BehaviorCore behaviorCore) {
-        super(identityCore, relationCore, actionCore);
+        super(identityCore, relationCore, actionCore, roleMods);
         setCreatureCore(creatureCore);
         setSpeechCore(speechCore);
         setBehaviorCore(behaviorCore);
     }
 
     public Creature(Creature template) {
-        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(),
+        this(template.getIdentityCore(), template.getRelationCore(), template.getActionCore(), template.getRoles(),
                 template.getCreatureCore(), template.getSpeechCore(), template.getBehaviorCore());
     }
 

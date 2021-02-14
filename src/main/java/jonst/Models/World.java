@@ -3,16 +3,18 @@ package jonst.Models;
 import jonst.CommandSheets.Commands;
 import jonst.Data.*;
 
-import jonst.JsonBuilder;
+import jonst.Data.JsonBuilder;
 //import jonst.Models.Merchandise;
+import jonst.Models.Roles.MerchantRole;
+import jonst.Models.Roles.VehicleRole;
 import jonst.Models.Objects.*;
-import jonst.Time.TimeKeeper;
+import jonst.Models.Time.TimeKeeper;
 
 import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
 
-import static jonst.HelpfulMethods.*;
+import static jonst.Data.HelpfulMethods.*;
 
 
 public class World {
@@ -211,19 +213,19 @@ public class World {
         }
 
         //Assign destinations to vehicles
-        Lambda.processList(stationaryObjectList, p -> p instanceof Vehicle, p -> {
-            if (((Vehicle) p).getDestinationIds() != null) {
-                Lambda.processList(((Vehicle) p).getDestinationIds(), q -> {
-                    ((Vehicle) p).addDestination(getLocationByID(q));
+        Lambda.processList(stationaryObjectList, p -> p.getRoles().containsKey("VehicleRole"), p -> {
+            if (((VehicleRole) p.getRoleByKey("VehicleRole")).getDestinationIds() != null) {
+                Lambda.processList(((VehicleRole) p.getRoleByKey("VehicleRole")).getDestinationIds(), q -> {
+                    ((VehicleRole) p.getRoleByKey("VehicleRole")).addDestination(getLocationByID(q));
                 });
             }
         });
 
         //Assign merchandise to merchants
-        Lambda.processList(creatureList, c -> c instanceof Merchant, c -> {
-            if (((Merchant) c).getMerchandiseIds() != null) {
-                Lambda.processList(((Merchant) c).getMerchandiseIds(), q -> {
-                    ((Merchant) c).addMerchandise((Item) Lambda.getFirst(templateList, p -> p.getId().equals(q) && p instanceof Item));
+        Lambda.processList(creatureList, c -> c.getRoles().containsKey("MerchantRole"), c -> {
+            if (((MerchantRole) c.getRoleByKey("MerchantRole")).getMerchandiseIds() != null) {
+                Lambda.processList(((MerchantRole) c.getRoleByKey("MerchantRole")).getMerchandiseIds(), q -> {
+                    ((MerchantRole) c.getRoleByKey("MerchantRole")).addMerchandise((Item) Lambda.getFirst(templateList, p -> p.getId().equals(q) && p instanceof Item));
                 });
             }
         });

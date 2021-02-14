@@ -327,10 +327,14 @@
          ],
          "Text":null
       },
-      "Merchandise":[
-         "Item_Food_Apple",
-         "Item_Food_Applepie"
-      ]
+      "Roles": {
+         "MerchantRole": {
+            "MerchandiseIds":[
+               "Item_Food_Apple",
+               "Item_Food_Applepie"
+            ]
+         }
+      }
    },
    {
       "RelationCore":{

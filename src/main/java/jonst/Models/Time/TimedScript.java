@@ -1,4 +1,4 @@
-package jonst.Time;
+package jonst.Models.Time;
 
 
 import jonst.Game;

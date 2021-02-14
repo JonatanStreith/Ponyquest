@@ -1,7 +1,8 @@
-package jonst;
+package jonst.Data;
 
 import jonst.Data.ReverseSortIgnoreCase;
 import jonst.Data.SystemData;
+import jonst.Game;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
 

@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static jonst.HelpfulMethods.capitalize;
-import static jonst.HelpfulMethods.heOrShe;
+import static jonst.Data.HelpfulMethods.capitalize;
+import static jonst.Data.HelpfulMethods.heOrShe;
 
 public class SpeechCore {
     private List<String> casualDialog;

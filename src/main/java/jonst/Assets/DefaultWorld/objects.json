@@ -457,11 +457,6 @@
 			"DefaultLocation": "Location_Ponyville_Station",
 			"Location": "Location_Ponyville_Station"
 		},
-		"Destinations": [
-			"Location_Ponyville_Station",
-			"Location_Manehattan_Station",
-			"Location_Canterlot_Station"
-		],
 		"IdentityCore": {
 			"Descriptions": {
 				"default": "The Friendship Express. A cheerfully decorated train that takes creatures to all the important places in Equestria, and beyond. You prefer to travel by wagon, but sometimes the train is more convenient... and easier on your legs."
@@ -481,6 +476,15 @@
 			"ComplexUse": {},
 			"Attributes": [],
 			"Text": null
+		},
+		"Roles": {
+			"VehicleRole": {
+				"Destinations": [
+					"Location_Ponyville_Station",
+					"Location_Manehattan_Station",
+					"Location_Canterlot_Station"
+				]
+			}
 		}
 	}
 ]

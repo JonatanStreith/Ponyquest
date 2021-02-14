@@ -1,3 +1,7 @@
+Change saving to not use numbers.
+
+Change jsons to use single sheet.
+
 Look over the "Transform" command and stuff. Transformed objects still retain their responsescripts/doesn't gain new ones. Also doesn't get shortname.
 
 Alternate constructor for GenericItem et al that takes json obj.
@@ -135,6 +139,7 @@ Have book of hypnotism somewhere you need to find, with legit phrases. Some crea
 Once we have a time function in the works, we could have timed scripts running in the background.
 For instance, let's say we plant a seed. It starts the script "advanceseed:seedId:500", and a timedScript object is created. When time advances, timedScripts
 tick down. Once it reaches zero, something happens!
+Have timescripts attached to time object, not individual objects. Less processor drain.
 
 Equippable enchants!
 Have a "settings" object that reads in the properties and can provide the paths
@@ -145,6 +150,8 @@ Flytta objekttolkning till parser istället för att låta World göra det (elle
 Timekeeper object, Advance method.
 Add isWearing method to Creature class.
 
+"producer" StaObj needs to be filled with materials to use. Or check your inventory. (Make sure you can't craft with items that contain other items!)
+has "recipes"
 
 TODO!
 Develop runnable method to build the DefaultWorld files more efficiently - from templates and a caselist where everything is supposed to be,
@@ -155,3 +162,31 @@ Idea: See if we can have every template as a separate file, and just try to run 
 you want a new template.
 
 Copy things to the templates. Everything needs to be represented.
+
+School of frienship
+-Rainbow's classroom: awesome loyalty
+-Rarity's: Fashionable generosity
+-Pinkie's: Baking laughter
+etc.
+
+Want to load both from a json with everything specified (save files)
+and from a simplified list with templates
+
+Does Rarity have the cave entrance in her basement?
+Something something hide a door/entrance with something. Can you "create" an exit?
+
+Things can have the attribute "hidden"! Hi9dden things aren't shown when looked at.
+Alt. hidden is variable on GenObj.
+
+When loading exits from json: Takes an array and creates two-point exits between all involved. That way, we can just write them as a bundle.
+
+I can make different main methods in other class files if I want to do things!
+
+Alternatively: instead of having dedicated classes (merchant), have an array of optional "role modules" that offer special servics
+Have methods like "assign module", "populate module", something. May need a ModCore object, just to keep things compartmentalized.
+MerchantMod, HostileMod, VehicleMod, ProtagonistMod
+
+Mods may allow me to migrate functionality from the command class to the mods! For instance, if an object has
+the EdibleMod, it implicitly means it's edible (no need for attributes) and it can handle all the nitty-gritty about eating.
+No call for externalizing it, or the response messages needed. (Can even move the responseScript there.)
+EnterMod?

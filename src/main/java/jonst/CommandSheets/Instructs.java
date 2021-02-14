@@ -1,11 +1,11 @@
 package jonst.CommandSheets;
 
 import jonst.Data.Lambda;
-import jonst.HelpfulMethods;
+import jonst.Data.HelpfulMethods;
 import jonst.Models.Objects.*;
 import jonst.Models.World;
 
-import static jonst.HelpfulMethods.*;
+import static jonst.Data.HelpfulMethods.*;
 
 public class Instructs {
 
