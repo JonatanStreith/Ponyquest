@@ -189,4 +189,14 @@ MerchantMod, HostileMod, VehicleMod, ProtagonistMod
 Mods may allow me to migrate functionality from the command class to the mods! For instance, if an object has
 the EdibleMod, it implicitly means it's edible (no need for attributes) and it can handle all the nitty-gritty about eating.
 No call for externalizing it, or the response messages needed. (Can even move the responseScript there.)
-EnterMod?
+EnterMod? Can attach to locations and objects...
+
+Change the save function to get rid of the number counter, and just use filenames to track saves or something.
+
+Add the spells from 'Boast Busters' and Duel
+
+Exiting an object will lead to its location
+
+Revert to before we had cores. Instead of taking a number of variables, just accept a map of variables.?
+
+Needs checker 'hasItem' and 'hasItemAttribute'. For hypnosis spell, for instance - check that Trixie is carrying "hypno-item"
