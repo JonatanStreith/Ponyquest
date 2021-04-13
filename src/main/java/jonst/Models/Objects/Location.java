@@ -12,6 +12,7 @@ import jonst.Models.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Location extends GenericObject {
 
@@ -167,7 +168,9 @@ public class Location extends GenericObject {
 
     public List<String> getExitNames() {
 
-        return Lambda.getSubvalues(getExits(), exit -> exit.getConnectingLocation(this).getName());
+        return getExits().stream().map(exit -> exit.getConnectingLocation(this).getName()).collect(Collectors.toList());
+
+        //return Lambda.getSubvalues(getExits(), exit -> exit.getConnectingLocation(this).getName());
 
     }
 

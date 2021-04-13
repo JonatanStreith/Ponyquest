@@ -9,15 +9,12 @@ import java.util.function.*;
 public class Lambda {
 
     public static <T extends GenericObject> Predicate<T> objectByName(String name){
-
         return (T g) -> g.getName().equalsIgnoreCase(name) || g.getShortName().equalsIgnoreCase(name) || g.getAlias().stream().anyMatch(name::equalsIgnoreCase);
     }
 
     public static <T extends GenericObject> Predicate<T> predicateById(String id){
-
         return (T g) -> g.getId().equalsIgnoreCase(id);
     }
-
 
     // -----------------------------
 
@@ -32,12 +29,6 @@ public class Lambda {
         }
         return returnList;
     }
-
-    public static <T, R> R getSubvalue(T t, Function<T, R> func) {
-
-        return func.apply(t);
-    }
-
 
     public static <T> List<T> subList(List<T> list, Predicate<T> predicate) {
 
@@ -68,6 +59,7 @@ public class Lambda {
 
     public static <T> T getFirst(List<T> list, Predicate<T> predicate) {
 
+        //Returns first object in list matching the requirement
         for (T gen : list) {
             if (predicate.test(gen)) {
                 return gen;
@@ -79,7 +71,6 @@ public class Lambda {
     public static <T> boolean exists(List<T> list, Predicate<T> predicate) {
 
         //Does the list contain an element that satisfies the provided predicate?
-
         for (T gen : list) {
             if (predicate.test(gen)) {
                 return true;

@@ -8,10 +8,7 @@ import jonst.Models.Cores.RelationCore;
 import jonst.Models.Roles.GenericRole;
 import jonst.Models.World;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public abstract class GenericObject implements Comparable<GenericObject> {
@@ -240,16 +237,9 @@ public abstract class GenericObject implements Comparable<GenericObject> {
     }
 
     public int hashCode() {
-        final int prime = 31;
-        int hash = 5;
-
-        hash = prime * hash + this.getName().hashCode();
-
-        for (String a : getAlias()) {
-            hash += a.hashCode();
-        }
-
-        return hash;
+        List<String> hashValues = new ArrayList<>(getAlias());
+        hashValues.add(getId());
+        return Objects.hash(hashValues);
     }
 
     public boolean equals(GenericObject other) {
@@ -396,16 +386,20 @@ public abstract class GenericObject implements Comparable<GenericObject> {
 
         World world = Game.getWorld();
 
-        GenericObject subject = this;
-
-        if (subject instanceof Item) {
-            world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
-            world.removeFromList(subject);
-        } else if (subject instanceof Location) {
+        if (this instanceof Item) {
+            world.removeItemFromHolder((Item) this, ((Item) this).getHolder());
+            world.removeFromList(this);
+        } else if (this instanceof Location) {
             System.out.println("Destroying a location is not supported yet.");  //TODO: Destroying locations
         } else {
-            world.removeFromLocation(subject, subject.getLocation());
-            world.removeFromList(subject);
+            world.removeFromLocation(this, this.getLocation());
+            world.removeFromList(this);
+        }
+    }
+
+    public void dropContents() {
+        for (Item item : getItemList()
+             ) { item.setHolder(getLocation());
         }
     }
 

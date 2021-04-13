@@ -45,6 +45,8 @@ public class World {
         buildWorld(loadFilePath);
     }
 
+
+
     public void updateWorld(String loadFilePath) {
         buildWorld(loadFilePath);
     }
@@ -232,6 +234,11 @@ public class World {
 
     }
 
+    // --------------- Does it exist? ---------------------------
+
+    public boolean objectExists(String name) {
+        return(getGenericObject(name) != null);
+    }
 
     // --------------- Setters & Getters ------------------------
 

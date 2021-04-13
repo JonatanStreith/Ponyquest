@@ -1,7 +1,5 @@
 package jonst.Data;
 
-import jonst.Data.ReverseSortIgnoreCase;
-import jonst.Data.SystemData;
 import jonst.Game;
 import jonst.Models.Objects.Creature;
 import jonst.Models.Objects.GenericObject;
@@ -89,7 +87,6 @@ public class HelpfulMethods {
     public static <T extends GenericObject> boolean isIdentical(List<T> list) {
 
         Set<T> results = list.stream()
-
                 .collect(Collectors.toCollection(
                         () -> new TreeSet<T>((T p1, T p2) -> p1.compareTo(p2)))
                 );
@@ -106,9 +103,7 @@ public class HelpfulMethods {
 
 
     public static String isOrAre(int num) {
-
         return (num > 1) ? " are " : " is ";
-
     }
 
     public static String turnStringListIntoString(List<String> longList, String separator)     //Takes a list of strings, pieces them together into one string
@@ -177,25 +172,17 @@ public class HelpfulMethods {
     }
 
     public static void reverseSortStringList(List<String> list) {
-
         Collections.sort(list, new ReverseSortIgnoreCase());
-
-
     }
 
 
     public static <T> List<T> removeDuplicatesT(List<T> list) {
-
-        return list.stream()
-                .distinct()
-                .collect(Collectors.toList());
+        return list.stream().distinct().collect(Collectors.toList());
     }
-
 
     public static void pause() {
         SystemData.getReply("[Press return to continue]");
     }
-
 
     public static String[] shortenArray(String[] startArray, int reduction) {
         String[] newArray = new String[startArray.length - reduction];
@@ -204,9 +191,7 @@ public class HelpfulMethods {
                 newArray[i - reduction] = startArray[i];
             }
         }
-
         return newArray;
-
     }
 
     public static String arrayToScriptString(String[] array){

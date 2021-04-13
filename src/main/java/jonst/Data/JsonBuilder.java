@@ -53,7 +53,6 @@ public class JsonBuilder {
 
     public static boolean buildSavesMenu(Map<Long, String> saves) {
 
-
         JSONArray savesJSON = new JSONArray();
 
         for (long key : saves.keySet()) {
@@ -124,9 +123,6 @@ public class JsonBuilder {
                 put("Location", gen.getHolderId());
                 put("DefaultLocation", gen.getDefaultLocationId());
                 put("OwnerId", gen.getOwnerId());
-//                if (gen.getOwner() != null) {
-//                    put("Owner", gen.getOwner().getName());
-//                }
             }});
 
             put("ActionCore", new JSONObject() {{
@@ -200,10 +196,8 @@ public class JsonBuilder {
         }
 
         try (FileWriter file = new FileWriter(filepath)) {
-
             file.write(array.toJSONString());
             file.flush();
-
         } catch (IOException e) {
             e.printStackTrace();
             success = false;

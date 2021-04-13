@@ -7,6 +7,9 @@ import jonst.Models.Objects.*;
 import jonst.Models.World;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.String.format;
 
 public class Scripts {
 
@@ -17,19 +20,27 @@ public class Scripts {
         }
     }
 
-    public static void deleteThisItem(GenericObject subject, World world) {
+    public static boolean deleteThisItem(GenericObject subject, World world) {
         if (subject instanceof Item) {
             world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
+            return true;
         }
+        return false;
     }
 
-    public static void destroyItem(GenericObject subject, World world) {
+    public static boolean destroyItem(GenericObject subject, World world) {
         if (subject instanceof Item) {
-            System.out.println("The " + subject.getName() + " is destroyed.");
-            world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
-            world.removeFromList(subject);
+            if (!subject.hasAttribute("indestructible")) {
+                System.out.println(format("The %s is destroyed.", subject.getName()));
+                deleteThisItem(subject, world);
+                return true;
+            }
+            System.out.println(format("The %s is indestructible.", subject.getName()));
+            return false;
         }
+        System.out.println("Illegal target of script.");
+        return false;
     }
 
     public static void fleeToRandomLocation(GenericObject subject, World world) {
@@ -37,7 +48,7 @@ public class Scripts {
         if (subject instanceof Creature) {
             Location currentLocation = subject.getLocation();
 
-            List<Exit> viableExits = Lambda.subList(world.getExitList(), e -> e.containsLocation(currentLocation));
+            List<Exit> viableExits = world.getExitList().stream().filter(e -> e.containsLocation(currentLocation)).collect(Collectors.toList());
 
             Exit chosenExit = viableExits.get((int) Math.floor(Math.random() * viableExits.size()));
 
@@ -49,32 +60,33 @@ public class Scripts {
         }
     }
 
-    public static void fleeTo(GenericObject subject, String[] scriptCommandArray, World world) {
+    public static void fleeTo(GenericObject subject, String location, World world) {
 
-        Location destinationLocation = world.getLocationByID(scriptCommandArray[1]);
+        Location destinationLocation = world.getLocationByID(location);
         Location currentLocation = subject.getLocation();
 
         world.moveToLocation(subject, currentLocation, destinationLocation);
+    }
 
+    public static void dropContents(GenericObject subject) {
+        subject.dropContents();
+    }
 
+    public static void addAttribute(GenericObject subject, String attribute) {
+        subject.addAttribute(attribute);
+    }
+
+    public static void removeAttribute(GenericObject subject, String attribute) {
+        subject.removeAttribute(attribute);
     }
 
 
-    public static void addAttribute(GenericObject subject, String[] scriptCommandArray, World world) {
-        subject.addAttribute(scriptCommandArray[1]);
-    }
-
-    public static void removeAttribute(GenericObject subject, String[] scriptCommandArray, World world) {
-        subject.removeAttribute(scriptCommandArray[1]);
+    public static void writeLine(String line) {
+        System.out.println(line);
     }
 
 
-    public static void writeLine(GenericObject subject, String[] scriptCommandArray, World world) {
-        System.out.println(scriptCommandArray[1]);
-    }
-
-
-    public static void send(GenericObject subject, String[] scriptCommandArray, World world) {
+    public static void send(String[] scriptCommandArray, World world) {
         Creature actor;
 
         if (scriptCommandArray[1].equalsIgnoreCase("player")) {
@@ -92,7 +104,7 @@ public class Scripts {
         }
     }
 
-    public static void changeRace(GenericObject subject, String[] scriptCommandArray, World world) {
+    public static void changeRace(String[] scriptCommandArray, World world) {
 
         Creature actor;
 
@@ -110,7 +122,7 @@ public class Scripts {
 
     }
 
-    public static void addNewItem(GenericObject subject, String[] scriptCommandArray, World world) {
+    public static void addNewItem(String[] scriptCommandArray, World world) {
         Creature actor;
 
         if (scriptCommandArray[1].equalsIgnoreCase("player")) {

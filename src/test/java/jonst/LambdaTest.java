@@ -7,33 +7,25 @@ import jonst.Models.World;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+
 
 public class LambdaTest {
 
-
-    @Test
-    public void getSubValuesTest() {
-        World world = new World(SystemData.getDefaultWorld());
-
-        List<Creature> creatureList = world.getCreatureList();
-
-        List<String> results = Lambda.getSubvalues(creatureList, i -> i.getName());
-
-        System.out.println(results);
-    }
-
+    World world = new World(SystemData.getDefaultWorld());
 
     @Test
     public void doubleTest() {
-
-        World world = new World(SystemData.getDefaultWorld());
-
+        //Test that we can extract a list of objects matching criteria involving two lists
         List<Item> itemList = world.getItemList();
         List<Creature> creatureList = world.getCreatureList();
 
         List<Item> ownedItems = Lambda.subList(itemList, creatureList, (i, c) -> ((c.getName().equalsIgnoreCase("Trixie")) && (i.getOwner() == c)));
 
-        System.out.println(ownedItems);
+        assertThat(ownedItems, hasItem(hasProperty("name", is("Trixie's hat"))));
     }
 
 

@@ -175,7 +175,7 @@ and from a simplified list with templates
 Does Rarity have the cave entrance in her basement?
 Something something hide a door/entrance with something. Can you "create" an exit?
 
-Things can have the attribute "hidden"! Hi9dden things aren't shown when looked at.
+Things can have the attribute "hidden"! Hidden things aren't shown when looked at.
 Alt. hidden is variable on GenObj.
 
 When loading exits from json: Takes an array and creates two-point exits between all involved. That way, we can just write them as a bundle.

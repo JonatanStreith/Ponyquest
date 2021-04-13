@@ -112,9 +112,11 @@ public class WorldTest {
 //        assertFalse(acres.stationaryObjectIsAtLocation(tree));
 //    }
 
-
-
-
+    @Test
+    public void existsTest() {
+        assertTrue(world.objectExists("Trixie"));
+        assertFalse(world.objectExists("illegal"));
+    }
 
 
     // --------------- Setters & Getters ------------------------
@@ -123,12 +125,10 @@ public class WorldTest {
     @Test
     public void setMainCharacterTest() {
 
-        List<Creature> list = world.getCreatureList();
-
-
         boolean success = world.setMainCharacter(world.getCreature("Pinkie Pie"));
 
-        //assertEquals("Pinkie", world.getPlayer().getShortName());
+        assertEquals("Pinkie Pie", world.getPlayer().getName());
+        assertTrue(success);
 
     }
 
@@ -146,7 +146,7 @@ public class WorldTest {
 
         Location loc = world.getPlayerLocation();
 
-        assertEquals("Sweet Apple Acres", loc.getName());
+        assertEquals(world.getPlayer().getLocation().getName(), loc.getName());
 
     }
 
@@ -163,30 +163,35 @@ public class WorldTest {
     public void getLocationListTest() {
 
         assertNotNull(world.getLocationList());
+        assertFalse(world.getLocationList().isEmpty());
     }
 
     @Test
     public void getCreatureListTest() {
 
         assertNotNull(world.getCreatureList());
+        assertFalse(world.getCreatureList().isEmpty());
     }
 
     @Test
     public void getStationaryObjectListTest() {
 
         assertNotNull(world.getStationaryObjectList());
+        assertFalse(world.getStationaryObjectList().isEmpty());
     }
 
     @Test
     public void getItemListTest() {
 
         assertNotNull(world.getItemList());
+        assertFalse(world.getItemList().isEmpty());
     }
 
     @Test
     public void getGenericListTest() {
 
         assertNotNull(world.getGenericList());
+        assertFalse(world.getGenericList().isEmpty());
     }
 
     @Test

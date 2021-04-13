@@ -564,7 +564,7 @@ public class Parser {
 
             case "send":
                 //Syntax is send:subject:location
-                Scripts.send(subject, scriptCommandArray, world);
+                Scripts.send(scriptCommandArray, world);
                 break;
 
             case "createexit":
@@ -573,7 +573,7 @@ public class Parser {
 
             case "changerace":
                 //Syntax is changerace:subject:newrace
-                Scripts.changeRace(subject, scriptCommandArray, world);
+                Scripts.changeRace(scriptCommandArray, world);
                 break;
 
             case "resetrace":
@@ -594,20 +594,20 @@ public class Parser {
 
             case "fleeto":
                 //fleeto:locationId
-                Scripts.fleeTo(subject, scriptCommandArray, world);
+                Scripts.fleeTo(subject, scriptCommandArray[1], world);
                 break;
 
             case "addattribute":
-                Scripts.addAttribute(subject, scriptCommandArray, world);
+                Scripts.addAttribute(subject, scriptCommandArray[1]);
                 break;
 
             case "removeattribute":
-                Scripts.removeAttribute(subject, scriptCommandArray, world);
+                Scripts.removeAttribute(subject, scriptCommandArray[1]);
                 break;
 
             case "addnewitem":
                 //addnewitem:owner:itemId
-                Scripts.addNewItem(subject, scriptCommandArray, world);
+                Scripts.addNewItem(scriptCommandArray, world);
                 break;
 
             case "deletecarrieditem":
@@ -616,7 +616,7 @@ public class Parser {
                 break;
 
             case "writeline":
-                Scripts.writeLine(subject, scriptCommandArray, world);
+                Scripts.writeLine(scriptCommandArray[1]);
                 break;
 
             case "showdescription":
