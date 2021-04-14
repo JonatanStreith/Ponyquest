@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScriptsTest {
@@ -138,9 +138,51 @@ class ScriptsTest {
         assertEquals(crate.getLocation(), world.getItem("turnips").getHolder());
     }
 
-    //    @Test
-//    void addAttributeTest() {
-//        // When
-//        Scripts.addAttribute(Applejack, "sleepy");
-//    }
+        @Test
+    void addAttributeTest() {
+        // When
+        Scripts.addAttribute(Applejack, "sleepy");
+
+        // Then
+            assertThat(Applejack.getAttributes(), hasItem("sleepy"));
+    }
+
+    @Test
+    void cantAddPreexistingAttribute() {
+        // When
+        boolean first = Scripts.addAttribute(Applejack, "sleepy");
+        boolean second = Scripts.addAttribute(Applejack, "sleepy");
+
+        // Then
+        assertThat(Applejack.getAttributes(), hasItem("sleepy"));
+        assertTrue(first);
+        assertFalse(second);
+    }
+
+    @Test
+    void removeAttributeTest() {
+        // Given
+        assertThat(Applejack.getAttributes(), not((hasItem("sleepy"))));
+        boolean add = Scripts.addAttribute(Applejack, "sleepy");
+
+        // When
+        boolean rem = Scripts.removeAttribute(Applejack, "sleepy");
+
+        // Then
+        assertThat(Applejack.getAttributes(), not((hasItem("sleepy"))));
+        assertTrue(add);
+        assertTrue(rem);
+    }
+
+    @Test
+    void cantRemoveNonexistentAttribute() {
+        // Given
+        assertThat(Applejack.getAttributes(), not((hasItem("sleepy"))));
+
+        // When
+        boolean rem = Scripts.removeAttribute(Applejack, "sleepy");
+
+        // Then
+        assertFalse(rem);
+    }
 }

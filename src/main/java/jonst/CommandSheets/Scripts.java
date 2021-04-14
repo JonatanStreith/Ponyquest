@@ -22,6 +22,7 @@ public class Scripts {
 
     public static boolean deleteThisItem(GenericObject subject, World world) {
         if (subject instanceof Item) {
+            subject.dropContents();
             world.removeItemFromHolder((Item) subject, ((Item) subject).getHolder());
             world.removeFromList(subject);
             return true;
@@ -72,12 +73,16 @@ public class Scripts {
         subject.dropContents();
     }
 
-    public static void addAttribute(GenericObject subject, String attribute) {
-        subject.addAttribute(attribute);
+
+
+
+
+    public static boolean addAttribute(GenericObject subject, String attribute) {
+        return subject.addAttribute(attribute);
     }
 
-    public static void removeAttribute(GenericObject subject, String attribute) {
-        subject.removeAttribute(attribute);
+    public static boolean removeAttribute(GenericObject subject, String attribute) {
+        return subject.removeAttribute(attribute);
     }
 
 
