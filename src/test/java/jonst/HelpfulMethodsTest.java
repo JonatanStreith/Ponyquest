@@ -2,6 +2,7 @@ package jonst;
 
 import jonst.Data.HelpfulMethods;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 
 public class HelpfulMethodsTest {
-
 
     @Test
     public void name() {
