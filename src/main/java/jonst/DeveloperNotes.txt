@@ -205,4 +205,4 @@ Sätt upp en properties-fil för vissa strings och paths!
 
 Använd builder()-tänkandet för att bygga objekt!
 
-"Exit objects" - objects that can serve as exit points?
+"Exit objects" - objects that can serve as exit points?...
